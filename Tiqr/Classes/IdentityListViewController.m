@@ -41,12 +41,13 @@
 
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, assign) BOOL processingMoveRow;
+@property (nonatomic, retain) Identity *selectedIdentity;
 
 @end
 
 @implementation IdentityListViewController
 
-@synthesize fetchedResultsController=fetchedResultsController_, managedObjectContext=managedObjectContext_, processingMoveRow=processingMoveRow_;
+@synthesize fetchedResultsController=fetchedResultsController_, managedObjectContext=managedObjectContext_, processingMoveRow=processingMoveRow_, selectedIdentity=selectedIdentity_;
 
 - (id)init {
     self = [super initWithNibName:@"IdentityListView" bundle:nil];
@@ -119,39 +120,58 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-		
-		Identity *identity = [self.fetchedResultsController objectAtIndexPath:indexPath];
-		IdentityProvider *identityProvider = identity.identityProvider;
-
-        SecretStore *store = nil;       
-        if (identityProvider != nil) {
-            store = [SecretStore secretStoreForIdentity:identity.identifier identityProvider:identityProvider.identifier];		
-		
-            [identityProvider removeIdentitiesObject:identity];
-            [context deleteObject:identity];
-            if ([identityProvider.identities count] == 0) {
-                [context deleteObject:identityProvider];
-            }
-        } else {
-            [context deleteObject:identity];            
-        }
         
-        NSError *error = nil;
-        if ([context save:&error]) {
-            if (store != nil) {
-                [store deleteFromKeychain];
-            }
-        } else {
-            NSLog(@"Unexpected error: %@", error);
-            NSString *title = NSLocalizedString(@"error", "Alert title for error");		
-            NSString *message = NSLocalizedString(@"error_auth_unknown_error", "Unexpected error message");		        
-            NSString *okTitle = NSLocalizedString(@"ok_button", "OK button title");		
-            UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:okTitle otherButtonTitles:nil] autorelease];
-            [alertView show];
-            [alertView release];
-		}
-    }   
+        self.selectedIdentity = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        
+        NSString *title = NSLocalizedString(@"confirm_delete_title", @"Sure?");
+        NSString *message = NSLocalizedString(@"confirm_delete", @"Are you sure you want to delete this identity?");
+        NSString *yesTitle = NSLocalizedString(@"yes_button", @"Yes button title");
+        NSString *noTitle = NSLocalizedString(@"no_button", @"No button title");
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:nil otherButtonTitles:yesTitle, noTitle, nil];
+        [alertView show];
+        [alertView release];
+    
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self performDeleteIdentity:self.selectedIdentity];
+    }
+}
+
+- (void)performDeleteIdentity:(Identity *)identity {
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    
+    IdentityProvider *identityProvider = identity.identityProvider;
+    
+    SecretStore *store = nil;
+    if (identityProvider != nil) {
+        store = [SecretStore secretStoreForIdentity:identity.identifier identityProvider:identityProvider.identifier];
+        
+        [identityProvider removeIdentitiesObject:identity];
+        [context deleteObject:identity];
+        if ([identityProvider.identities count] == 0) {
+            [context deleteObject:identityProvider];
+        }
+    } else {
+        [context deleteObject:identity];
+    }
+    
+    NSError *error = nil;
+    if ([context save:&error]) {
+        if (store != nil) {
+            [store deleteFromKeychain];
+        }
+    } else {
+        NSLog(@"Unexpected error: %@", error);
+        NSString *title = NSLocalizedString(@"error", "Alert title for error");
+        NSString *message = NSLocalizedString(@"error_auth_unknown_error", "Unexpected error message");
+        NSString *okTitle = NSLocalizedString(@"ok_button", "OK button title");
+        UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:okTitle otherButtonTitles:nil] autorelease];
+        [alertView show];
+        [alertView release];
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {

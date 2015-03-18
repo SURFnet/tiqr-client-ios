@@ -124,6 +124,22 @@
 }
 
 - (void)deleteIdentity {
+    NSString *title = NSLocalizedString(@"confirm_delete_title", @"Sure?");
+    NSString *message = NSLocalizedString(@"confirm_delete", @"Are you sure you want to delete this identity?");
+    NSString *yesTitle = NSLocalizedString(@"yes_button", @"Yes button title");
+    NSString *noTitle = NSLocalizedString(@"no_button", @"No button title");
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:nil otherButtonTitles:yesTitle, noTitle, nil];
+    [alertView show];
+    [alertView release];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        [self performDeleteIdentity];
+    }
+}
+
+- (void)performDeleteIdentity{
     NSManagedObjectContext *context = self.identity.managedObjectContext;
     
     IdentityProvider *identityProvider = self.identity.identityProvider;
