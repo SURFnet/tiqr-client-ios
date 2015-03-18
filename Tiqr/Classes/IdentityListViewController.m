@@ -310,6 +310,7 @@
 - (void)dealloc {
     self.fetchedResultsController = nil;
 	self.managedObjectContext = nil;
+    self.selectedIdentity = nil;
     [super dealloc];
 }
 
