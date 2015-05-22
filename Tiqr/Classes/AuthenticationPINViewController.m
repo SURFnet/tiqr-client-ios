@@ -79,12 +79,13 @@
 }
 
 - (void)authenticationConfirmationRequestDidFinish:(AuthenticationConfirmationRequest *)request {
-    [self.challenge.identity upgradeWithPIN:self.PIN];
-    NSError *error;
-    if (![self.managedObjectContext save:&error]) {
-        // Hmm, saving failed, but keychain has already been updated!
-        NSLog(@"Saving error after upgrade: %@", error);
-    }
+    if( ![self.challenge.identity upgradeWithPIN:self.PIN]) {
+        NSError *error = nil;
+        if (![self.managedObjectContext save:&error]) {
+            // Hmm, saving failed, but keychain has already been updated!
+            NSLog(@"Saving error after upgrade: %@", error);
+        }
+    };
     self.PIN = nil;
 
 	[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];    
