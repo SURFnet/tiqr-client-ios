@@ -104,6 +104,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [self.pin4Timer invalidate];
     self.pin4Timer = nil;    
 }
