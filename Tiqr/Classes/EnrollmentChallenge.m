@@ -30,7 +30,6 @@
 #import "Challenge-Protected.h"
 #import "EnrollmentChallenge.h"
 #import "EnrollmentChallenge-Protected.h"
-#import "JSONKit.h"
 #import "Identity+Utils.h"
 #import "IdentityProvider+Utils.h"
 
@@ -184,7 +183,7 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 	NSDictionary *metadata = nil;
 	
 	@try {
-        id object = [data objectFromJSONData];
+        id object = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         if ([object isKindOfClass:[NSDictionary class]]) {
             metadata = object;
         }

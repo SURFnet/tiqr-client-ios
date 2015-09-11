@@ -30,7 +30,6 @@
 #import "EnrollmentConfirmationRequest.h"
 #import "NotificationRegistration.h"
 #import "NSData+Hex.h"
-#import "JSONKit.h"
 
 NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
 
@@ -112,7 +111,7 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     if (self.protocolVersion != nil && [self.protocolVersion intValue] >= 2) {
         // Parse the JSON result
-        NSArray *result = [[JSONDecoder decoder] objectWithData:self.data];
+        id result = [NSJSONSerialization JSONObjectWithData:self.data options:0 error:nil];
         self.data = nil;
         
         NSNumber *responseCode = @([[result valueForKey:@"responseCode"] intValue]);

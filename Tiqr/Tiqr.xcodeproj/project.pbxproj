@@ -46,8 +46,6 @@
 		D011A5271340CC3000E571A2 /* EnrollmentConfirmationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D011A5261340CC3000E571A2 /* EnrollmentConfirmationRequest.m */; };
 		D011A5311340DA7900E571A2 /* AuthenticationSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D011A5301340DA7900E571A2 /* AuthenticationSummaryViewController.m */; };
 		D011A5341340FEC600E571A2 /* AuthenticationConfirmationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D011A5331340FEC200E571A2 /* AuthenticationConfirmationRequest.m */; };
-		D016F8A61338C85300B997D9 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D016F8A51338C85300B997D9 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		D016F8A71338C85300B997D9 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D016F8A51338C85300B997D9 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D019EDA113449F3500466A2B /* egeniq-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D019ED9413449F3500466A2B /* egeniq-logo.png */; };
 		D019EDA213449F3500466A2B /* egeniq-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D019ED9513449F3500466A2B /* egeniq-logo@2x.png */; };
 		D019EDAC13449F3500466A2B /* tiqr-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D019ED9F13449F3500466A2B /* tiqr-logo.png */; };
@@ -212,8 +210,6 @@
 		D011A5331340FEC200E571A2 /* AuthenticationConfirmationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationConfirmationRequest.m; sourceTree = "<group>"; };
 		D011A5351341091700E571A2 /* AuthenticationConfirmViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AuthenticationConfirmViewController-Protected.h"; sourceTree = "<group>"; };
 		D011A5361341093600E571A2 /* AuthenticationSummaryViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AuthenticationSummaryViewController-Protected.h"; sourceTree = "<group>"; };
-		D016F8A41338C85300B997D9 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		D016F8A51338C85300B997D9 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		D019ED9413449F3500466A2B /* egeniq-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egeniq-logo.png"; sourceTree = "<group>"; };
 		D019ED9513449F3500466A2B /* egeniq-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egeniq-logo@2x.png"; sourceTree = "<group>"; };
 		D019ED9F13449F3500466A2B /* tiqr-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tiqr-logo.png"; sourceTree = "<group>"; };
@@ -514,7 +510,6 @@
 			isa = PBXGroup;
 			children = (
 				D0A6F5CB1353354F000F9AE5 /* MBProgressHUD */,
-				D03646B91338D57A00C2273F /* JSONKit */,
 				D03646BA1338D58500C2273F /* Reachability */,
 			);
 			path = External;
@@ -585,15 +580,6 @@
 				D0FF34E91309462C004096E1 /* Settings.bundle */,
 			);
 			path = General;
-			sourceTree = "<group>";
-		};
-		D03646B91338D57A00C2273F /* JSONKit */ = {
-			isa = PBXGroup;
-			children = (
-				D016F8A41338C85300B997D9 /* JSONKit.h */,
-				D016F8A51338C85300B997D9 /* JSONKit.m */,
-			);
-			name = JSONKit;
 			sourceTree = "<group>";
 		};
 		D03646BA1338D58500C2273F /* Reachability */ = {
@@ -1065,7 +1051,6 @@
 				924D6C5F13094DEC00F87B96 /* AuthenticationFallbackViewController.m in Sources */,
 				924D6E3D130958A400F87B96 /* Reachability.m in Sources */,
 				92B92DE6132E1DD0004F390D /* OCRA.m in Sources */,
-				D016F8A61338C85300B997D9 /* JSONKit.m in Sources */,
 				D06AD594134096F00050D75C /* PINViewController.m in Sources */,
 				D06AD5981340A5D10050D75C /* AuthenticationPINViewController.m in Sources */,
 				D06AD59B1340A5FF0050D75C /* EnrollmentPINViewController.m in Sources */,
@@ -1105,7 +1090,6 @@
 				D06F86BD1331ED4F00C2C6FF /* Challenge.m in Sources */,
 				D06F86BE1331ED5500C2C6FF /* Identity+Utils.m in Sources */,
 				D09D79A813334F8700F3F0F6 /* EnrollmentChallengeTests.m in Sources */,
-				D016F8A71338C85300B997D9 /* JSONKit.m in Sources */,
 				C7B96C7E16FB0C89001EC65E /* Identity.m in Sources */,
 				C7B96C8016FB0C8C001EC65E /* IdentityProvider.m in Sources */,
 			);
@@ -1165,6 +1149,7 @@
 					"../ZXing/iphone/ZXingWidget/Classes/**",
 				);
 				INFOPLIST_FILE = "Resources/General/Tiqr-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Example;
 			};
@@ -1188,6 +1173,7 @@
 					"../ZXing/iphone/ZXingWidget/Classes/**",
 				);
 				INFOPLIST_FILE = "Resources/General/Tiqr-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Example;
 				VALIDATE_PRODUCT = YES;
@@ -1216,7 +1202,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
@@ -1245,7 +1231,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
@@ -1274,7 +1260,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
@@ -1299,6 +1285,7 @@
 					"../ZXing/iphone/ZXingWidget/Classes/**",
 				);
 				INFOPLIST_FILE = "Resources/General/Tiqr-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = Example;
 				VALIDATE_PRODUCT = YES;

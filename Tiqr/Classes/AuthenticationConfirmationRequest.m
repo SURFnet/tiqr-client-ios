@@ -29,7 +29,6 @@
 
 #import "AuthenticationConfirmationRequest.h"
 #import "NotificationRegistration.h"
-#import "JSONKit.h"
 
 
 NSString *const TIQRACRErrorDomain = @"org.tiqr.acr";
@@ -94,7 +93,7 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
 
     if (self.protocolVersion != nil && [self.protocolVersion intValue] > 1) {
         // Parse JSON result
-        NSArray *result = [[JSONDecoder decoder] objectWithData:self.data];
+        id result = [NSJSONSerialization JSONObjectWithData:self.data options:0 error:nil];
         self.data = nil;
         
         NSNumber *responseCode = @([[result valueForKey:@"responseCode"] intValue]);
