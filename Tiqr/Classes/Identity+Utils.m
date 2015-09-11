@@ -40,7 +40,6 @@
 	NSError *error = nil;
 	NSUInteger count = [context countForFetchRequest:request error:&error];
 	
-    [request release];	
 	
 	return error == nil ? count : 0;
 }
@@ -51,7 +50,7 @@
 	[request setEntity:entity];
 	
 	NSExpression *keyPathExpression = [NSExpression expressionForKeyPath:@"sortIndex"];
-	NSExpression *maxExpression = [NSExpression expressionForFunction:@"max:" arguments:[NSArray arrayWithObject:keyPathExpression]];
+	NSExpression *maxExpression = [NSExpression expressionForFunction:@"max:" arguments:@[keyPathExpression]];
 	
 	NSExpressionDescription *expressionDescription = [[NSExpressionDescription alloc] init];
 	[expressionDescription setName:@"maxSortIndex"];
@@ -59,17 +58,15 @@
 	[expressionDescription setExpressionResultType:NSInteger16AttributeType];
 	
 	[request setResultType:NSDictionaryResultType];
-	[request setPropertiesToFetch:[NSArray arrayWithObject:expressionDescription]];
+	[request setPropertiesToFetch:@[expressionDescription]];
 	
 	NSError *error = nil;
 	NSArray *objects = [context executeFetchRequest:request error:&error];
 	NSUInteger result = 0;
 	if (objects != nil && [objects count] > 0) {
-		result = [[[objects objectAtIndex:0] valueForKey:@"maxSortIndex"] intValue];
+		result = [[objects[0] valueForKey:@"maxSortIndex"] intValue];
 	}
 	
-    [expressionDescription release];
-    [request release];	
 	
 	return result;
 }
@@ -83,12 +80,11 @@
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Identity" inManagedObjectContext:context];
 	[request setEntity:entity];
 	
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"blocked = %@", [NSNumber numberWithBool:NO]];
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"blocked = %@", @NO];
 	[request setPredicate:predicate];
     
 	NSError *error = nil;
 	NSUInteger count = [context countForFetchRequest:request error:&error];
-    [request release];	
 	
 	return error == nil && count == 0;
 }
@@ -103,11 +99,10 @@
 	
 	NSError *error = nil;
 	NSArray *result = [context executeFetchRequest:request error:&error];
-	[request release];	
 	
 	Identity *identity = nil;
 	if (result != nil && [result count] == 1) {
-		identity = [result objectAtIndex:0];
+		identity = result[0];
 	}
 	
 	return identity;
@@ -122,12 +117,10 @@
 	[request setPredicate:predicate];
 	
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortIndex" ascending:YES];
-	[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-	[sortDescriptor release];
+	[request setSortDescriptors:@[sortDescriptor]];
 	
 	NSError *error = nil;
 	NSArray *result = [context executeFetchRequest:request error:&error];
-	[request release];
 	
 	return result;
 }
@@ -139,11 +132,10 @@
  
 	NSError *error = nil;
 	NSArray *identities = [context executeFetchRequest:request error:&error];
-	[request release]; 
     
     if (error == noErr && identities != nil) {
         for (Identity *identity in identities) {
-            identity.blocked = [NSNumber numberWithBool:YES];
+            identity.blocked = @YES;
         }
     }
 }

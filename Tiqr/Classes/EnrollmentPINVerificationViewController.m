@@ -38,9 +38,9 @@
 
 @interface EnrollmentPINVerificationViewController ()
 
-@property (nonatomic, retain) EnrollmentChallenge *challenge;
+@property (nonatomic, strong) EnrollmentChallenge *challenge;
 @property (nonatomic, copy) NSString *PIN;
-@property (nonatomic, retain) NSData *responseData;
+@property (nonatomic, strong) NSData *responseData;
 
 @end
 
@@ -51,7 +51,7 @@
 @synthesize PIN=PIN_;
 @synthesize responseData=responseData_;
 
-- (id)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge PIN:(NSString *)PIN {
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge PIN:(NSString *)PIN {
     self = [super init];
     if (self != nil) {
         self.challenge = challenge;
@@ -66,9 +66,9 @@
     [super viewDidLoad];
 
     self.title = NSLocalizedString(@"enrollment_confirmation_header_title", @"Account activation title");
-    self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"password_verify_back_button", @"Enrollment PIN verification back button title") style:UIBarButtonItemStyleBordered target:nil action:nil] autorelease];        
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"password_verify_back_button", @"Enrollment PIN verification back button title") style:UIBarButtonItemStyleBordered target:nil action:nil];        
     self.subtitle = NSLocalizedString(@"login_verify_intro", @"Enrollment PIN verification title");
-    self.description = NSLocalizedString(@"login_verify_message", @"Enter your PIN code again for verification. Please note the animal icon. This will help you remember your PIN code."); 
+    self.pinDescription = NSLocalizedString(@"login_verify_message", @"Enter your PIN code again for verification. Please note the animal icon. This will help you remember your PIN code.");
 }
 
 - (BOOL)storeProviderAndIdentity {
@@ -89,7 +89,7 @@
     if (identity == nil) {
         identity = [NSEntityDescription insertNewObjectForEntityForName:@"Identity" inManagedObjectContext:context];	
         identity.identifier = self.challenge.identityIdentifier;
-        identity.sortIndex = [NSNumber numberWithInt:[Identity maxSortIndexInManagedObjectContext:context] + 1];		
+        identity.sortIndex = [NSNumber numberWithInteger:[Identity maxSortIndexInManagedObjectContext:context] + 1];
         identity.identityProvider = identityProvider;
         identity.version = @2;
         identity.salt = [SecretStore generateSecret];
@@ -128,26 +128,22 @@
 
 - (void)enrollmentConfirmationRequestDidFinish:(EnrollmentConfirmationRequest *)request {
 	[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];    
-    [request release];
     
-    self.challenge.identity.blocked = [NSNumber numberWithBool:NO];
+    self.challenge.identity.blocked = @NO;
     [self.managedObjectContext save:nil];
     
     EnrollmentSummaryViewController *viewController = [[EnrollmentSummaryViewController alloc] initWithEnrollmentChallenge:self.challenge];
     viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
-    [viewController release];    
 }
 
 - (void)enrollmentConfirmationRequest:(EnrollmentConfirmationRequest *)request didFailWithError:(NSError *)error {
 	[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];    
-    [request release];
     [self deleteIdentity];
     [self deleteSecret];
 
     UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
     [self.navigationController pushViewController:viewController animated:YES];
-    [viewController release];
 }
 
 - (void)PINViewController:(PINViewController *)viewController didFinishWithPIN:(NSString *)PIN {
@@ -167,7 +163,6 @@
         NSString *errorMessage = NSLocalizedString(@"error_enroll_failed_to_store_identity", @"Account cannot be saved message");
         UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:errorTitle errorMessage:errorMessage];
         [self.navigationController pushViewController:viewController animated:YES];
-        [viewController release];
         return;
     }
     
@@ -176,7 +171,6 @@
         NSString *errorMessage = NSLocalizedString(@"error_enroll_failed_to_generate_secret", @"Failed to generate identity secret. Please contact support.");
         UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:errorTitle errorMessage:errorMessage];
         [self.navigationController pushViewController:viewController animated:YES];
-        [viewController release];
         return;
     }
     
@@ -186,11 +180,5 @@
     [request send];
 }
 
-- (void)dealloc {
-    self.challenge = nil;
-    self.PIN = nil;    
-    self.managedObjectContext = nil;
-    [super dealloc];
-}
 
 @end

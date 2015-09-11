@@ -35,8 +35,8 @@
 
 @interface ErrorViewController ()
 
-@property (nonatomic, retain) ErrorController *errorController;
-@property (nonatomic, retain) FooterController *footerController;
+@property (nonatomic, strong) ErrorController *errorController;
+@property (nonatomic, strong) FooterController *footerController;
 
 @end
 
@@ -45,18 +45,18 @@
 @synthesize errorController=errorController_;
 @synthesize footerController=footerController_;
 
-- (id)initWithTitle:(NSString *)title errorTitle:(NSString *)errorTitle errorMessage:(NSString *)errorMessage {
+- (instancetype)initWithTitle:(NSString *)title errorTitle:(NSString *)errorTitle errorMessage:(NSString *)errorMessage {
     self = [super initWithNibName:@"ErrorView" bundle:nil];
     if (self != nil) {
         self.title = title;
-        UIBarButtonItem *backBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)] autorelease];
+        UIBarButtonItem *backBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
         self.navigationItem.leftBarButtonItem = backBarButtonItem;
         
-        self.errorController = [[[ErrorController alloc] init] autorelease];
+        self.errorController = [[ErrorController alloc] init];
         self.errorController.title = errorTitle;
         self.errorController.message = errorMessage;
         
-        self.footerController = [[[FooterController alloc] init] autorelease];
+        self.footerController = [[FooterController alloc] init];
     }
     
     return self;
@@ -82,10 +82,5 @@
     [self.footerController.view removeFromSuperview];
 }
 
-- (void)dealloc {
-    self.errorController = nil;
-    self.footerController = nil;
-    [super dealloc];
-}
 
 @end

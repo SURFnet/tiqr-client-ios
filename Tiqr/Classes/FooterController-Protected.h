@@ -29,7 +29,7 @@
 
 @interface FooterController ()
 
-@property (nonatomic, retain) IBOutlet UIView *view;
+@property (nonatomic, strong) IBOutlet UIView *view;
 
 - (IBAction)tiqr;
 - (IBAction)surfnet;

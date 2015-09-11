@@ -35,7 +35,7 @@
 
 }
 
-@property (nonatomic, retain) NSArray *points;
+@property (nonatomic, strong) NSArray *points;
 @property (nonatomic, assign, readonly) CGRect cropRect;
 
 - (void)addPoint:(CGPoint)point;

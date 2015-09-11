@@ -36,7 +36,7 @@
 @synthesize titleLabel=titleLabel_;
 @synthesize messageLabel=messageLabel_;
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self != nil) {
         UINib *nib = [UINib nibWithNibName:@"ErrorChildView" bundle:nil];
@@ -69,11 +69,5 @@
     self.messageLabel.text = message;
 }
 
-- (void)dealloc {
-    self.view = nil;
-    self.titleLabel = nil;
-    self.messageLabel = nil;
-    [super dealloc];
-}
 
 @end

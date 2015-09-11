@@ -51,6 +51,5 @@
             sessionKey:(NSString*)sessionKey
                  error:(NSError**)error;
 
-
 @end
 

@@ -45,7 +45,7 @@ static const int powers10[] = { 10, 100, 1000, 10000, 100000, 1000000, 10000000,
 #define MAX_DIGITS_16   8
 
 + (HOTP *)hotpWithKey:(NSData *)key counter:(NSUInteger)counter numDigits:(int)digits {
-    HOTP *hotp = [[[HOTP alloc] init] autorelease];
+    HOTP *hotp = [[HOTP alloc] init];
     hotp.key = key;
     hotp.counter = counter;
     if (digits < 1)
@@ -81,20 +81,13 @@ static const int powers10[] = { 10, 100, 1000, 10000, 100000, 1000000, 10000000,
     
     /* Generate decimal digits */
     self.dec = [NSString stringWithFormat:@"%0*d",
-                (self.numDigits < MAX_DIGITS_10 ? self.numDigits : MAX_DIGITS_10),
+                (int)(self.numDigits < MAX_DIGITS_10 ? self.numDigits : MAX_DIGITS_10),
                 (self.numDigits < MAX_DIGITS_10 ? (value % powers10[self.numDigits - 1]) : value)];  
     
     /* Generate hexadecimal digits */
     self.hex = [NSString stringWithFormat:@"%0*X",
                 (self.numDigits < MAX_DIGITS_16 ? self.numDigits : MAX_DIGITS_16),
                 (self.numDigits < MAX_DIGITS_16 ? (value & ((1 << (4 * self.numDigits)) - 1)) : value)];
-}
-
-- (void)dealloc {
-    [self.key release];
-    [self.dec release];
-    [self.hex release];
-    [super dealloc];
 }
 
 @end

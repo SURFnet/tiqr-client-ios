@@ -30,7 +30,6 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import <AVFoundation/AVFoundation.h>
-#import "Decoder.h"
 
 #if !TARGET_IPHONE_SIMULATOR
 #define HAS_AVFF 1
@@ -42,17 +41,13 @@
  * On success redirects the user to the following step of the authentication
  * or enrollment process. Displays an error on failure.
  */
-@interface ScanViewController : UIViewController <DecoderDelegate
-                                                  #if HAS_AVFF
-                                                  , AVCaptureVideoDataOutputSampleBufferDelegate
-                                                  #endif
-                                                 > {
+@interface ScanViewController : UIViewController {
 }
 
 /**
  * The Core Data managed object context.
  */
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 
 /**
@@ -60,6 +55,6 @@
  *
  * @return view controller instance
  */
-- (id)init;
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 
 @end

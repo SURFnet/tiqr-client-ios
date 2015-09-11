@@ -30,15 +30,15 @@
 #import "EnrollmentConfirmationRequest.h"
 #import "NotificationRegistration.h"
 #import "NSData+Hex.h"
-#import "JSONKit.h"
 
 NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
 
 @interface EnrollmentConfirmationRequest ()
 
-@property (nonatomic, retain) EnrollmentChallenge *challenge;
-@property (nonatomic, retain) NSMutableData *data;
+@property (nonatomic, strong) EnrollmentChallenge *challenge;
+@property (nonatomic, strong) NSMutableData *data;
 @property (nonatomic, copy) NSString *protocolVersion;
+@property (nonatomic, strong) NSURLConnection *sendConnection;
 
 @end
 
@@ -48,7 +48,7 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
 @synthesize challenge=challenge_;
 @synthesize data=data_;
 
-- (id)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super init];
     if (self != nil) {
         self.challenge = challenge;
@@ -60,7 +60,7 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
 - (void)send {
 	NSString *secret = [self.challenge.identitySecret hexStringValue];
 	NSString *escapedSecret = [secret stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSString *escapedLanguage = [[[NSLocale preferredLanguages] objectAtIndex:0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *escapedLanguage = [[NSLocale preferredLanguages][0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *notificationToken = [NotificationRegistration sharedInstance].notificationToken;
 	NSString *escapedNotificationToken = [notificationToken stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TIQRLoginProtocolVersion"];
@@ -76,7 +76,7 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:TIQR_PROTOCOL_VERSION forHTTPHeaderField:@"X-TIQR-Protocol-Version"];
 
-    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    self.sendConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 	self.data = [NSMutableData data];
 }
 
@@ -84,8 +84,8 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
     [self.data setLength:0];
     
     NSDictionary* headers = [(NSHTTPURLResponse *)response allHeaderFields];
-    if ([headers objectForKey:@"X-TIQR-Protocol-Version"]) {
-        self.protocolVersion = [headers objectForKey:@"X-TIQR-Protocol-Version"];
+    if (headers[@"X-TIQR-Protocol-Version"]) {
+        self.protocolVersion = headers[@"X-TIQR-Protocol-Version"];
     } else {
         self.protocolVersion = @"1";
     }
@@ -96,7 +96,6 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)connectionError {
-    [connection release];
     self.data = nil;
     
     NSString *title = NSLocalizedString(@"no_connection", @"No connection error title");
@@ -113,10 +112,10 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     if (self.protocolVersion != nil && [self.protocolVersion intValue] >= 2) {
         // Parse the JSON result
-        NSArray *result = [[JSONDecoder decoder] objectWithData:self.data];
+        id result = [NSJSONSerialization JSONObjectWithData:self.data options:0 error:nil];
         self.data = nil;
         
-        NSNumber *responseCode = [NSNumber numberWithInt:[[result valueForKey:@"responseCode"] intValue]];
+        NSNumber *responseCode = @([[result valueForKey:@"responseCode"] intValue]);
         if ([responseCode intValue] == EnrollmentChallengeResponseCodeSuccess || [responseCode intValue] == EnrollmentChallengeResponseCodeSuccessUsernameByServer) {
             [self.delegate enrollmentConfirmationRequestDidFinish:self];
         } else {
@@ -161,10 +160,8 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
             [self.delegate enrollmentConfirmationRequest:self didFailWithError:error];
         }
         
-        [response release];
     }
     
-    [connection release];
 }
 
 @end

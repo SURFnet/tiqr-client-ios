@@ -77,36 +77,6 @@
 	CGContextStrokePath(context);
 }
 
-- (CGPoint)map:(CGPoint)point {
-    CGPoint center;
-    center.x = self.cropRect.size.width / 2;
-    center.y = self.cropRect.size.height / 2;
-    float x = point.x - center.x;
-    float y = point.y - center.y;
-    int rotation = 90;
-    switch(rotation) {
-		case 0:
-			point.x = x;
-			point.y = y;
-			break;
-		case 90:
-			point.x = -y;
-			point.y = x;
-			break;
-		case 180:
-			point.x = -x;
-			point.y = -y;
-			break;
-		case 270:
-			point.x = y;
-			point.y = -x;
-			break;
-    }
-    point.x = point.x + center.x;
-    point.y = point.y + center.y;
-    return point;
-}
-
 - (void)drawRect:(CGRect)rect {
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	
@@ -121,22 +91,21 @@
 		CGContextSetFillColor(context, green);
 		CGRect smallSquare = CGRectMake(0, 0, 10, 10);
 		for (NSValue *value in self.points) {
-			CGPoint point = [self map:[value CGPointValue]];
-			smallSquare.origin = CGPointMake(self.cropRect.origin.x + point.x - smallSquare.size.width / 2, 
-                                             self.cropRect.origin.y + point.y - smallSquare.size.height / 2);
+			CGPoint point = [value CGPointValue];
+			smallSquare.origin = CGPointMake(point.x - smallSquare.size.width / 2,
+                                             point.y - smallSquare.size.height / 2);
 			[self drawRect:smallSquare inContext:context];
 		}
 	}
 }
 
 - (void)setPoints:(NSArray *)points {
-    [points_ release];
-    points_ = [points retain];
+    points_ = points;
     [self setNeedsDisplay];
 }
 
 - (void)addPoint:(CGPoint)point {
-    NSMutableArray *points = [NSMutableArray arrayWithArray:(self.points == nil ? [NSArray array] : self.points)];
+    NSMutableArray *points = [NSMutableArray arrayWithArray:(self.points == nil ? @[] : self.points)];
     
     if ([points count] > 3) {
         [points removeObjectAtIndex:0];
@@ -150,7 +119,6 @@
 
 - (void)dealloc {
     self.points = nil;
-    [super dealloc];
 }
 
 @end

@@ -31,7 +31,7 @@
 
 @interface AuthenticationFallbackViewController ()
 
-@property (nonatomic, retain) IBOutlet UILabel *identityIdentifierLabel;
-@property (nonatomic, retain) IBOutlet UILabel *oneTimePasswordLabel;
+@property (nonatomic, strong) IBOutlet UILabel *identityIdentifierLabel;
+@property (nonatomic, strong) IBOutlet UILabel *oneTimePasswordLabel;
 
 @end

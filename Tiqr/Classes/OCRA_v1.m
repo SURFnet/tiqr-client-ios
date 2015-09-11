@@ -61,7 +61,7 @@ static const int powers10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 100000
     int codeDigits = 0;
     CCHmacAlgorithm crypto;
     NSString *result = nil;
-    int ocraSuiteLength = [[ocraSuite dataUsingEncoding:NSASCIIStringEncoding] length];
+    NSUInteger ocraSuiteLength = [[ocraSuite dataUsingEncoding:NSASCIIStringEncoding] length];
 
     int counterLength = 0;
     int questionLength = 0;
@@ -90,9 +90,9 @@ static const int powers10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 100000
     }
 
     // How many digits should we return
-    int indexOfFirstSemiColon = [ocraSuite rangeOfString:@":"].location;
-    int indexOfLastSemiColon = [ocraSuite rangeOfString:@":" options:NSBackwardsSearch].location;
-    int colonLength = indexOfLastSemiColon - indexOfFirstSemiColon;
+    NSUInteger indexOfFirstSemiColon = [ocraSuite rangeOfString:@":"].location;
+    NSUInteger indexOfLastSemiColon = [ocraSuite rangeOfString:@":" options:NSBackwardsSearch].location;
+    NSUInteger colonLength = indexOfLastSemiColon - indexOfFirstSemiColon;
     NSString* oS = [ocraSuite substringWithRange:NSMakeRange(indexOfFirstSemiColon, colonLength)];
     
     codeDigits = [[oS substringFromIndex:[oS rangeOfString:@"-" options:NSBackwardsSearch].location+1] intValue];
@@ -101,8 +101,8 @@ static const int powers10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 100000
     if (codeDigits > 10) {
         NSString *errorTitle = NSLocalizedString(@"Server incompatible", @"Server incompatible title");
         NSString *errorMessage = NSLocalizedString(@"The server is incompatible with this version of the app.", @"Server incompatible message");
-        NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, nil];
-        *error = [[[NSError alloc] initWithDomain: @"org.example.tiqr.ErrorDomain" code:OCRAServerIncompatibleError userInfo:details] autorelease];
+        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
+        *error = [[NSError alloc] initWithDomain: @"org.example.tiqr.ErrorDomain" code:OCRAServerIncompatibleError userInfo:details];
         return nil;
     }
     
@@ -152,7 +152,7 @@ static const int powers10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 100000
     }
 
     // Remember to add "1" for the "00" byte delimiter
-    int bufferSize = ocraSuiteLength +
+    NSUInteger bufferSize = ocraSuiteLength +
                         counterLength +
                         questionLength +
                         passwordLength +
@@ -167,7 +167,7 @@ static const int powers10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 100000
     memcpy(msg, [bArray bytes], MIN(ocraSuiteLength, [bArray length]));
 
     // Delimiter
-    int delimiterPosition = [bArray length];
+    NSUInteger delimiterPosition = [bArray length];
     msg[delimiterPosition] = 0x00;
 
     // Put the bytes of "Counter" to the message

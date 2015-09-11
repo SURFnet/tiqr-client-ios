@@ -33,11 +33,11 @@
 
 @interface AuthenticationConfirmViewController ()
 
-@property (nonatomic, retain) AuthenticationChallenge *challenge;
-@property (nonatomic, retain) IBOutlet UILabel *loginConfirmLabel;
-@property (nonatomic, retain) IBOutlet UILabel *loggedInAsLabel;
-@property (nonatomic, retain) IBOutlet UILabel *toLabel;
-@property (nonatomic, retain) IBOutlet UIButton *okButton;
+@property (nonatomic, strong) AuthenticationChallenge *challenge;
+@property (nonatomic, strong) IBOutlet UILabel *loginConfirmLabel;
+@property (nonatomic, strong) IBOutlet UILabel *loggedInAsLabel;
+@property (nonatomic, strong) IBOutlet UILabel *toLabel;
+@property (nonatomic, strong) IBOutlet UIButton *okButton;
 
 @end
 
@@ -48,7 +48,7 @@
 @synthesize identityProviderLogoImageView=identityProviderLogoImageView_, identityDisplayNameLabel=identityDisplayNameLabel_, identityProviderDisplayNameLabel=identityProviderDisplayNameLabel_, serviceProviderDisplayNameLabel=serviceProviderDisplayNameLabel_, serviceProviderIdentifierLabel=serviceProviderIdentifierLabel_;
 @synthesize loginConfirmLabel=loginConfirmLabel_, loggedInAsLabel=loggedInAsLabel_,toLabel=toLabel_, okButton=okButton_;
 
-- (id)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
     self = [super initWithNibName:@"AuthenticationConfirmView" bundle:nil];
 	if (self != nil) {
 		self.challenge = challenge;
@@ -69,7 +69,7 @@
     self.okButton.layer.cornerRadius = 4;
     
     self.title = NSLocalizedString(@"authentication_title", @"Login title");
-    self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"confirm_authentication_title", @"Authentication confirm back button title") style:UIBarButtonItemStyleBordered target:nil action:nil] autorelease];        
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"confirm_authentication_title", @"Authentication confirm back button title") style:UIBarButtonItemStyleBordered target:nil action:nil];        
 
 	self.identityProviderLogoImageView.image = [[UIImage alloc] initWithData:self.challenge.identityProvider.logo];
 	self.identityDisplayNameLabel.text = self.challenge.identity.displayName;
@@ -86,7 +86,6 @@
     AuthenticationPINViewController *viewController = [[AuthenticationPINViewController alloc] initWithAuthenticationChallenge:self.challenge];
     viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
-    [viewController release];    
 }
 
 - (void)resetOutlets {
@@ -109,10 +108,7 @@
 - (void)dealloc {
     [self resetOutlets];
     
-    self.challenge = nil;
-    self.managedObjectContext = nil;
 
-    [super dealloc];	
 }
 
 @end

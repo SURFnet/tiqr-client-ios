@@ -125,7 +125,7 @@ typedef enum {
 	
 	float progress;
 	
-	id<MBProgressHUDDelegate> delegate;
+	id<MBProgressHUDDelegate> __weak delegate;
 	NSString *labelText;
 	NSString *detailsLabelText;
 	float opacity;
@@ -186,7 +186,7 @@ typedef enum {
  * The UIView (i.g., a UIIMageView) to be shown when the HUD is in MBProgressHUDModeCustomView.
  * For best results use a 37 by 37 pixel view (so the bounds match the build in indicator bounds). 
  */
-@property (retain) UIView *customView;
+@property (strong) UIView *customView;
 
 /** 
  * MBProgressHUD operation mode. Switches between indeterminate (MBProgressHUDModeIndeterminate) and determinate
@@ -208,7 +208,7 @@ typedef enum {
  * delegate should conform to the MBProgressHUDDelegate protocol and implement the hudWasHidden method. The delegate
  * object will not be retained.
  */
-@property (assign) id<MBProgressHUDDelegate> delegate;
+@property (weak) id<MBProgressHUDDelegate> delegate;
 
 /** 
  * An optional short message to be displayed below the activity indicator. The HUD is automatically resized to fit
@@ -283,12 +283,12 @@ typedef enum {
 /** 
  * Font to be used for the main label. Set this property if the default is not adequate. 
  */
-@property (retain) UIFont* labelFont;
+@property (strong) UIFont* labelFont;
 
 /** 
  * Font to be used for the details label. Set this property if the default is not adequate. 
  */
-@property (retain) UIFont* detailsLabelFont;
+@property (strong) UIFont* detailsLabelFont;
 
 /** 
  * The progress of the progress indicator, from 0.0 to 1.0. Defaults to 0.0. 
@@ -313,19 +313,5 @@ typedef enum {
  * animations while disappearing.
  */
 - (void)hide:(BOOL)animated;
-
-/** 
- * Shows the HUD while a background task is executing in a new thread, then hides the HUD.
- *
- * This method also takes care of NSAutoreleasePools so your method does not have to be concerned with setting up a
- * pool.
- *
- * @param method The method to be executed while the HUD is shown. This method will be executed in a new thread.
- * @param target The object that the target method belongs to.
- * @param object An optional object to be passed to the method.
- * @param animated If set to YES the HUD will disappear using the current animationType. If set to NO the HUD will not use
- * animations while disappearing.
- */
-- (void)showWhileExecuting:(SEL)method onTarget:(id)target withObject:(id)object animated:(BOOL)animated;
 
 @end

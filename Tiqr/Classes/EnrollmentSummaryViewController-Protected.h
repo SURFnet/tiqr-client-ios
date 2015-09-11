@@ -31,10 +31,10 @@
 
 @interface EnrollmentSummaryViewController ()
 
-@property (nonatomic, retain) IBOutlet UIImageView *identityProviderLogoImageView;
-@property (nonatomic, retain) IBOutlet UILabel *identityDisplayNameLabel;
-@property (nonatomic, retain) IBOutlet UILabel *identityProviderDisplayNameLabel;
-@property (nonatomic, retain) IBOutlet UIButton *returnButton;
+@property (nonatomic, strong) IBOutlet UIImageView *identityProviderLogoImageView;
+@property (nonatomic, strong) IBOutlet UILabel *identityDisplayNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *identityProviderDisplayNameLabel;
+@property (nonatomic, strong) IBOutlet UIButton *returnButton;
 
 - (IBAction)returnToCaller;
 

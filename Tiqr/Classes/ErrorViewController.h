@@ -43,6 +43,6 @@
  *
  * @return initialized view controller instance
  */
-- (id)initWithTitle:(NSString *)title errorTitle:(NSString *)errorTitle errorMessage:(NSString *)errorMessage;
+- (instancetype)initWithTitle:(NSString *)title errorTitle:(NSString *)errorTitle errorMessage:(NSString *)errorMessage NS_DESIGNATED_INITIALIZER;
 
 @end

@@ -49,7 +49,7 @@
 /**
  * Delegate.
  */
-@property (nonatomic, assign) id<PINViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<PINViewControllerDelegate> delegate;
 
 /**
  * Title.
@@ -59,14 +59,7 @@
 /**
  * Description for the user.
  */
-@property (nonatomic, copy) NSString *description;
-
-/**
- * Initialized the view controller
- *
- * @return view controller instance
- */
-- (id)init;
+@property (nonatomic, copy) NSString *pinDescription;
 
 /**
  * Shows the user an error with the given title and message.

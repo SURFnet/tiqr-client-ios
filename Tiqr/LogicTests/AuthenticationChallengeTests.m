@@ -12,13 +12,13 @@
 @implementation AuthenticationChallengeTests
 
 - (NSManagedObjectModel *)managedObjectModel {
-    NSArray *bundles = [NSArray arrayWithObject:[NSBundle bundleForClass:[self class]]];
+    NSArray *bundles = @[[NSBundle bundleForClass:[self class]]];
     return [NSManagedObjectModel mergedModelFromBundles:bundles];
 }
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
     NSError *error = nil;
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]] autorelease];
+    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:&error]) {
         return nil;
     } else {
@@ -47,13 +47,13 @@
     identity1.identityProvider = service1;
     identity1.identifier = @"john.doe";
     identity1.displayName = @"John Doe";
-    identity1.sortIndex = [NSNumber numberWithInt:1];
+    identity1.sortIndex = @1;
     
     Identity *identity2 = [NSEntityDescription insertNewObjectForEntityForName:@"Identity" inManagedObjectContext:managedObjectContext_];
     identity2.identityProvider = service1;
     identity2.identifier = @"jane.doe";
     identity2.displayName = @"Jane Doe";
-    identity2.sortIndex = [NSNumber numberWithInt:2];
+    identity2.sortIndex = @2;
     
     IdentityProvider *service2 = [NSEntityDescription insertNewObjectForEntityForName:@"IdentityProvider" inManagedObjectContext:managedObjectContext_];
     service2.identifier = @"two.example.org";
@@ -64,7 +64,7 @@
     identity3.identityProvider = service2;
     identity3.identifier = @"john.doe";
     identity3.displayName = @"John Doe";
-    identity3.sortIndex = [NSNumber numberWithInt:3];
+    identity3.sortIndex = @3;
 
     IdentityProvider *service3 = [NSEntityDescription insertNewObjectForEntityForName:@"IdentityProvider" inManagedObjectContext:managedObjectContext_];
     service3.identifier = @"three.example.org";
@@ -84,7 +84,6 @@
 
 - (void)tearDown {
     [super tearDown];
-    [managedObjectContext_ release];
     managedObjectContext_ = nil;
 }
 
@@ -93,7 +92,6 @@
     STAssertNotNil(challenge, @"Challenge should never be nil");
     STAssertFalse(challenge.valid, @"Challenge should be invalid");
     STAssertEqualObjects(errorMessage, challenge.error.localizedDescription, @"Error message should be \"%@\"", errorMessage);
-    [challenge release];    
 }
 
 - (void)testInvalidChallenges {
@@ -114,7 +112,6 @@
     STAssertEqualObjects(@"sessionKey", challenge.sessionKey, @"Should be equal");
     STAssertEqualObjects(@"challenge", challenge.challenge, @"Should be equal");      
     STAssertNil(challenge.returnUrl, @"Should be nil");
-    [challenge release];
     
     challenge = [[AuthenticationChallenge alloc] initWithRawChallenge:@"surfauth://two.example.org/sessionKey/challenge" managedObjectContext:managedObjectContext_];
     STAssertTrue(challenge.valid, @"Should be true");
@@ -126,7 +123,6 @@
     STAssertEqualObjects(@"sessionKey", challenge.sessionKey, @"Should be equal");
     STAssertEqualObjects(@"challenge", challenge.challenge, @"Should be equal");
     STAssertNil(challenge.returnUrl, @"Should be nil");        
-    [challenge release];    
 }
 
 - (void)testIdentityChallenges {
@@ -137,7 +133,6 @@
     STAssertNotNil(challenge.identity, @"Should not be nil");
     STAssertEqualObjects(@"jane.doe", challenge.identity.identifier, @"Should be equal");
     STAssertEqualObjects(@"Jane Doe", challenge.identity.displayName, @"Should be equal");      
-    [challenge release];
     
     challenge = [[AuthenticationChallenge alloc] initWithRawChallenge:@"surfauth://john.doe@two.example.org/sessionKey/challenge" managedObjectContext:managedObjectContext_];
     STAssertTrue(challenge.valid, @"Should be true");
@@ -146,7 +141,6 @@
     STAssertEqualObjects(@"Dummy IdentityProvider 2", challenge.identityProvider.displayName, @"Should be equal");
     STAssertEqualObjects(@"john.doe", challenge.identity.identifier, @"Should be equal");
     STAssertEqualObjects(@"John Doe", challenge.identity.displayName, @"Should be equal");      
-    [challenge release];     
 }
 
 - (void)testReturnURLChallenges {
@@ -158,7 +152,6 @@
     STAssertEqualObjects(@"sessionKey", challenge.sessionKey, @"Should be equal");
     STAssertEqualObjects(@"challenge", challenge.challenge, @"Should be equal");      
     STAssertEqualObjects(@"http://example.org", challenge.returnUrl, @"Should be equal");
-    [challenge release];
 
     challenge = [[AuthenticationChallenge alloc] initWithRawChallenge:@"surfauth://jane.doe@one.example.org/sessionKey/challenge?http%3A%2F%2Fexample.org%3Fa%3Db" managedObjectContext:managedObjectContext_];
     STAssertTrue(challenge.valid, @"Should be true");
@@ -169,7 +162,6 @@
     STAssertEqualObjects(@"sessionKey", challenge.sessionKey, @"Should be equal");
     STAssertEqualObjects(@"challenge", challenge.challenge, @"Should be equal");      
     STAssertEqualObjects(@"http://example.org?a=b", challenge.returnUrl, @"Should be equal");
-    [challenge release];    
 }
 
 @end

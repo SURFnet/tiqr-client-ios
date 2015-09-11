@@ -34,15 +34,15 @@
 
 @interface AuthenticationFallbackViewController ()
 
-@property (nonatomic, retain) AuthenticationChallenge *challenge;
+@property (nonatomic, strong) AuthenticationChallenge *challenge;
 @property (nonatomic, copy) NSString *response;
-@property (nonatomic, retain) FooterController *footerController;
-@property (nonatomic, retain) IBOutlet UILabel *errorTitleLabel;
-@property (nonatomic, retain) IBOutlet UILabel *errorInstructionLabel;
-@property (nonatomic, retain) IBOutlet UILabel *yourIdLabel;
-@property (nonatomic, retain) IBOutlet UILabel *oneTimeLoginCodeLabel;
-@property (nonatomic, retain) IBOutlet UILabel *unverifiedPinLabel;
-@property (nonatomic, retain) IBOutlet UILabel *retryLabel;
+@property (nonatomic, strong) FooterController *footerController;
+@property (nonatomic, strong) IBOutlet UILabel *errorTitleLabel;
+@property (nonatomic, strong) IBOutlet UILabel *errorInstructionLabel;
+@property (nonatomic, strong) IBOutlet UILabel *yourIdLabel;
+@property (nonatomic, strong) IBOutlet UILabel *oneTimeLoginCodeLabel;
+@property (nonatomic, strong) IBOutlet UILabel *unverifiedPinLabel;
+@property (nonatomic, strong) IBOutlet UILabel *retryLabel;
 
 @end
 
@@ -62,12 +62,12 @@
 @synthesize unverifiedPinLabel=unverifiedPinLabel_;
 @synthesize retryLabel=retryLabel_;
 
-- (id)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response {
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response {
     self = [super initWithNibName:@"AuthenticationFallbackView" bundle:nil];   
 	if (self != nil) {
 		self.challenge = challenge;
         self.response = response;
-        self.footerController = [[[FooterController alloc] init] autorelease];
+        self.footerController = [[FooterController alloc] init];
 	}
 	
 	return self;
@@ -84,7 +84,7 @@
     self.retryLabel.text = NSLocalizedString(@"note_pin_not_verified", @"If you can\'t login with the credentials above, scan\nagain and enter the correct PIN code.");
     
     self.title = NSLocalizedString(@"authentication_title", @"Login title");
-    self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)] autorelease];        
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];        
 	
 	self.identityIdentifierLabel.text = self.challenge.identity.identifier;
     self.oneTimePasswordLabel.text = self.response; 
@@ -119,12 +119,7 @@
 - (void)dealloc {
     [self resetOutlets];
     
-    self.challenge = nil;
-    self.response = nil;
-    self.footerController = nil;
-    self.managedObjectContext = nil;
 	
-    [super dealloc];	
 }
 
 @end

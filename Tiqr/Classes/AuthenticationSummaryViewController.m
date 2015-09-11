@@ -34,12 +34,12 @@
 
 @interface AuthenticationSummaryViewController ()
 
-@property (nonatomic, retain) AuthenticationChallenge *challenge;
-@property (nonatomic, retain) FooterController *footerController;
+@property (nonatomic, strong) AuthenticationChallenge *challenge;
+@property (nonatomic, strong) FooterController *footerController;
 
-@property (nonatomic, retain) IBOutlet UILabel *loginConfirmLabel;
-@property (nonatomic, retain) IBOutlet UILabel *loginInformationLabel;
-@property (nonatomic, retain) IBOutlet UILabel *toLabel;
+@property (nonatomic, strong) IBOutlet UILabel *loginConfirmLabel;
+@property (nonatomic, strong) IBOutlet UILabel *loginInformationLabel;
+@property (nonatomic, strong) IBOutlet UILabel *toLabel;
 
 @end
 
@@ -55,11 +55,11 @@
 @synthesize loginInformationLabel=loginInformationLabel_;
 @synthesize toLabel=toLabel_;
 
-- (id)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
     self = [super initWithNibName:@"AuthenticationSummaryView" bundle:nil];
 	if (self != nil) {
 		self.challenge = challenge;
-        self.footerController = [[[FooterController alloc] init] autorelease];        
+        self.footerController = [[FooterController alloc] init];        
 	}
 	
 	return self;
@@ -73,7 +73,7 @@
     self.toLabel.text = NSLocalizedString(@"to_service_provider", @"to:");
     
     self.title = NSLocalizedString(@"authentication_title", @"Login title");
-    UIBarButtonItem *backButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)] autorelease];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
     self.navigationItem.leftBarButtonItem = backButton;
     
 	self.identityProviderLogoImageView.image = [[UIImage alloc] initWithData:self.challenge.identityProvider.logo];
@@ -124,11 +124,7 @@
 - (void)dealloc {
     [self resetOutlets];
     
-    self.challenge = nil;
-    self.footerController = nil;
-    self.managedObjectContext = nil;    
     
-    [super dealloc];	
 }
 
 @end

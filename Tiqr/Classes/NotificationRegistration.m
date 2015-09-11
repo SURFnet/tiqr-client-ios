@@ -50,7 +50,7 @@ static NotificationRegistration *sharedInstance = nil;
 
 - (void)sendRequestWithDeviceToken:(NSData *)deviceToken {
 	NSString *escapedDeviceToken = [deviceToken hexStringValue];
-	NSString *escapedLanguage = [[[NSLocale preferredLanguages] objectAtIndex:0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *escapedLanguage = [[NSLocale preferredLanguages][0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *escapedNotificationToken = [self.notificationToken stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	
 	NSString *body;
@@ -70,7 +70,7 @@ static NotificationRegistration *sharedInstance = nil;
 	NotificationRegistration *delegate = self;
 	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:delegate];
 	if (connection != nil && delegate != nil) {
-		responseData = [[NSMutableData data] retain];
+		responseData = [NSMutableData data];
 	}
 }
 
@@ -83,7 +83,6 @@ static NotificationRegistration *sharedInstance = nil;
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    [responseData release];
 	responseData = nil;
 }
 
@@ -93,16 +92,11 @@ static NotificationRegistration *sharedInstance = nil;
 		[self setNotificationToken:response];
 	}
 	
-	[response release];	
-    [connection release];
-    [responseData release];	
 	responseData = nil;	
 }
 
 - (void)dealloc {
-    [responseData release];		
 	responseData = nil;
-	[super dealloc];
 }
 
 #pragma mark -
@@ -130,22 +124,6 @@ static NotificationRegistration *sharedInstance = nil;
 }
 
 - (id)copyWithZone:(NSZone *)zone {
-    return self;
-}
-
-- (id)retain {
-    return self;
-}
-
-- (unsigned)retainCount {
-    return UINT_MAX;  // denotes an object that cannot be released
-}
-
-- (oneway void)release {
-    //do nothing
-}
-
-- (id)autorelease {
     return self;
 }
 

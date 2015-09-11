@@ -47,7 +47,7 @@
 /**
  * Managed object context.
  */
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 /**
  * Initializes the controller with the given enrollment challenge.
@@ -57,6 +57,6 @@
  *
  * @return initialized controller instance
  */
-- (id)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge PIN:(NSString *)PIN;
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge PIN:(NSString *)PIN NS_DESIGNATED_INITIALIZER;
 
 @end

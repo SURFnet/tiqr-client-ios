@@ -32,7 +32,7 @@
 
 @interface EnrollmentPINViewController ()
 
-@property (nonatomic, retain) EnrollmentChallenge *challenge;
+@property (nonatomic, strong) EnrollmentChallenge *challenge;
 
 @end
 
@@ -41,7 +41,7 @@
 @synthesize managedObjectContext=managedObjectContext_;
 @synthesize challenge=challenge_;
 
-- (id)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super init];
     if (self != nil) {
         self.challenge = challenge;
@@ -55,22 +55,16 @@
     [super viewDidLoad];
 
     self.title = NSLocalizedString(@"enrollment_confirmation_header_title", @"Account activation title");
-    self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"password_verify_back_button", @"Enrollment PIN back button title") style:UIBarButtonItemStyleBordered target:nil action:nil] autorelease];        
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"password_verify_back_button", @"Enrollment PIN back button title") style:UIBarButtonItemStyleBordered target:nil action:nil];        
     self.subtitle = NSLocalizedString(@"enrollment_pin_intro", @"Enrollment PIN title");
-    self.description = NSLocalizedString(@"enrollment_pin_message", @"You need a PIN code for this account. If you don't yet have a PIN code for tiqr please choose one.");
+    self.pinDescription = NSLocalizedString(@"enrollment_pin_message", @"You need a PIN code for this account. If you don't yet have a PIN code for tiqr please choose one.");
 }
 
 - (void)PINViewController:(PINViewController *)pinViewController didFinishWithPIN:(NSString *)PIN {
     EnrollmentPINVerificationViewController *viewController = [[EnrollmentPINVerificationViewController alloc] initWithEnrollmentChallenge:self.challenge PIN:PIN];
     viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
-    [viewController release];
 }
 
-- (void)dealloc {
-    self.challenge = nil;
-    self.managedObjectContext = nil;
-    [super dealloc];
-}
 
 @end

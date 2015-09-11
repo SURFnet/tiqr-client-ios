@@ -41,11 +41,10 @@
 	
 	NSError *error = nil;
 	NSArray *result = [context executeFetchRequest:request error:&error];
-	[request release];	
     
 	IdentityProvider *identityProvider = nil;
 	if (result != nil && [result count] == 1) {
-		identityProvider = [result objectAtIndex:0];
+		identityProvider = result[0];
 	}
 	
 	return identityProvider;

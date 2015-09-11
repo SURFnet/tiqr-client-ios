@@ -32,11 +32,11 @@
 
 @interface AboutViewController ()
 
-@property (nonatomic, retain) IBOutlet UILabel *tiqrProvidedByLabel;
-@property (nonatomic, retain) IBOutlet UILabel *developedByLabel;
-@property (nonatomic, retain) IBOutlet UILabel *interactionDesignLabel;
-@property (nonatomic, retain) IBOutlet UINavigationItem *barItem;
-@property (nonatomic, retain) IBOutlet UIButton *okButton;
+@property (nonatomic, strong) IBOutlet UILabel *tiqrProvidedByLabel;
+@property (nonatomic, strong) IBOutlet UILabel *developedByLabel;
+@property (nonatomic, strong) IBOutlet UILabel *interactionDesignLabel;
+@property (nonatomic, strong) IBOutlet UINavigationItem *barItem;
+@property (nonatomic, strong) IBOutlet UIButton *okButton;
 
 @end
 
@@ -48,7 +48,7 @@
 @synthesize interactionDesignLabel=interactionDesignLabel_;
 @synthesize okButton=okButton_;
 
-- (id)init {
+- (instancetype)init {
     
     self = [super init];
     if (self != nil) {
@@ -96,17 +96,8 @@
 }
 
 - (IBAction)done {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)dealloc {
-    
-    self.tiqrProvidedByLabel = nil;
-    self.developedByLabel = nil;
-    self.interactionDesignLabel = nil;
-    self.versionLabel = nil;
-    
-    [super dealloc];
-}
 
 @end

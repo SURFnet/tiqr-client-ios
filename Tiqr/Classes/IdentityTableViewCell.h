@@ -43,7 +43,7 @@
  * @param reuseIdentifier table view cell reuse identifier
  * @return new table view cell
  */
-- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier;
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier NS_DESIGNATED_INITIALIZER;
 
 /**
  * Sets the identity for the view cell and updates the view cell's

@@ -32,7 +32,7 @@
 
 @interface IdentityTableViewCell ()
 
-@property (nonatomic, retain) UILabel *blockedLabel;
+@property (nonatomic, strong) UILabel *blockedLabel;
 
 @end
 
@@ -40,13 +40,13 @@
 
 @synthesize blockedLabel=blockedLabel_;
 
-- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier {
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
 		self.imageView.contentMode = UIViewContentModeScaleAspectFit;
 		self.imageView.bounds = CGRectMake(5.0, 5.0, 10.0, 10.0);
         
-        self.blockedLabel = [[[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 20.0)] autorelease];
+        self.blockedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 100.0, 20.0)];
         self.blockedLabel.font = [UIFont boldSystemFontOfSize:16.0];
         self.blockedLabel.text = NSLocalizedString(@"identity_blocked", @"Blocked cell label");
         self.blockedLabel.textColor = [UIColor redColor];
@@ -113,16 +113,11 @@
     self.blockedLabel.hidden = ![identity.blocked boolValue];
 	UIImage *image = [[UIImage alloc] initWithData:identity.identityProvider.logo];
 	self.imageView.image = image;
-	[image release];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
 
-- (void)dealloc {
-    self.blockedLabel = nil;
-    [super dealloc];
-}
 
 @end

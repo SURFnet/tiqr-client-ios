@@ -40,7 +40,7 @@
 /**
  * Managed object context.
  */
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 /**
  * Initializes the controller with the given authentication challenge.
@@ -49,6 +49,6 @@
  *
  * @return initialized controller instance
  */
-- (id)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge;
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge NS_DESIGNATED_INITIALIZER;
 
 @end

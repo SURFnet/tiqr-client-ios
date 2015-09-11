@@ -33,7 +33,7 @@
 @interface Challenge ()
 
 @property (nonatomic, copy) NSString *rawChallenge;
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @end
 
@@ -41,11 +41,11 @@
 
 @synthesize rawChallenge=rawChallenge_, managedObjectContext=managedObjectContext_, valid=valid_, error=error_;
 
-- (id)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context {
+- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context {
     return [self initWithRawChallenge:challenge managedObjectContext:context autoParse:YES];
 }
 
-- (id)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context autoParse:(BOOL)autoParse {
+- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context autoParse:(BOOL)autoParse {
 	if ((self = [super init]) != nil) {
 		self.rawChallenge = challenge;
         self.managedObjectContext = context;
@@ -71,11 +71,5 @@
     return self.error == nil;
 }
 
-- (void)dealloc {
-    self.managedObjectContext = nil;
-    self.rawChallenge = nil;
-    self.error = nil;
-    [super dealloc];
-}
 
 @end

@@ -39,9 +39,9 @@
 
 @interface IdentityListViewController ()
 
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, assign) BOOL processingMoveRow;
-@property (nonatomic, retain) Identity *selectedIdentity;
+@property (nonatomic, strong) Identity *selectedIdentity;
 
 @end
 
@@ -49,11 +49,11 @@
 
 @synthesize fetchedResultsController=fetchedResultsController_, managedObjectContext=managedObjectContext_, processingMoveRow=processingMoveRow_, selectedIdentity=selectedIdentity_;
 
-- (id)init {
+- (instancetype)init {
     self = [super initWithNibName:@"IdentityListView" bundle:nil];
     if (self != nil) {
         self.title = NSLocalizedString(@"your_accounts", @"Accounts navigation item title");
-        self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"accounts", @"Accounts back button title") style:UIBarButtonItemStylePlain target:nil action:nil] autorelease];
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"accounts", @"Accounts back button title") style:UIBarButtonItemStylePlain target:nil action:nil];
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
     }
     
@@ -90,7 +90,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
     return [sectionInfo numberOfObjects];
 }
 
@@ -103,7 +103,7 @@
     
     IdentityTableViewCell *cell = (IdentityTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[IdentityTableViewCell alloc] initWithReuseIdentifier:CellIdentifier] autorelease];
+        cell = [[IdentityTableViewCell alloc] initWithReuseIdentifier:CellIdentifier];
     }
     
     [self configureCell:cell atIndexPath:indexPath];
@@ -115,7 +115,6 @@
     Identity *identity = [self.fetchedResultsController objectAtIndexPath:indexPath];
     IdentityEditViewController *viewController = [[IdentityEditViewController alloc] initWithIdentity:identity];
     [self.navigationController pushViewController:viewController animated:YES];
-    [viewController release];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -129,7 +128,6 @@
         NSString *noTitle = NSLocalizedString(@"no_button", @"No button title");
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:nil otherButtonTitles:yesTitle, noTitle, nil];
         [alertView show];
-        [alertView release];
     
     }
 }
@@ -168,9 +166,8 @@
         NSString *title = NSLocalizedString(@"error", "Alert title for error");
         NSString *message = NSLocalizedString(@"error_auth_unknown_error", "Unexpected error message");
         NSString *okTitle = NSLocalizedString(@"ok_button", "OK button title");
-        UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:okTitle otherButtonTitles:nil] autorelease];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:okTitle otherButtonTitles:nil];
         [alertView show];
-        [alertView release];
     }
 }
 
@@ -182,14 +179,14 @@
 	self.processingMoveRow = YES;
 	
 	NSMutableArray *fetchedObjects = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];  	
-	id movedObject = [fetchedObjects objectAtIndex:fromIndexPath.row];
+	id movedObject = fetchedObjects[fromIndexPath.row];
 	[fetchedObjects removeObjectAtIndex:fromIndexPath.row];
 	[fetchedObjects insertObject:movedObject atIndex:toIndexPath.row];
 	
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-	NSUInteger sortIndex = 0;
+	NSInteger sortIndex = 0;
 	for (Identity *identity in fetchedObjects) {
-		identity.sortIndex = [NSNumber numberWithInt:sortIndex];
+		identity.sortIndex = [NSNumber numberWithInteger:sortIndex];
 		sortIndex++;
 	}
 	
@@ -199,9 +196,8 @@
         NSString *title = NSLocalizedString(@"error", "Alert title for error");		
         NSString *message = NSLocalizedString(@"error_auth_unknown_error", "Unexpected error message");		        
         NSString *okTitle = NSLocalizedString(@"ok_button", "OK button title");			
-		UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:okTitle otherButtonTitles:nil] autorelease];
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:okTitle otherButtonTitles:nil];
 		[alertView show];
-        [alertView release];
     }
 	
 	self.processingMoveRow = NO;	
@@ -221,17 +217,13 @@
     [fetchRequest setFetchBatchSize:20];
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortIndex" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    NSArray *sortDescriptors = @[sortDescriptor];
     [fetchRequest setSortDescriptors:sortDescriptors];
-    [sortDescriptor release];
-    [sortDescriptors release];
     
     NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     fetchedResultsController.delegate = self;
     self.fetchedResultsController = fetchedResultsController;
     
-    [fetchedResultsController release];
-    [fetchRequest release];
     
     NSError *error = nil;
     if (![fetchedResultsController_ performFetch:&error]) {
@@ -239,9 +231,8 @@
         NSString *title = NSLocalizedString(@"error", "Alert title for error");		
         NSString *message = NSLocalizedString(@"error_auth_unknown_error", "Unexpected error message");		        
         NSString *okTitle = NSLocalizedString(@"ok_button", "OK button title");			
-		UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:okTitle otherButtonTitles:nil] autorelease];
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:okTitle otherButtonTitles:nil];
 		[alertView show];
-        [alertView release];
     }
     
     return fetchedResultsController_;
@@ -269,11 +260,11 @@
     
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeUpdate:
@@ -282,8 +273,8 @@
             break;
             
         case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
 }
@@ -307,11 +298,5 @@
     [super viewDidUnload];
 }
 
-- (void)dealloc {
-    self.fetchedResultsController = nil;
-	self.managedObjectContext = nil;
-    self.selectedIdentity = nil;
-    [super dealloc];
-}
 
 @end

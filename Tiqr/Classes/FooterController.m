@@ -34,7 +34,7 @@
 
 @interface FooterController ()
 
-@property (nonatomic, retain) IBOutlet UILabel *providedByLabel;
+@property (nonatomic, strong) IBOutlet UILabel *providedByLabel;
 
 @end;
 
@@ -43,7 +43,7 @@
 @synthesize view=view_;
 @synthesize providedByLabel=providedByLabel_;
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self != nil) {
         UINib *nib = [UINib nibWithNibName:@"FooterChildView" bundle:nil];
@@ -74,13 +74,7 @@
     UIViewController *viewController = [[AboutViewController alloc] init];
     TiqrAppDelegate *delegate = (TiqrAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate.navigationController presentViewController:viewController animated:YES completion:nil];
-    [viewController release];
 }
 
-- (void)dealloc {
-    self.view = nil;
-    self.providedByLabel = nil;
-    [super dealloc];
-}
 
 @end

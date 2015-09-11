@@ -59,17 +59,17 @@ enum {
 /**
  * Identity provider.
  */
-@property (nonatomic, retain, readonly) IdentityProvider *identityProvider;
+@property (nonatomic, strong, readonly) IdentityProvider *identityProvider;
 
 /**
  * Identity (might be nil if more than one match).
  */
-@property (nonatomic, retain) Identity *identity;
+@property (nonatomic, strong) Identity *identity;
 
 /**
  * Matching identities.
  */
-@property (nonatomic, retain, readonly) NSArray *identities;
+@property (nonatomic, strong, readonly) NSArray *identities;
 
 /**
  * The service provider identifier (probably domain name).

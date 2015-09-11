@@ -13,13 +13,13 @@
 @implementation EnrollmentChallengeTests
 
 - (NSManagedObjectModel *)managedObjectModel {
-    NSArray *bundles = [NSArray arrayWithObject:[NSBundle bundleForClass:[self class]]];
+    NSArray *bundles = @[[NSBundle bundleForClass:[self class]]];
     return [NSManagedObjectModel mergedModelFromBundles:bundles];
 }
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
     NSError *error = nil;
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]] autorelease];
+    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:&error]) {
         return nil;
     } else {
@@ -48,7 +48,7 @@
     identity.identityProvider = service;
     identity.identifier = @"john.doe";
     identity.displayName = @"John Doe";
-    identity.sortIndex = [NSNumber numberWithInt:1];
+    identity.sortIndex = @1;
     
     NSError *error = nil;
     STAssertTrue([managedObjectContext_ save:&error], @"Should be true");
@@ -63,7 +63,6 @@
 
 - (void)tearDown {
     [super tearDown];
-    [managedObjectContext_ release];
     managedObjectContext_ = nil;
 }
 
@@ -77,14 +76,13 @@
 - (EnrollmentChallenge *)createEnrollmentChallenge:(NSString *)challengeJSON {
     NSURL *tempURL = [[NSURL alloc] initFileURLWithPath:NSTemporaryDirectory() isDirectory:YES];
     NSURL *fileURL = [tempURL URLByAppendingPathComponent:@"challenge.txt"];
-    [tempURL release];
     
     NSError *error = nil;
     [challengeJSON writeToURL:fileURL atomically:YES encoding:NSUTF8StringEncoding error:&error];
     STAssertNil(error, @"Should be nil");
     NSString *rawChallenge = [NSString stringWithFormat:@"surfenroll://%@", [fileURL absoluteString]];
     EnrollmentChallenge *challenge = [[EnrollmentChallenge alloc] initWithRawChallenge:rawChallenge managedObjectContext:managedObjectContext_ allowFiles:YES];
-    return [challenge autorelease];
+    return challenge;
 }
 
 
@@ -93,25 +91,21 @@
     EnrollmentChallenge *challenge = [[EnrollmentChallenge alloc] initWithRawChallenge:@"surfauth://http://example.org" managedObjectContext:managedObjectContext_ allowFiles:YES];
     STAssertFalse(challenge.valid, @"Should be false");
     STAssertEqualObjects(@"Invalid enrollment QR code. Please contact the website administrator.", challenge.error.localizedDescription, @"Should be equal");
-    [challenge release];
     
     // invalid protocol
     challenge = [[EnrollmentChallenge alloc] initWithRawChallenge:@"surfenroll://xyz://example.org" managedObjectContext:managedObjectContext_ allowFiles:YES];
     STAssertFalse(challenge.valid, @"Should be false");
     STAssertEqualObjects(@"Invalid enrollment QR code. Please contact the website administrator.", challenge.error.localizedDescription, @"Should be equal");
-    [challenge release];
 
     // no files allowed (default)
     challenge = [[EnrollmentChallenge alloc] initWithRawChallenge:@"surfenroll://file:something" managedObjectContext:managedObjectContext_];
     STAssertFalse(challenge.valid, @"Should be false");
     STAssertEqualObjects(@"Invalid enrollment QR code. Please contact the website administrator.", challenge.error.localizedDescription, @"Should be equal");
-    [challenge release];
 
     // files allowed, but non existing
     challenge = [[EnrollmentChallenge alloc] initWithRawChallenge:@"surfenroll://file:does-not-exist" managedObjectContext:managedObjectContext_ allowFiles:YES];
     STAssertFalse(challenge.valid, @"Should be false");
     STAssertEqualObjects(@"Cannot connect to enrollment server. Please contact the website administrator.", challenge.error.localizedDescription, @"Should be equal");
-    [challenge release];
     
     
     NSString *logoURL = @"http://www.surfnet.nl/Style%20Library/SURFnet/img/surfnet_logo.gif";

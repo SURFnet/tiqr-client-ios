@@ -37,6 +37,6 @@
  * the string contains only digits and returns the Verhoeff digit
  * as an integer value from 0..9.
  */
-- (NSUInteger)verhoeffDigit;
+@property (nonatomic, readonly) NSUInteger verhoeffDigit;
 
 @end

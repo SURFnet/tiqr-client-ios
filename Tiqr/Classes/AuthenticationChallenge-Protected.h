@@ -32,8 +32,8 @@
 
 @interface AuthenticationChallenge ()
 
-@property (nonatomic, retain) IdentityProvider *identityProvider;
-@property (nonatomic, retain) NSArray *identities;
+@property (nonatomic, strong) IdentityProvider *identityProvider;
+@property (nonatomic, strong) NSArray *identities;
 @property (nonatomic, copy) NSString *serviceProviderIdentifier;
 @property (nonatomic, copy) NSString *serviceProviderDisplayName;
 @property (nonatomic, copy) NSString *sessionKey;

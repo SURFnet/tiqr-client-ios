@@ -70,7 +70,7 @@ enum {
  *
  * @return EnrollmentChallenge
  */
-- (id)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context allowFiles:(BOOL)allowFiles;
+- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context allowFiles:(BOOL)allowFiles NS_DESIGNATED_INITIALIZER;
 
 /**
  * Initialize the enrollment challenge handler.
@@ -82,7 +82,7 @@ enum {
  *
  * @return EnrollmentChallenge
  */
-- (id)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context;    
+- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context;    
 
 /**
  * Identity provider identifier.
@@ -118,7 +118,7 @@ enum {
  * The existing identity provider the matches the provider in the enrollment
  * challenge. Only set if the provider is already known.
  */
-@property (nonatomic, retain) IdentityProvider *identityProvider;
+@property (nonatomic, strong) IdentityProvider *identityProvider;
 
 /**
  * Identity identifier for the user.
@@ -146,7 +146,7 @@ enum {
  * Identity, in case of account reactivation or at the
  * end of the activation process.
  */
-@property (nonatomic, retain) Identity *identity;
+@property (nonatomic, strong) Identity *identity;
 
 /**
  * One-time enrollment URL.

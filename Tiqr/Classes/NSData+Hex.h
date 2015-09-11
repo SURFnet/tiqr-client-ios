@@ -38,6 +38,6 @@
  *
  * @return hexadecimal string representation
  */
-- (NSString *)hexStringValue;
+@property (nonatomic, readonly, copy) NSString *hexStringValue;
 
 @end

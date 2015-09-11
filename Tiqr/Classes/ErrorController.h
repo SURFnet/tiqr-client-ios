@@ -31,7 +31,7 @@
     
 }
 
-@property (nonatomic, retain, readonly) UIView *view;
+@property (nonatomic, strong, readonly) UIView *view;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *message;
 

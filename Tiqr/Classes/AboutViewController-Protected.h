@@ -31,7 +31,7 @@
 
 @interface AboutViewController ()
 
-@property (nonatomic, retain) IBOutlet UILabel *versionLabel;
+@property (nonatomic, strong) IBOutlet UILabel *versionLabel;
 
 - (IBAction)tiqr;
 - (IBAction)surfnet;
