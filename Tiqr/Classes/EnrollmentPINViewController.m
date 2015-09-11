@@ -41,7 +41,7 @@
 @synthesize managedObjectContext=managedObjectContext_;
 @synthesize challenge=challenge_;
 
-- (id)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super init];
     if (self != nil) {
         self.challenge = challenge;

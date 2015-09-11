@@ -47,7 +47,7 @@
 /**
  * Check if we have an internet connection
  */
-- (BOOL)hasConnection;
+@property (nonatomic, readonly) BOOL hasConnection;
 
 /**
  * Window outlet.

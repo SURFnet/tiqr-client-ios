@@ -48,7 +48,7 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
 @synthesize challenge=challenge_;
 @synthesize data=data_;
 
-- (id)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super init];
     if (self != nil) {
         self.challenge = challenge;
@@ -60,7 +60,7 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
 - (void)send {
 	NSString *secret = [self.challenge.identitySecret hexStringValue];
 	NSString *escapedSecret = [secret stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSString *escapedLanguage = [[[NSLocale preferredLanguages] objectAtIndex:0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *escapedLanguage = [[NSLocale preferredLanguages][0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *notificationToken = [NotificationRegistration sharedInstance].notificationToken;
 	NSString *escapedNotificationToken = [notificationToken stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TIQRLoginProtocolVersion"];
@@ -84,8 +84,8 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
     [self.data setLength:0];
     
     NSDictionary* headers = [(NSHTTPURLResponse *)response allHeaderFields];
-    if ([headers objectForKey:@"X-TIQR-Protocol-Version"]) {
-        self.protocolVersion = [headers objectForKey:@"X-TIQR-Protocol-Version"];
+    if (headers[@"X-TIQR-Protocol-Version"]) {
+        self.protocolVersion = headers[@"X-TIQR-Protocol-Version"];
     } else {
         self.protocolVersion = @"1";
     }
@@ -115,7 +115,7 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
         NSArray *result = [[JSONDecoder decoder] objectWithData:self.data];
         self.data = nil;
         
-        NSNumber *responseCode = [NSNumber numberWithInt:[[result valueForKey:@"responseCode"] intValue]];
+        NSNumber *responseCode = @([[result valueForKey:@"responseCode"] intValue]);
         if ([responseCode intValue] == EnrollmentChallengeResponseCodeSuccess || [responseCode intValue] == EnrollmentChallengeResponseCodeSuccessUsernameByServer) {
             [self.delegate enrollmentConfirmationRequestDidFinish:self];
         } else {

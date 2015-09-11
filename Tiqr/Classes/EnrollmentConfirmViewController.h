@@ -51,6 +51,6 @@
  *
  * @return initialized controller instance
  */
-- (id)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge;
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge NS_DESIGNATED_INITIALIZER;
 
 @end

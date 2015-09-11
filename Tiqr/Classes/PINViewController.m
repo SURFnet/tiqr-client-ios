@@ -53,7 +53,7 @@
 @synthesize errorController=errorController_;
 @synthesize confirmButton=confirmButton_;
 
-- (id)init {
+- (instancetype)init {
     self = [super initWithNibName:@"PINView" bundle:nil];
     if (self != nil) {
         self.errorController = [[ErrorController alloc] init];

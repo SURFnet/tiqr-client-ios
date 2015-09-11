@@ -57,6 +57,6 @@
  *
  * @return initialized controller instance
  */
-- (id)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge PIN:(NSString *)PIN;
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge PIN:(NSString *)PIN NS_DESIGNATED_INITIALIZER;
 
 @end

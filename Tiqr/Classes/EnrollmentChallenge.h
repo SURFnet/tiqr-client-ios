@@ -70,7 +70,7 @@ enum {
  *
  * @return EnrollmentChallenge
  */
-- (id)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context allowFiles:(BOOL)allowFiles;
+- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context allowFiles:(BOOL)allowFiles NS_DESIGNATED_INITIALIZER;
 
 /**
  * Initialize the enrollment challenge handler.
@@ -82,7 +82,7 @@ enum {
  *
  * @return EnrollmentChallenge
  */
-- (id)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context;    
+- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context;    
 
 /**
  * Identity provider identifier.

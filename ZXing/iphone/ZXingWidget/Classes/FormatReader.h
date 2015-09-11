@@ -32,7 +32,7 @@
 + (void)registerFormatReader:(FormatReader *)formatReader;
 //+ (NSSet *)formatReaders;
 
-- (id)initWithReader:(zxing::Reader *)reader;
+- (instancetype)initWithReader:(zxing::Reader *)reader;
 - (zxing::Ref<zxing::Result>)decode:(zxing::Ref<zxing::BinaryBitmap>)grayImage;
 - (zxing::Ref<zxing::Result>)decode:(zxing::Ref<zxing::BinaryBitmap>)grayImage andCallback:(zxing::Ref<zxing::ResultPointCallback>)callback;
 

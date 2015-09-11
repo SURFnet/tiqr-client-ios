@@ -49,7 +49,7 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 	if (url == nil || ![url.scheme isEqualToString:scheme] || [url.pathComponents count] < 3) {
         NSString *errorTitle = NSLocalizedString(@"error_auth_invalid_qr_code", @"Invalid QR tag title");
         NSString *errorMessage = NSLocalizedString(@"error_auth_invalid_challenge_message", @"Invalid QR tag message");
-        NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, nil];
+        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         self.error = [NSError errorWithDomain:TIQRACErrorDomain code:TIQRACInvalidQRTagError userInfo:details];        
 		return;
 	}
@@ -58,7 +58,7 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 	if (identityProvider == nil) {
         NSString *errorTitle = NSLocalizedString(@"error_auth_unknown_identity", @"No account title");
         NSString *errorMessage = NSLocalizedString(@"error_auth_no_identities_for_identity_provider", @"No account message");
-        NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, nil];
+        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         self.error = [NSError errorWithDomain:TIQRACErrorDomain code:TIQRACUnknownIdentityProviderError userInfo:details];        
 		return;
 	}
@@ -68,46 +68,46 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 		if (identity == nil) {
             NSString *errorTitle = NSLocalizedString(@"error_auth_invalid_account", @"Unknown account title");
             NSString *errorMessage = NSLocalizedString(@"error_auth_invalid_account_message", @"Unknown account message");
-            NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, nil];
+            NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
             self.error = [NSError errorWithDomain:TIQRACErrorDomain code:TIQRACUnknownIdentityError userInfo:details];        
             return;
 		}
 		
-		self.identities = [NSArray arrayWithObject:identity];
+		self.identities = @[identity];
 		self.identity = identity;
 	} else {
 		NSArray *identities = [Identity findIdentitiesForIdentityProvider:identityProvider inManagedObjectContext:self.managedObjectContext];
 		if (identities == nil || [identities count] == 0) {
             NSString *errorTitle = NSLocalizedString(@"error_auth_invalid_account", @"No account title");
             NSString *errorMessage = NSLocalizedString(@"error_auth_invalid_account_message", @"No account message");
-            NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, nil];
+            NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
             self.error = [NSError errorWithDomain:TIQRACErrorDomain code:TIQRACZeroIdentitiesForIdentityProviderError userInfo:details];        
             return;
 		}
 		
 		self.identities = identities;
-		self.identity = [identities count] == 1 ? [identities objectAtIndex:0] : nil;
+		self.identity = [identities count] == 1 ? identities[0] : nil;
 	}
 	
     if (self.identity != nil && [self.identity.blocked boolValue]) {
         NSString *errorTitle = NSLocalizedString(@"error_auth_account_blocked_title", @"Account blocked title");
         NSString *errorMessage = NSLocalizedString(@"error_auth_account_blocked_message", @"Account blocked message");
-        NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, nil];
+        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         self.error = [NSError errorWithDomain:TIQRACErrorDomain code:TIQRACIdentityBlockedError userInfo:details];        
     }
     
 	self.identityProvider = identityProvider;
-    self.sessionKey = [url.pathComponents objectAtIndex:1];
-    self.challenge = [url.pathComponents objectAtIndex:2];
+    self.sessionKey = url.pathComponents[1];
+    self.challenge = url.pathComponents[2];
     if ([url.pathComponents count] > 3) {
-        self.serviceProviderDisplayName = [url.pathComponents objectAtIndex:3];
+        self.serviceProviderDisplayName = url.pathComponents[3];
     } else {
         self.serviceProviderDisplayName = NSLocalizedString(@"error_auth_unknown_identity_provider", @"Unknown");
     }
     self.serviceProviderIdentifier = @"";
     
     if ([url.pathComponents count] > 4) {
-        self.protocolVersion = [url.pathComponents objectAtIndex:4];
+        self.protocolVersion = url.pathComponents[4];
     } else {
         self.protocolVersion = @"1";
     }

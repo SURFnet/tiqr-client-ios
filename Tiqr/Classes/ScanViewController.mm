@@ -71,7 +71,7 @@
 
 @synthesize instructionLabel=instructionLabel_;
 
-- (id)init {
+- (instancetype)init {
     self = [super initWithNibName:@"ScanView" bundle:nil];
     if (self) {
         self.title = NSLocalizedString(@"scan_window", @"Scan window title");
@@ -201,7 +201,7 @@
     AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     AVCaptureDeviceInput *captureInput = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:nil];
     
-    AVCaptureVideoDataOutput *captureOutput = [[[AVCaptureVideoDataOutput alloc] init] autorelease]; 
+    AVCaptureVideoDataOutput *captureOutput = [[AVCaptureVideoDataOutput alloc] init];
     captureOutput.alwaysDiscardsLateVideoFrames = YES; 
     [captureOutput setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
     NSString *key = (NSString *)kCVPixelBufferPixelFormatTypeKey; 
@@ -209,7 +209,7 @@
     NSDictionary *videoSettings = [NSDictionary dictionaryWithObject:value forKey:key]; 
     [captureOutput setVideoSettings:videoSettings]; 
     
-    self.captureSession = [[[AVCaptureSession alloc] init] autorelease];
+    self.captureSession = [[AVCaptureSession alloc] init];
     self.captureSession.sessionPreset = AVCaptureSessionPresetMedium; // 480x360 on a 4
     [self.captureSession addInput:captureInput];
     [self.captureSession addOutput:captureOutput];
@@ -286,9 +286,6 @@
     cropRect.origin.x = 0.0;
     cropRect.origin.y = 0.0;
     self.decoding = ![decoder decodeImage:screen cropRect:cropRect];
-    [qrCodeReader release];
-    [decoder release];
-    [screen release];
 } 
 #endif
 

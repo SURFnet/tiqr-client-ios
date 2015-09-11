@@ -68,7 +68,7 @@
  *
  * @return challenge instance
  */
-- (id)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context;
+- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context;
 
 /**
  * Constructs a new challenge object for the given raw challenge.
@@ -79,7 +79,7 @@
  *
  * @return challenge instance
  */
-- (id)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context autoParse:(BOOL)autoParse;
+- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context autoParse:(BOOL)autoParse NS_DESIGNATED_INITIALIZER;
 
 /**
  * Responsible for parsing the raw challenge.

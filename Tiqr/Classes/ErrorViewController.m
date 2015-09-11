@@ -45,7 +45,7 @@
 @synthesize errorController=errorController_;
 @synthesize footerController=footerController_;
 
-- (id)initWithTitle:(NSString *)title errorTitle:(NSString *)errorTitle errorMessage:(NSString *)errorMessage {
+- (instancetype)initWithTitle:(NSString *)title errorTitle:(NSString *)errorTitle errorMessage:(NSString *)errorMessage {
     self = [super initWithNibName:@"ErrorView" bundle:nil];
     if (self != nil) {
         self.title = title;

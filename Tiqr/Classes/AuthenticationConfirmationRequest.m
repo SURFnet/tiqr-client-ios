@@ -51,7 +51,7 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
 @synthesize response=response_;
 @synthesize data=data_;
 
-- (id)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response {
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response {
     self = [super init];
     if (self != nil) {
         self.challenge = challenge;
@@ -65,8 +65,8 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
     [self.data setLength:0];
     
     NSDictionary* headers = [(NSHTTPURLResponse *)response allHeaderFields];
-    if ([headers objectForKey:@"X-TIQR-Protocol-Version"]) {
-        self.protocolVersion = [headers objectForKey:@"X-TIQR-Protocol-Version"];
+    if (headers[@"X-TIQR-Protocol-Version"]) {
+        self.protocolVersion = headers[@"X-TIQR-Protocol-Version"];
     } else {
         self.protocolVersion = @"1";
     }
@@ -97,7 +97,7 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
         NSArray *result = [[JSONDecoder decoder] objectWithData:self.data];
         self.data = nil;
         
-        NSNumber *responseCode = [NSNumber numberWithInt:[[result valueForKey:@"responseCode"] intValue]];
+        NSNumber *responseCode = @([[result valueForKey:@"responseCode"] intValue]);
         if ([responseCode intValue] == AuthenticationChallengeResponseCodeSuccess) {
             [self.delegate authenticationConfirmationRequestDidFinish:self];
         } else {
@@ -107,7 +107,7 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
             NSNumber *attemptsLeft = nil;
             if ([responseCode intValue] == AuthenticationChallengeResponseCodeAccountBlocked) {
                 if ([result valueForKey:@"duration"] != nil) {
-                    NSNumber *duration = [NSNumber numberWithInt:[[result valueForKey:@"duration"] intValue]];
+                    NSNumber *duration = @([[result valueForKey:@"duration"] intValue]);
                     code = TIQRACRAccountBlockedErrorTemporary;
                     title = NSLocalizedString(@"error_auth_account_blocked_temporary_title", @"INVALID_RESPONSE error title (account blocked temporary)");
                     message = [NSString stringWithFormat:NSLocalizedString(@"error_auth_account_blocked_temporary_message", @"INVALID_RESPONSE error message (account blocked temporary"), duration];
@@ -126,7 +126,7 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
                 message = NSLocalizedString(@"error_auth_invalid_request_message", @"INVALID_REQUEST error message");
             } else if ([responseCode intValue] == AuthenticationChallengeResponseCodeInvalidUsernamePasswordPin) {                    code = TIQRACRInvalidResponseError;
                 if ([result valueForKey:@"attemptsLeft"] != nil) {
-                    attemptsLeft = [NSNumber numberWithInt:[[result valueForKey:@"attemptsLeft"] intValue]];
+                    attemptsLeft = @([[result valueForKey:@"attemptsLeft"] intValue]);
                     if ([attemptsLeft intValue] > 1) {
                         title = NSLocalizedString(@"error_auth_wrong_pin", @"INVALID_RESPONSE error title (> 1 attempts left)");
                         message = NSLocalizedString(@"error_auth_x_attempts_left", @"INVALID_RESPONSE error message (> 1 attempts left)");
@@ -187,7 +187,7 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
                 title = NSLocalizedString(@"error_auth_invalid_request_title", @"INVALID_REQUEST error title");
                 message = NSLocalizedString(@"error_auth_invalid_request_message", @"INVALID_REQUEST error message");
             } else if ([response length]>=17 && [[response substringToIndex:17] isEqualToString:@"INVALID_RESPONSE:"]) {
-                attemptsLeft = [NSNumber numberWithInt:[[response substringFromIndex:17] intValue]];
+                attemptsLeft = @([[response substringFromIndex:17] intValue]);
                 code = TIQRACRInvalidResponseError;
                 if ([attemptsLeft intValue] > 1) {
                     title = NSLocalizedString(@"error_auth_wrong_pin", @"INVALID_RESPONSE error title (> 1 attempts left)");
@@ -224,7 +224,7 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
 	NSString *escapedSessionKey = [self.challenge.sessionKey stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *escapedUserId = [self.challenge.identity.identifier stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *escapedResponse = [self.response stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSString *escapedLanguage = [[NSLocale preferredLanguages] objectAtIndex:0];
+	NSString *escapedLanguage = [NSLocale preferredLanguages][0];
 	NSString *notificationToken = [NotificationRegistration sharedInstance].notificationToken;
 	NSString *escapedNotificationToken = [notificationToken stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSString *operation = @"login";

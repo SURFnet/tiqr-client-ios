@@ -43,7 +43,7 @@
 @synthesize view=view_;
 @synthesize providedByLabel=providedByLabel_;
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self != nil) {
         UINib *nib = [UINib nibWithNibName:@"FooterChildView" bundle:nil];

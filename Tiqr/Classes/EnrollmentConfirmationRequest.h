@@ -29,13 +29,13 @@
 
 #import "EnrollmentChallenge.h"
 
-typedef enum {
+typedef NS_ENUM(unsigned int, EnrollmentChallengeResponseCode) {
     EnrollmentChallengeResponseCodeSuccess = 1,
     EnrollmentChallengeResponseCodeVerificationRequired = 100,
     EnrollmentChallengeResponseCodeSuccessUsernameByServer = 101,
     EnrollmentChallengeResponseCodeFailureUsernameTaken = 102,
     EnrollmentChallengeResponseCodeFailure = 103
-} EnrollmentChallengeResponseCode;
+};
 
 /**
  * Error domain.
@@ -63,7 +63,7 @@ enum {
 
 @property (nonatomic, weak) id<EnrollmentConfirmationRequestDelegate> delegate;
 
-- (id)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge;
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge NS_DESIGNATED_INITIALIZER;
 - (void)send;
 
 @end

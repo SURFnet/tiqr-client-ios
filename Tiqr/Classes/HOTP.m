@@ -90,10 +90,4 @@ static const int powers10[] = { 10, 100, 1000, 10000, 100000, 1000000, 10000000,
                 (self.numDigits < MAX_DIGITS_16 ? (value & ((1 << (4 * self.numDigits)) - 1)) : value)];
 }
 
-- (void)dealloc {
-    self.key;
-    self.dec;
-    self.hex;
-}
-
 @end

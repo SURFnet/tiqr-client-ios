@@ -13,7 +13,7 @@
 @implementation EnrollmentChallengeTests
 
 - (NSManagedObjectModel *)managedObjectModel {
-    NSArray *bundles = [NSArray arrayWithObject:[NSBundle bundleForClass:[self class]]];
+    NSArray *bundles = @[[NSBundle bundleForClass:[self class]]];
     return [NSManagedObjectModel mergedModelFromBundles:bundles];
 }
 
@@ -48,7 +48,7 @@
     identity.identityProvider = service;
     identity.identifier = @"john.doe";
     identity.displayName = @"John Doe";
-    identity.sortIndex = [NSNumber numberWithInt:1];
+    identity.sortIndex = @1;
     
     NSError *error = nil;
     STAssertTrue([managedObjectContext_ save:&error], @"Should be true");

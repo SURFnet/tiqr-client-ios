@@ -48,7 +48,7 @@
 @synthesize identityProviderLogoImageView=identityProviderLogoImageView_, identityDisplayNameLabel=identityDisplayNameLabel_, identityProviderDisplayNameLabel=identityProviderDisplayNameLabel_, serviceProviderDisplayNameLabel=serviceProviderDisplayNameLabel_, serviceProviderIdentifierLabel=serviceProviderIdentifierLabel_;
 @synthesize loginConfirmLabel=loginConfirmLabel_, loggedInAsLabel=loggedInAsLabel_,toLabel=toLabel_, okButton=okButton_;
 
-- (id)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
     self = [super initWithNibName:@"AuthenticationConfirmView" bundle:nil];
 	if (self != nil) {
 		self.challenge = challenge;

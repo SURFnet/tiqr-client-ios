@@ -60,6 +60,6 @@
  *
  * @return view controller instance
  */
-- (id)init;
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 
 @end

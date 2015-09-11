@@ -29,9 +29,9 @@
 @property (nonatomic, retain) NSString *text;
 @property (nonatomic, retain) NSArray *points;
 
-+ (id)resultWithText:(NSString *)text points:(NSArray *)points;
-- (id)initWithText:(NSString *)text points:(NSArray *)points;
++ (instancetype)resultWithText:(NSString *)text points:(NSArray *)points;
+- (instancetype)initWithText:(NSString *)text points:(NSArray *)points;
 - (id)copyWithZone:(NSZone *)zone;
-- (id)copy;
+@property (nonatomic, readonly, strong) id copy;
 
 @end

@@ -55,7 +55,7 @@
 @synthesize loginInformationLabel=loginInformationLabel_;
 @synthesize toLabel=toLabel_;
 
-- (id)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
     self = [super initWithNibName:@"AuthenticationSummaryView" bundle:nil];
 	if (self != nil) {
 		self.challenge = challenge;

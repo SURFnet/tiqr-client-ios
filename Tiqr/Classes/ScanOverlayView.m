@@ -135,7 +135,7 @@
 }
 
 - (void)addPoint:(CGPoint)point {
-    NSMutableArray *points = [NSMutableArray arrayWithArray:(self.points == nil ? [NSArray array] : self.points)];
+    NSMutableArray *points = [NSMutableArray arrayWithArray:(self.points == nil ? @[] : self.points)];
     
     if ([points count] > 3) {
         [points removeObjectAtIndex:0];

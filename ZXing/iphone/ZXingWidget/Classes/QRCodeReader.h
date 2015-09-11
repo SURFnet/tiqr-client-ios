@@ -12,5 +12,5 @@
 @interface QRCodeReader : FormatReader {
 
 }
-- (id) init;
+- (instancetype) init;
 @end

@@ -49,7 +49,7 @@
 
 @synthesize fetchedResultsController=fetchedResultsController_, managedObjectContext=managedObjectContext_, processingMoveRow=processingMoveRow_, selectedIdentity=selectedIdentity_;
 
-- (id)init {
+- (instancetype)init {
     self = [super initWithNibName:@"IdentityListView" bundle:nil];
     if (self != nil) {
         self.title = NSLocalizedString(@"your_accounts", @"Accounts navigation item title");
@@ -90,7 +90,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
     return [sectionInfo numberOfObjects];
 }
 
@@ -179,7 +179,7 @@
 	self.processingMoveRow = YES;
 	
 	NSMutableArray *fetchedObjects = [NSMutableArray arrayWithArray:[self.fetchedResultsController fetchedObjects]];  	
-	id movedObject = [fetchedObjects objectAtIndex:fromIndexPath.row];
+	id movedObject = fetchedObjects[fromIndexPath.row];
 	[fetchedObjects removeObjectAtIndex:fromIndexPath.row];
 	[fetchedObjects insertObject:movedObject atIndex:toIndexPath.row];
 	
@@ -217,7 +217,7 @@
     [fetchRequest setFetchBatchSize:20];
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortIndex" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    NSArray *sortDescriptors = @[sortDescriptor];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
@@ -260,11 +260,11 @@
     
     switch(type) {
         case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeUpdate:
@@ -273,8 +273,8 @@
             break;
             
         case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath]withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
 }

@@ -47,7 +47,7 @@
 @synthesize tableView=tableView_;
 @synthesize selectAccountLabel=selectAccountLabel_;
 
-- (id)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
     self = [super initWithNibName:@"AuthenticationIdentityView" bundle:nil];
 	if (self != nil) {
 		self.challenge = challenge;
@@ -84,7 +84,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
 	
-	Identity *identity = [self.challenge.identities objectAtIndex:indexPath.row];
+	Identity *identity = self.challenge.identities[indexPath.row];
     
     IdentityTableViewCell *cell = (IdentityTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -96,7 +96,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	self.challenge.identity = [self.challenge.identities objectAtIndex:indexPath.row];
+	self.challenge.identity = self.challenge.identities[indexPath.row];
     AuthenticationConfirmViewController *viewController = [[AuthenticationConfirmViewController alloc] initWithAuthenticationChallenge:self.challenge];
     viewController.managedObjectContext = self.managedObjectContext;
 	[self.navigationController pushViewController:viewController animated:YES];

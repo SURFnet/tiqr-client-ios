@@ -53,8 +53,8 @@ static const int powers10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 100000
     
     int hashLength = 0;
     NSArray *elements = [ocraSuite componentsSeparatedByString:@":"];
-    NSString *cryptoFunction = [elements objectAtIndex:1];
-    NSString *dataInput = [elements objectAtIndex:2];
+    NSString *cryptoFunction = elements[1];
+    NSString *dataInput = elements[2];
     
     if ([cryptoFunction rangeOfString: @"sha1" options: NSCaseInsensitiveSearch].location != NSNotFound) {
         crypto = kCCHmacAlgSHA1;
@@ -76,7 +76,7 @@ static const int powers10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 100000
     if (codeDigits > 10) {
         NSString *errorTitle = NSLocalizedString(@"Error", @"Error title");
         NSString *errorMessage = NSLocalizedString(@"The number of digits defined for the OTP can't be larger than 10.", @"Error message");
-        NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, nil];
+        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         *error = [[NSError alloc] initWithDomain: @"org.example.ErrorDomain" code:OCRANumberOfDigitsTooLargeError userInfo:details];
         return nil;
     }

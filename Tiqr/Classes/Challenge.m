@@ -41,11 +41,11 @@
 
 @synthesize rawChallenge=rawChallenge_, managedObjectContext=managedObjectContext_, valid=valid_, error=error_;
 
-- (id)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context {
+- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context {
     return [self initWithRawChallenge:challenge managedObjectContext:context autoParse:YES];
 }
 
-- (id)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context autoParse:(BOOL)autoParse {
+- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context autoParse:(BOOL)autoParse {
 	if ((self = [super init]) != nil) {
 		self.rawChallenge = challenge;
         self.managedObjectContext = context;

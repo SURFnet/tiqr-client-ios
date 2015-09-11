@@ -51,7 +51,7 @@
 @synthesize PIN=PIN_;
 @synthesize responseData=responseData_;
 
-- (id)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge PIN:(NSString *)PIN {
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge PIN:(NSString *)PIN {
     self = [super init];
     if (self != nil) {
         self.challenge = challenge;
@@ -129,7 +129,7 @@
 - (void)enrollmentConfirmationRequestDidFinish:(EnrollmentConfirmationRequest *)request {
 	[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];    
     
-    self.challenge.identity.blocked = [NSNumber numberWithBool:NO];
+    self.challenge.identity.blocked = @NO;
     [self.managedObjectContext save:nil];
     
     EnrollmentSummaryViewController *viewController = [[EnrollmentSummaryViewController alloc] initWithEnrollmentChallenge:self.challenge];

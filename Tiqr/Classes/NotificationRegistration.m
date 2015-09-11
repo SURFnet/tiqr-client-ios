@@ -50,7 +50,7 @@ static NotificationRegistration *sharedInstance = nil;
 
 - (void)sendRequestWithDeviceToken:(NSData *)deviceToken {
 	NSString *escapedDeviceToken = [deviceToken hexStringValue];
-	NSString *escapedLanguage = [[[NSLocale preferredLanguages] objectAtIndex:0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *escapedLanguage = [[NSLocale preferredLanguages][0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *escapedNotificationToken = [self.notificationToken stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	
 	NSString *body;

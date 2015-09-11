@@ -51,7 +51,7 @@
 @synthesize deleteButton=deleteButton_;
 
 
-- (id)initWithIdentity:(Identity *)identity {
+- (instancetype)initWithIdentity:(Identity *)identity {
     self = [super initWithNibName:@"IdentityEditView" bundle:nil];
     if (self != nil) {
         self.identity = identity;

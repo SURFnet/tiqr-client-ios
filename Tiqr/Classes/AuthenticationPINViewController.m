@@ -52,7 +52,7 @@
 @synthesize challenge=challenge_;
 @synthesize response=response_;
 
-- (id)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
     self = [super init];
     if (self != nil) {
         self.challenge = challenge;
@@ -108,14 +108,14 @@
             break;
         }
         case TIQRACRAccountBlockedError: {
-            self.challenge.identity.blocked = [NSNumber numberWithBool:YES];
+            self.challenge.identity.blocked = @YES;
             [self.managedObjectContext save:nil];
             UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
             [self.navigationController pushViewController:viewController animated:YES];
             break;
         }            
         case TIQRACRInvalidResponseError: {
-            NSNumber *attemptsLeft = [[error userInfo] objectForKey:TIQRACRAttemptsLeftErrorKey];
+            NSNumber *attemptsLeft = [error userInfo][TIQRACRAttemptsLeftErrorKey];
             if (attemptsLeft != nil && [attemptsLeft intValue] == 0) {
                 [Identity blockAllIdentitiesInManagedObjectContext:self.managedObjectContext];
                 [self.managedObjectContext save:nil];

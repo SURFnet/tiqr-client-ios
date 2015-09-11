@@ -66,7 +66,7 @@
  *
  * @return view controller instance
  */
-- (id)init;
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
 
 /**
  * Shows the user an error with the given title and message.

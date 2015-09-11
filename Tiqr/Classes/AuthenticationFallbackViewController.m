@@ -62,7 +62,7 @@
 @synthesize unverifiedPinLabel=unverifiedPinLabel_;
 @synthesize retryLabel=retryLabel_;
 
-- (id)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response {
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response {
     self = [super initWithNibName:@"AuthenticationFallbackView" bundle:nil];   
 	if (self != nil) {
 		self.challenge = challenge;

@@ -29,7 +29,7 @@
 
 #import "AuthenticationChallenge.h"
 
-typedef enum {
+typedef NS_ENUM(unsigned int, AuthenticationChallengeResponseCode) {
     AuthenticationChallengeResponseCodeSuccess = 1,
     AuthenticationChallengeResponseCodeFailure = 200,
     AuthenticationChallengeResponseCodeInvalidUsernamePasswordPin = 201,
@@ -37,7 +37,7 @@ typedef enum {
     AuthenticationChallengeResponseCodeInvalidChallenge = 203,
     AuthenticationChallengeResponseCodeAccountBlocked = 204,
     AuthenticationChallengeResponseCodeInvalidRequest = 202,
-} AuthenticationChallengeResponseCode;
+};
 
 /**
  * Error domain.
@@ -78,7 +78,7 @@ enum {
 
 @property (nonatomic, weak) id<AuthenticationConfirmationRequestDelegate> delegate;
 
-- (id)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response;
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response NS_DESIGNATED_INITIALIZER;
 - (void)send;
 
 @end

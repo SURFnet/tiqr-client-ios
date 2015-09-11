@@ -48,7 +48,7 @@
 @synthesize interactionDesignLabel=interactionDesignLabel_;
 @synthesize okButton=okButton_;
 
-- (id)init {
+- (instancetype)init {
     
     self = [super init];
     if (self != nil) {

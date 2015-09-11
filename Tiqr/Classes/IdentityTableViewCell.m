@@ -40,7 +40,7 @@
 
 @synthesize blockedLabel=blockedLabel_;
 
-- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier {
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {
 		self.imageView.contentMode = UIViewContentModeScaleAspectFit;

@@ -49,7 +49,7 @@
 
 - (BOOL)handleAuthenticationChallenge:(NSString *)rawChallenge;
 - (BOOL)handleEnrollmentChallenge:(NSString *)rawChallenge;
-- (NSURL *)applicationDocumentsDirectory;
+@property (nonatomic, readonly, copy) NSURL *applicationDocumentsDirectory;
 - (void)saveContext;
 
 @end
@@ -121,7 +121,7 @@
     if (allIdentitiesBlocked || showInstructions) {
         [self.navigationController popToRootViewControllerAnimated:animated];
     } else {
-        UIViewController *scanViewController = [self.navigationController.viewControllers objectAtIndex:1];
+        UIViewController *scanViewController = self.navigationController.viewControllers[1];
         [self.navigationController popToViewController:scanViewController animated:animated];
     }
 }
@@ -142,7 +142,7 @@
 #pragma mark Authentication / enrollment challenge
 
 - (BOOL)handleAuthenticationChallenge:(NSString *)rawChallenge {
-    UIViewController *firstViewController = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count] > 1 ? 1 : 0];
+    UIViewController *firstViewController = self.navigationController.viewControllers[[self.navigationController.viewControllers count] > 1 ? 1 : 0];
     [self.navigationController popToViewController:firstViewController animated:NO];
 	
 	AuthenticationChallenge *challenge = [[AuthenticationChallenge alloc] initWithRawChallenge:rawChallenge managedObjectContext:self.managedObjectContext];
@@ -167,7 +167,7 @@
 }
 
 - (BOOL)handleEnrollmentChallenge:(NSString *)rawChallenge {
-    UIViewController *firstViewController = [self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count] > 1 ? 1 : 0];
+    UIViewController *firstViewController = self.navigationController.viewControllers[[self.navigationController.viewControllers count] > 1 ? 1 : 0];
     [self.navigationController popToViewController:firstViewController animated:NO];
     
 	EnrollmentChallenge *challenge = [[EnrollmentChallenge alloc] initWithRawChallenge:rawChallenge managedObjectContext:self.managedObjectContext];
@@ -269,9 +269,8 @@
     
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Tiqr.sqlite"];
     
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
-                             [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];    
+    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES,
+                             NSInferMappingModelAutomaticallyOption: @YES};    
     
     NSError *error = nil;
     persistentStoreCoordinator_ = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];

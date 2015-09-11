@@ -51,7 +51,7 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 @synthesize returnUrl=returnUrl_;
 @synthesize allowFiles=allowFiles_;
 
-- (id)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context allowFiles:(BOOL)allowFiles {
+- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context allowFiles:(BOOL)allowFiles {
     self = [super initWithRawChallenge:challenge managedObjectContext:context autoParse:NO];
     if (self != nil) {
         self.allowFiles = allowFiles;
@@ -61,7 +61,7 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 	return self;
 }
 
-- (id)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context {
+- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context {
     return [self initWithRawChallenge:challenge managedObjectContext:context allowFiles:NO];
 }
 
@@ -85,7 +85,7 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 }
 
 - (BOOL)assignIdentityProviderMetadata:(NSDictionary *)metadata {
-	self.identityProviderIdentifier = [[metadata objectForKey:@"identifier"] description];
+	self.identityProviderIdentifier = [metadata[@"identifier"] description];
 	self.identityProvider = [IdentityProvider findIdentityProviderWithIdentifier:self.identityProviderIdentifier inManagedObjectContext:self.managedObjectContext];
 
 	if (self.identityProvider != nil) {
@@ -94,21 +94,21 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
         self.identityProviderOcraSuite = self.identityProvider.ocraSuite;
 		self.identityProviderLogo = self.identityProvider.logo;
 	} else {
-		NSURL *logoUrl = [NSURL URLWithString:[[metadata objectForKey:@"logoUrl"] description]];		
+		NSURL *logoUrl = [NSURL URLWithString:[metadata[@"logoUrl"] description]];		
 		NSError *error = nil;		
 		NSData *logo = [self downloadSynchronously:logoUrl error:&error];
 		if (error != nil) {
             NSString *errorTitle = NSLocalizedString(@"error_enroll_logo_error_title", @"No identity provider logo");
             NSString *errorMessage = NSLocalizedString(@"error_enroll_logo_error", @"No identity provider logo message");
-            NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, error, NSUnderlyingErrorKey, nil];
+            NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage, NSUnderlyingErrorKey: error};
             self.error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECIdentityProviderLogoError userInfo:details];        
 			return NO;
 		}
 		
-		self.identityProviderDisplayName =  [[metadata objectForKey:@"displayName"] description];
-		self.identityProviderAuthenticationUrl = [[metadata objectForKey:@"authenticationUrl"] description];	
-		self.identityProviderInfoUrl = [[metadata objectForKey:@"infoUrl"] description];        
-        self.identityProviderOcraSuite = [[metadata objectForKey:@"ocraSuite"] description];
+		self.identityProviderDisplayName =  [metadata[@"displayName"] description];
+		self.identityProviderAuthenticationUrl = [metadata[@"authenticationUrl"] description];	
+		self.identityProviderInfoUrl = [metadata[@"infoUrl"] description];        
+        self.identityProviderOcraSuite = [metadata[@"ocraSuite"] description];
 		self.identityProviderLogo = logo;
 	}	
 	
@@ -116,8 +116,8 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 }
 
 - (BOOL)assignIdentityMetadata:(NSDictionary *)metadata {
-	self.identityIdentifier = [[metadata objectForKey:@"identifier"] description];
-	self.identityDisplayName = [[metadata objectForKey:@"displayName"] description];
+	self.identityIdentifier = [metadata[@"identifier"] description];
+	self.identityDisplayName = [metadata[@"displayName"] description];
 	self.identitySecret = nil;
 	
 	if (self.identityProvider != nil) {
@@ -127,7 +127,7 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
         } else if (identity != nil) {
             NSString *errorTitle = NSLocalizedString(@"error_enroll_already_enrolled_title", @"Account already activated");
             NSString *errorMessage = [NSString stringWithFormat:NSLocalizedString(@"error_enroll_already_enrolled", @"Account already activated message"), self.identityDisplayName, self.identityProviderDisplayName];
-            NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, nil];
+            NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
             self.error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECAccountAlreadyExistsError userInfo:details];        
 			return NO;			
 		}
@@ -142,7 +142,7 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
     if (fullURL == nil || ![fullURL.scheme isEqualToString:scheme]) {
         NSString *errorTitle = NSLocalizedString(@"error_enroll_invalid_qr_code", @"Invalid QR tag title");
         NSString *errorMessage = NSLocalizedString(@"error_enroll_invalid_response", @"Invalid QR tag message");
-        NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, nil];
+        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         self.error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECInvalidQRTagError userInfo:details];        
 		return;        
     }
@@ -151,7 +151,7 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
     if (url == nil) {
         NSString *errorTitle = NSLocalizedString(@"error_enroll_invalid_qr_code", @"Invalid QR tag title");
         NSString *errorMessage = NSLocalizedString(@"error_enroll_invalid_response", @"Invalid QR tag message");
-        NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, nil];
+        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         self.error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECInvalidQRTagError userInfo:details];        
 		return;        
     }
@@ -159,13 +159,13 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 	if (![url.scheme isEqualToString:@"http"] && ![url.scheme isEqualToString:@"https"] && ![url.scheme isEqualToString:@"file"]) {
         NSString *errorTitle = NSLocalizedString(@"error_enroll_invalid_qr_code", @"Invalid QR tag title");
         NSString *errorMessage = NSLocalizedString(@"error_enroll_invalid_response", @"Invalid QR tag message");
-        NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, nil];
+        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         self.error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECInvalidQRTagError userInfo:details];        
 		return;
 	} else if ([url.scheme isEqualToString:@"file"] && !self.allowFiles) {
         NSString *errorTitle = NSLocalizedString(@"error_enroll_invalid_qr_code", @"Invalid QR tag title");
         NSString *errorMessage = NSLocalizedString(@"error_enroll_invalid_response", @"Invalid QR tag message");
-        NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, nil];
+        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         self.error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECInvalidQRTagError userInfo:details];        
 		return;
 	}
@@ -176,7 +176,7 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 	if (error != nil) {
         NSString *errorTitle = NSLocalizedString(@"no_connection", @"No connection title");
         NSString *errorMessage = NSLocalizedString(@"internet_connection_required", @"You need an Internet connection to activate your account. Please try again later.");
-        NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, error, NSUnderlyingErrorKey, nil];
+        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage, NSUnderlyingErrorKey: error};
         self.error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECConnectionError userInfo:details];        
 		return;
 	}
@@ -195,17 +195,17 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 	if (metadata == nil || error != nil || ![self isValidMetadata:metadata]) {
         NSString *errorTitle = NSLocalizedString(@"error_enroll_invalid_response_title", @"Invalid response title");
         NSString *errorMessage = NSLocalizedString(@"error_enroll_invalid_response", @"Invalid response message");
-        NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, error, NSUnderlyingErrorKey, nil];
+        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage, NSUnderlyingErrorKey: error};
         self.error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECInvalidResponseError userInfo:details];        
 		return;        
 	}
 	
-	NSMutableDictionary *identityProviderMetadata = [NSMutableDictionary dictionaryWithDictionary:[metadata objectForKey:@"service"]];
+	NSMutableDictionary *identityProviderMetadata = [NSMutableDictionary dictionaryWithDictionary:metadata[@"service"]];
 	if (![self assignIdentityProviderMetadata:identityProviderMetadata]) {
 		return;
 	}
 
-	NSDictionary *identityMetadata = [metadata objectForKey:@"identity"];	
+	NSDictionary *identityMetadata = metadata[@"identity"];	
 	if (![self assignIdentityMetadata:identityMetadata]) {
 		return;
 	}
@@ -220,7 +220,7 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
     }
 	
 	self.returnUrl = nil; // TODO: support return URL url.query == nil || [url.query length] == 0 ? nil : url.query;	
-	self.enrollmentUrl = [[identityProviderMetadata objectForKey:@"enrollmentUrl"] description];
+	self.enrollmentUrl = [identityProviderMetadata[@"enrollmentUrl"] description];
 }
 
 

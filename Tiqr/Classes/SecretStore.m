@@ -39,16 +39,16 @@
 
 - (NSData *)loadFromKeychain {
 	NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
-	[query setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
-	[query setObject:self.identityProviderIdentifier forKey:(__bridge id)kSecAttrService];
-	[query setObject:self.identityIdentifier forKey:(__bridge id)kSecAttrAccount];		
-	[query setObject:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
-    [query setObject:(id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];	
-	[query setObject:(id)kCFBooleanTrue forKey:(__bridge id)kSecReturnAttributes];
+	query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+	query[(__bridge id)kSecAttrService] = self.identityProviderIdentifier;
+	query[(__bridge id)kSecAttrAccount] = self.identityIdentifier;		
+	query[(__bridge id)kSecMatchLimit] = (__bridge id)kSecMatchLimitOne;
+    query[(__bridge id)kSecReturnData] = (id)kCFBooleanTrue;	
+	query[(__bridge id)kSecReturnAttributes] = (id)kCFBooleanTrue;
 	
     CFDictionaryRef result;
 	if (SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result) == noErr) {
-		return (NSData *)[(__bridge NSDictionary*)result objectForKey:(__bridge id)kSecValueData];
+		return (NSData *)((__bridge NSDictionary*)result)[(__bridge id)kSecValueData];
 	} else {
 		return nil;
 	}
@@ -56,11 +56,11 @@
 
 - (BOOL)addToKeychain {
 	NSMutableDictionary *data = [[NSMutableDictionary alloc] init];	
-	[data setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
-	[data setObject:self.identityProviderIdentifier forKey:(__bridge id)kSecAttrService];
-	[data setObject:self.identityIdentifier forKey:(__bridge id)kSecAttrAccount];		
-    [data setObject:encryptedSecret_ forKey:(__bridge id)kSecValueData];	
-	[data setObject:(__bridge id)kSecAttrAccessibleWhenUnlocked forKey:(__bridge id)kSecAttrAccessible];
+	data[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+	data[(__bridge id)kSecAttrService] = self.identityProviderIdentifier;
+	data[(__bridge id)kSecAttrAccount] = self.identityIdentifier;		
+    data[(__bridge id)kSecValueData] = encryptedSecret_;	
+	data[(__bridge id)kSecAttrAccessible] = (__bridge id)kSecAttrAccessibleWhenUnlocked;
 
     CFDictionaryRef result;
 	return SecItemAdd((__bridge CFDictionaryRef)data, (CFTypeRef *)&result) == noErr;
@@ -68,12 +68,12 @@
 
 - (BOOL)updateInKeychain {
 	NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
-	[query setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
-	[query setObject:self.identityProviderIdentifier forKey:(__bridge id)kSecAttrService];
-	[query setObject:self.identityIdentifier forKey:(__bridge id)kSecAttrAccount];
+	query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+	query[(__bridge id)kSecAttrService] = self.identityProviderIdentifier;
+	query[(__bridge id)kSecAttrAccount] = self.identityIdentifier;
 	
 	NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
-	[data setObject:encryptedSecret_ forKey:(__bridge id)kSecValueData];
+	data[(__bridge id)kSecValueData] = encryptedSecret_;
 	
 	return SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)data) == noErr;
 }
@@ -88,14 +88,14 @@
 
 - (BOOL)deleteFromKeychain {
 	NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
-	[query setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
-	[query setObject:self.identityProviderIdentifier forKey:(__bridge id)kSecAttrService];
-	[query setObject:self.identityIdentifier forKey:(__bridge id)kSecAttrAccount];
+	query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+	query[(__bridge id)kSecAttrService] = self.identityProviderIdentifier;
+	query[(__bridge id)kSecAttrAccount] = self.identityIdentifier;
 	
 	return SecItemDelete((__bridge CFDictionaryRef)query) == noErr;
 }
 
-- (id)initWithIdentity:(NSString *)identityIdentifier identityProvider:(NSString *)identityProviderIdentifier {
+- (instancetype)initWithIdentity:(NSString *)identityIdentifier identityProvider:(NSString *)identityProviderIdentifier {
 	if ((self = [super init]) != nil) {
 		identityIdentifier_ = [identityIdentifier copy];
 		identityProviderIdentifier_ = [identityProviderIdentifier copy];

@@ -48,7 +48,7 @@
 @synthesize identityProviderLogoImageView=identityProviderLogoImageView_, identityDisplayNameLabel=identityDisplayNameLabel_, identityProviderDisplayNameLabel=identityProviderDisplayNameLabel_, enrollmentURLDomainLabel=enrollmentURLDomainLabel_;
 @synthesize confirmAccountLabel=confirmAccountLabel_,activateAccountLabel=activateAccountLabel_,enrollDomainLabel=enrollDomainLabel_,okButton=okButton_;
 
-- (id)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super initWithNibName:@"EnrollmentConfirmView" bundle:nil];
 	if (self != nil) {
 		self.challenge = challenge;

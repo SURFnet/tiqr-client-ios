@@ -51,7 +51,7 @@
 @synthesize returnButton=returnButton_;
 @synthesize accountReadyLabel=accountReadyLabel_,accountActivatedLabel=accountActivationLabel_,rememberPinLabel=rememberPinLabel_;
 
-- (id)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super initWithNibName:@"EnrollmentSummaryView" bundle:nil];
 	if (self != nil) {
 		self.challenge = challenge;

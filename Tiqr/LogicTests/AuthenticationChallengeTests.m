@@ -12,7 +12,7 @@
 @implementation AuthenticationChallengeTests
 
 - (NSManagedObjectModel *)managedObjectModel {
-    NSArray *bundles = [NSArray arrayWithObject:[NSBundle bundleForClass:[self class]]];
+    NSArray *bundles = @[[NSBundle bundleForClass:[self class]]];
     return [NSManagedObjectModel mergedModelFromBundles:bundles];
 }
 
@@ -47,13 +47,13 @@
     identity1.identityProvider = service1;
     identity1.identifier = @"john.doe";
     identity1.displayName = @"John Doe";
-    identity1.sortIndex = [NSNumber numberWithInt:1];
+    identity1.sortIndex = @1;
     
     Identity *identity2 = [NSEntityDescription insertNewObjectForEntityForName:@"Identity" inManagedObjectContext:managedObjectContext_];
     identity2.identityProvider = service1;
     identity2.identifier = @"jane.doe";
     identity2.displayName = @"Jane Doe";
-    identity2.sortIndex = [NSNumber numberWithInt:2];
+    identity2.sortIndex = @2;
     
     IdentityProvider *service2 = [NSEntityDescription insertNewObjectForEntityForName:@"IdentityProvider" inManagedObjectContext:managedObjectContext_];
     service2.identifier = @"two.example.org";
@@ -64,7 +64,7 @@
     identity3.identityProvider = service2;
     identity3.identifier = @"john.doe";
     identity3.displayName = @"John Doe";
-    identity3.sortIndex = [NSNumber numberWithInt:3];
+    identity3.sortIndex = @3;
 
     IdentityProvider *service3 = [NSEntityDescription insertNewObjectForEntityForName:@"IdentityProvider" inManagedObjectContext:managedObjectContext_];
     service3.identifier = @"three.example.org";

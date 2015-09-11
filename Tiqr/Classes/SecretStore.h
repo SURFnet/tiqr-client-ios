@@ -94,13 +94,13 @@
  *
  * @return whatever storing the secret was successful or not
  */
-- (BOOL)storeInKeychain;
+@property (nonatomic, readonly) BOOL storeInKeychain;
 
 /**
  * Delets the secret for this identity from the Keychain.
  *
  * @return whatever deleting the secret was successful or not
  */
-- (BOOL)deleteFromKeychain;
+@property (nonatomic, readonly) BOOL deleteFromKeychain;
 
 @end
