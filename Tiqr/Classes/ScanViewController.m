@@ -21,9 +21,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "ScanViewController.h"
 #import "ScanViewController-Protected.h"
-#import "TwoDDecoderResult.h"
-#import "QRCodeReader.h"
-#import "Decoder.h"
 #import "AuthenticationChallenge.h"
 #import "EnrollmentChallenge.h"
 #import "AuthenticationIdentityViewController.h"
@@ -35,7 +32,7 @@
 #import "ErrorViewController.h"
 #import "MBProgressHUD.h"
 
-@interface ScanViewController () <AVAudioPlayerDelegate>
+@interface ScanViewController () <AVAudioPlayerDelegate, AVCaptureMetadataOutputObjectsDelegate>
 
 #if HAS_AVFF
 @property (nonatomic, retain) AVCaptureSession *captureSession;
@@ -151,22 +148,20 @@
 #pragma mark -
 #pragma mark Decoder delegates
 
-- (void)decoder:(Decoder *)decoder willDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset {
-    
-}
-
-- (void)decoder:(Decoder *)decoder decodingImage:(UIImage *)image usingSubset:(UIImage *)subset {
-    
-}
-
-- (void)decoder:(Decoder *)decoder didDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset withResult:(TwoDDecoderResult *)twoDResult {
-    decoder.delegate = nil;
+- (void)processMetadataObject:(AVMetadataMachineReadableCodeObject *)metadataObject {
     
     #ifdef HAS_AVFF
     [self.captureSession stopRunning];    
     #endif
     
-    self.overlayView.points = [twoDResult points];
+    NSMutableArray *points = [NSMutableArray array];
+    for (NSDictionary *corner in metadataObject.corners)  {
+        CGPoint point;
+        CGPointMakeWithDictionaryRepresentation((CFDictionaryRef)corner, &point);
+        [points addObject:[NSValue valueWithCGPoint:point]];
+    }
+    
+    self.overlayView.points = points;
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationBeginsFromCurrentState:YES];    
@@ -175,7 +170,7 @@
     [UIView commitAnimations];
     
     // now, in a selector, call the delegate to give this overlay time to show the points
-    [self performSelector:@selector(didScanResult:) withObject:[twoDResult text] afterDelay:1.0];
+    [self performSelector:@selector(didScanResult:) withObject:metadataObject.stringValue afterDelay:1.0];
     [self setMixableAudioShouldDuckActive:YES];
 	[self.audioPlayer play];    
 }
@@ -184,35 +179,23 @@
     [self processChallenge:result];
 }
 
-- (void)decoder:(Decoder *)decoder failedToDecodeImage:(UIImage *)image usingSubset:(UIImage *)subset reason:(NSString *)reason {
-    decoder.delegate = nil;
-    self.overlayView.points = nil;
-}
-
-- (void)decoder:(Decoder *)decoder foundPossibleResultPoint:(CGPoint)point {
-    [self.overlayView addPoint:point];
-}
-
 #pragma mark - 
 #pragma mark AVFoundation
 
 - (void)initCapture {
     #if HAS_AVFF
+    self.captureSession = [[AVCaptureSession alloc] init];
+    self.captureSession.sessionPreset = AVCaptureSessionPresetMedium;
+    
     AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     AVCaptureDeviceInput *captureInput = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:nil];
-    
-    AVCaptureVideoDataOutput *captureOutput = [[AVCaptureVideoDataOutput alloc] init];
-    captureOutput.alwaysDiscardsLateVideoFrames = YES; 
-    [captureOutput setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
-    NSString *key = (NSString *)kCVPixelBufferPixelFormatTypeKey; 
-    NSNumber *value = [NSNumber numberWithUnsignedInt:kCVPixelFormatType_32BGRA]; 
-    NSDictionary *videoSettings = [NSDictionary dictionaryWithObject:value forKey:key]; 
-    [captureOutput setVideoSettings:videoSettings]; 
-    
-    self.captureSession = [[AVCaptureSession alloc] init];
-    self.captureSession.sessionPreset = AVCaptureSessionPresetMedium; // 480x360 on a 4
     [self.captureSession addInput:captureInput];
+    
+    AVCaptureMetadataOutput *captureOutput = [[AVCaptureMetadataOutput alloc] init];
     [self.captureSession addOutput:captureOutput];
+    
+    [captureOutput setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+    captureOutput.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
     
     self.previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
     self.previewLayer.frame = self.view.bounds;
@@ -224,69 +207,13 @@
 }
 
 #if HAS_AVFF
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection { 
-    if (!self.isDecoding) {
-        return;
+-(void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection{
+    if ([metadataObjects count] > 0) {
+        AVMetadataMachineReadableCodeObject *metadataObject = [metadataObjects objectAtIndex:0];
+        AVMetadataMachineReadableCodeObject *transformedMetadataObject = (AVMetadataMachineReadableCodeObject *)[self.previewLayer transformedMetadataObjectForMetadataObject:metadataObject];
+        [self processMetadataObject:transformedMetadataObject];
     }
-
-    CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer); 
-    CVPixelBufferLockBaseAddress(imageBuffer, 0); 
-    
-    size_t bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer); 
-    size_t width = CVPixelBufferGetWidth(imageBuffer); 
-    size_t height = CVPixelBufferGetHeight(imageBuffer); 
-    
-    uint8_t *baseAddress = (uint8_t *)CVPixelBufferGetBaseAddress(imageBuffer); 
-    void *freeMe = 0;
-    
-    if (true) { // iOS bug?
-        uint8_t *tmp = baseAddress;
-        int bytes = bytesPerRow * height;
-        freeMe = baseAddress = (uint8_t *)malloc(bytes);
-        baseAddress[0] = 0xdb;
-        memcpy(baseAddress, tmp, bytes);
-    }
-    
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB(); 
-    CGContextRef newContext = CGBitmapContextCreate(baseAddress, width, height, 8, bytesPerRow, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaNoneSkipFirst); 
-    
-    CGImageRef capture = CGBitmapContextCreateImage(newContext); 
-    CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
-    free(freeMe);
-    
-    CGContextRelease(newContext); 
-    CGColorSpaceRelease(colorSpace);
-    
-    CGRect cropRect = [self.overlayView cropRect];
-    
-    // Won't work if the overlay becomes uncentered ...
-    // iOS always takes videos in landscape
-    // images are always 4x3; device is not
-    // iOS uses virtual pixels for non-image stuff
-    //
-    // TODO improve crop calculation / coordinate stuff
-    {
-        CGFloat height = CGImageGetHeight(capture);
-        CGFloat width = CGImageGetWidth(capture);
-        
-        cropRect.origin.x = (width - cropRect.size.width) / 2; // TODO: hardcoded - 20.0;
-        cropRect.origin.y = (height - cropRect.size.height) / 2;
-              
-    }
-    
-    CGImageRef newImage = CGImageCreateWithImageInRect(capture, cropRect);
-    CGImageRelease(capture);
-    UIImage *screen = [[UIImage alloc] initWithCGImage:newImage];
-    CGImageRelease(newImage);
-    
-    QRCodeReader *qrCodeReader = [[QRCodeReader alloc] init];
-    Decoder *decoder = [[Decoder alloc] init];
-    decoder.readers = [NSSet setWithObject:qrCodeReader];
-    decoder.delegate = self;
-    cropRect.origin.x = 0.0;
-    cropRect.origin.y = 0.0;
-    self.decoding = ![decoder decodeImage:screen cropRect:cropRect];
-} 
+}
 #endif
 
 - (void)stopCapture {

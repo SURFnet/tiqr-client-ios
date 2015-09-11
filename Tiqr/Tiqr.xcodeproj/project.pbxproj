@@ -34,7 +34,6 @@
 		92B92DE6132E1DD0004F390D /* OCRA.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B92DE5132E1DCE004F390D /* OCRA.m */; };
 		92B92DE7132E34CD004F390D /* OCRAWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 922F08461289ABFE00A33616 /* OCRAWrapper.m */; };
 		92B92DE8132E34F0004F390D /* OCRA.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B92DE5132E1DCE004F390D /* OCRA.m */; };
-		C7B96C7516FAB642001EC65E /* libZXingWidget.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7B96C6C16FAB3C7001EC65E /* libZXingWidget.a */; };
 		C7B96C7816FAB6E7001EC65E /* OCRAWrapper_v1.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B96C7716FAB6E7001EC65E /* OCRAWrapper_v1.m */; };
 		C7B96C7B16FAB70F001EC65E /* OCRA_v1.m in Sources */ = {isa = PBXBuildFile; fileRef = C7B96C7A16FAB70F001EC65E /* OCRA_v1.m */; };
 		C7B96C7E16FB0C89001EC65E /* Identity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4B0A134B28D00045AF62 /* Identity.m */; };
@@ -77,7 +76,7 @@
 		D06F86C41331EE5600C2C6FF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D06F86C31331EE5600C2C6FF /* CoreData.framework */; };
 		D076CEFF134F31C000FE762A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D076CF00134F31C000FE762A /* MainWindow.xib */; };
 		D088C7DE130BC60F006DE593 /* SecretStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F51625129A7A6E0013CF3A /* SecretStore.m */; };
-		D08BC9681344F6AF00F8D75B /* ScanViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D08BC9671344F6AF00F8D75B /* ScanViewController.mm */; };
+		D08BC9681344F6AF00F8D75B /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D08BC9671344F6AF00F8D75B /* ScanViewController.m */; };
 		D08C03261296A6450002849A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08C03251296A6450002849A /* Security.framework */; };
 		D08F5B2612785EAD00C63A3E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08F5B2512785EAD00C63A3E /* AVFoundation.framework */; };
 		D08F5B3612785F5F00C63A3E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08F5B3512785F5F00C63A3E /* CoreMedia.framework */; };
@@ -116,30 +115,6 @@
 		D0F51626129A7A6E0013CF3A /* SecretStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F51625129A7A6E0013CF3A /* SecretStore.m */; };
 		D0FF34EA1309462C004096E1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0FF34E91309462C004096E1 /* Settings.bundle */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		C7B96C6B16FAB3C7001EC65E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D087B4FB1484EF20001E3545 /* ZXingWidget.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D2AAC07E0554694100DB518D;
-			remoteInfo = ZXingWidget;
-		};
-		C7B96C6D16FAB3C7001EC65E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D087B4FB1484EF20001E3545 /* ZXingWidget.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 1D60398D13DF7CAD006F4B51;
-			remoteInfo = ZXingTests;
-		};
-		C7B96C7116FAB639001EC65E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D087B4FB1484EF20001E3545 /* ZXingWidget.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = ZXingWidget;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -251,9 +226,8 @@
 		D06F86C31331EE5600C2C6FF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D076CF00134F31C000FE762A /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		D076CF2D134F5FD000FE762A /* StartViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StartViewController-Protected.h"; sourceTree = "<group>"; };
-		D087B4FB1484EF20001E3545 /* ZXingWidget.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ZXingWidget.xcodeproj; path = ../ZXing/iphone/ZXingWidget/ZXingWidget.xcodeproj; sourceTree = "<group>"; };
 		D08BC9661344F6AF00F8D75B /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
-		D08BC9671344F6AF00F8D75B /* ScanViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ScanViewController.mm; sourceTree = "<group>"; };
+		D08BC9671344F6AF00F8D75B /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
 		D08BC96C134524AA00F8D75B /* ScanViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ScanViewController-Protected.h"; sourceTree = "<group>"; };
 		D08C03251296A6450002849A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D08F5B2512785EAD00C63A3E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -323,7 +297,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C7B96C7516FAB642001EC65E /* libZXingWidget.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -384,7 +357,6 @@
 			isa = PBXGroup;
 			children = (
 				9264034616C92C360032A4FE /* Default-568h@2x.png */,
-				D087B4FB1484EF20001E3545 /* ZXingWidget.xcodeproj */,
 				D016F8A31338C83C00B997D9 /* External */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				D028BF8313092834002EA560 /* Resources */,
@@ -441,15 +413,6 @@
 				D0BE4AFC134B0A570045AF62 /* NSString+Verhoeff.m */,
 			);
 			name = Algorithms;
-			sourceTree = "<group>";
-		};
-		C7B96C6716FAB3C7001EC65E /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C7B96C6C16FAB3C7001EC65E /* libZXingWidget.a */,
-				C7B96C6E16FAB3C7001EC65E /* ZXingTests.octest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		D002E01A1349CE2A00071321 /* Common */ = {
@@ -620,7 +583,7 @@
 			children = (
 				D08BC9661344F6AF00F8D75B /* ScanViewController.h */,
 				D08BC96C134524AA00F8D75B /* ScanViewController-Protected.h */,
-				D08BC9671344F6AF00F8D75B /* ScanViewController.mm */,
+				D08BC9671344F6AF00F8D75B /* ScanViewController.m */,
 				D0240CBB127EF62700EB07AD /* ScanOverlayView.h */,
 				D0240CBC127EF62700EB07AD /* ScanOverlayView.m */,
 			);
@@ -866,7 +829,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				C7B96C7216FAB639001EC65E /* PBXTargetDependency */,
 			);
 			name = Tiqr;
 			productName = MobileAuth;
@@ -925,12 +887,6 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* MobileAuth */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = C7B96C6716FAB3C7001EC65E /* Products */;
-					ProjectRef = D087B4FB1484EF20001E3545 /* ZXingWidget.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* Tiqr */,
@@ -938,23 +894,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		C7B96C6C16FAB3C7001EC65E /* libZXingWidget.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libZXingWidget.a;
-			remoteRef = C7B96C6B16FAB3C7001EC65E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C7B96C6E16FAB3C7001EC65E /* ZXingTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ZXingTests.octest;
-			remoteRef = C7B96C6D16FAB3C7001EC65E /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1D60588D0D05DD3D006BFB54 /* Resources */ = {
@@ -1059,7 +998,7 @@
 				D011A5271340CC3000E571A2 /* EnrollmentConfirmationRequest.m in Sources */,
 				D011A5311340DA7900E571A2 /* AuthenticationSummaryViewController.m in Sources */,
 				D011A5341340FEC600E571A2 /* AuthenticationConfirmationRequest.m in Sources */,
-				D08BC9681344F6AF00F8D75B /* ScanViewController.mm in Sources */,
+				D08BC9681344F6AF00F8D75B /* ScanViewController.m in Sources */,
 				D002E0201349D29A00071321 /* ErrorController.m in Sources */,
 				D0E58D671349FB4300A79052 /* FooterController.m in Sources */,
 				D0E58D70134A149C00A79052 /* IdentityEditViewController.m in Sources */,
@@ -1096,14 +1035,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		C7B96C7216FAB639001EC65E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ZXingWidget;
-			targetProxy = C7B96C7116FAB639001EC65E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D025994613095F9B00F1DF9A /* Localizable.strings */ = {
