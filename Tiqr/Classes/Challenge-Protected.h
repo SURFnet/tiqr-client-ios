@@ -31,7 +31,7 @@
 
 @interface Challenge ()
 
-@property(nonatomic, retain) NSError *error;
+@property(nonatomic, strong) NSError *error;
 
 - (NSString *)decodeURL:(NSString *)url;
 

@@ -130,8 +130,7 @@
 }
 
 - (void)setPoints:(NSArray *)points {
-    [points_ release];
-    points_ = [points retain];
+    points_ = points;
     [self setNeedsDisplay];
 }
 
@@ -150,7 +149,6 @@
 
 - (void)dealloc {
     self.points = nil;
-    [super dealloc];
 }
 
 @end

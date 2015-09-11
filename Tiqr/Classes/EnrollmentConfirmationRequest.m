@@ -36,8 +36,8 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
 
 @interface EnrollmentConfirmationRequest ()
 
-@property (nonatomic, retain) EnrollmentChallenge *challenge;
-@property (nonatomic, retain) NSMutableData *data;
+@property (nonatomic, strong) EnrollmentChallenge *challenge;
+@property (nonatomic, strong) NSMutableData *data;
 @property (nonatomic, copy) NSString *protocolVersion;
 
 @end
@@ -96,7 +96,6 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)connectionError {
-    [connection release];
     self.data = nil;
     
     NSString *title = NSLocalizedString(@"no_connection", @"No connection error title");
@@ -161,10 +160,8 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
             [self.delegate enrollmentConfirmationRequest:self didFailWithError:error];
         }
         
-        [response release];
     }
     
-    [connection release];
 }
 
 @end

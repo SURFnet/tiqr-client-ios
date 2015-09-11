@@ -45,7 +45,7 @@ static const int powers10[] = { 10, 100, 1000, 10000, 100000, 1000000, 10000000,
 #define MAX_DIGITS_16   8
 
 + (HOTP *)hotpWithKey:(NSData *)key counter:(NSUInteger)counter numDigits:(int)digits {
-    HOTP *hotp = [[[HOTP alloc] init] autorelease];
+    HOTP *hotp = [[HOTP alloc] init];
     hotp.key = key;
     hotp.counter = counter;
     if (digits < 1)
@@ -91,10 +91,9 @@ static const int powers10[] = { 10, 100, 1000, 10000, 100000, 1000000, 10000000,
 }
 
 - (void)dealloc {
-    [self.key release];
-    [self.dec release];
-    [self.hex release];
-    [super dealloc];
+    self.key;
+    self.dec;
+    self.hex;
 }
 
 @end

@@ -69,11 +69,5 @@
     self.messageLabel.text = message;
 }
 
-- (void)dealloc {
-    self.view = nil;
-    self.titleLabel = nil;
-    self.messageLabel = nil;
-    [super dealloc];
-}
 
 @end

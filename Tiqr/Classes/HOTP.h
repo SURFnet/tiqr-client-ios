@@ -38,11 +38,11 @@
     NSString *hex;
 }
 
-@property (nonatomic, retain) NSData *key;
+@property (nonatomic, strong) NSData *key;
 @property (nonatomic) NSUInteger counter;
 @property (nonatomic) int numDigits;
-@property (nonatomic, retain) NSString *dec;
-@property (nonatomic, retain) NSString *hex;
+@property (nonatomic, strong) NSString *dec;
+@property (nonatomic, strong) NSString *hex;
 
 + (HOTP *)hotpWithKey:(NSData *)key counter:(NSUInteger)counter numDigits:(int)digits;
 - (void)computePassword;

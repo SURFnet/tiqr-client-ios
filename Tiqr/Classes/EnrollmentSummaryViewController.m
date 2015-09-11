@@ -34,11 +34,11 @@
 
 @interface EnrollmentSummaryViewController ()
 
-@property (nonatomic, retain) EnrollmentChallenge *challenge;
-@property (nonatomic, retain) FooterController *footerController;
-@property (nonatomic, retain) IBOutlet UILabel *accountActivatedLabel;
-@property (nonatomic, retain) IBOutlet UILabel *accountReadyLabel;
-@property (nonatomic, retain) IBOutlet UILabel *rememberPinLabel;
+@property (nonatomic, strong) EnrollmentChallenge *challenge;
+@property (nonatomic, strong) FooterController *footerController;
+@property (nonatomic, strong) IBOutlet UILabel *accountActivatedLabel;
+@property (nonatomic, strong) IBOutlet UILabel *accountReadyLabel;
+@property (nonatomic, strong) IBOutlet UILabel *rememberPinLabel;
 
 @end
 
@@ -55,7 +55,7 @@
     self = [super initWithNibName:@"EnrollmentSummaryView" bundle:nil];
 	if (self != nil) {
 		self.challenge = challenge;
-        self.footerController = [[[FooterController alloc] init] autorelease];
+        self.footerController = [[FooterController alloc] init];
 	}
 	
 	return self;
@@ -69,7 +69,7 @@
     self.rememberPinLabel.text = NSLocalizedString(@"remember_pincode_notice", @"Remember your PIN, it cannot be changed!");
     
     self.title = NSLocalizedString(@"account_activation_title", @"Account activation title");
-    UIBarButtonItem *backButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)] autorelease];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
     self.navigationItem.leftBarButtonItem = backButton;
     
     self.identityProviderLogoImageView.image = [[UIImage alloc] initWithData:self.challenge.identityProviderLogo];
@@ -116,11 +116,7 @@
 - (void)dealloc {
     [self resetOutlets];
     
-    self.challenge = nil;
-    self.footerController = nil;
-    self.managedObjectContext = nil;
     
-    [super dealloc];	
 }
 
 @end

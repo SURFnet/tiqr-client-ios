@@ -33,7 +33,7 @@
 @interface Challenge ()
 
 @property (nonatomic, copy) NSString *rawChallenge;
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @end
 
@@ -71,11 +71,5 @@
     return self.error == nil;
 }
 
-- (void)dealloc {
-    self.managedObjectContext = nil;
-    self.rawChallenge = nil;
-    self.error = nil;
-    [super dealloc];
-}
 
 @end

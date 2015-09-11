@@ -37,9 +37,9 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
 
 @interface AuthenticationConfirmationRequest ()
 
-@property (nonatomic, retain) AuthenticationChallenge *challenge;
+@property (nonatomic, strong) AuthenticationChallenge *challenge;
 @property (nonatomic, copy) NSString *response;
-@property (nonatomic, retain) NSMutableData *data;
+@property (nonatomic, strong) NSMutableData *data;
 @property (nonatomic, copy) NSString *protocolVersion;
 
 @end
@@ -77,7 +77,6 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)connectionError {
-    [connection release];
     self.data = nil;
     
     NSString *title = NSLocalizedString(@"no_connection", @"No connection error title");
@@ -217,10 +216,8 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
             NSError *error = [NSError errorWithDomain:TIQRACRErrorDomain code:code userInfo:details];
             [self.delegate authenticationConfirmationRequest:self didFailWithError:error];
         }
-        [response release];
     }
     
-    [connection release];
 }
 
 - (void)send {
@@ -246,11 +243,5 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
 	[[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
-- (void)dealloc {
-    self.challenge = nil;
-    self.response = nil;
-    self.data = nil;
-    [super dealloc];
-}
 
 @end

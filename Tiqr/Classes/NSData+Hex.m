@@ -38,7 +38,7 @@
 		[stringBuffer appendFormat:@"%02lX", (unsigned long)dataBuffer[i]];
 	}
 	
-	return [[stringBuffer copy] autorelease];	
+	return [stringBuffer copy];
 }
 
 @end

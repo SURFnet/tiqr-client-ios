@@ -42,11 +42,11 @@
 @property (nonatomic, retain) AVCaptureVideoPreviewLayer *previewLayer;
 #endif
 
-@property (nonatomic, retain) AVAudioPlayer *audioPlayer;
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @property (nonatomic, assign, getter=isDecoding) BOOL decoding;
-@property (nonatomic, retain) UIBarButtonItem *identitiesButtonItem;
+@property (nonatomic, strong) UIBarButtonItem *identitiesButtonItem;
 
-@property (nonatomic, retain) IBOutlet UILabel *instructionLabel;
+@property (nonatomic, strong) IBOutlet UILabel *instructionLabel;
 
 - (void)initCapture;
 - (void)stopCapture;
@@ -82,11 +82,11 @@
 		NSURL *fileURL = [NSURL fileURLWithPath:filePath isDirectory:NO];
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
         
-		self.audioPlayer = [[[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil] autorelease];
+		self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
 		[self.audioPlayer prepareToPlay];  
         self.audioPlayer.delegate = self;
         
-        self.identitiesButtonItem = [[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"identities"] style:UIBarButtonItemStyleBordered target:self action:@selector(listIdentities)] autorelease];
+        self.identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"identities"] style:UIBarButtonItemStyleBordered target:self action:@selector(listIdentities)];
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
     }
     
@@ -330,7 +330,6 @@
     
     [self.navigationController pushViewController:viewController animated:YES];
     
-    [viewController release];
 }
 
 - (void)processChallenge:(NSString *)scanResult {
@@ -368,7 +367,6 @@
             } else {
                 ErrorViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:errorTitle errorMessage:errorMessage];
                 [self.navigationController pushViewController:viewController animated:YES];
-                [viewController release];
             }            
 		});
 	});    
@@ -378,7 +376,6 @@
     IdentityListViewController *viewController = [[IdentityListViewController alloc] init];
     viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
-    [viewController release];
 }
 
 - (void)showInstructions {
@@ -407,11 +404,7 @@
     
     [self resetOutlets];
     
-    self.managedObjectContext = nil;
-    self.audioPlayer = nil;
-    self.identitiesButtonItem = nil;
     
-    [super dealloc];
 }
 
 @end

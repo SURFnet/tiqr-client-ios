@@ -61,7 +61,7 @@ enum {
     
 }
 
-@property (nonatomic, assign) id<EnrollmentConfirmationRequestDelegate> delegate;
+@property (nonatomic, weak) id<EnrollmentConfirmationRequestDelegate> delegate;
 
 - (id)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge;
 - (void)send;

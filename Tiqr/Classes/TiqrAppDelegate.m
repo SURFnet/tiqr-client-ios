@@ -43,9 +43,9 @@
 
 @interface TiqrAppDelegate ()
 
-@property (nonatomic, retain, readwrite) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain, readwrite) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic, retain, readwrite) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong, readwrite) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, readwrite) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong, readwrite) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 - (BOOL)handleAuthenticationChallenge:(NSString *)rawChallenge;
 - (BOOL)handleEnrollmentChallenge:(NSString *)rawChallenge;
@@ -80,7 +80,6 @@
 		ScanViewController *scanViewController = [[ScanViewController alloc] init];   
         scanViewController.managedObjectContext = self.managedObjectContext;
         [self.navigationController pushViewController:scanViewController animated:NO];
-        [scanViewController release];
     }
 
     [self.window setRootViewController:self.navigationController];
@@ -152,7 +151,6 @@
         NSString *title = NSLocalizedString(@"login_title", @"Login navigation title");        
         ErrorViewController *viewController = [[ErrorViewController alloc] initWithTitle:title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
         [self.navigationController pushViewController:viewController animated:NO];
-        [viewController release];
 		return NO;
 	}
 	
@@ -178,7 +176,6 @@
         NSString *title = NSLocalizedString(@"enrollment_confirmation_header_title", @"Account activation title");        
         ErrorViewController *viewController = [[ErrorViewController alloc] initWithTitle:title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
         [self.navigationController pushViewController:viewController animated:NO];
-        [viewController release];
 		return NO;
 	}
 	
@@ -306,14 +303,5 @@
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
 }
 
-- (void)dealloc {
-    self.navigationController = nil;
-    self.managedObjectContext = nil;
-    self.managedObjectModel = nil;
-    self.persistentStoreCoordinator = nil;
-    self.window = nil;
-
-    [super dealloc];
-}
 
 @end

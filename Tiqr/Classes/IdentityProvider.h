@@ -34,13 +34,13 @@
 
 @interface IdentityProvider : NSManagedObject
 
-@property (nonatomic, retain) NSString * displayName;
-@property (nonatomic, retain) NSString * infoUrl;
-@property (nonatomic, retain) NSString * ocraSuite;
-@property (nonatomic, retain) NSString * authenticationUrl;
-@property (nonatomic, retain) NSString * identifier;
-@property (nonatomic, retain) NSData * logo;
-@property (nonatomic, retain) NSSet *identities;
+@property (nonatomic, strong) NSString * displayName;
+@property (nonatomic, strong) NSString * infoUrl;
+@property (nonatomic, strong) NSString * ocraSuite;
+@property (nonatomic, strong) NSString * authenticationUrl;
+@property (nonatomic, strong) NSString * identifier;
+@property (nonatomic, strong) NSData * logo;
+@property (nonatomic, strong) NSSet *identities;
 @end
 
 @interface IdentityProvider (CoreDataGeneratedAccessors)

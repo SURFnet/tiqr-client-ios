@@ -32,11 +32,11 @@
 
 @interface AboutViewController ()
 
-@property (nonatomic, retain) IBOutlet UILabel *tiqrProvidedByLabel;
-@property (nonatomic, retain) IBOutlet UILabel *developedByLabel;
-@property (nonatomic, retain) IBOutlet UILabel *interactionDesignLabel;
-@property (nonatomic, retain) IBOutlet UINavigationItem *barItem;
-@property (nonatomic, retain) IBOutlet UIButton *okButton;
+@property (nonatomic, strong) IBOutlet UILabel *tiqrProvidedByLabel;
+@property (nonatomic, strong) IBOutlet UILabel *developedByLabel;
+@property (nonatomic, strong) IBOutlet UILabel *interactionDesignLabel;
+@property (nonatomic, strong) IBOutlet UINavigationItem *barItem;
+@property (nonatomic, strong) IBOutlet UIButton *okButton;
 
 @end
 
@@ -99,14 +99,5 @@
     [self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)dealloc {
-    
-    self.tiqrProvidedByLabel = nil;
-    self.developedByLabel = nil;
-    self.interactionDesignLabel = nil;
-    self.versionLabel = nil;
-    
-    [super dealloc];
-}
 
 @end

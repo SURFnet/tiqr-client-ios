@@ -33,11 +33,11 @@
 
 @interface EnrollmentConfirmViewController ()
 
-@property (nonatomic, retain) EnrollmentChallenge *challenge;
-@property (nonatomic, retain) IBOutlet UILabel *confirmAccountLabel;
-@property (nonatomic, retain) IBOutlet UILabel *activateAccountLabel;
-@property (nonatomic, retain) IBOutlet UILabel *enrollDomainLabel;
-@property (nonatomic, retain) IBOutlet UIButton *okButton;
+@property (nonatomic, strong) EnrollmentChallenge *challenge;
+@property (nonatomic, strong) IBOutlet UILabel *confirmAccountLabel;
+@property (nonatomic, strong) IBOutlet UILabel *activateAccountLabel;
+@property (nonatomic, strong) IBOutlet UILabel *enrollDomainLabel;
+@property (nonatomic, strong) IBOutlet UIButton *okButton;
 
 @end
 
@@ -69,7 +69,7 @@
     self.okButton.layer.cornerRadius = 4;
     
     self.title = NSLocalizedString(@"enrollment_confirmation_header_title", @"Account activation title");
-    self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"enrollment_confirmation_title", @"Enrollment confirm back button title") style:UIBarButtonItemStyleBordered target:nil action:nil] autorelease];        
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"enrollment_confirmation_title", @"Enrollment confirm back button title") style:UIBarButtonItemStyleBordered target:nil action:nil];        
 
     self.identityProviderLogoImageView.image = [[UIImage alloc] initWithData:self.challenge.identityProviderLogo];
     self.identityDisplayNameLabel.text = self.challenge.identityDisplayName;
@@ -85,7 +85,6 @@
     EnrollmentPINViewController *viewController = [[EnrollmentPINViewController alloc] initWithEnrollmentChallenge:self.challenge];
     viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
-    [viewController release];    
 }
 
 - (void)resetOutlets {
@@ -106,10 +105,7 @@
 - (void)dealloc {
     [self resetOutlets];
     
-    self.challenge = nil;
-    self.managedObjectContext = nil;
     
-    [super dealloc];	
 }
 
 @end

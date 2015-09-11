@@ -40,7 +40,7 @@
 
 @interface AuthenticationPINViewController ()
 
-@property (nonatomic, retain) AuthenticationChallenge *challenge;
+@property (nonatomic, strong) AuthenticationChallenge *challenge;
 @property (nonatomic, copy) NSString *response;
 @property (nonatomic, copy) NSString *PIN;
 
@@ -66,7 +66,7 @@
     [super viewDidLoad];
     
     self.title = NSLocalizedString(@"authentication_title", @"Login title");
-    self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"enter_pin", @"Enrollment PIN back button title") style:UIBarButtonItemStyleBordered target:nil action:nil] autorelease];        
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"enter_pin", @"Enrollment PIN back button title") style:UIBarButtonItemStyleBordered target:nil action:nil];        
     self.subtitle = NSLocalizedString(@"login_intro", @"Authentication PIN title");
     self.description = NSLocalizedString(@"enter_four_digit_pin", @"You need to enter your 4-digit PIN to login.");
 }
@@ -75,7 +75,6 @@
     AuthenticationFallbackViewController *viewController = [[AuthenticationFallbackViewController alloc] initWithAuthenticationChallenge:self.challenge response:self.response];
     viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
-    [viewController release]; 
 }
 
 - (void)authenticationConfirmationRequestDidFinish:(AuthenticationConfirmationRequest *)request {
@@ -89,18 +88,15 @@
     self.PIN = nil;
 
 	[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];    
-    [request release];
     AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] initWithAuthenticationChallenge:self.challenge];
     viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
-    [viewController release];    
 }
 
 - (void)authenticationConfirmationRequest:(AuthenticationConfirmationRequest *)request didFailWithError:(NSError *)error {
     self.PIN = nil;
 
 	[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-    [request release];
     
     switch ([error code]) {
         case TIQRACRConnectionError:
@@ -109,7 +105,6 @@
         case TIQRACRAccountBlockedErrorTemporary: {
             UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
             [self.navigationController pushViewController:viewController animated:YES];
-            [viewController release];
             break;
         }
         case TIQRACRAccountBlockedError: {
@@ -117,7 +112,6 @@
             [self.managedObjectContext save:nil];
             UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
             [self.navigationController pushViewController:viewController animated:YES];
-            [viewController release];
             break;
         }            
         case TIQRACRInvalidResponseError: {
@@ -127,7 +121,6 @@
                 [self.managedObjectContext save:nil];
                 UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
                 [self.navigationController pushViewController:viewController animated:YES];
-                [viewController release];
             } else {
                 [self clear];
                 [self showErrorWithTitle:[error localizedDescription] message:[error localizedFailureReason]];
@@ -137,7 +130,6 @@
         default: {
             UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
             [self.navigationController pushViewController:viewController animated:YES];
-            [viewController release];
         }
     }
 }
@@ -161,7 +153,6 @@
                                             errorTitle:[error localizedDescription] 
                                             errorMessage:[error localizedFailureReason]];
         [self.navigationController pushViewController:viewController animated:YES];
-        [viewController release];
     }
 
     return response;
@@ -180,12 +171,5 @@
     [request send];
 }
 
-- (void)dealloc {
-    self.challenge = nil;
-    self.response = nil;
-    self.managedObjectContext = nil;
-    self.PIN = nil;
-    [super dealloc];
-}
 
 @end

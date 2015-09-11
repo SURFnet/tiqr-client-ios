@@ -49,7 +49,7 @@
 /**
  * Delegate.
  */
-@property (nonatomic, assign) id<PINViewControllerDelegate> delegate;
+@property (nonatomic, weak) id<PINViewControllerDelegate> delegate;
 
 /**
  * Title.

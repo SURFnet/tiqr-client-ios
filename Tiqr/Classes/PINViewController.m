@@ -34,9 +34,9 @@
 
 @interface PINViewController ()
 
-@property (nonatomic, retain) NSTimer *pin4Timer;
-@property (nonatomic, retain) ErrorController *errorController;
-@property (nonatomic, retain) IBOutlet UIButton *confirmButton;
+@property (nonatomic, strong) NSTimer *pin4Timer;
+@property (nonatomic, strong) ErrorController *errorController;
+@property (nonatomic, strong) IBOutlet UIButton *confirmButton;
 
 @end
 
@@ -56,7 +56,7 @@
 - (id)init {
     self = [super initWithNibName:@"PINView" bundle:nil];
     if (self != nil) {
-        self.errorController = [[[ErrorController alloc] init] autorelease];
+        self.errorController = [[ErrorController alloc] init];
     }
     return self;
 }
@@ -209,8 +209,6 @@
 - (void)dealloc {
     [self resetOutlets];    
     [self.pin4Timer invalidate];
-    self.pin4Timer = nil;    
-    [super dealloc];
 }
 
 @end

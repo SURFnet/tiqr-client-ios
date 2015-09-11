@@ -77,7 +77,7 @@ static const int powers10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 100000
         NSString *errorTitle = NSLocalizedString(@"Error", @"Error title");
         NSString *errorMessage = NSLocalizedString(@"The number of digits defined for the OTP can't be larger than 10.", @"Error message");
         NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, nil];
-        *error = [[[NSError alloc] initWithDomain: @"org.example.ErrorDomain" code:OCRANumberOfDigitsTooLargeError userInfo:details] autorelease];
+        *error = [[NSError alloc] initWithDomain: @"org.example.ErrorDomain" code:OCRANumberOfDigitsTooLargeError userInfo:details];
         return nil;
     }
     

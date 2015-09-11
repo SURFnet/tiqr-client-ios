@@ -41,7 +41,7 @@
 /**
  * The Core Data managed object context.
  */
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 
 @end

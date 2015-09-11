@@ -102,7 +102,7 @@ static const int powers10[] = { 1, 10, 100, 1000, 10000, 100000, 1000000, 100000
         NSString *errorTitle = NSLocalizedString(@"Server incompatible", @"Server incompatible title");
         NSString *errorMessage = NSLocalizedString(@"The server is incompatible with this version of the app.", @"Server incompatible message");
         NSDictionary *details = [NSDictionary dictionaryWithObjectsAndKeys:errorTitle, NSLocalizedDescriptionKey, errorMessage, NSLocalizedFailureReasonErrorKey, nil];
-        *error = [[[NSError alloc] initWithDomain: @"org.example.tiqr.ErrorDomain" code:OCRAServerIncompatibleError userInfo:details] autorelease];
+        *error = [[NSError alloc] initWithDomain: @"org.example.tiqr.ErrorDomain" code:OCRAServerIncompatibleError userInfo:details];
         return nil;
     }
     

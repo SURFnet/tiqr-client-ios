@@ -35,8 +35,8 @@
 
 @interface IdentityEditViewController ()
 
-@property (nonatomic, retain) Identity *identity;
-@property (nonatomic, retain) IBOutlet UIButton *deleteButton;
+@property (nonatomic, strong) Identity *identity;
+@property (nonatomic, strong) IBOutlet UIButton *deleteButton;
 
 @end
 
@@ -94,7 +94,7 @@
 	
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.detailTextLabel.minimumFontSize = 12.0;     
         cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
@@ -130,7 +130,6 @@
     NSString *noTitle = NSLocalizedString(@"no_button", @"No button title");
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:nil otherButtonTitles:yesTitle, noTitle, nil];
     [alertView show];
-    [alertView release];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -169,9 +168,8 @@
 		NSString *title = NSLocalizedString(@"error", "Alert title for error");		
 		NSString *message = NSLocalizedString(@"error_auth_unknown_error", "Unexpected error message");		        
 		NSString *okTitle = NSLocalizedString(@"ok_button", "OK button title");		
-		UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:okTitle otherButtonTitles:nil] autorelease];
+		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:okTitle otherButtonTitles:nil];
 		[alertView show];
-        [alertView release];
     }
 }
 
@@ -191,8 +189,6 @@
 
 - (void)dealloc {
     [self resetOutlets];
-    self.identity = nil;
-    [super dealloc];
 }
 
 @end

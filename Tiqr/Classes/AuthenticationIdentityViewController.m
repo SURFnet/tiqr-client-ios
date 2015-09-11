@@ -35,8 +35,8 @@
 
 @interface AuthenticationIdentityViewController ()
 
-@property (nonatomic, retain) AuthenticationChallenge *challenge;
-@property (nonatomic, retain) IBOutlet UILabel *selectAccountLabel;
+@property (nonatomic, strong) AuthenticationChallenge *challenge;
+@property (nonatomic, strong) IBOutlet UILabel *selectAccountLabel;
 
 @end
 
@@ -62,7 +62,7 @@
     self.selectAccountLabel.text = NSLocalizedString(@"select_identity_title", @"Select Identity");
     
     self.title = NSLocalizedString(@"authentication_title", @"Login title");
-    self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"identity_title", @"Identity select back button title") style:UIBarButtonItemStyleBordered target:nil action:nil] autorelease];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"identity_title", @"Identity select back button title") style:UIBarButtonItemStyleBordered target:nil action:nil];
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -88,7 +88,7 @@
     
     IdentityTableViewCell *cell = (IdentityTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[IdentityTableViewCell alloc] initWithReuseIdentifier:CellIdentifier] autorelease];
+        cell = [[IdentityTableViewCell alloc] initWithReuseIdentifier:CellIdentifier];
 		[cell setIdentity:identity];
     }
     
@@ -100,7 +100,6 @@
     AuthenticationConfirmViewController *viewController = [[AuthenticationConfirmViewController alloc] initWithAuthenticationChallenge:self.challenge];
     viewController.managedObjectContext = self.managedObjectContext;
 	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -112,12 +111,5 @@
     [super viewDidUnload];
 }
 
-- (void)dealloc {
-    self.tableView = nil;
-    self.challenge = nil;
-    self.managedObjectContext = nil;
-    self.selectAccountLabel = nil;
-    [super dealloc];
-}
 
 @end

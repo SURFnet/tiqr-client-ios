@@ -18,7 +18,7 @@
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
     NSError *error = nil;
-    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]] autorelease];
+    NSPersistentStoreCoordinator *persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![persistentStoreCoordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:&error]) {
         return nil;
     } else {
@@ -84,7 +84,6 @@
 
 - (void)tearDown {
     [super tearDown];
-    [managedObjectContext_ release];
     managedObjectContext_ = nil;
 }
 
@@ -93,7 +92,6 @@
     STAssertNotNil(challenge, @"Challenge should never be nil");
     STAssertFalse(challenge.valid, @"Challenge should be invalid");
     STAssertEqualObjects(errorMessage, challenge.error.localizedDescription, @"Error message should be \"%@\"", errorMessage);
-    [challenge release];    
 }
 
 - (void)testInvalidChallenges {
@@ -114,7 +112,6 @@
     STAssertEqualObjects(@"sessionKey", challenge.sessionKey, @"Should be equal");
     STAssertEqualObjects(@"challenge", challenge.challenge, @"Should be equal");      
     STAssertNil(challenge.returnUrl, @"Should be nil");
-    [challenge release];
     
     challenge = [[AuthenticationChallenge alloc] initWithRawChallenge:@"surfauth://two.example.org/sessionKey/challenge" managedObjectContext:managedObjectContext_];
     STAssertTrue(challenge.valid, @"Should be true");
@@ -126,7 +123,6 @@
     STAssertEqualObjects(@"sessionKey", challenge.sessionKey, @"Should be equal");
     STAssertEqualObjects(@"challenge", challenge.challenge, @"Should be equal");
     STAssertNil(challenge.returnUrl, @"Should be nil");        
-    [challenge release];    
 }
 
 - (void)testIdentityChallenges {
@@ -137,7 +133,6 @@
     STAssertNotNil(challenge.identity, @"Should not be nil");
     STAssertEqualObjects(@"jane.doe", challenge.identity.identifier, @"Should be equal");
     STAssertEqualObjects(@"Jane Doe", challenge.identity.displayName, @"Should be equal");      
-    [challenge release];
     
     challenge = [[AuthenticationChallenge alloc] initWithRawChallenge:@"surfauth://john.doe@two.example.org/sessionKey/challenge" managedObjectContext:managedObjectContext_];
     STAssertTrue(challenge.valid, @"Should be true");
@@ -146,7 +141,6 @@
     STAssertEqualObjects(@"Dummy IdentityProvider 2", challenge.identityProvider.displayName, @"Should be equal");
     STAssertEqualObjects(@"john.doe", challenge.identity.identifier, @"Should be equal");
     STAssertEqualObjects(@"John Doe", challenge.identity.displayName, @"Should be equal");      
-    [challenge release];     
 }
 
 - (void)testReturnURLChallenges {
@@ -158,7 +152,6 @@
     STAssertEqualObjects(@"sessionKey", challenge.sessionKey, @"Should be equal");
     STAssertEqualObjects(@"challenge", challenge.challenge, @"Should be equal");      
     STAssertEqualObjects(@"http://example.org", challenge.returnUrl, @"Should be equal");
-    [challenge release];
 
     challenge = [[AuthenticationChallenge alloc] initWithRawChallenge:@"surfauth://jane.doe@one.example.org/sessionKey/challenge?http%3A%2F%2Fexample.org%3Fa%3Db" managedObjectContext:managedObjectContext_];
     STAssertTrue(challenge.valid, @"Should be true");
@@ -169,7 +162,6 @@
     STAssertEqualObjects(@"sessionKey", challenge.sessionKey, @"Should be equal");
     STAssertEqualObjects(@"challenge", challenge.challenge, @"Should be equal");      
     STAssertEqualObjects(@"http://example.org?a=b", challenge.returnUrl, @"Should be equal");
-    [challenge release];    
 }
 
 @end

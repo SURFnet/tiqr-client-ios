@@ -122,14 +122,5 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
     }
 }
 
-- (void)dealloc {
-	self.identityProvider = nil;
-	self.sessionKey = nil;
-	self.challenge = nil;
-	self.identities = nil;
-	self.identity = nil;
-	
-	[super dealloc];
-}
 
 @end

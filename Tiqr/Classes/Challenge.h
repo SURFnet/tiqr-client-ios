@@ -46,7 +46,7 @@
 /**
  * Managed object context.
  */
-@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 
 /**
  * Can be used to check is the raw challenge could be parsed successfully.
@@ -56,7 +56,7 @@
 /**
  * Contains an error message in case the challenge isn't valid.
  */
-@property (nonatomic, retain, readonly) NSError *error;
+@property (nonatomic, strong, readonly) NSError *error;
 
 /**
  * Constructs a new challenge object for the given raw challenge.

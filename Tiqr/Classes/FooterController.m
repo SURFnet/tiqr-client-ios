@@ -34,7 +34,7 @@
 
 @interface FooterController ()
 
-@property (nonatomic, retain) IBOutlet UILabel *providedByLabel;
+@property (nonatomic, strong) IBOutlet UILabel *providedByLabel;
 
 @end;
 
@@ -74,13 +74,7 @@
     UIViewController *viewController = [[AboutViewController alloc] init];
     TiqrAppDelegate *delegate = (TiqrAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate.navigationController presentViewController:viewController animated:YES completion:nil];
-    [viewController release];
 }
 
-- (void)dealloc {
-    self.view = nil;
-    self.providedByLabel = nil;
-    [super dealloc];
-}
 
 @end

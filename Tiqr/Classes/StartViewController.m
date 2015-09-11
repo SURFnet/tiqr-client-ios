@@ -37,9 +37,9 @@
 
 @interface StartViewController () <UIWebViewDelegate>
 
-@property (nonatomic, retain) UIBarButtonItem *identitiesButtonItem;
-@property (nonatomic, retain) FooterController *footerController;
-@property (nonatomic, retain) ErrorController *errorController;
+@property (nonatomic, strong) UIBarButtonItem *identitiesButtonItem;
+@property (nonatomic, strong) FooterController *footerController;
+@property (nonatomic, strong) ErrorController *errorController;
 
 @end
 
@@ -54,21 +54,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.backBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"start_button", @"Start button title") style:UIBarButtonItemStyleBordered target:nil action:nil] autorelease];                
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"start_button", @"Start button title") style:UIBarButtonItemStyleBordered target:nil action:nil];                
     NSString *scanButtonTitle = NSLocalizedString(@"scan_button", @"Scan button title");
     UIBarButtonItem *scanButtonItem = [[UIBarButtonItem alloc] initWithTitle:scanButtonTitle style:UIBarButtonItemStyleBordered target:self action:@selector(scan)];
     self.navigationItem.leftBarButtonItem = scanButtonItem;
-    [scanButtonItem release];
     
     UIBarButtonItem *identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"identities"] style:UIBarButtonItemStyleBordered target:self action:@selector(listIdentities)];
     self.navigationItem.rightBarButtonItem = identitiesButtonItem;
     self.identitiesButtonItem = identitiesButtonItem;
-    [identitiesButtonItem release];    
     
-    self.footerController = [[[FooterController alloc] init] autorelease];
+    self.footerController = [[FooterController alloc] init];
     [self.footerController addToView:self.view];
     
-    self.errorController = [[[ErrorController alloc] init] autorelease];  
+    self.errorController = [[ErrorController alloc] init];  
     [self.errorController addToView:self.view];
     
     self.webView.backgroundColor = [UIColor clearColor];
@@ -125,12 +123,10 @@
 		NSString *noTitle = NSLocalizedString(@"no_button", @"No button title");		
 		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:message delegate:self cancelButtonTitle:nil otherButtonTitles:yesTitle, noTitle, nil];
 		[alertView show];
-		[alertView release];
 	} else {
 		ScanViewController *viewController = [[ScanViewController alloc] init];
         viewController.managedObjectContext = self.managedObjectContext;
 		[self.navigationController pushViewController:viewController animated:YES];	
-        [viewController release];
 	}
 }
 
@@ -138,7 +134,6 @@
     IdentityListViewController *viewController = [[IdentityListViewController alloc] init];
     viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
-    [viewController release];
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -149,7 +144,6 @@
     ScanViewController *viewController = [[ScanViewController alloc] init];
     viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];	
-    [viewController release];
 }
 
 - (void)resetOutlets {
@@ -171,12 +165,7 @@
 - (void)dealloc {
     [self resetOutlets];
     
-    self.managedObjectContext = nil;
-    self.identitiesButtonItem = nil;
-    self.footerController = nil;
-    self.errorController = nil;
     
-    [super dealloc];
 }
 
 @end

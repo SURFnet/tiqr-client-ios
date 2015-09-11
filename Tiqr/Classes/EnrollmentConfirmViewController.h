@@ -42,7 +42,7 @@
 /**
  * Managed object context.
  */
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 /**
  * Initializes the controller with the given enrollment challenge.

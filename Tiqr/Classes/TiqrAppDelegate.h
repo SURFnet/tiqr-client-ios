@@ -52,33 +52,33 @@
 /**
  * Window outlet.
  */
-@property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, strong) IBOutlet UIWindow *window;
 
 /**
  * The Core Data managed object context.
  */
-@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
 
 /**
  * The Core Data managed object model.
  */
-@property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
 
 /**
  * The Core Data persistent store coordinator.
  */
-@property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 
 /**
  * The navigation controller.
  */
-@property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
+@property (nonatomic, strong) IBOutlet UINavigationController *navigationController;
 
 /**
  * The initial view controller
  */
-@property (nonatomic, retain) IBOutlet StartViewController *startViewController;
+@property (nonatomic, strong) IBOutlet StartViewController *startViewController;
 
 /**
  * Pop to the start view controller which can either be the instructions or the

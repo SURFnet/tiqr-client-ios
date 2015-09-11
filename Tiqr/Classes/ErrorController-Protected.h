@@ -29,8 +29,8 @@
 
 @interface ErrorController ()
 
-@property (nonatomic, retain) IBOutlet UIView *view;
-@property (nonatomic, retain) IBOutlet UILabel *titleLabel;
-@property (nonatomic, retain) IBOutlet UILabel *messageLabel;
+@property (nonatomic, strong) IBOutlet UIView *view;
+@property (nonatomic, strong) IBOutlet UILabel *titleLabel;
+@property (nonatomic, strong) IBOutlet UILabel *messageLabel;
 
 @end

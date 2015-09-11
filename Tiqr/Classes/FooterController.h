@@ -31,7 +31,7 @@
     
 }
 
-@property (nonatomic, retain, readonly) UIView *view;
+@property (nonatomic, strong, readonly) UIView *view;
 
 /**
  * Install the footer view in the given view.

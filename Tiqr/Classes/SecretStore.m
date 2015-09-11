@@ -39,16 +39,16 @@
 
 - (NSData *)loadFromKeychain {
 	NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
-	[query setObject:(id)kSecClassGenericPassword forKey:(id)kSecClass];
-	[query setObject:self.identityProviderIdentifier forKey:(id)kSecAttrService];
-	[query setObject:self.identityIdentifier forKey:(id)kSecAttrAccount];		
-	[query setObject:(id)kSecMatchLimitOne forKey:(id)kSecMatchLimit];
-    [query setObject:(id)kCFBooleanTrue forKey:(id)kSecReturnData];	
-	[query setObject:(id)kCFBooleanTrue forKey:(id)kSecReturnAttributes];
+	[query setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
+	[query setObject:self.identityProviderIdentifier forKey:(__bridge id)kSecAttrService];
+	[query setObject:self.identityIdentifier forKey:(__bridge id)kSecAttrAccount];		
+	[query setObject:(__bridge id)kSecMatchLimitOne forKey:(__bridge id)kSecMatchLimit];
+    [query setObject:(id)kCFBooleanTrue forKey:(__bridge id)kSecReturnData];	
+	[query setObject:(id)kCFBooleanTrue forKey:(__bridge id)kSecReturnAttributes];
 	
-	NSDictionary *result = nil;
-	if (SecItemCopyMatching((CFDictionaryRef)query, (CFTypeRef *)&result) == noErr) {
-		return (NSData *)[result objectForKey:(id)kSecValueData];
+    CFDictionaryRef result;
+	if (SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result) == noErr) {
+		return (NSData *)[(__bridge NSDictionary*)result objectForKey:(__bridge id)kSecValueData];
 	} else {
 		return nil;
 	}
@@ -56,26 +56,26 @@
 
 - (BOOL)addToKeychain {
 	NSMutableDictionary *data = [[NSMutableDictionary alloc] init];	
-	[data setObject:(id)kSecClassGenericPassword forKey:(id)kSecClass];
-	[data setObject:self.identityProviderIdentifier forKey:(id)kSecAttrService];
-	[data setObject:self.identityIdentifier forKey:(id)kSecAttrAccount];		
-    [data setObject:encryptedSecret_ forKey:(id)kSecValueData];	
-	[data setObject:(id)kSecAttrAccessibleWhenUnlocked forKey:(id)kSecAttrAccessible];
+	[data setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
+	[data setObject:self.identityProviderIdentifier forKey:(__bridge id)kSecAttrService];
+	[data setObject:self.identityIdentifier forKey:(__bridge id)kSecAttrAccount];		
+    [data setObject:encryptedSecret_ forKey:(__bridge id)kSecValueData];	
+	[data setObject:(__bridge id)kSecAttrAccessibleWhenUnlocked forKey:(__bridge id)kSecAttrAccessible];
 
-	NSMutableDictionary *result = nil;
-	return SecItemAdd((CFDictionaryRef)data, (CFTypeRef *)&result) == noErr;
+    CFDictionaryRef result;
+	return SecItemAdd((__bridge CFDictionaryRef)data, (CFTypeRef *)&result) == noErr;
 }
 
 - (BOOL)updateInKeychain {
 	NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
-	[query setObject:(id)kSecClassGenericPassword forKey:(id)kSecClass];
-	[query setObject:self.identityProviderIdentifier forKey:(id)kSecAttrService];
-	[query setObject:self.identityIdentifier forKey:(id)kSecAttrAccount];
+	[query setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
+	[query setObject:self.identityProviderIdentifier forKey:(__bridge id)kSecAttrService];
+	[query setObject:self.identityIdentifier forKey:(__bridge id)kSecAttrAccount];
 	
 	NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
-	[data setObject:encryptedSecret_ forKey:(id)kSecValueData];
+	[data setObject:encryptedSecret_ forKey:(__bridge id)kSecValueData];
 	
-	return SecItemUpdate((CFDictionaryRef)query, (CFDictionaryRef)data) == noErr;
+	return SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)data) == noErr;
 }
 
 - (BOOL)storeInKeychain {
@@ -88,18 +88,18 @@
 
 - (BOOL)deleteFromKeychain {
 	NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
-	[query setObject:(id)kSecClassGenericPassword forKey:(id)kSecClass];
-	[query setObject:self.identityProviderIdentifier forKey:(id)kSecAttrService];
-	[query setObject:self.identityIdentifier forKey:(id)kSecAttrAccount];
+	[query setObject:(__bridge id)kSecClassGenericPassword forKey:(__bridge id)kSecClass];
+	[query setObject:self.identityProviderIdentifier forKey:(__bridge id)kSecAttrService];
+	[query setObject:self.identityIdentifier forKey:(__bridge id)kSecAttrAccount];
 	
-	return SecItemDelete((CFDictionaryRef)query) == noErr;
+	return SecItemDelete((__bridge CFDictionaryRef)query) == noErr;
 }
 
 - (id)initWithIdentity:(NSString *)identityIdentifier identityProvider:(NSString *)identityProviderIdentifier {
 	if ((self = [super init]) != nil) {
 		identityIdentifier_ = [identityIdentifier copy];
 		identityProviderIdentifier_ = [identityProviderIdentifier copy];
-		encryptedSecret_ = [[self loadFromKeychain] retain];
+		encryptedSecret_ = [self loadFromKeychain];
 	}
 	
 	return self;
@@ -241,9 +241,8 @@
 }
 
 - (void)setSecret:(NSData *)secret PIN:(NSString *)PIN salt:(NSData *)salt initializationVector:(NSData *)initializationVector {
-    [encryptedSecret_ release];
     NSString *key = [self keyForPIN:PIN salt:salt];
-    encryptedSecret_ = [[self encrypt:secret key:key initializationVector:initializationVector] retain];
+    encryptedSecret_ = [self encrypt:secret key:key initializationVector:initializationVector];
 }
 
 - (NSData *)secretForPIN:(NSString *)PIN salt:(NSData *)salt initializationVector:(NSData *)initializationVector {
@@ -257,20 +256,14 @@
 }
 
 - (void)dealloc {
-	[encryptedSecret_ release];
     encryptedSecret_ = nil;
 	
-	[identityProviderIdentifier_ release];
-	identityProviderIdentifier_ = nil;
 	
-	[identityIdentifier_ release];
-	identityIdentifier_ = nil;
 	
-    [super dealloc];
 }
 
 + (SecretStore *)secretStoreForIdentity:(NSString *)identityIdentifier identityProvider:(NSString *)identityProviderIdentifier {
-	return [[[SecretStore alloc] initWithIdentity:identityIdentifier identityProvider:identityProviderIdentifier] autorelease];
+	return [[SecretStore alloc] initWithIdentity:identityIdentifier identityProvider:identityProviderIdentifier];
 }
 
 + (NSData *)generateSecret {
@@ -278,7 +271,7 @@
 	memset((void *)bytes, 0x0, kChosenCipherKeySize);
 	OSStatus sanityCheck = SecRandomCopyBytes(kSecRandomDefault, kChosenCipherKeySize, bytes);
 	if (sanityCheck == noErr) {
-		NSData *secret = [[[NSData alloc] initWithBytes:(const void *)bytes length:kChosenCipherKeySize] autorelease];
+		NSData *secret = [[NSData alloc] initWithBytes:(const void *)bytes length:kChosenCipherKeySize];
 		return secret;
 	} else {
 		return nil;

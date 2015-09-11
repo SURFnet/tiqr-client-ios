@@ -40,7 +40,6 @@
 	NSError *error = nil;
 	NSUInteger count = [context countForFetchRequest:request error:&error];
 	
-    [request release];	
 	
 	return error == nil ? count : 0;
 }
@@ -68,8 +67,6 @@
 		result = [[[objects objectAtIndex:0] valueForKey:@"maxSortIndex"] intValue];
 	}
 	
-    [expressionDescription release];
-    [request release];	
 	
 	return result;
 }
@@ -88,7 +85,6 @@
     
 	NSError *error = nil;
 	NSUInteger count = [context countForFetchRequest:request error:&error];
-    [request release];	
 	
 	return error == nil && count == 0;
 }
@@ -103,7 +99,6 @@
 	
 	NSError *error = nil;
 	NSArray *result = [context executeFetchRequest:request error:&error];
-	[request release];	
 	
 	Identity *identity = nil;
 	if (result != nil && [result count] == 1) {
@@ -123,11 +118,9 @@
 	
 	NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortIndex" ascending:YES];
 	[request setSortDescriptors:[NSArray arrayWithObject:sortDescriptor]];
-	[sortDescriptor release];
 	
 	NSError *error = nil;
 	NSArray *result = [context executeFetchRequest:request error:&error];
-	[request release];
 	
 	return result;
 }
@@ -139,7 +132,6 @@
  
 	NSError *error = nil;
 	NSArray *identities = [context executeFetchRequest:request error:&error];
-	[request release]; 
     
     if (error == noErr && identities != nil) {
         for (Identity *identity in identities) {

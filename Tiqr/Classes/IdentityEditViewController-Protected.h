@@ -29,11 +29,11 @@
 
 @interface IdentityEditViewController ()
 
-@property (nonatomic, retain) IBOutlet UIImageView *identityProviderLogoImageView;
-@property (nonatomic, retain) IBOutlet UILabel *identityProviderIdentifierLabel;
-@property (nonatomic, retain) IBOutlet UILabel *identityProviderDisplayNameLabel;
-@property (nonatomic, retain) IBOutlet UILabel *blockedWarningLabel;
-@property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, strong) IBOutlet UIImageView *identityProviderLogoImageView;
+@property (nonatomic, strong) IBOutlet UILabel *identityProviderIdentifierLabel;
+@property (nonatomic, strong) IBOutlet UILabel *identityProviderDisplayNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *blockedWarningLabel;
+@property (nonatomic, strong) UITableView *tableView;
 
 - (IBAction)deleteIdentity;
 

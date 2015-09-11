@@ -223,22 +223,5 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 	self.enrollmentUrl = [[identityProviderMetadata objectForKey:@"enrollmentUrl"] description];
 }
 
-- (void)dealloc {
-    self.identityProviderIdentifier = nil;
-    self.identityProviderDisplayName = nil;
-    self.identityProviderAuthenticationUrl = nil;
-    self.identityProviderInfoUrl = nil;
-    self.identityProviderOcraSuite = nil;
-    self.identityProviderLogo = nil;
-    self.identityProvider = nil;
-    self.identityIdentifier = nil;
-    self.identityDisplayName = nil;
-    self.identitySecret = nil;
-    self.identityPIN = nil;
-    self.identity = nil;
-    self.enrollmentUrl = nil;
-    self.returnUrl = nil;
-    [super dealloc];
-}
 
 @end

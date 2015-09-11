@@ -31,14 +31,14 @@
 
 @interface PINViewController ()
 
-@property (nonatomic, retain) IBOutlet UILabel *subtitleLabel;
-@property (nonatomic, retain) IBOutlet UILabel *descriptionLabel;
-@property (nonatomic, retain) IBOutlet UITextField *pinField;
-@property (nonatomic, retain) IBOutlet UITextField *pin1Field;
-@property (nonatomic, retain) IBOutlet UITextField *pin2Field;
-@property (nonatomic, retain) IBOutlet UITextField *pin3Field;
-@property (nonatomic, retain) IBOutlet UITextField *pin4Field;
-@property (nonatomic, retain) IBOutlet UIButton *okButton;
+@property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
+@property (nonatomic, strong) IBOutlet UILabel *descriptionLabel;
+@property (nonatomic, strong) IBOutlet UITextField *pinField;
+@property (nonatomic, strong) IBOutlet UITextField *pin1Field;
+@property (nonatomic, strong) IBOutlet UITextField *pin2Field;
+@property (nonatomic, strong) IBOutlet UITextField *pin3Field;
+@property (nonatomic, strong) IBOutlet UITextField *pin4Field;
+@property (nonatomic, strong) IBOutlet UIButton *okButton;
 
 - (IBAction)ok;
 

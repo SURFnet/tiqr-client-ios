@@ -41,7 +41,7 @@
 /**
  * Managed object context.
  */
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 /**
  * Constructs a new controller instance for the given authentication challenge.

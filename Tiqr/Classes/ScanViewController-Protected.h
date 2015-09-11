@@ -32,9 +32,9 @@
 
 @interface ScanViewController ()
 
-@property (nonatomic, retain) IBOutlet UIView *previewView;
-@property (nonatomic, retain) IBOutlet ScanOverlayView *overlayView;
-@property (nonatomic, retain) IBOutlet UIView *instructionsView;
+@property (nonatomic, strong) IBOutlet UIView *previewView;
+@property (nonatomic, strong) IBOutlet ScanOverlayView *overlayView;
+@property (nonatomic, strong) IBOutlet UIView *instructionsView;
 
 - (IBAction)showInstructions;
 
