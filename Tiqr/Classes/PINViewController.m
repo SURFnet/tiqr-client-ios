@@ -69,11 +69,11 @@
     self.subtitleLabel.text = subtitle;
 }
 
-- (NSString *)description {
+- (NSString *)pinDescription {
     return self.descriptionLabel.text;
 }
 
-- (void)setDescription:(NSString *)description {
+- (void)setPinDescription:(NSString *)description {
     self.descriptionLabel.text = description;
 }
 
@@ -170,7 +170,7 @@
 }
 
 - (void)ok {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
     NSString *pin = self.pinField.text;
     [self.delegate PINViewController:self didFinishWithPIN:pin];
 }

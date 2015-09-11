@@ -91,9 +91,9 @@
 }
 
 - (void)setMixableAudioShouldDuckActive:(BOOL)active {
-    UInt32 value = active ? 1 : 0;
-    AudioSessionSetProperty(kAudioSessionProperty_OtherMixableAudioShouldDuck, sizeof(value), &value);
-    AudioSessionSetActive(value);    
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
+    [session setActive:active error:nil];
 }
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {

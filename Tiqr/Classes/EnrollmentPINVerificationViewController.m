@@ -68,7 +68,7 @@
     self.title = NSLocalizedString(@"enrollment_confirmation_header_title", @"Account activation title");
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"password_verify_back_button", @"Enrollment PIN verification back button title") style:UIBarButtonItemStyleBordered target:nil action:nil];        
     self.subtitle = NSLocalizedString(@"login_verify_intro", @"Enrollment PIN verification title");
-    self.description = NSLocalizedString(@"login_verify_message", @"Enter your PIN code again for verification. Please note the animal icon. This will help you remember your PIN code."); 
+    self.pinDescription = NSLocalizedString(@"login_verify_message", @"Enter your PIN code again for verification. Please note the animal icon. This will help you remember your PIN code.");
 }
 
 - (BOOL)storeProviderAndIdentity {
@@ -89,7 +89,7 @@
     if (identity == nil) {
         identity = [NSEntityDescription insertNewObjectForEntityForName:@"Identity" inManagedObjectContext:context];	
         identity.identifier = self.challenge.identityIdentifier;
-        identity.sortIndex = [NSNumber numberWithInt:[Identity maxSortIndexInManagedObjectContext:context] + 1];		
+        identity.sortIndex = [NSNumber numberWithInteger:[Identity maxSortIndexInManagedObjectContext:context] + 1];
         identity.identityProvider = identityProvider;
         identity.version = @2;
         identity.salt = [SecretStore generateSecret];

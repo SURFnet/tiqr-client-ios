@@ -184,9 +184,9 @@
 	[fetchedObjects insertObject:movedObject atIndex:toIndexPath.row];
 	
     NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-	NSUInteger sortIndex = 0;
+	NSInteger sortIndex = 0;
 	for (Identity *identity in fetchedObjects) {
-		identity.sortIndex = [NSNumber numberWithInt:sortIndex];
+		identity.sortIndex = [NSNumber numberWithInteger:sortIndex];
 		sortIndex++;
 	}
 	

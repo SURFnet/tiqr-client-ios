@@ -300,7 +300,8 @@
     // Add label if label text was set
     if (nil != self.labelText) {
         // Get size of label text
-        CGSize dims = [self.labelText sizeWithFont:self.labelFont];
+        
+        CGSize dims = [self.labelText sizeWithAttributes:@{NSFontAttributeName: self.labelFont}];
 		
         // Compute label dimensions based on font metrics if size is larger than max then clip the label width
         float lHeight = dims.height;
@@ -315,7 +316,7 @@
         // Set label properties
         label.font = self.labelFont;
         label.adjustsFontSizeToFitWidth = NO;
-        label.textAlignment = UITextAlignmentCenter;
+        label.textAlignment = NSTextAlignmentCenter;
         label.opaque = NO;
         label.backgroundColor = [UIColor clearColor];
         label.textColor = [UIColor whiteColor];
@@ -342,7 +343,7 @@
         // Add details label delatils text was set
         if (nil != self.detailsLabelText) {
             // Get size of label text
-            dims = [self.detailsLabelText sizeWithFont:self.detailsLabelFont];
+            dims = [self.detailsLabelText sizeWithAttributes:@{NSFontAttributeName: self.detailsLabelFont}];
 			
             // Compute label dimensions based on font metrics if size is larger than max then clip the label width
             lHeight = dims.height;
@@ -356,7 +357,7 @@
             // Set label properties
             detailsLabel.font = self.detailsLabelFont;
             detailsLabel.adjustsFontSizeToFitWidth = NO;
-            detailsLabel.textAlignment = UITextAlignmentCenter;
+            detailsLabel.textAlignment = NSTextAlignmentCenter;
             detailsLabel.opaque = NO;
             detailsLabel.backgroundColor = [UIColor clearColor];
             detailsLabel.textColor = [UIColor whiteColor];
@@ -438,33 +439,6 @@
 
 - (void)handleMinShowTimer:(NSTimer *)theTimer {
 	[self hideUsingAnimation:useAnimation];
-}
-
-- (void)showWhileExecuting:(SEL)method onTarget:(id)target withObject:(id)object animated:(BOOL)animated {
-	
-    methodForExecution = method;
-    targetForExecution = target;
-    objectForExecution = object;
-	
-    // Launch execution in new thread
-	taskInProgress = YES;
-    [NSThread detachNewThreadSelector:@selector(launchExecution) toTarget:self withObject:nil];
-	
-	// Show HUD view
-	[self show:animated];
-}
-
-- (void)launchExecution {
-    @autoreleasepool {
-	
-    // Start executing the requested task
-        [targetForExecution performSelector:methodForExecution withObject:objectForExecution];
-	
-        // Task completed, update view in main thread (note: view operations should
-        // be done only in the main thread)
-        [self performSelectorOnMainThread:@selector(cleanUp) withObject:nil waitUntilDone:NO];
-	
-    }
 }
 
 - (void)animationFinished:(NSString *)animationID finished:(BOOL)finished context:(void*)context {

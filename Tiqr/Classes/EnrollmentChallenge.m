@@ -64,6 +64,10 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
     return [self initWithRawChallenge:challenge managedObjectContext:context allowFiles:NO];
 }
 
+- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context autoParse:(BOOL)autoParse {
+    return [self initWithRawChallenge:challenge managedObjectContext:context allowFiles:NO];
+}
+
 - (BOOL)isValidMetadata:(NSDictionary *)metadata {
     // TODO: service => identityProvider 
 	if ([metadata valueForKey:@"service"] == nil ||

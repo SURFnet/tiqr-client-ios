@@ -96,7 +96,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.detailTextLabel.minimumFontSize = 12.0;     
+        cell.detailTextLabel.minimumScaleFactor = 0.75;
         cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
     }
 

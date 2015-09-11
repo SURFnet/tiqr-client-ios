@@ -38,6 +38,7 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
 @property (nonatomic, strong) EnrollmentChallenge *challenge;
 @property (nonatomic, strong) NSMutableData *data;
 @property (nonatomic, copy) NSString *protocolVersion;
+@property (nonatomic, strong) NSURLConnection *sendConnection;
 
 @end
 
@@ -75,7 +76,7 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [request setValue:TIQR_PROTOCOL_VERSION forHTTPHeaderField:@"X-TIQR-Protocol-Version"];
 
-    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    self.sendConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 	self.data = [NSMutableData data];
 }
 

@@ -81,7 +81,7 @@ static const int powers10[] = { 10, 100, 1000, 10000, 100000, 1000000, 10000000,
     
     /* Generate decimal digits */
     self.dec = [NSString stringWithFormat:@"%0*d",
-                (self.numDigits < MAX_DIGITS_10 ? self.numDigits : MAX_DIGITS_10),
+                (int)(self.numDigits < MAX_DIGITS_10 ? self.numDigits : MAX_DIGITS_10),
                 (self.numDigits < MAX_DIGITS_10 ? (value % powers10[self.numDigits - 1]) : value)];  
     
     /* Generate hexadecimal digits */

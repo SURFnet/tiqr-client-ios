@@ -40,6 +40,7 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
 @property (nonatomic, copy) NSString *response;
 @property (nonatomic, strong) NSMutableData *data;
 @property (nonatomic, copy) NSString *protocolVersion;
+@property (nonatomic, strong) NSURLConnection *sendConnection;
 
 @end
 
@@ -239,7 +240,7 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
     [request setValue:TIQR_PROTOCOL_VERSION forHTTPHeaderField:@"X-TIQR-Protocol-Version"];
     
     self.data = [NSMutableData data];
-	[[NSURLConnection alloc] initWithRequest:request delegate:self];
+	self.sendConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
 
