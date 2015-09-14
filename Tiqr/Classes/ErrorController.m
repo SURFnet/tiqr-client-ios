@@ -32,10 +32,6 @@
 
 @implementation ErrorController
 
-@synthesize view=view_;
-@synthesize titleLabel=titleLabel_;
-@synthesize messageLabel=messageLabel_;
-
 - (instancetype)init {
     self = [super init];
     if (self != nil) {

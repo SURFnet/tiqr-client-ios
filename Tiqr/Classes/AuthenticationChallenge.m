@@ -37,10 +37,6 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 
 @implementation AuthenticationChallenge
 
-@synthesize identityProvider=identityProvider_, identity=identity_, identities=identities_;
-@synthesize serviceProviderIdentifier=serviceProviderIdentifier_, serviceProviderDisplayName=serviceProviderDisplayName_;
-@synthesize sessionKey=sessionKey_, challenge=challenge_, returnUrl=returnUrl_;
-
 - (void)parseRawChallenge {
     NSString *scheme = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TIQRAuthenticationURLScheme"]; 
     

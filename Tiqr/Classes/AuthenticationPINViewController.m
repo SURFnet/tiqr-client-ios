@@ -48,10 +48,6 @@
 
 @implementation AuthenticationPINViewController
 
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize challenge=challenge_;
-@synthesize response=response_;
-
 - (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
     self = [super init];
     if (self != nil) {

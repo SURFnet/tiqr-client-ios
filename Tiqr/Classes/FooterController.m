@@ -40,9 +40,6 @@
 
 @implementation FooterController
 
-@synthesize view=view_;
-@synthesize providedByLabel=providedByLabel_;
-
 - (instancetype)init {
     self = [super init];
     if (self != nil) {

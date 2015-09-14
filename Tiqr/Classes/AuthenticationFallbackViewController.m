@@ -48,20 +48,6 @@
 
 @implementation AuthenticationFallbackViewController
 
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize challenge=challenge_;
-@synthesize response=response_;
-@synthesize footerController=footerController_;
-@synthesize identityIdentifierLabel=identityIdentifierLabel_;
-@synthesize oneTimePasswordLabel=oneTimePasswordLabel_;
-
-@synthesize errorTitleLabel=errorTitleLabel_;
-@synthesize errorInstructionLabel=errorInstructionLabel_;
-@synthesize yourIdLabel=yourIdLabel_;
-@synthesize oneTimeLoginCodeLabel=oneTimeLoginCodeLabel_;
-@synthesize unverifiedPinLabel=unverifiedPinLabel_;
-@synthesize retryLabel=retryLabel_;
-
 - (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response {
     self = [super initWithNibName:@"AuthenticationFallbackView" bundle:nil];   
 	if (self != nil) {

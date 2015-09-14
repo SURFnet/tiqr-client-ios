@@ -45,12 +45,6 @@
 
 @implementation StartViewController
 
-@synthesize webView=webView_;
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize identitiesButtonItem=identitiesButtonItem_;
-@synthesize footerController=footerController_;
-@synthesize errorController=errorController_;
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     

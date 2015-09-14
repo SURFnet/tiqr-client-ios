@@ -47,8 +47,6 @@
 
 @implementation IdentityListViewController
 
-@synthesize fetchedResultsController=fetchedResultsController_, managedObjectContext=managedObjectContext_, processingMoveRow=processingMoveRow_, selectedIdentity=selectedIdentity_;
-
 - (instancetype)init {
     self = [super initWithNibName:@"IdentityListView" bundle:nil];
     if (self != nil) {
@@ -207,8 +205,8 @@
 #pragma mark Fetched results controller
 
 - (NSFetchedResultsController *)fetchedResultsController {
-    if (fetchedResultsController_ != nil) {
-        return fetchedResultsController_;
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
     }
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -226,7 +224,7 @@
     
     
     NSError *error = nil;
-    if (![fetchedResultsController_ performFetch:&error]) {
+    if (![_fetchedResultsController performFetch:&error]) {
         NSLog(@"Unexpected error: %@", error);
         NSString *title = NSLocalizedString(@"error", "Alert title for error");		
         NSString *message = NSLocalizedString(@"error_auth_unknown_error", "Unexpected error message");		        
@@ -235,7 +233,7 @@
 		[alertView show];
     }
     
-    return fetchedResultsController_;
+    return _fetchedResultsController;
 }    
 
 #pragma mark -

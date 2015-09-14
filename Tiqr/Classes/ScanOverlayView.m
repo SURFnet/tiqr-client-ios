@@ -57,9 +57,6 @@
 
 @implementation ScanOverlayView
 
-@synthesize cropRect=cropRect_;
-@synthesize points=points_;
-
 - (void)setFrame:(CGRect)frame {
 	[super setFrame:frame];
 	
@@ -100,7 +97,7 @@
 }
 
 - (void)setPoints:(NSArray *)points {
-    points_ = points;
+    _points = points;
     [self setNeedsDisplay];
 }
 

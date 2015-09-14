@@ -46,11 +46,6 @@
 
 @implementation EnrollmentPINVerificationViewController
 
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize challenge=challenge_;
-@synthesize PIN=PIN_;
-@synthesize responseData=responseData_;
-
 - (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge PIN:(NSString *)PIN {
     self = [super init];
     if (self != nil) {

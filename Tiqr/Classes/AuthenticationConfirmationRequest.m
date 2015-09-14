@@ -46,11 +46,6 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
 
 @implementation AuthenticationConfirmationRequest
 
-@synthesize delegate=delegate_;
-@synthesize challenge=challenge_;
-@synthesize response=response_;
-@synthesize data=data_;
-
 - (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response {
     self = [super init];
     if (self != nil) {

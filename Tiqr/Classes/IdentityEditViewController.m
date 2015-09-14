@@ -42,15 +42,6 @@
 
 @implementation IdentityEditViewController
 
-@synthesize identity=identity_;
-@synthesize identityProviderLogoImageView=identityProviderLogoImageView_;
-@synthesize identityProviderIdentifierLabel=identityProviderIdentifierLabel_;
-@synthesize identityProviderDisplayNameLabel=identityProviderDisplayNameLabel_;
-@synthesize blockedWarningLabel=blockedWarningLabel_;
-@synthesize tableView=tableView_;
-@synthesize deleteButton=deleteButton_;
-
-
 - (instancetype)initWithIdentity:(Identity *)identity {
     self = [super initWithNibName:@"IdentityEditView" bundle:nil];
     if (self != nil) {

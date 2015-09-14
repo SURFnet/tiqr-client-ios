@@ -30,13 +30,7 @@
 #import <Foundation/Foundation.h>
 #import <CommonCrypto/CommonHMAC.h>
 
-@interface HOTP : NSObject {
-    NSData *key;
-    NSUInteger counter;
-    int numDigits;
-    NSString *dec;
-    NSString *hex;
-}
+@interface HOTP : NSObject
 
 @property (nonatomic, strong) NSData *key;
 @property (nonatomic) NSUInteger counter;

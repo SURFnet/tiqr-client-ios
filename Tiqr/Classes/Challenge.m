@@ -39,8 +39,6 @@
 
 @implementation Challenge
 
-@synthesize rawChallenge=rawChallenge_, managedObjectContext=managedObjectContext_, valid=valid_, error=error_;
-
 - (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context {
     return [self initWithRawChallenge:challenge managedObjectContext:context autoParse:YES];
 }

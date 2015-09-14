@@ -43,11 +43,6 @@
 
 @implementation EnrollmentConfirmViewController
 
-@synthesize challenge=challenge_;
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize identityProviderLogoImageView=identityProviderLogoImageView_, identityDisplayNameLabel=identityDisplayNameLabel_, identityProviderDisplayNameLabel=identityProviderDisplayNameLabel_, enrollmentURLDomainLabel=enrollmentURLDomainLabel_;
-@synthesize confirmAccountLabel=confirmAccountLabel_,activateAccountLabel=activateAccountLabel_,enrollDomainLabel=enrollDomainLabel_,okButton=okButton_;
-
 - (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super initWithNibName:@"EnrollmentConfirmView" bundle:nil];
 	if (self != nil) {

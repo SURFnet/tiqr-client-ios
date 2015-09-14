@@ -42,11 +42,6 @@
 
 @implementation AuthenticationIdentityViewController
 
-@synthesize challenge=challenge_;
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize tableView=tableView_;
-@synthesize selectAccountLabel=selectAccountLabel_;
-
 - (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
     self = [super initWithNibName:@"AuthenticationIdentityView" bundle:nil];
 	if (self != nil) {

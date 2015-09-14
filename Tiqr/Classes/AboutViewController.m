@@ -42,12 +42,6 @@
 
 @implementation AboutViewController
 
-@synthesize versionLabel;
-@synthesize tiqrProvidedByLabel=tiqrProvidedByLabel_;
-@synthesize developedByLabel=developedByLabel_;
-@synthesize interactionDesignLabel=interactionDesignLabel_;
-@synthesize okButton=okButton_;
-
 - (instancetype)init {
     
     self = [super init];

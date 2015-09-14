@@ -43,11 +43,6 @@
 
 @implementation AuthenticationConfirmViewController
 
-@synthesize challenge=challenge_;
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize identityProviderLogoImageView=identityProviderLogoImageView_, identityDisplayNameLabel=identityDisplayNameLabel_, identityProviderDisplayNameLabel=identityProviderDisplayNameLabel_, serviceProviderDisplayNameLabel=serviceProviderDisplayNameLabel_, serviceProviderIdentifierLabel=serviceProviderIdentifierLabel_;
-@synthesize loginConfirmLabel=loginConfirmLabel_, loggedInAsLabel=loggedInAsLabel_,toLabel=toLabel_, okButton=okButton_;
-
 - (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
     self = [super initWithNibName:@"AuthenticationConfirmView" bundle:nil];
 	if (self != nil) {

@@ -38,8 +38,6 @@
 
 @implementation IdentityTableViewCell
 
-@synthesize blockedLabel=blockedLabel_;
-
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     if (self) {

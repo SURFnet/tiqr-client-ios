@@ -42,9 +42,6 @@
 
 @implementation ErrorViewController
 
-@synthesize errorController=errorController_;
-@synthesize footerController=footerController_;
-
 - (instancetype)initWithTitle:(NSString *)title errorTitle:(NSString *)errorTitle errorMessage:(NSString *)errorMessage {
     self = [super initWithNibName:@"ErrorView" bundle:nil];
     if (self != nil) {

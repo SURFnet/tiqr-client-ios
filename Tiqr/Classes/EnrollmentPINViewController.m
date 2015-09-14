@@ -38,9 +38,6 @@
 
 @implementation EnrollmentPINViewController
 
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize challenge=challenge_;
-
 - (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super init];
     if (self != nil) {

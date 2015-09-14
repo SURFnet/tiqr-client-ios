@@ -45,16 +45,6 @@
 
 @implementation AuthenticationSummaryViewController
 
-@synthesize challenge=challenge_;
-@synthesize footerController=footerController_;
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize identityProviderLogoImageView=identityProviderLogoImageView_, identityDisplayNameLabel=identityDisplayNameLabel_, identityProviderDisplayNameLabel=identityProviderDisplayNameLabel_, serviceProviderDisplayNameLabel=serviceProviderDisplayNameLabel_, serviceProviderIdentifierLabel=serviceProviderIdentifierLabel_;
-@synthesize returnButton=returnButton_;
-
-@synthesize loginConfirmLabel=loginConfirmLabel_;
-@synthesize loginInformationLabel=loginInformationLabel_;
-@synthesize toLabel=toLabel_;
-
 - (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
     self = [super initWithNibName:@"AuthenticationSummaryView" bundle:nil];
 	if (self != nil) {

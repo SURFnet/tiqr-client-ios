@@ -42,17 +42,6 @@
 
 @implementation PINViewController
 
-@synthesize delegate=delegate_;
-
-@synthesize subtitleLabel=subtitleLabel_;
-@synthesize descriptionLabel=descriptionLabel_;
-@synthesize pinField=pinField_;
-@synthesize pin1Field=pin1Field_, pin2Field=pin2Field_, pin3Field=pin3Field_, pin4Field=pin4Field_;
-@synthesize okButton=okButton_;
-@synthesize pin4Timer=pin4Timer_;
-@synthesize errorController=errorController_;
-@synthesize confirmButton=confirmButton_;
-
 - (instancetype)init {
     self = [super initWithNibName:@"PINView" bundle:nil];
     if (self != nil) {

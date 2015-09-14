@@ -53,21 +53,6 @@
 
 @implementation ScanViewController
 
-#if HAS_AVFF
-@synthesize captureSession=captureSession_;
-@synthesize previewLayer=previewLayer_;
-#endif
-
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize previewView=previewView_;
-@synthesize instructionsView=instructionsView_;
-@synthesize overlayView=overlayView_;
-@synthesize decoding=decoding_;
-@synthesize audioPlayer=audioPlayer_;
-@synthesize identitiesButtonItem=identitiesButtonItem_;
-
-@synthesize instructionLabel=instructionLabel_;
-
 - (instancetype)init {
     self = [super initWithNibName:@"ScanView" bundle:nil];
     if (self) {

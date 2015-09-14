@@ -44,13 +44,6 @@
 
 @implementation EnrollmentSummaryViewController
 
-@synthesize challenge=challenge_;
-@synthesize footerController=footerController_;
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize identityProviderLogoImageView=identityProviderLogoImageView_, identityDisplayNameLabel=identityDisplayNameLabel_, identityProviderDisplayNameLabel=identityProviderDisplayNameLabel_;
-@synthesize returnButton=returnButton_;
-@synthesize accountReadyLabel=accountReadyLabel_,accountActivatedLabel=accountActivationLabel_,rememberPinLabel=rememberPinLabel_;
-
 - (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super initWithNibName:@"EnrollmentSummaryView" bundle:nil];
 	if (self != nil) {
