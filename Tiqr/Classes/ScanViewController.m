@@ -56,7 +56,6 @@
 - (instancetype)init {
     self = [super initWithNibName:@"ScanView" bundle:nil];
     if (self) {
-        self.title = NSLocalizedString(@"scan_window", @"Scan window title");
         self.navigationItem.hidesBackButton = YES;        
         self.decoding = NO;
         
@@ -70,6 +69,7 @@
         
         self.identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"identities"] style:UIBarButtonItemStyleBordered target:self action:@selector(listIdentities)];
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
+        
     }
     
     return self;

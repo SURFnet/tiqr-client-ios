@@ -40,6 +40,7 @@
 @property (nonatomic, strong) UIBarButtonItem *identitiesButtonItem;
 @property (nonatomic, strong) FooterController *footerController;
 @property (nonatomic, strong) ErrorController *errorController;
+@property (nonatomic, strong) IBOutlet UIButton *scanButton;
 
 @end
 
@@ -50,8 +51,8 @@
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"start_button", @"Start button title") style:UIBarButtonItemStyleBordered target:nil action:nil];                
     NSString *scanButtonTitle = NSLocalizedString(@"scan_button", @"Scan button title");
-    UIBarButtonItem *scanButtonItem = [[UIBarButtonItem alloc] initWithTitle:scanButtonTitle style:UIBarButtonItemStyleBordered target:self action:@selector(scan)];
-    self.navigationItem.leftBarButtonItem = scanButtonItem;
+    [self.scanButton setTitle:scanButtonTitle forState:UIControlStateNormal];
+    self.scanButton.layer.cornerRadius = 5;
     
     UIBarButtonItem *identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"identities"] style:UIBarButtonItemStyleBordered target:self action:@selector(listIdentities)];
     self.navigationItem.rightBarButtonItem = identitiesButtonItem;
@@ -65,7 +66,8 @@
     
     self.webView.backgroundColor = [UIColor clearColor];
     self.webView.opaque = NO;       
-    self.webView.delegate = self;    
+    self.webView.delegate = self;
+    self.webView.scrollView.bounces = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -78,17 +80,14 @@
     if ([Identity allIdentitiesBlockedInManagedObjectContext:self.managedObjectContext]) {
         self.webView.frame = CGRectMake(0.0, self.errorController.view.frame.size.height, self.webView.frame.size.width, self.view.frame.size.height - self.errorController.view.frame.size.height - self.footerController.view.frame.size.height);
         self.errorController.view.hidden = NO;
-        self.title = NSLocalizedString(@"main_title_blocked", @"Blocked navigation title");
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
         self.errorController.title = NSLocalizedString(@"error_auth_account_blocked_title", @"Accounts blocked error title");
         self.errorController.message = NSLocalizedString(@"to_many_attempts", @"Accounts blocked error message");        
         content = NSLocalizedString(@"main_text_blocked", @"");                
     } else if ([Identity countInManagedObjectContext:self.managedObjectContext] > 0) {
-        self.title = NSLocalizedString(@"main_title_instructions", @"Instructions navigation title");
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
         content = NSLocalizedString(@"main_text_instructions", @"");        
     } else {
-        self.title = NSLocalizedString(@"main_title_welcome", @"Welcome navigation title");
         self.navigationItem.rightBarButtonItem = nil;
         content = NSLocalizedString(@"main_text_welcome", @"");
     }    
@@ -108,7 +107,7 @@
 	}
 }
 
-- (void)scan {
+- (IBAction)scan {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];	
     if ([Identity countInManagedObjectContext:self.managedObjectContext] > 0 &&
         [defaults objectForKey:@"show_instructions_preference"] == nil) {

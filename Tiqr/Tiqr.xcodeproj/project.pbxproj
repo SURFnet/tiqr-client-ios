@@ -22,8 +22,6 @@
 		76A195BC155BC8B000A73D2D /* EnrollmentSummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76A195BA155BC8B000A73D2D /* EnrollmentSummaryView.xib */; };
 		76A195BE155BCA0900A73D2D /* IdentityEditView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76A195BD155BCA0900A73D2D /* IdentityEditView.xib */; };
 		76A195C0155BCACC00A73D2D /* AboutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76A195BF155BCACC00A73D2D /* AboutView.xib */; };
-		84AB218B168C4F23008C4A35 /* surfnet-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 84AB2189168C4F23008C4A35 /* surfnet-logo.png */; };
-		84AB218C168C4F23008C4A35 /* surfnet-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84AB218A168C4F23008C4A35 /* surfnet-logo@2x.png */; };
 		922F08441289ABE700A33616 /* HOTP.m in Sources */ = {isa = PBXBuildFile; fileRef = 922F08431289ABE700A33616 /* HOTP.m */; };
 		922F08471289ABFE00A33616 /* OCRAWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 922F08461289ABFE00A33616 /* OCRAWrapper.m */; };
 		924D6C5F13094DEC00F87B96 /* AuthenticationFallbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 924D6C5E13094DEC00F87B96 /* AuthenticationFallbackViewController.m */; };
@@ -39,16 +37,14 @@
 		C7B96C7E16FB0C89001EC65E /* Identity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4B0A134B28D00045AF62 /* Identity.m */; };
 		C7B96C8016FB0C8C001EC65E /* IdentityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4B0D134B28D10045AF62 /* IdentityProvider.m */; };
 		C7B96C8416FB0D28001EC65E /* Tiqr.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7B96C8116FB0D28001EC65E /* Tiqr.xcdatamodeld */; };
+		CD7BAB0D1BAAB87400B88393 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7BAB0C1BAAB87400B88393 /* images.xcassets */; };
+		CD7BAB101BAAE3F200B88393 /* TiqrNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */; };
 		D002E0201349D29A00071321 /* ErrorController.m in Sources */ = {isa = PBXBuildFile; fileRef = D002E01F1349D29A00071321 /* ErrorController.m */; };
 		D002E0251349F4D400071321 /* StartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D002E0261349F4D400071321 /* StartView.xib */; };
 		D00C69501280482600F6CE43 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00C694F1280482600F6CE43 /* CoreData.framework */; };
 		D011A5271340CC3000E571A2 /* EnrollmentConfirmationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D011A5261340CC3000E571A2 /* EnrollmentConfirmationRequest.m */; };
 		D011A5311340DA7900E571A2 /* AuthenticationSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D011A5301340DA7900E571A2 /* AuthenticationSummaryViewController.m */; };
 		D011A5341340FEC600E571A2 /* AuthenticationConfirmationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D011A5331340FEC200E571A2 /* AuthenticationConfirmationRequest.m */; };
-		D019EDA113449F3500466A2B /* egeniq-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D019ED9413449F3500466A2B /* egeniq-logo.png */; };
-		D019EDA213449F3500466A2B /* egeniq-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D019ED9513449F3500466A2B /* egeniq-logo@2x.png */; };
-		D019EDAC13449F3500466A2B /* tiqr-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D019ED9F13449F3500466A2B /* tiqr-logo.png */; };
-		D019EDAD13449F3500466A2B /* tiqr-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D019EDA013449F3500466A2B /* tiqr-logo@2x.png */; };
 		D0240CBD127EF62700EB07AD /* ScanOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0240CBC127EF62700EB07AD /* ScanOverlayView.m */; };
 		D025994413095F9B00F1DF9A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D025994613095F9B00F1DF9A /* Localizable.strings */; };
 		D028BFA213092834002EA560 /* cowbell.wav in Resources */ = {isa = PBXBuildFile; fileRef = D028BF8613092834002EA560 /* cowbell.wav */; };
@@ -98,15 +94,10 @@
 		D0C54584130B4066008B807B /* SecretStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C54583130B4066008B807B /* SecretStoreTests.m */; };
 		D0D7200315930AB4008C7004 /* start.html in Resources */ = {isa = PBXBuildFile; fileRef = D0D7200215930AB4008C7004 /* start.html */; };
 		D0E58D671349FB4300A79052 /* FooterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E58D661349FB4300A79052 /* FooterController.m */; };
-		D0E58D6A134A0EE700A79052 /* identities.png in Resources */ = {isa = PBXBuildFile; fileRef = D0E58D69134A0EE700A79052 /* identities.png */; };
 		D0E58D70134A149C00A79052 /* IdentityEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E58D6F134A149C00A79052 /* IdentityEditViewController.m */; };
-		D0E9C08B134DC26A00DDCE4E /* stroomt-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0E9C08A134DC26A00DDCE4E /* stroomt-logo@2x.png */; };
-		D0EBBA79134B606300CAAB58 /* stroomt-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EBBA78134B606300CAAB58 /* stroomt-logo.png */; };
 		D0EBBA7D134B664B00CAAB58 /* ErrorChildView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EBBA7C134B664B00CAAB58 /* ErrorChildView.xib */; };
 		D0EBBA7F134B669800CAAB58 /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EBBA7E134B669800CAAB58 /* ErrorView.xib */; };
 		D0EBBA83134B670300CAAB58 /* ErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EBBA82134B670300CAAB58 /* ErrorViewController.m */; };
-		D0EBBA96134C6A9700CAAB58 /* tiqr-bw-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EBBA94134C6A9700CAAB58 /* tiqr-bw-logo.png */; };
-		D0EBBA97134C6A9700CAAB58 /* tiqr-bw-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D0EBBA95134C6A9700CAAB58 /* tiqr-bw-logo@2x.png */; };
 		D0EECF2F12781F72001D54F8 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EECF2D12781F72001D54F8 /* AboutViewController.m */; };
 		D0EECFA412782EFE001D54F8 /* AuthenticationIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EECFA212782EFE001D54F8 /* AuthenticationIdentityViewController.m */; };
 		D0EECFA912782F23001D54F8 /* AuthenticationConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EECFA712782F23001D54F8 /* AuthenticationConfirmViewController.m */; };
@@ -138,8 +129,6 @@
 		76A195BA155BC8B000A73D2D /* EnrollmentSummaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EnrollmentSummaryView.xib; sourceTree = "<group>"; };
 		76A195BD155BCA0900A73D2D /* IdentityEditView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IdentityEditView.xib; sourceTree = "<group>"; };
 		76A195BF155BCACC00A73D2D /* AboutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutView.xib; sourceTree = "<group>"; };
-		84AB2189168C4F23008C4A35 /* surfnet-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "surfnet-logo.png"; sourceTree = "<group>"; };
-		84AB218A168C4F23008C4A35 /* surfnet-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "surfnet-logo@2x.png"; sourceTree = "<group>"; };
 		922F08421289ABE700A33616 /* HOTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HOTP.h; sourceTree = "<group>"; };
 		922F08431289ABE700A33616 /* HOTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HOTP.m; sourceTree = "<group>"; };
 		922F08451289ABFE00A33616 /* OCRAWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCRAWrapper.h; sourceTree = "<group>"; };
@@ -168,6 +157,9 @@
 		C7B96C7A16FAB70F001EC65E /* OCRA_v1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCRA_v1.m; sourceTree = "<group>"; };
 		C7B96C8216FB0D28001EC65E /* Tiqr 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Tiqr 2.xcdatamodel"; sourceTree = "<group>"; };
 		C7B96C8316FB0D28001EC65E /* Tiqr.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tiqr.xcdatamodel; sourceTree = "<group>"; };
+		CD7BAB0C1BAAB87400B88393 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
+		CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrNavigationBar.h; sourceTree = "<group>"; };
+		CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrNavigationBar.m; sourceTree = "<group>"; };
 		D002E01E1349D29A00071321 /* ErrorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorController.h; sourceTree = "<group>"; };
 		D002E01F1349D29A00071321 /* ErrorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorController.m; sourceTree = "<group>"; };
 		D002E0211349D39C00071321 /* ErrorController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ErrorController-Protected.h"; sourceTree = "<group>"; };
@@ -185,10 +177,6 @@
 		D011A5331340FEC200E571A2 /* AuthenticationConfirmationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationConfirmationRequest.m; sourceTree = "<group>"; };
 		D011A5351341091700E571A2 /* AuthenticationConfirmViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AuthenticationConfirmViewController-Protected.h"; sourceTree = "<group>"; };
 		D011A5361341093600E571A2 /* AuthenticationSummaryViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AuthenticationSummaryViewController-Protected.h"; sourceTree = "<group>"; };
-		D019ED9413449F3500466A2B /* egeniq-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egeniq-logo.png"; sourceTree = "<group>"; };
-		D019ED9513449F3500466A2B /* egeniq-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "egeniq-logo@2x.png"; sourceTree = "<group>"; };
-		D019ED9F13449F3500466A2B /* tiqr-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tiqr-logo.png"; sourceTree = "<group>"; };
-		D019EDA013449F3500466A2B /* tiqr-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tiqr-logo@2x.png"; sourceTree = "<group>"; };
 		D0240CBB127EF62700EB07AD /* ScanOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanOverlayView.h; sourceTree = "<group>"; };
 		D0240CBC127EF62700EB07AD /* ScanOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanOverlayView.m; sourceTree = "<group>"; };
 		D025994513095F9B00F1DF9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -260,12 +248,9 @@
 		D0E58D651349FB4300A79052 /* FooterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooterController.h; sourceTree = "<group>"; };
 		D0E58D661349FB4300A79052 /* FooterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FooterController.m; sourceTree = "<group>"; };
 		D0E58D681349FB5200A79052 /* FooterController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FooterController-Protected.h"; sourceTree = "<group>"; };
-		D0E58D69134A0EE700A79052 /* identities.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = identities.png; sourceTree = "<group>"; };
 		D0E58D6E134A149B00A79052 /* IdentityEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityEditViewController.h; sourceTree = "<group>"; };
 		D0E58D6F134A149C00A79052 /* IdentityEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityEditViewController.m; sourceTree = "<group>"; };
 		D0E58D71134A14BC00A79052 /* IdentityEditViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IdentityEditViewController-Protected.h"; sourceTree = "<group>"; };
-		D0E9C08A134DC26A00DDCE4E /* stroomt-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stroomt-logo@2x.png"; sourceTree = "<group>"; };
-		D0EBBA78134B606300CAAB58 /* stroomt-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stroomt-logo.png"; sourceTree = "<group>"; };
 		D0EBBA7A134B61BD00CAAB58 /* AboutViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AboutViewController-Protected.h"; sourceTree = "<group>"; };
 		D0EBBA7C134B664B00CAAB58 /* ErrorChildView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorChildView.xib; sourceTree = "<group>"; };
 		D0EBBA7E134B669800CAAB58 /* ErrorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorView.xib; sourceTree = "<group>"; };
@@ -274,8 +259,6 @@
 		D0EBBA84134B9F6300CAAB58 /* Challenge-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Challenge-Protected.h"; sourceTree = "<group>"; };
 		D0EBBA85134BA45700CAAB58 /* AuthenticationChallenge-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AuthenticationChallenge-Protected.h"; sourceTree = "<group>"; };
 		D0EBBA89134BA5AC00CAAB58 /* EnrollmentChallenge-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EnrollmentChallenge-Protected.h"; sourceTree = "<group>"; };
-		D0EBBA94134C6A9700CAAB58 /* tiqr-bw-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tiqr-bw-logo.png"; sourceTree = "<group>"; };
-		D0EBBA95134C6A9700CAAB58 /* tiqr-bw-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tiqr-bw-logo@2x.png"; sourceTree = "<group>"; };
 		D0EECF2C12781F72001D54F8 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		D0EECF2D12781F72001D54F8 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		D0EECFA112782EFE001D54F8 /* AuthenticationIdentityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationIdentityViewController.h; sourceTree = "<group>"; };
@@ -435,6 +418,8 @@
 				D0E58D661349FB4300A79052 /* FooterController.m */,
 				D0352BEA12898A7D00184AD5 /* IdentityTableViewCell.h */,
 				D0352BEB12898A7D00184AD5 /* IdentityTableViewCell.m */,
+				CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */,
+				CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -501,17 +486,7 @@
 		D028BF8C13092834002EA560 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				84AB2189168C4F23008C4A35 /* surfnet-logo.png */,
-				84AB218A168C4F23008C4A35 /* surfnet-logo@2x.png */,
-				D0EBBA78134B606300CAAB58 /* stroomt-logo.png */,
-				D0E9C08A134DC26A00DDCE4E /* stroomt-logo@2x.png */,
-				D019ED9413449F3500466A2B /* egeniq-logo.png */,
-				D019ED9513449F3500466A2B /* egeniq-logo@2x.png */,
-				D0E58D69134A0EE700A79052 /* identities.png */,
-				D019ED9F13449F3500466A2B /* tiqr-logo.png */,
-				D019EDA013449F3500466A2B /* tiqr-logo@2x.png */,
-				D0EBBA94134C6A9700CAAB58 /* tiqr-bw-logo.png */,
-				D0EBBA95134C6A9700CAAB58 /* tiqr-bw-logo@2x.png */,
+				CD7BAB0C1BAAB87400B88393 /* images.xcassets */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -909,17 +884,8 @@
 				D025994413095F9B00F1DF9A /* Localizable.strings in Resources */,
 				D06AD591134095690050D75C /* PINView.xib in Resources */,
 				D06AD590134082ED0050D75C /* animals.ttf in Resources */,
-				D019EDA113449F3500466A2B /* egeniq-logo.png in Resources */,
-				D019EDA213449F3500466A2B /* egeniq-logo@2x.png in Resources */,
-				D019EDAC13449F3500466A2B /* tiqr-logo.png in Resources */,
-				D019EDAD13449F3500466A2B /* tiqr-logo@2x.png in Resources */,
-				D0E58D6A134A0EE700A79052 /* identities.png in Resources */,
-				D0EBBA79134B606300CAAB58 /* stroomt-logo.png in Resources */,
 				D0EBBA7D134B664B00CAAB58 /* ErrorChildView.xib in Resources */,
 				D0EBBA7F134B669800CAAB58 /* ErrorView.xib in Resources */,
-				D0EBBA96134C6A9700CAAB58 /* tiqr-bw-logo.png in Resources */,
-				D0EBBA97134C6A9700CAAB58 /* tiqr-bw-logo@2x.png in Resources */,
-				D0E9C08B134DC26A00DDCE4E /* stroomt-logo@2x.png in Resources */,
 				76A195AB155BBE1000A73D2D /* FooterChildView.xib in Resources */,
 				76A195AD155BBEF500A73D2D /* ScanView.xib in Resources */,
 				76A195AF155BC0C800A73D2D /* AuthenticationSummaryView.xib in Resources */,
@@ -929,9 +895,8 @@
 				76A195BB155BC8B000A73D2D /* EnrollmentConfirmView.xib in Resources */,
 				76A195BC155BC8B000A73D2D /* EnrollmentSummaryView.xib in Resources */,
 				76A195BE155BCA0900A73D2D /* IdentityEditView.xib in Resources */,
+				CD7BAB0D1BAAB87400B88393 /* images.xcassets in Resources */,
 				76A195C0155BCACC00A73D2D /* AboutView.xib in Resources */,
-				84AB218B168C4F23008C4A35 /* surfnet-logo.png in Resources */,
-				84AB218C168C4F23008C4A35 /* surfnet-logo@2x.png in Resources */,
 				D0D7200315930AB4008C7004 /* start.html in Resources */,
 				9264034716C92C360032A4FE /* Default-568h@2x.png in Resources */,
 			);
@@ -995,6 +960,7 @@
 				D06AD59B1340A5FF0050D75C /* EnrollmentPINViewController.m in Sources */,
 				D06AD59E1340A7CF0050D75C /* EnrollmentPINVerificationViewController.m in Sources */,
 				D06AD5A11340AFFF0050D75C /* EnrollmentSummaryViewController.m in Sources */,
+				CD7BAB101BAAE3F200B88393 /* TiqrNavigationBar.m in Sources */,
 				D011A5271340CC3000E571A2 /* EnrollmentConfirmationRequest.m in Sources */,
 				D011A5311340DA7900E571A2 /* AuthenticationSummaryViewController.m in Sources */,
 				D011A5341340FEC600E571A2 /* AuthenticationConfirmationRequest.m in Sources */,
