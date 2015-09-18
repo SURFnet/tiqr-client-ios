@@ -44,8 +44,7 @@
 
 - (void)addToView:(UIView *)view {
     [self.view removeFromSuperview];
-    self.view.frame = CGRectMake(0.0, 0.0, view.frame.size.width, self.view.frame.size.height);
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.view.frame = view.frame;
     [view addSubview:self.view];
 }
 
