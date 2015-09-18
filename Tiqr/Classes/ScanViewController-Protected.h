@@ -36,6 +36,4 @@
 @property (nonatomic, strong) IBOutlet ScanOverlayView *overlayView;
 @property (nonatomic, strong) IBOutlet UIView *instructionsView;
 
-- (IBAction)showInstructions;
-
 @end

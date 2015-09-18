@@ -12,7 +12,6 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765070DF74369002DB57D /* CoreGraphics.framework */; };
-		76A195AB155BBE1000A73D2D /* FooterChildView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76A195AA155BBE1000A73D2D /* FooterChildView.xib */; };
 		76A195AD155BBEF500A73D2D /* ScanView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76A195AC155BBEF500A73D2D /* ScanView.xib */; };
 		76A195AF155BC0C800A73D2D /* AuthenticationSummaryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76A195AE155BC0C800A73D2D /* AuthenticationSummaryView.xib */; };
 		76A195B1155BC27200A73D2D /* AuthenticationIdentityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76A195B0155BC27200A73D2D /* AuthenticationIdentityView.xib */; };
@@ -39,6 +38,7 @@
 		C7B96C8416FB0D28001EC65E /* Tiqr.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7B96C8116FB0D28001EC65E /* Tiqr.xcdatamodeld */; };
 		CD7BAB0D1BAAB87400B88393 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7BAB0C1BAAB87400B88393 /* images.xcassets */; };
 		CD7BAB101BAAE3F200B88393 /* TiqrNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */; };
+		CDBB08C01BAC3DB0008D8F94 /* TiqrToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */; };
 		D002E0201349D29A00071321 /* ErrorController.m in Sources */ = {isa = PBXBuildFile; fileRef = D002E01F1349D29A00071321 /* ErrorController.m */; };
 		D002E0251349F4D400071321 /* StartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D002E0261349F4D400071321 /* StartView.xib */; };
 		D00C69501280482600F6CE43 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00C694F1280482600F6CE43 /* CoreData.framework */; };
@@ -93,7 +93,6 @@
 		D0C54582130B4066008B807B /* SecretStoreTests.h in Resources */ = {isa = PBXBuildFile; fileRef = D0C54581130B4066008B807B /* SecretStoreTests.h */; };
 		D0C54584130B4066008B807B /* SecretStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C54583130B4066008B807B /* SecretStoreTests.m */; };
 		D0D7200315930AB4008C7004 /* start.html in Resources */ = {isa = PBXBuildFile; fileRef = D0D7200215930AB4008C7004 /* start.html */; };
-		D0E58D671349FB4300A79052 /* FooterController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E58D661349FB4300A79052 /* FooterController.m */; };
 		D0E58D70134A149C00A79052 /* IdentityEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E58D6F134A149C00A79052 /* IdentityEditViewController.m */; };
 		D0EBBA7D134B664B00CAAB58 /* ErrorChildView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EBBA7C134B664B00CAAB58 /* ErrorChildView.xib */; };
 		D0EBBA7F134B669800CAAB58 /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EBBA7E134B669800CAAB58 /* ErrorView.xib */; };
@@ -119,7 +118,6 @@
 		5EE4873317313F1000762BBE /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5EE4873517313F2A00762BBE /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		5EF2476318EAA8B300E8BE8C /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
-		76A195AA155BBE1000A73D2D /* FooterChildView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FooterChildView.xib; sourceTree = "<group>"; };
 		76A195AC155BBEF500A73D2D /* ScanView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanView.xib; sourceTree = "<group>"; };
 		76A195AE155BC0C800A73D2D /* AuthenticationSummaryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AuthenticationSummaryView.xib; sourceTree = "<group>"; };
 		76A195B0155BC27200A73D2D /* AuthenticationIdentityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AuthenticationIdentityView.xib; sourceTree = "<group>"; };
@@ -160,6 +158,8 @@
 		CD7BAB0C1BAAB87400B88393 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrNavigationBar.h; sourceTree = "<group>"; };
 		CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrNavigationBar.m; sourceTree = "<group>"; };
+		CDBB08BE1BAC3DB0008D8F94 /* TiqrToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrToolbar.h; sourceTree = "<group>"; };
+		CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrToolbar.m; sourceTree = "<group>"; };
 		D002E01E1349D29A00071321 /* ErrorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorController.h; sourceTree = "<group>"; };
 		D002E01F1349D29A00071321 /* ErrorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorController.m; sourceTree = "<group>"; };
 		D002E0211349D39C00071321 /* ErrorController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ErrorController-Protected.h"; sourceTree = "<group>"; };
@@ -245,9 +245,6 @@
 		D0C54581130B4066008B807B /* SecretStoreTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecretStoreTests.h; sourceTree = "<group>"; };
 		D0C54583130B4066008B807B /* SecretStoreTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecretStoreTests.m; sourceTree = "<group>"; };
 		D0D7200215930AB4008C7004 /* start.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = start.html; sourceTree = "<group>"; };
-		D0E58D651349FB4300A79052 /* FooterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FooterController.h; sourceTree = "<group>"; };
-		D0E58D661349FB4300A79052 /* FooterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FooterController.m; sourceTree = "<group>"; };
-		D0E58D681349FB5200A79052 /* FooterController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FooterController-Protected.h"; sourceTree = "<group>"; };
 		D0E58D6E134A149B00A79052 /* IdentityEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityEditViewController.h; sourceTree = "<group>"; };
 		D0E58D6F134A149C00A79052 /* IdentityEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityEditViewController.m; sourceTree = "<group>"; };
 		D0E58D71134A14BC00A79052 /* IdentityEditViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IdentityEditViewController-Protected.h"; sourceTree = "<group>"; };
@@ -402,7 +399,6 @@
 			isa = PBXGroup;
 			children = (
 				D0EBBA7C134B664B00CAAB58 /* ErrorChildView.xib */,
-				76A195AA155BBE1000A73D2D /* FooterChildView.xib */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -413,13 +409,12 @@
 				D002E01E1349D29A00071321 /* ErrorController.h */,
 				D002E0211349D39C00071321 /* ErrorController-Protected.h */,
 				D002E01F1349D29A00071321 /* ErrorController.m */,
-				D0E58D651349FB4300A79052 /* FooterController.h */,
-				D0E58D681349FB5200A79052 /* FooterController-Protected.h */,
-				D0E58D661349FB4300A79052 /* FooterController.m */,
 				D0352BEA12898A7D00184AD5 /* IdentityTableViewCell.h */,
 				D0352BEB12898A7D00184AD5 /* IdentityTableViewCell.m */,
 				CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */,
 				CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */,
+				CDBB08BE1BAC3DB0008D8F94 /* TiqrToolbar.h */,
+				CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -886,7 +881,6 @@
 				D06AD590134082ED0050D75C /* animals.ttf in Resources */,
 				D0EBBA7D134B664B00CAAB58 /* ErrorChildView.xib in Resources */,
 				D0EBBA7F134B669800CAAB58 /* ErrorView.xib in Resources */,
-				76A195AB155BBE1000A73D2D /* FooterChildView.xib in Resources */,
 				76A195AD155BBEF500A73D2D /* ScanView.xib in Resources */,
 				76A195AF155BC0C800A73D2D /* AuthenticationSummaryView.xib in Resources */,
 				76A195B1155BC27200A73D2D /* AuthenticationIdentityView.xib in Resources */,
@@ -966,7 +960,7 @@
 				D011A5341340FEC600E571A2 /* AuthenticationConfirmationRequest.m in Sources */,
 				D08BC9681344F6AF00F8D75B /* ScanViewController.m in Sources */,
 				D002E0201349D29A00071321 /* ErrorController.m in Sources */,
-				D0E58D671349FB4300A79052 /* FooterController.m in Sources */,
+				CDBB08C01BAC3DB0008D8F94 /* TiqrToolbar.m in Sources */,
 				D0E58D70134A149C00A79052 /* IdentityEditViewController.m in Sources */,
 				D0BE4AFD134B0A570045AF62 /* NSString+Verhoeff.m in Sources */,
 				D0BE4B08134B14620045AF62 /* IdentityProvider+Utils.m in Sources */,

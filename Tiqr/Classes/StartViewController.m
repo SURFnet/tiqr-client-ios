@@ -31,14 +31,13 @@
 #import "StartViewController-Protected.h"
 #import "ScanViewController.h"
 #import "IdentityListViewController.h"
-#import "FooterController.h"
 #import "ErrorController.h"
 #import "Identity+Utils.h"
+#import "AboutViewController.h"
 
 @interface StartViewController () <UIWebViewDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem *identitiesButtonItem;
-@property (nonatomic, strong) FooterController *footerController;
 @property (nonatomic, strong) ErrorController *errorController;
 @property (nonatomic, strong) IBOutlet UIButton *scanButton;
 
@@ -49,17 +48,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"start_button", @"Start button title") style:UIBarButtonItemStyleBordered target:nil action:nil];                
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     NSString *scanButtonTitle = NSLocalizedString(@"scan_button", @"Scan button title");
     [self.scanButton setTitle:scanButtonTitle forState:UIControlStateNormal];
     self.scanButton.layer.cornerRadius = 5;
     
-    UIBarButtonItem *identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"identities"] style:UIBarButtonItemStyleBordered target:self action:@selector(listIdentities)];
+    UIBarButtonItem *identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"identities-icon"] style:UIBarButtonItemStyleBordered target:self action:@selector(listIdentities)];
     self.navigationItem.rightBarButtonItem = identitiesButtonItem;
     self.identitiesButtonItem = identitiesButtonItem;
-    
-    self.footerController = [[FooterController alloc] init];
-    [self.footerController addToView:self.view];
     
     self.errorController = [[ErrorController alloc] init];  
     [self.errorController addToView:self.view];
@@ -68,17 +64,19 @@
     self.webView.opaque = NO;       
     self.webView.delegate = self;
     self.webView.scrollView.bounces = NO;
+    
+    [self setToolbarItems:@[[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"info-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(about)]] animated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
     self.errorController.view.hidden = YES;
-    self.webView.frame = CGRectMake(0.0, 0.0, self.webView.frame.size.width, self.view.frame.size.height - self.footerController.view.frame.size.height);    
+    self.webView.frame = CGRectMake(0.0, 0.0, self.webView.frame.size.width, self.view.frame.size.height);
     
     NSString *content = @"";
     if ([Identity allIdentitiesBlockedInManagedObjectContext:self.managedObjectContext]) {
-        self.webView.frame = CGRectMake(0.0, self.errorController.view.frame.size.height, self.webView.frame.size.width, self.view.frame.size.height - self.errorController.view.frame.size.height - self.footerController.view.frame.size.height);
+        self.webView.frame = CGRectMake(0.0, self.errorController.view.frame.size.height, self.webView.frame.size.width, self.view.frame.size.height - self.errorController.view.frame.size.height);
         self.errorController.view.hidden = NO;
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
         self.errorController.title = NSLocalizedString(@"error_auth_account_blocked_title", @"Accounts blocked error title");
@@ -123,6 +121,11 @@
 	}
 }
 
+- (void)about {
+    UIViewController *viewController = [[AboutViewController alloc] init];
+    [self.navigationController presentViewController:viewController animated:YES completion:nil];
+}
+
 - (void)listIdentities {
     IdentityListViewController *viewController = [[IdentityListViewController alloc] init];
     viewController.managedObjectContext = self.managedObjectContext;
@@ -145,9 +148,6 @@
 
 - (void)viewDidUnload {
     [self resetOutlets];
-    
-    [self.footerController.view removeFromSuperview];
-    self.footerController = nil;
     
     [self.errorController.view removeFromSuperview];
     self.errorController = nil;

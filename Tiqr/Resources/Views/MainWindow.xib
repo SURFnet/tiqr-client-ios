@@ -25,19 +25,24 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </window>
-        <navigationController id="164">
+        <navigationController toolbarHidden="NO" id="164">
             <extendedEdge key="edgesForExtendedLayout"/>
             <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="165" customClass="TiqrNavigationBar">
                 <autoresizingMask key="autoresizingMask"/>
-                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 <color key="barTintColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
             </navigationBar>
             <viewControllers>
-                <viewController title="" nibName="StartView" id="166" userLabel="Start View Controller" customClass="StartViewController">
+                <viewController nibName="StartView" id="166" userLabel="Start View Controller" customClass="StartViewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" id="167"/>
                 </viewController>
             </viewControllers>
+            <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" id="stA-eL-ELc" customClass="TiqrToolbar">
+                <autoresizingMask key="autoresizingMask"/>
+                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                <color key="barTintColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
+            </toolbar>
         </navigationController>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

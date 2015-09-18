@@ -49,6 +49,24 @@
         self.blockedLabel.text = NSLocalizedString(@"identity_blocked", @"Blocked cell label");
         self.blockedLabel.textColor = [UIColor redColor];
         [self addSubview:self.blockedLabel];
+        
+        self.textLabel.font = [UIFont boldSystemFontOfSize:16];
+        self.detailTextLabel.font = [UIFont systemFontOfSize:14];
+        
+        // Remove seperator inset
+        if ([self respondsToSelector:@selector(setSeparatorInset:)]) {
+            [self setSeparatorInset:UIEdgeInsetsZero];
+        }
+        
+        // Prevent the cell from inheriting the Table View's margin settings
+        if ([self respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+            [self setPreservesSuperviewLayoutMargins:NO];
+        }
+        
+        // Explictly set your cell's layout margins
+        if ([self respondsToSelector:@selector(setLayoutMargins:)]) {
+            [self setLayoutMargins:UIEdgeInsetsZero];
+        }
     }
     return self;
 }
@@ -60,7 +78,7 @@
 	CGSize imageSize = self.imageView.image.size;
 	
 	CGFloat padding = 5;
-	CGFloat maxWidth = 80;
+	CGFloat maxWidth = 50;
 	CGFloat maxHeight = self.frame.size.height - (2 * padding);
 	
 	CGFloat width = imageSize.width;
@@ -74,15 +92,15 @@
 		width = (height / imageSize.height) * width;
 	}
 	
-	imageFrame.origin.x = padding + ((maxWidth - width) / 2);
-	imageFrame.origin.y = padding + ((maxHeight - height) / 2);	
+	imageFrame.origin.x = 30;
+	imageFrame.origin.y = padding + ((maxHeight - height) / 2);
 	imageFrame.size.width = width;
 	imageFrame.size.height = height;	
 	self.imageView.frame = imageFrame;
 	
-	CGFloat textPaddingX = 10.0;
+	CGFloat textPaddingX = 30.0;
     CGFloat textPaddingY = 0.0;
-	CGFloat textOriginX = padding + maxWidth + textPaddingX;
+	CGFloat textOriginX = imageFrame.origin.x + width + textPaddingX;
 	CGFloat textBlockHeight = self.textLabel.frame.size.height + textPaddingY + self.detailTextLabel.frame.size.height + (self.blockedLabel.hidden ? 0.0 : textPaddingY + self.blockedLabel.frame.size.height);
     CGFloat textOriginY = (self.frame.size.height - textBlockHeight) / 2.0;
     
@@ -107,7 +125,7 @@
 
 - (void)setIdentity:(Identity *)identity {
 	self.textLabel.text = identity.displayName;
-	self.detailTextLabel.text = identity.identityProvider.displayName;
+	self.detailTextLabel.text = identity.identifier;
     self.blockedLabel.hidden = ![identity.blocked boolValue];
 	UIImage *image = [[UIImage alloc] initWithData:identity.identityProvider.logo];
 	self.imageView.image = image;

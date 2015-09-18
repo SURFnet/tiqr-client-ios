@@ -50,8 +50,7 @@
 - (instancetype)init {
     self = [super initWithNibName:@"IdentityListView" bundle:nil];
     if (self != nil) {
-        self.title = NSLocalizedString(@"your_accounts", @"Accounts navigation item title");
-        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"accounts", @"Accounts back button title") style:UIBarButtonItemStylePlain target:nil action:nil];
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
         self.navigationItem.rightBarButtonItem = self.editButtonItem;
     }
     
@@ -93,7 +92,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return 80.0;
+	return 60.0;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return NSLocalizedString(@"identity_title", @"Identity select back button title");
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

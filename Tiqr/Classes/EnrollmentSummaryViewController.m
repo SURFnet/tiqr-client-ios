@@ -29,13 +29,11 @@
 
 #import "EnrollmentSummaryViewController.h"
 #import "EnrollmentSummaryViewController-Protected.h"
-#import "FooterController.h"
 #import "TiqrAppDelegate.h"
 
 @interface EnrollmentSummaryViewController ()
 
 @property (nonatomic, strong) EnrollmentChallenge *challenge;
-@property (nonatomic, strong) FooterController *footerController;
 @property (nonatomic, strong) IBOutlet UILabel *accountActivatedLabel;
 @property (nonatomic, strong) IBOutlet UILabel *accountReadyLabel;
 @property (nonatomic, strong) IBOutlet UILabel *rememberPinLabel;
@@ -48,7 +46,6 @@
     self = [super initWithNibName:@"EnrollmentSummaryView" bundle:nil];
 	if (self != nil) {
 		self.challenge = challenge;
-        self.footerController = [[FooterController alloc] init];
 	}
 	
 	return self;
@@ -77,8 +74,6 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    
-    [self.footerController addToView:self.view];
 }
 
 - (void)done {

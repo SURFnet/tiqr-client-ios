@@ -29,13 +29,11 @@
 
 #import "AuthenticationSummaryViewController.h"
 #import "AuthenticationSummaryViewController-Protected.h"
-#import "FooterController.h"
 #import "TiqrAppDelegate.h"
 
 @interface AuthenticationSummaryViewController ()
 
 @property (nonatomic, strong) AuthenticationChallenge *challenge;
-@property (nonatomic, strong) FooterController *footerController;
 
 @property (nonatomic, strong) IBOutlet UILabel *loginConfirmLabel;
 @property (nonatomic, strong) IBOutlet UILabel *loginInformationLabel;
@@ -49,7 +47,6 @@
     self = [super initWithNibName:@"AuthenticationSummaryView" bundle:nil];
 	if (self != nil) {
 		self.challenge = challenge;
-        self.footerController = [[FooterController alloc] init];        
 	}
 	
 	return self;
@@ -80,8 +77,6 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    
-    [self.footerController addToView:self.view];
 }
 
 - (void)done {

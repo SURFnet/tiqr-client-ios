@@ -29,14 +29,12 @@
 
 #import "AuthenticationFallbackViewController.h"
 #import "AuthenticationFallbackViewController-Protected.h"
-#import "FooterController.h"
 #import "TiqrAppDelegate.h"
 
 @interface AuthenticationFallbackViewController ()
 
 @property (nonatomic, strong) AuthenticationChallenge *challenge;
 @property (nonatomic, copy) NSString *response;
-@property (nonatomic, strong) FooterController *footerController;
 @property (nonatomic, strong) IBOutlet UILabel *errorTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *errorInstructionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *yourIdLabel;
@@ -53,7 +51,6 @@
 	if (self != nil) {
 		self.challenge = challenge;
         self.response = response;
-        self.footerController = [[FooterController alloc] init];
 	}
 	
 	return self;
@@ -73,9 +70,7 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];        
 	
 	self.identityIdentifierLabel.text = self.challenge.identity.identifier;
-    self.oneTimePasswordLabel.text = self.response; 
-    
-    [self.footerController addToView:self.view];
+    self.oneTimePasswordLabel.text = self.response;
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;

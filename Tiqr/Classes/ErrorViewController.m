@@ -30,13 +30,11 @@
 #import "ErrorViewController.h"
 
 #import "ErrorController.h"
-#import "FooterController.h"
 #import "TiqrAppDelegate.h"
 
 @interface ErrorViewController ()
 
 @property (nonatomic, strong) ErrorController *errorController;
-@property (nonatomic, strong) FooterController *footerController;
 
 @end
 
@@ -52,8 +50,6 @@
         self.errorController = [[ErrorController alloc] init];
         self.errorController.title = errorTitle;
         self.errorController.message = errorMessage;
-        
-        self.footerController = [[FooterController alloc] init];
     }
     
     return self;
@@ -62,7 +58,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.errorController addToView:self.view];
-    [self.footerController addToView:self.view];
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -76,7 +71,6 @@
 - (void)viewDidUnload {
     [super viewDidUnload];
     [self.errorController.view removeFromSuperview];
-    [self.footerController.view removeFromSuperview];
 }
 
 
