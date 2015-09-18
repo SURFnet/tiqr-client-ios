@@ -37,6 +37,7 @@
 @property (nonatomic, strong) NSTimer *pin4Timer;
 @property (nonatomic, strong) ErrorController *errorController;
 @property (nonatomic, strong) IBOutlet UIButton *confirmButton;
+@property (strong, nonatomic) IBOutlet UILabel *notesLabel;
 
 @end
 
@@ -64,6 +65,15 @@
 
 - (void)setPinDescription:(NSString *)description {
     self.descriptionLabel.text = description;
+}
+
+- (NSString *)pinNotes {
+    return self.descriptionLabel.text;
+}
+
+- (void)setPinNotes:(NSString *)notes {
+    self.notesLabel.text = notes;
+    self.notesLabel.hidden = NO;
 }
 
 - (void)viewDidLoad {

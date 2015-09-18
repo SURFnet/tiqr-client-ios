@@ -62,6 +62,11 @@
 @property (nonatomic, copy) NSString *pinDescription;
 
 /**
+ * Additional notes for the user.
+ */
+@property (nonatomic, copy) NSString *pinNotes;
+
+/**
  * Shows the user an error with the given title and message.
  *
  * @param string  error title

@@ -60,10 +60,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = NSLocalizedString(@"enrollment_confirmation_header_title", @"Account activation title");
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"password_verify_back_button", @"Enrollment PIN verification back button title") style:UIBarButtonItemStyleBordered target:nil action:nil];        
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.subtitle = NSLocalizedString(@"login_verify_intro", @"Enrollment PIN verification title");
     self.pinDescription = NSLocalizedString(@"login_verify_message", @"Enter your PIN code again for verification. Please note the animal icon. This will help you remember your PIN code.");
+    self.pinNotes = NSLocalizedString(@"remember_pincode_notice", @"Remember your PIN, it cannot be changed!");
 }
 
 - (BOOL)storeProviderAndIdentity {
