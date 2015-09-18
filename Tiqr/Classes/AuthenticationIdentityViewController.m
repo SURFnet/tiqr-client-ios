@@ -54,10 +54,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.selectAccountLabel.text = NSLocalizedString(@"select_identity_title", @"Select Identity");
-    
-    self.title = NSLocalizedString(@"authentication_title", @"Login title");
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"identity_title", @"Identity select back button title") style:UIBarButtonItemStyleBordered target:nil action:nil];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -76,6 +73,11 @@
 	return 60.0;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    return NSLocalizedString(@"select_identity_title", @"Select Identity");
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
 	
@@ -84,7 +86,8 @@
     IdentityTableViewCell *cell = (IdentityTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[IdentityTableViewCell alloc] initWithReuseIdentifier:CellIdentifier];
-		[cell setIdentity:identity];
+        [cell setIdentity:identity];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     return cell;
