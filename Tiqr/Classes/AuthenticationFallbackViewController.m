@@ -66,7 +66,6 @@
     self.unverifiedPinLabel.text = NSLocalizedString(@"note_pin_not_verified_title", @"Note: your PIN has not been verified yet.");
     self.retryLabel.text = NSLocalizedString(@"note_pin_not_verified", @"If you can\'t login with the credentials above, scan\nagain and enter the correct PIN code.");
     
-    self.title = NSLocalizedString(@"authentication_title", @"Login title");
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];        
 	
 	self.identityIdentifierLabel.text = self.challenge.identity.identifier;
