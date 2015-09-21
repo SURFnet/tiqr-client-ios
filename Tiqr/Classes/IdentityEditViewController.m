@@ -42,15 +42,6 @@
 
 @implementation IdentityEditViewController
 
-@synthesize identity=identity_;
-@synthesize identityProviderLogoImageView=identityProviderLogoImageView_;
-@synthesize identityProviderIdentifierLabel=identityProviderIdentifierLabel_;
-@synthesize identityProviderDisplayNameLabel=identityProviderDisplayNameLabel_;
-@synthesize blockedWarningLabel=blockedWarningLabel_;
-@synthesize tableView=tableView_;
-@synthesize deleteButton=deleteButton_;
-
-
 - (instancetype)initWithIdentity:(Identity *)identity {
     self = [super initWithNibName:@"IdentityEditView" bundle:nil];
     if (self != nil) {
@@ -64,13 +55,9 @@
     [super viewDidLoad];
     
     [self.deleteButton setTitle:NSLocalizedString(@"delete_button", @"Delete") forState:UIControlStateNormal];
-    self.deleteButton.layer.borderWidth = 1;
-    self.deleteButton.layer.borderColor = [UIColor colorWithRed:0 green:122.0/255.0 blue:1 alpha:1].CGColor;
-    self.deleteButton.layer.cornerRadius = 4;
+    self.deleteButton.layer.cornerRadius = 5;
     
     self.blockedWarningLabel.text = NSLocalizedString(@"identity_blocked_message", @"Warning this account is blocked and needs to be reactivated.");
-    
-    self.title = NSLocalizedString(@"account_details_title", @"Account details navigation title");
     
     self.identityProviderLogoImageView.image = [UIImage imageWithData:self.identity.identityProvider.logo];
     self.identityProviderIdentifierLabel.text = self.identity.identityProvider.identifier;
@@ -100,7 +87,11 @@
         cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
     }
 
-    cell.accessoryType = UITableViewCellAccessoryNone;    
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    
+    cell.textLabel.font = [UIFont boldSystemFontOfSize:16];
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:16];
+    cell.detailTextLabel.textColor = [UIColor blackColor];
     
     if (indexPath.row == 0) {
         cell.textLabel.text = NSLocalizedString(@"full_name", @"Username label");

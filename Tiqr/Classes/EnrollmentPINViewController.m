@@ -38,9 +38,6 @@
 
 @implementation EnrollmentPINViewController
 
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize challenge=challenge_;
-
 - (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super init];
     if (self != nil) {
@@ -54,10 +51,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.title = NSLocalizedString(@"enrollment_confirmation_header_title", @"Account activation title");
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"password_verify_back_button", @"Enrollment PIN back button title") style:UIBarButtonItemStyleBordered target:nil action:nil];        
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.subtitle = NSLocalizedString(@"enrollment_pin_intro", @"Enrollment PIN title");
     self.pinDescription = NSLocalizedString(@"enrollment_pin_message", @"You need a PIN code for this account. If you don't yet have a PIN code for tiqr please choose one.");
+    self.pinNotes = NSLocalizedString(@"remember_pincode_notice", @"Remember your PIN, it cannot be changed!");
 }
 
 - (void)PINViewController:(PINViewController *)pinViewController didFinishWithPIN:(NSString *)PIN {

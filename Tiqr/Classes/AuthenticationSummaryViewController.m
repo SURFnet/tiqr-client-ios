@@ -29,13 +29,11 @@
 
 #import "AuthenticationSummaryViewController.h"
 #import "AuthenticationSummaryViewController-Protected.h"
-#import "FooterController.h"
 #import "TiqrAppDelegate.h"
 
 @interface AuthenticationSummaryViewController ()
 
 @property (nonatomic, strong) AuthenticationChallenge *challenge;
-@property (nonatomic, strong) FooterController *footerController;
 
 @property (nonatomic, strong) IBOutlet UILabel *loginConfirmLabel;
 @property (nonatomic, strong) IBOutlet UILabel *loginInformationLabel;
@@ -45,21 +43,10 @@
 
 @implementation AuthenticationSummaryViewController
 
-@synthesize challenge=challenge_;
-@synthesize footerController=footerController_;
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize identityProviderLogoImageView=identityProviderLogoImageView_, identityDisplayNameLabel=identityDisplayNameLabel_, identityProviderDisplayNameLabel=identityProviderDisplayNameLabel_, serviceProviderDisplayNameLabel=serviceProviderDisplayNameLabel_, serviceProviderIdentifierLabel=serviceProviderIdentifierLabel_;
-@synthesize returnButton=returnButton_;
-
-@synthesize loginConfirmLabel=loginConfirmLabel_;
-@synthesize loginInformationLabel=loginInformationLabel_;
-@synthesize toLabel=toLabel_;
-
 - (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
     self = [super initWithNibName:@"AuthenticationSummaryView" bundle:nil];
 	if (self != nil) {
 		self.challenge = challenge;
-        self.footerController = [[FooterController alloc] init];        
 	}
 	
 	return self;
@@ -71,14 +58,12 @@
     self.loginConfirmLabel.text = NSLocalizedString(@"successfully_logged_in", @"Login succes confirmation message");
     self.loginInformationLabel.text = NSLocalizedString(@"loggedin_with_account", @"Login information message");
     self.toLabel.text = NSLocalizedString(@"to_service_provider", @"to:");
-    
-    self.title = NSLocalizedString(@"authentication_title", @"Login title");
+
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
     self.navigationItem.leftBarButtonItem = backButton;
     
-	self.identityProviderLogoImageView.image = [[UIImage alloc] initWithData:self.challenge.identityProvider.logo];
 	self.identityDisplayNameLabel.text = self.challenge.identity.displayName;
-	self.identityProviderDisplayNameLabel.text = self.challenge.identityProvider.displayName;	
+	self.identityIdentifierLabel.text = self.challenge.identity.identifier;
 	self.serviceProviderDisplayNameLabel.text = self.challenge.serviceProviderDisplayName;
 	self.serviceProviderIdentifierLabel.text = self.challenge.serviceProviderIdentifier;
     
@@ -90,8 +75,6 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    
-    [self.footerController addToView:self.view];
 }
 
 - (void)done {
@@ -105,9 +88,8 @@
 }
 
 - (void)resetOutlets {
-	self.identityProviderLogoImageView = nil;
 	self.identityDisplayNameLabel = nil;
-	self.identityProviderDisplayNameLabel = nil;
+	self.identityIdentifierLabel = nil;
 	self.serviceProviderDisplayNameLabel = nil;
 	self.serviceProviderIdentifierLabel = nil;
     self.returnButton = nil;

@@ -38,15 +38,13 @@
 @property (nonatomic, strong) IBOutlet UILabel *activateAccountLabel;
 @property (nonatomic, strong) IBOutlet UILabel *enrollDomainLabel;
 @property (nonatomic, strong) IBOutlet UIButton *okButton;
+@property (nonatomic, strong) IBOutlet UILabel *fullNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *accountIDLabel;
+@property (nonatomic, strong) IBOutlet UILabel *accountDetailsLabel;
 
 @end
 
 @implementation EnrollmentConfirmViewController
-
-@synthesize challenge=challenge_;
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize identityProviderLogoImageView=identityProviderLogoImageView_, identityDisplayNameLabel=identityDisplayNameLabel_, identityProviderDisplayNameLabel=identityProviderDisplayNameLabel_, enrollmentURLDomainLabel=enrollmentURLDomainLabel_;
-@synthesize confirmAccountLabel=confirmAccountLabel_,activateAccountLabel=activateAccountLabel_,enrollDomainLabel=enrollDomainLabel_,okButton=okButton_;
 
 - (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super initWithNibName:@"EnrollmentConfirmView" bundle:nil];
@@ -63,17 +61,17 @@
     self.confirmAccountLabel.text = NSLocalizedString(@"confirm_account_activation", @"Confirm account activation");
     self.activateAccountLabel.text = NSLocalizedString(@"activate_following_account", @"Do you want to activate the following account");
     self.enrollDomainLabel.text = NSLocalizedString(@"enroll_following_domain", @"You will enroll to the following domain");
-    [self.okButton setTitle:NSLocalizedString(@"ok_button", @"OK") forState:UIControlStateNormal];
-    self.okButton.layer.borderWidth = 1;
-    self.okButton.layer.borderColor = [UIColor colorWithRed:0 green:122.0/255.0 blue:1 alpha:1].CGColor;
-    self.okButton.layer.cornerRadius = 4;
+    self.fullNameLabel.text = NSLocalizedString(@"full_name", @"Full name");
+    self.accountIDLabel.text = NSLocalizedString(@"id", @"Tiqr account ID");
+    self.accountDetailsLabel.text = NSLocalizedString(@"account_details_title", "Account details");
     
-    self.title = NSLocalizedString(@"enrollment_confirmation_header_title", @"Account activation title");
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"enrollment_confirmation_title", @"Enrollment confirm back button title") style:UIBarButtonItemStyleBordered target:nil action:nil];        
+    [self.okButton setTitle:NSLocalizedString(@"ok_button", @"OK") forState:UIControlStateNormal];
+    self.okButton.layer.cornerRadius = 5;
+    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
 
-    self.identityProviderLogoImageView.image = [[UIImage alloc] initWithData:self.challenge.identityProviderLogo];
     self.identityDisplayNameLabel.text = self.challenge.identityDisplayName;
-    self.identityProviderDisplayNameLabel.text = self.challenge.identityProviderDisplayName;
+    self.identityIdentifierLabel.text = self.challenge.identityIdentifier;
     self.enrollmentURLDomainLabel.text = [[NSURL URLWithString:self.challenge.enrollmentUrl] host];
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
@@ -87,14 +85,20 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
+- (IBAction)cancel {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)resetOutlets {
-	self.identityProviderLogoImageView = nil;
 	self.identityDisplayNameLabel = nil;
-	self.identityProviderDisplayNameLabel = nil;
+	self.identityIdentifierLabel = nil;
     self.confirmAccountLabel = nil;
     self.activateAccountLabel = nil;
     self.enrollDomainLabel = nil;
     self.okButton = nil;
+    self.fullNameLabel = nil;
+    self.accountIDLabel = nil;
+    self.accountDetailsLabel = nil;
 }
 
 - (void)viewDidUnload {

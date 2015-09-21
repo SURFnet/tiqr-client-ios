@@ -37,21 +37,11 @@
 @property (nonatomic, strong) NSTimer *pin4Timer;
 @property (nonatomic, strong) ErrorController *errorController;
 @property (nonatomic, strong) IBOutlet UIButton *confirmButton;
+@property (strong, nonatomic) IBOutlet UILabel *notesLabel;
 
 @end
 
 @implementation PINViewController
-
-@synthesize delegate=delegate_;
-
-@synthesize subtitleLabel=subtitleLabel_;
-@synthesize descriptionLabel=descriptionLabel_;
-@synthesize pinField=pinField_;
-@synthesize pin1Field=pin1Field_, pin2Field=pin2Field_, pin3Field=pin3Field_, pin4Field=pin4Field_;
-@synthesize okButton=okButton_;
-@synthesize pin4Timer=pin4Timer_;
-@synthesize errorController=errorController_;
-@synthesize confirmButton=confirmButton_;
 
 - (instancetype)init {
     self = [super initWithNibName:@"PINView" bundle:nil];
@@ -75,6 +65,15 @@
 
 - (void)setPinDescription:(NSString *)description {
     self.descriptionLabel.text = description;
+}
+
+- (NSString *)pinNotes {
+    return self.descriptionLabel.text;
+}
+
+- (void)setPinNotes:(NSString *)notes {
+    self.notesLabel.text = notes;
+    self.notesLabel.hidden = NO;
 }
 
 - (void)viewDidLoad {

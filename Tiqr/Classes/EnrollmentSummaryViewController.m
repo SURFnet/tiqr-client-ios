@@ -29,33 +29,27 @@
 
 #import "EnrollmentSummaryViewController.h"
 #import "EnrollmentSummaryViewController-Protected.h"
-#import "FooterController.h"
 #import "TiqrAppDelegate.h"
 
 @interface EnrollmentSummaryViewController ()
 
 @property (nonatomic, strong) EnrollmentChallenge *challenge;
-@property (nonatomic, strong) FooterController *footerController;
 @property (nonatomic, strong) IBOutlet UILabel *accountActivatedLabel;
 @property (nonatomic, strong) IBOutlet UILabel *accountReadyLabel;
-@property (nonatomic, strong) IBOutlet UILabel *rememberPinLabel;
+@property (nonatomic, strong) IBOutlet UILabel *fullNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *accountIDLabel;
+@property (nonatomic, strong) IBOutlet UILabel *accountDetailsLabel;
+@property (nonatomic, strong) IBOutlet UILabel *enrolledLabel;
+@property (nonatomic, strong) IBOutlet UILabel *enrollmentDomainLabel;
 
 @end
 
 @implementation EnrollmentSummaryViewController
 
-@synthesize challenge=challenge_;
-@synthesize footerController=footerController_;
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize identityProviderLogoImageView=identityProviderLogoImageView_, identityDisplayNameLabel=identityDisplayNameLabel_, identityProviderDisplayNameLabel=identityProviderDisplayNameLabel_;
-@synthesize returnButton=returnButton_;
-@synthesize accountReadyLabel=accountReadyLabel_,accountActivatedLabel=accountActivationLabel_,rememberPinLabel=rememberPinLabel_;
-
 - (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super initWithNibName:@"EnrollmentSummaryView" bundle:nil];
 	if (self != nil) {
 		self.challenge = challenge;
-        self.footerController = [[FooterController alloc] init];
 	}
 	
 	return self;
@@ -66,15 +60,18 @@
     
     self.accountReadyLabel.text = NSLocalizedString(@"account_ready", @"Your account is ready to be used.");
     self.accountActivatedLabel.text = NSLocalizedString(@"account_activated", @"Your account is activated!");
-    self.rememberPinLabel.text = NSLocalizedString(@"remember_pincode_notice", @"Remember your PIN, it cannot be changed!");
+    self.fullNameLabel.text = NSLocalizedString(@"full_name", @"Full name");
+    self.accountIDLabel.text = NSLocalizedString(@"id", @"Tiqr account ID");
+    self.accountDetailsLabel.text = NSLocalizedString(@"account_details_title", "Account details");
     
-    self.title = NSLocalizedString(@"account_activation_title", @"Account activation title");
+    self.enrolledLabel.text = NSLocalizedString(@"enrolled_following_domain", @"You are enrolled for the following domain:");
+    
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
     self.navigationItem.leftBarButtonItem = backButton;
     
-    self.identityProviderLogoImageView.image = [[UIImage alloc] initWithData:self.challenge.identityProviderLogo];
     self.identityDisplayNameLabel.text = self.challenge.identityDisplayName;
-    self.identityProviderDisplayNameLabel.text = self.challenge.identityProviderDisplayName;
+    self.identityIdentifierLabel.text = self.challenge.identityIdentifier;
+    self.enrollmentDomainLabel.text = [[NSURL URLWithString:self.challenge.enrollmentUrl] host];
     
     if (self.challenge.returnUrl != nil) {
         [self.returnButton setTitle:NSLocalizedString(@"return_button", @"Return to button title") forState:UIControlStateNormal];
@@ -84,8 +81,6 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    
-    [self.footerController addToView:self.view];
 }
 
 - (void)done {
@@ -99,13 +94,16 @@
 }
 
 - (void)resetOutlets {
-	self.identityProviderLogoImageView = nil;
 	self.identityDisplayNameLabel = nil;
-	self.identityProviderDisplayNameLabel = nil;
+	self.identityIdentifierLabel = nil;
     self.returnButton = nil;
     self.accountReadyLabel = nil;
     self.accountActivatedLabel = nil;
-    self.rememberPinLabel = nil;
+    self.fullNameLabel = nil;
+    self.accountIDLabel = nil;
+    self.accountDetailsLabel = nil;
+    self.enrolledLabel = nil;
+    self.enrollmentDomainLabel = nil;
 }
 
 - (void)viewDidUnload {

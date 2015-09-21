@@ -43,13 +43,6 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 
 @implementation EnrollmentChallenge
 
-@synthesize identityProviderIdentifier=identityProviderIdentifier_, identityProviderDisplayName=identityProviderDisplayName_, identityProviderAuthenticationUrl=identityProviderAuthenticationUrl_, identityProviderInfoUrl=indentityProviderInfoUrl_;
-@synthesize identityProviderOcraSuite=identityProviderOcraSuite_, identityProviderLogo=identityProviderLogo_, identityProvider=identityProvider_;
-@synthesize identityIdentifier=identityIdentifier_, identityDisplayName=identityDisplayName_, identitySecret=identitySecret_, identityPIN=identityPIN_, identity=identity_;
-@synthesize enrollmentUrl=enrollmentUrl_;
-@synthesize returnUrl=returnUrl_;
-@synthesize allowFiles=allowFiles_;
-
 - (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context allowFiles:(BOOL)allowFiles {
     self = [super initWithRawChallenge:challenge managedObjectContext:context autoParse:NO];
     if (self != nil) {
@@ -198,8 +191,13 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 	if (metadata == nil || error != nil || ![self isValidMetadata:metadata]) {
         NSString *errorTitle = NSLocalizedString(@"error_enroll_invalid_response_title", @"Invalid response title");
         NSString *errorMessage = NSLocalizedString(@"error_enroll_invalid_response", @"Invalid response message");
-        NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage, NSUnderlyingErrorKey: error};
-        self.error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECInvalidResponseError userInfo:details];        
+        NSDictionary *details;
+        if (error) {
+            details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage, NSUnderlyingErrorKey: error};
+        } else {
+            details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
+        }
+        self.error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECInvalidResponseError userInfo:details];
 		return;        
 	}
 	

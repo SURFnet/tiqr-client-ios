@@ -53,27 +53,12 @@
 
 @implementation ScanViewController
 
-#if HAS_AVFF
-@synthesize captureSession=captureSession_;
-@synthesize previewLayer=previewLayer_;
-#endif
-
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize previewView=previewView_;
-@synthesize instructionsView=instructionsView_;
-@synthesize overlayView=overlayView_;
-@synthesize decoding=decoding_;
-@synthesize audioPlayer=audioPlayer_;
-@synthesize identitiesButtonItem=identitiesButtonItem_;
-
-@synthesize instructionLabel=instructionLabel_;
-
 - (instancetype)init {
     self = [super initWithNibName:@"ScanView" bundle:nil];
-    if (self) {
-        self.title = NSLocalizedString(@"scan_window", @"Scan window title");
-        self.navigationItem.hidesBackButton = YES;        
+    if (self) {     
         self.decoding = NO;
+        
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
         
 		NSString *filePath = [[NSBundle mainBundle] pathForResource:@"cowbell" ofType:@"wav"];
 		NSURL *fileURL = [NSURL fileURLWithPath:filePath isDirectory:NO];
@@ -83,8 +68,9 @@
 		[self.audioPlayer prepareToPlay];  
         self.audioPlayer.delegate = self;
         
-        self.identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"identities"] style:UIBarButtonItemStyleBordered target:self action:@selector(listIdentities)];
+        self.identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"identities-icon"] style:UIBarButtonItemStyleBordered target:self action:@selector(listIdentities)];
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
+        
     }
     
     return self;
@@ -118,6 +104,8 @@
     } else {
         self.navigationItem.rightBarButtonItem = nil;
     }
+    
+    [self.navigationController setToolbarHidden:YES animated:YES];
 }
 
 - (void)viewDidLoad {
@@ -132,9 +120,14 @@
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
-    [UIView setAnimationDelay:3.0];
     self.instructionsView.alpha = 0.7;
     [UIView commitAnimations];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController setToolbarHidden:NO animated:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -300,10 +293,6 @@
     IdentityListViewController *viewController = [[IdentityListViewController alloc] init];
     viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (void)showInstructions {
-    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)resetOutlets {

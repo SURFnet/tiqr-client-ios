@@ -56,13 +56,6 @@
 
 @implementation TiqrAppDelegate
 
-@synthesize window=window_;
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize managedObjectModel=managedObjectModel_;
-@synthesize persistentStoreCoordinator=persistentStoreCoordinator_;
-@synthesize navigationController=navigationController_;
-@synthesize startViewController=startViewController_;
-
 #pragma mark -
 #pragma mark Application lifecycle
 
@@ -84,11 +77,6 @@
 
     [self.window setRootViewController:self.navigationController];
     [self.window makeKeyAndVisible];
-    
-    if ([self.navigationController.navigationBar respondsToSelector:@selector(barTintColor)]) {
-        self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:182.0/255.0 green:198.0/255.0 blue:72.0/255.0 alpha:1.0];
-        self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    }
 
 	NSDictionary *info = [launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
 	if (info != nil) {
@@ -235,21 +223,21 @@
 }  
 
 - (NSManagedObjectContext *)managedObjectContext {
-    if (managedObjectContext_ != nil) {
-        return managedObjectContext_;
+    if (_managedObjectContext != nil) {
+        return _managedObjectContext;
     }
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        managedObjectContext_ = [[NSManagedObjectContext alloc] init];
-        [managedObjectContext_ setPersistentStoreCoordinator:coordinator];
+        _managedObjectContext = [[NSManagedObjectContext alloc] init];
+        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
-    return managedObjectContext_;
+    return _managedObjectContext;
 }
 
 - (NSManagedObjectModel *)managedObjectModel {
-    if (managedObjectModel_ != nil) {
-        return managedObjectModel_;
+    if (_managedObjectModel != nil) {
+        return _managedObjectModel;
     }
 	
     NSString *modelPath = [[NSBundle mainBundle] pathForResource:@"Tiqr" ofType:@"momd"];
@@ -258,13 +246,13 @@
 	}
 	
     NSURL *modelURL = [NSURL fileURLWithPath:modelPath];
-    managedObjectModel_ = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];    
-    return managedObjectModel_;
+    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+    return _managedObjectModel;
 }
 
 - (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-    if (persistentStoreCoordinator_ != nil) {
-        return persistentStoreCoordinator_;
+    if (_persistentStoreCoordinator != nil) {
+        return _persistentStoreCoordinator;
     }
     
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Tiqr.sqlite"];
@@ -273,13 +261,13 @@
                              NSInferMappingModelAutomaticallyOption: @YES};    
     
     NSError *error = nil;
-    persistentStoreCoordinator_ = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![persistentStoreCoordinator_ addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
+    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }    
     
-    return persistentStoreCoordinator_;
+    return _persistentStoreCoordinator;
 }
 
 #pragma mark - 

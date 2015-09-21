@@ -29,14 +29,12 @@
 
 #import "AuthenticationFallbackViewController.h"
 #import "AuthenticationFallbackViewController-Protected.h"
-#import "FooterController.h"
 #import "TiqrAppDelegate.h"
 
 @interface AuthenticationFallbackViewController ()
 
 @property (nonatomic, strong) AuthenticationChallenge *challenge;
 @property (nonatomic, copy) NSString *response;
-@property (nonatomic, strong) FooterController *footerController;
 @property (nonatomic, strong) IBOutlet UILabel *errorTitleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *errorInstructionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *yourIdLabel;
@@ -48,26 +46,11 @@
 
 @implementation AuthenticationFallbackViewController
 
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize challenge=challenge_;
-@synthesize response=response_;
-@synthesize footerController=footerController_;
-@synthesize identityIdentifierLabel=identityIdentifierLabel_;
-@synthesize oneTimePasswordLabel=oneTimePasswordLabel_;
-
-@synthesize errorTitleLabel=errorTitleLabel_;
-@synthesize errorInstructionLabel=errorInstructionLabel_;
-@synthesize yourIdLabel=yourIdLabel_;
-@synthesize oneTimeLoginCodeLabel=oneTimeLoginCodeLabel_;
-@synthesize unverifiedPinLabel=unverifiedPinLabel_;
-@synthesize retryLabel=retryLabel_;
-
 - (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response {
     self = [super initWithNibName:@"AuthenticationFallbackView" bundle:nil];   
 	if (self != nil) {
 		self.challenge = challenge;
         self.response = response;
-        self.footerController = [[FooterController alloc] init];
 	}
 	
 	return self;
@@ -83,13 +66,10 @@
     self.unverifiedPinLabel.text = NSLocalizedString(@"note_pin_not_verified_title", @"Note: your PIN has not been verified yet.");
     self.retryLabel.text = NSLocalizedString(@"note_pin_not_verified", @"If you can\'t login with the credentials above, scan\nagain and enter the correct PIN code.");
     
-    self.title = NSLocalizedString(@"authentication_title", @"Login title");
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];        
 	
 	self.identityIdentifierLabel.text = self.challenge.identity.identifier;
-    self.oneTimePasswordLabel.text = self.response; 
-    
-    [self.footerController addToView:self.view];
+    self.oneTimePasswordLabel.text = self.response;
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;

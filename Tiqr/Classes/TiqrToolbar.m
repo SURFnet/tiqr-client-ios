@@ -10,8 +10,8 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of SURFnet bv nor the names of its contributors 
- *    may be used to endorse or promote products derived from this 
+ * 3. Neither the name of SURFnet bv nor the names of its contributors
+ *    may be used to endorse or promote products derived from this
  *    software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
@@ -27,12 +27,21 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-@interface FooterController ()
+#import "TiqrToolbar.h"
 
-@property (nonatomic, strong) IBOutlet UIView *view;
+@implementation TiqrToolbar
 
-- (IBAction)tiqr;
-- (IBAction)surfnet;
-- (IBAction)about;
+- (void)awakeFromNib {
+    UIButton *surfnetButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [surfnetButton setImage:[UIImage imageNamed:@"surfnet-logo"] forState:UIControlStateNormal];
+    [surfnetButton addTarget:self action:@selector(surfnet) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:surfnetButton];
+    
+    surfnetButton.frame = CGRectMake(self.frame.size.width - 109, 6, 109, 32);
+}
+
+- (void)surfnet {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.surfnet.nl/en/"]];
+}
 
 @end

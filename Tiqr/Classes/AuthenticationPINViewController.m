@@ -48,10 +48,6 @@
 
 @implementation AuthenticationPINViewController
 
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize challenge=challenge_;
-@synthesize response=response_;
-
 - (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
     self = [super init];
     if (self != nil) {
@@ -65,8 +61,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = NSLocalizedString(@"authentication_title", @"Login title");
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"enter_pin", @"Enrollment PIN back button title") style:UIBarButtonItemStyleBordered target:nil action:nil];        
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.subtitle = NSLocalizedString(@"login_intro", @"Authentication PIN title");
     self.pinDescription = NSLocalizedString(@"enter_four_digit_pin", @"You need to enter your 4-digit PIN to login.");
 }

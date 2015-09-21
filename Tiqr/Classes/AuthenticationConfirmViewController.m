@@ -43,11 +43,6 @@
 
 @implementation AuthenticationConfirmViewController
 
-@synthesize challenge=challenge_;
-@synthesize managedObjectContext=managedObjectContext_;
-@synthesize identityProviderLogoImageView=identityProviderLogoImageView_, identityDisplayNameLabel=identityDisplayNameLabel_, identityProviderDisplayNameLabel=identityProviderDisplayNameLabel_, serviceProviderDisplayNameLabel=serviceProviderDisplayNameLabel_, serviceProviderIdentifierLabel=serviceProviderIdentifierLabel_;
-@synthesize loginConfirmLabel=loginConfirmLabel_, loggedInAsLabel=loggedInAsLabel_,toLabel=toLabel_, okButton=okButton_;
-
 - (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
     self = [super initWithNibName:@"AuthenticationConfirmView" bundle:nil];
 	if (self != nil) {
@@ -64,16 +59,13 @@
     self.loggedInAsLabel.text = NSLocalizedString(@"you_will_be_logged_in_as", @"You will be logged in as:");
     self.toLabel.text = NSLocalizedString(@"to_service_provider", @"to:");
     [self.okButton setTitle:NSLocalizedString(@"ok_button", @"OK") forState:UIControlStateNormal];
-    self.okButton.layer.borderWidth = 1;
-    self.okButton.layer.borderColor = [UIColor colorWithRed:0 green:122.0/255.0 blue:1 alpha:1].CGColor;
-    self.okButton.layer.cornerRadius = 4;
+    self.okButton.layer.cornerRadius = 5;
     
-    self.title = NSLocalizedString(@"authentication_title", @"Login title");
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"confirm_authentication_title", @"Authentication confirm back button title") style:UIBarButtonItemStyleBordered target:nil action:nil];        
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
 
-	self.identityProviderLogoImageView.image = [[UIImage alloc] initWithData:self.challenge.identityProvider.logo];
+
 	self.identityDisplayNameLabel.text = self.challenge.identity.displayName;
-	self.identityProviderDisplayNameLabel.text = self.challenge.identityProvider.displayName;	
+    self.identityIdentifierLabel.text = self.challenge.identity.identifier;
 	self.serviceProviderDisplayNameLabel.text = self.challenge.serviceProviderDisplayName;
 	self.serviceProviderIdentifierLabel.text = self.challenge.serviceProviderIdentifier;
     
@@ -89,9 +81,8 @@
 }
 
 - (void)resetOutlets {
-	self.identityProviderLogoImageView = nil;
 	self.identityDisplayNameLabel = nil;
-	self.identityProviderDisplayNameLabel = nil;
+	self.identityIdentifierLabel = nil;
 	self.serviceProviderDisplayNameLabel = nil;
 	self.serviceProviderIdentifierLabel = nil;
     self.loggedInAsLabel = nil;

@@ -31,9 +31,8 @@
 
 @interface AuthenticationSummaryViewController ()
 
-@property (nonatomic, strong) IBOutlet UIImageView *identityProviderLogoImageView;
 @property (nonatomic, strong) IBOutlet UILabel *identityDisplayNameLabel;
-@property (nonatomic, strong) IBOutlet UILabel *identityProviderDisplayNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *identityIdentifierLabel;
 @property (nonatomic, strong) IBOutlet UILabel *serviceProviderDisplayNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *serviceProviderIdentifierLabel;
 @property (nonatomic, strong) IBOutlet UIButton *returnButton;

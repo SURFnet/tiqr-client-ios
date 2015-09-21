@@ -35,8 +35,6 @@
 
 @implementation SecretStore
 
-@synthesize identityIdentifier=identityIdentifier_, identityProviderIdentifier=identityProviderIdentifier_;
-
 - (NSData *)loadFromKeychain {
 	NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
 	query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
@@ -97,8 +95,8 @@
 
 - (instancetype)initWithIdentity:(NSString *)identityIdentifier identityProvider:(NSString *)identityProviderIdentifier {
 	if ((self = [super init]) != nil) {
-		identityIdentifier_ = [identityIdentifier copy];
-		identityProviderIdentifier_ = [identityProviderIdentifier copy];
+		_identityIdentifier = [identityIdentifier copy];
+		_identityProviderIdentifier = [identityProviderIdentifier copy];
 		encryptedSecret_ = [self loadFromKeychain];
 	}
 	

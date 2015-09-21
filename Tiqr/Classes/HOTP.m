@@ -33,12 +33,6 @@
 
 @implementation HOTP
 
-@synthesize key;
-@synthesize counter;
-@synthesize numDigits;
-@synthesize dec;
-@synthesize hex;
-
 /* Powers of ten */
 static const int powers10[] = { 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000, 1000000000 };
 #define MAX_DIGITS_10   (sizeof(powers10) / sizeof(*powers10))
@@ -65,12 +59,12 @@ static const int powers10[] = { 10, 100, 1000, 10000, 100000, 1000000, 10000000,
     
     /* Encode counter */
     for (i = sizeof(tosign) - 1; i >= 0; i--) {
-        tosign[i] = counter & 0xff;
-        counter >>= 8;
+        tosign[i] = self.counter & 0xff;
+        self.counter >>= 8;
     }
     
     /* Compute HMAC */
-    CCHmac(kCCHmacAlgSHA1, key.bytes, key.length, tosign, sizeof(tosign), hash);
+    CCHmac(kCCHmacAlgSHA1, self.key.bytes, self.key.length, tosign, sizeof(tosign), hash);
     
     /* Extract selected bytes to get 32 bit integer value */
     offset = hash[CC_SHA1_DIGEST_LENGTH - 1] & 0x0f;

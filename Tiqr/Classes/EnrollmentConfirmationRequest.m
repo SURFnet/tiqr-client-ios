@@ -44,10 +44,6 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
 
 @implementation EnrollmentConfirmationRequest
 
-@synthesize delegate=delegate_;
-@synthesize challenge=challenge_;
-@synthesize data=data_;
-
 - (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super init];
     if (self != nil) {
