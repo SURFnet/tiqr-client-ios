@@ -58,14 +58,12 @@
     self.loginConfirmLabel.text = NSLocalizedString(@"successfully_logged_in", @"Login succes confirmation message");
     self.loginInformationLabel.text = NSLocalizedString(@"loggedin_with_account", @"Login information message");
     self.toLabel.text = NSLocalizedString(@"to_service_provider", @"to:");
-    
-    self.title = NSLocalizedString(@"authentication_title", @"Login title");
+
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
     self.navigationItem.leftBarButtonItem = backButton;
     
-	self.identityProviderLogoImageView.image = [[UIImage alloc] initWithData:self.challenge.identityProvider.logo];
 	self.identityDisplayNameLabel.text = self.challenge.identity.displayName;
-	self.identityProviderDisplayNameLabel.text = self.challenge.identityProvider.displayName;	
+	self.identityIdentifierLabel.text = self.challenge.identity.identifier;
 	self.serviceProviderDisplayNameLabel.text = self.challenge.serviceProviderDisplayName;
 	self.serviceProviderIdentifierLabel.text = self.challenge.serviceProviderIdentifier;
     
@@ -90,9 +88,8 @@
 }
 
 - (void)resetOutlets {
-	self.identityProviderLogoImageView = nil;
 	self.identityDisplayNameLabel = nil;
-	self.identityProviderDisplayNameLabel = nil;
+	self.identityIdentifierLabel = nil;
 	self.serviceProviderDisplayNameLabel = nil;
 	self.serviceProviderIdentifierLabel = nil;
     self.returnButton = nil;
