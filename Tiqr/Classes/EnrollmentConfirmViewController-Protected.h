@@ -34,9 +34,8 @@
  */
 @interface EnrollmentConfirmViewController ()
 
-@property (nonatomic, strong) IBOutlet UIImageView *identityProviderLogoImageView;
 @property (nonatomic, strong) IBOutlet UILabel *identityDisplayNameLabel;
-@property (nonatomic, strong) IBOutlet UILabel *identityProviderDisplayNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *identityIdentifierLabel;
 @property (nonatomic, strong) IBOutlet UILabel *enrollmentURLDomainLabel;
 
 - (IBAction)ok;
