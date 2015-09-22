@@ -64,6 +64,14 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if ([Identity countInManagedObjectContext:self.fetchedResultsController.managedObjectContext] == 0) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
 - (void)done {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -161,6 +169,10 @@
     if ([context save:&error]) {
         if (store != nil) {
             [store deleteFromKeychain];
+        }
+        
+        if ([Identity countInManagedObjectContext:context] == 0) {
+            [self.navigationController popViewControllerAnimated:YES];
         }
     } else {
         NSLog(@"Unexpected error: %@", error);
