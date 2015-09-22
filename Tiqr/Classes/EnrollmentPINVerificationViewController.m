@@ -147,6 +147,7 @@
         NSString *errorTitle = NSLocalizedString(@"passwords_dont_match_title", @"Error title if PIN's don't match");
         NSString *errorMessage = NSLocalizedString(@"passwords_dont_match", @"Error message if PINs don't match");
         [self showErrorWithTitle:errorTitle message:errorMessage];
+        [self.view endEditing:YES];
         return;
     }
     
