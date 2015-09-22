@@ -38,6 +38,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *loggedInAsLabel;
 @property (nonatomic, strong) IBOutlet UILabel *toLabel;
 @property (nonatomic, strong) IBOutlet UIButton *okButton;
+@property (nonatomic, strong) IBOutlet UILabel *accountLabel;
+@property (nonatomic, strong) IBOutlet UILabel *accountIDLabel;
 
 @end
 
@@ -58,6 +60,8 @@
     self.loginConfirmLabel.text = NSLocalizedString(@"confirm_authentication", @"Are you sure you want to login?");
     self.loggedInAsLabel.text = NSLocalizedString(@"you_will_be_logged_in_as", @"You will be logged in as:");
     self.toLabel.text = NSLocalizedString(@"to_service_provider", @"to:");
+    self.accountLabel.text = NSLocalizedString(@"full_name", @"Account");
+    self.accountIDLabel.text = NSLocalizedString(@"id", @"Tiqr account ID");
     [self.okButton setTitle:NSLocalizedString(@"ok_button", @"OK") forState:UIControlStateNormal];
     self.okButton.layer.cornerRadius = 5;
     
@@ -89,6 +93,8 @@
     self.loginConfirmLabel = nil;
     self.toLabel = nil;
     self.okButton = nil;
+    self.accountLabel = nil;
+    self.accountIDLabel = nil;
 }
 
 - (void)viewDidUnload {

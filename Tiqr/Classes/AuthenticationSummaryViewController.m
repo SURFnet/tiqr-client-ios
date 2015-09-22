@@ -38,6 +38,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *loginConfirmLabel;
 @property (nonatomic, strong) IBOutlet UILabel *loginInformationLabel;
 @property (nonatomic, strong) IBOutlet UILabel *toLabel;
+@property (nonatomic, strong) IBOutlet UILabel *accountLabel;
+@property (nonatomic, strong) IBOutlet UILabel *accountIDLabel;
 
 @end
 
@@ -58,6 +60,8 @@
     self.loginConfirmLabel.text = NSLocalizedString(@"successfully_logged_in", @"Login succes confirmation message");
     self.loginInformationLabel.text = NSLocalizedString(@"loggedin_with_account", @"Login information message");
     self.toLabel.text = NSLocalizedString(@"to_service_provider", @"to:");
+    self.accountLabel.text = NSLocalizedString(@"full_name", @"Account");
+    self.accountIDLabel.text = NSLocalizedString(@"id", @"Tiqr account ID");
 
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done)];
     self.navigationItem.leftBarButtonItem = backButton;
@@ -96,6 +100,8 @@
     self.loginConfirmLabel = nil;
     self.loginInformationLabel = nil;
     self.toLabel = nil;
+    self.accountLabel = nil;
+    self.accountIDLabel = nil;
 }
 
 - (void)viewDidUnload {
