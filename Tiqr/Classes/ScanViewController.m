@@ -78,7 +78,7 @@
 
 - (void)setMixableAudioShouldDuckActive:(BOOL)active {
     AVAudioSession *session = [AVAudioSession sharedInstance];
-    [session setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
+    [session setCategory:AVAudioSessionCategoryAmbient withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
     [session setActive:active error:nil];
 }
 
@@ -165,7 +165,7 @@
     // now, in a selector, call the delegate to give this overlay time to show the points
     [self performSelector:@selector(didScanResult:) withObject:metadataObject.stringValue afterDelay:1.0];
     [self setMixableAudioShouldDuckActive:YES];
-	[self.audioPlayer play];    
+	[self.audioPlayer play];
 }
 
 - (void)didScanResult:(NSString *)result {
