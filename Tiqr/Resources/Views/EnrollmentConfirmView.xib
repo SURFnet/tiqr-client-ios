@@ -113,7 +113,6 @@
                     </state>
                     <connections>
                         <action selector="cancel" destination="-1" eventType="touchUpInside" id="iIo-qS-AHd"/>
-                        <action selector="ok" destination="-1" eventType="touchUpInside" id="j3T-Y3-WiC"/>
                     </connections>
                 </button>
             </subviews>
