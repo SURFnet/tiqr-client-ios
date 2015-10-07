@@ -178,7 +178,8 @@
 - (void)showErrorWithTitle:(NSString *)title message:(NSString *)message {
     self.errorController.title = title;
     self.errorController.message = message;
-    self.errorController.view.hidden = NO;    
+    self.errorController.view.hidden = NO;
+    [self.view endEditing:YES];
 }
 
 - (void)clear {
