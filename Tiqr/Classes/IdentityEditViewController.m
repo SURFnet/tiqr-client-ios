@@ -28,7 +28,6 @@
  */
 
 #import "IdentityEditViewController.h"
-#import "IdentityEditViewController-Protected.h"
 #import "Identity.h"
 #import "IdentityProvider.h"
 #import "SecretStore.h"
@@ -37,6 +36,11 @@
 
 @property (nonatomic, strong) Identity *identity;
 @property (nonatomic, strong) IBOutlet UIButton *deleteButton;
+@property (nonatomic, strong) IBOutlet UIImageView *identityProviderLogoImageView;
+@property (nonatomic, strong) IBOutlet UILabel *identityProviderIdentifierLabel;
+@property (nonatomic, strong) IBOutlet UILabel *identityProviderDisplayNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *blockedWarningLabel;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -114,7 +118,7 @@
     }
 }
 
-- (void)deleteIdentity {
+- (IBAction)deleteIdentity {
     NSString *title = NSLocalizedString(@"confirm_delete_title", @"Sure?");
     NSString *message = NSLocalizedString(@"confirm_delete", @"Are you sure you want to delete this identity?");
     NSString *yesTitle = NSLocalizedString(@"yes_button", @"Yes button title");

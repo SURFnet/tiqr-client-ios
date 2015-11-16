@@ -28,7 +28,6 @@
  */
 
 #import "AuthenticationFallbackViewController.h"
-#import "AuthenticationFallbackViewController-Protected.h"
 #import "TiqrAppDelegate.h"
 
 @interface AuthenticationFallbackViewController ()
@@ -41,6 +40,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *oneTimeLoginCodeLabel;
 @property (nonatomic, strong) IBOutlet UILabel *unverifiedPinLabel;
 @property (nonatomic, strong) IBOutlet UILabel *retryLabel;
+@property (nonatomic, strong) IBOutlet UILabel *identityIdentifierLabel;
+@property (nonatomic, strong) IBOutlet UILabel *oneTimePasswordLabel;
 
 @end
 

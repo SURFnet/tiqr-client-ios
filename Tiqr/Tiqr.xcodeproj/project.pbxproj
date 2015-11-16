@@ -162,12 +162,9 @@
 		CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrToolbar.m; sourceTree = "<group>"; };
 		D002E01E1349D29A00071321 /* ErrorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorController.h; sourceTree = "<group>"; };
 		D002E01F1349D29A00071321 /* ErrorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorController.m; sourceTree = "<group>"; };
-		D002E0211349D39C00071321 /* ErrorController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ErrorController-Protected.h"; sourceTree = "<group>"; };
-		D002E0221349EAF700071321 /* AuthenticationFallbackViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AuthenticationFallbackViewController-Protected.h"; sourceTree = "<group>"; };
 		D002E0261349F4D400071321 /* StartView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = StartView.xib; path = ../StartView.xib; sourceTree = "<group>"; };
 		D0047828130A916B00A06157 /* PINViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PINViewController.h; sourceTree = "<group>"; };
 		D00C694F1280482600F6CE43 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		D011A5241340C70E00E571A2 /* EnrollmentSummaryViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EnrollmentSummaryViewController-Protected.h"; sourceTree = "<group>"; };
 		D011A5251340CC2F00E571A2 /* EnrollmentConfirmationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnrollmentConfirmationRequest.h; sourceTree = "<group>"; };
 		D011A5261340CC3000E571A2 /* EnrollmentConfirmationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnrollmentConfirmationRequest.m; sourceTree = "<group>"; };
 		D011A5281340D47400E571A2 /* IdentityProvider+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IdentityProvider+Utils.h"; sourceTree = "<group>"; };
@@ -175,8 +172,6 @@
 		D011A5301340DA7900E571A2 /* AuthenticationSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationSummaryViewController.m; sourceTree = "<group>"; };
 		D011A5321340FEBE00E571A2 /* AuthenticationConfirmationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationConfirmationRequest.h; sourceTree = "<group>"; };
 		D011A5331340FEC200E571A2 /* AuthenticationConfirmationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationConfirmationRequest.m; sourceTree = "<group>"; };
-		D011A5351341091700E571A2 /* AuthenticationConfirmViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AuthenticationConfirmViewController-Protected.h"; sourceTree = "<group>"; };
-		D011A5361341093600E571A2 /* AuthenticationSummaryViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AuthenticationSummaryViewController-Protected.h"; sourceTree = "<group>"; };
 		D0240CBB127EF62700EB07AD /* ScanOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanOverlayView.h; sourceTree = "<group>"; };
 		D0240CBC127EF62700EB07AD /* ScanOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanOverlayView.m; sourceTree = "<group>"; };
 		D025994513095F9B00F1DF9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -199,7 +194,6 @@
 		D06AD58F134082ED0050D75C /* animals.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = animals.ttf; sourceTree = "<group>"; };
 		D06AD592134095690050D75C /* PINView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PINView.xib; sourceTree = "<group>"; };
 		D06AD593134096F00050D75C /* PINViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PINViewController.m; sourceTree = "<group>"; };
-		D06AD595134097E00050D75C /* PINViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PINViewController-Protected.h"; sourceTree = "<group>"; };
 		D06AD5961340A5D10050D75C /* AuthenticationPINViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationPINViewController.h; sourceTree = "<group>"; };
 		D06AD5971340A5D10050D75C /* AuthenticationPINViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationPINViewController.m; sourceTree = "<group>"; };
 		D06AD5991340A5FF0050D75C /* EnrollmentPINViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnrollmentPINViewController.h; sourceTree = "<group>"; };
@@ -208,15 +202,12 @@
 		D06AD59D1340A7CD0050D75C /* EnrollmentPINVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnrollmentPINVerificationViewController.m; sourceTree = "<group>"; };
 		D06AD59F1340AFF80050D75C /* EnrollmentSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnrollmentSummaryViewController.h; sourceTree = "<group>"; };
 		D06AD5A01340AFFA0050D75C /* EnrollmentSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnrollmentSummaryViewController.m; sourceTree = "<group>"; };
-		D06AD5A21340B4010050D75C /* EnrollmentConfirmViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EnrollmentConfirmViewController-Protected.h"; sourceTree = "<group>"; };
 		D06F86B71331EA5D00C2C6FF /* AuthenticationChallengeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationChallengeTests.h; sourceTree = "<group>"; };
 		D06F86B81331EA5D00C2C6FF /* AuthenticationChallengeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationChallengeTests.m; sourceTree = "<group>"; };
 		D06F86C31331EE5600C2C6FF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D076CF00134F31C000FE762A /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		D076CF2D134F5FD000FE762A /* StartViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StartViewController-Protected.h"; sourceTree = "<group>"; };
 		D08BC9661344F6AF00F8D75B /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
 		D08BC9671344F6AF00F8D75B /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
-		D08BC96C134524AA00F8D75B /* ScanViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ScanViewController-Protected.h"; sourceTree = "<group>"; };
 		D08C03251296A6450002849A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D08F5B2512785EAD00C63A3E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D08F5B3512785F5F00C63A3E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -247,15 +238,11 @@
 		D0D7200215930AB4008C7004 /* start.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = start.html; sourceTree = "<group>"; };
 		D0E58D6E134A149B00A79052 /* IdentityEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityEditViewController.h; sourceTree = "<group>"; };
 		D0E58D6F134A149C00A79052 /* IdentityEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityEditViewController.m; sourceTree = "<group>"; };
-		D0E58D71134A14BC00A79052 /* IdentityEditViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IdentityEditViewController-Protected.h"; sourceTree = "<group>"; };
-		D0EBBA7A134B61BD00CAAB58 /* AboutViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AboutViewController-Protected.h"; sourceTree = "<group>"; };
 		D0EBBA7C134B664B00CAAB58 /* ErrorChildView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorChildView.xib; sourceTree = "<group>"; };
 		D0EBBA7E134B669800CAAB58 /* ErrorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorView.xib; sourceTree = "<group>"; };
 		D0EBBA81134B670300CAAB58 /* ErrorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorViewController.h; sourceTree = "<group>"; };
 		D0EBBA82134B670300CAAB58 /* ErrorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorViewController.m; sourceTree = "<group>"; };
 		D0EBBA84134B9F6300CAAB58 /* Challenge-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Challenge-Protected.h"; sourceTree = "<group>"; };
-		D0EBBA85134BA45700CAAB58 /* AuthenticationChallenge-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AuthenticationChallenge-Protected.h"; sourceTree = "<group>"; };
-		D0EBBA89134BA5AC00CAAB58 /* EnrollmentChallenge-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EnrollmentChallenge-Protected.h"; sourceTree = "<group>"; };
 		D0EECF2C12781F72001D54F8 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		D0EECF2D12781F72001D54F8 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		D0EECFA112782EFE001D54F8 /* AuthenticationIdentityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationIdentityViewController.h; sourceTree = "<group>"; };
@@ -268,7 +255,6 @@
 		D0EECFB8127831FE001D54F8 /* EnrollmentConfirmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnrollmentConfirmViewController.m; sourceTree = "<group>"; };
 		D0F51624129A7A6E0013CF3A /* SecretStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecretStore.h; sourceTree = "<group>"; };
 		D0F51625129A7A6E0013CF3A /* SecretStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecretStore.m; sourceTree = "<group>"; };
-		D0FA39D6134468B0001F8678 /* AuthenticationIdentityViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AuthenticationIdentityViewController-Protected.h"; sourceTree = "<group>"; };
 		D0FF34E91309462C004096E1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -407,7 +393,6 @@
 			isa = PBXGroup;
 			children = (
 				D002E01E1349D29A00071321 /* ErrorController.h */,
-				D002E0211349D39C00071321 /* ErrorController-Protected.h */,
 				D002E01F1349D29A00071321 /* ErrorController.m */,
 				D0352BEA12898A7D00184AD5 /* IdentityTableViewCell.h */,
 				D0352BEB12898A7D00184AD5 /* IdentityTableViewCell.m */,
@@ -423,7 +408,6 @@
 			isa = PBXGroup;
 			children = (
 				D0047828130A916B00A06157 /* PINViewController.h */,
-				D06AD595134097E00050D75C /* PINViewController-Protected.h */,
 				D06AD593134096F00050D75C /* PINViewController.m */,
 			);
 			name = PIN;
@@ -552,7 +536,6 @@
 			isa = PBXGroup;
 			children = (
 				D08BC9661344F6AF00F8D75B /* ScanViewController.h */,
-				D08BC96C134524AA00F8D75B /* ScanViewController-Protected.h */,
 				D08BC9671344F6AF00F8D75B /* ScanViewController.m */,
 				D0240CBB127EF62700EB07AD /* ScanOverlayView.h */,
 				D0240CBC127EF62700EB07AD /* ScanOverlayView.m */,
@@ -564,7 +547,6 @@
 			isa = PBXGroup;
 			children = (
 				D0B889531282D7E3003A534D /* StartViewController.h */,
-				D076CF2D134F5FD000FE762A /* StartViewController-Protected.h */,
 				D0B889541282D7E3003A534D /* StartViewController.m */,
 			);
 			name = Start;
@@ -619,14 +601,12 @@
 			isa = PBXGroup;
 			children = (
 				D0EECFB7127831FE001D54F8 /* EnrollmentConfirmViewController.h */,
-				D06AD5A21340B4010050D75C /* EnrollmentConfirmViewController-Protected.h */,
 				D0EECFB8127831FE001D54F8 /* EnrollmentConfirmViewController.m */,
 				D06AD5991340A5FF0050D75C /* EnrollmentPINViewController.h */,
 				D06AD59A1340A5FF0050D75C /* EnrollmentPINViewController.m */,
 				D06AD59C1340A7CC0050D75C /* EnrollmentPINVerificationViewController.h */,
 				D06AD59D1340A7CD0050D75C /* EnrollmentPINVerificationViewController.m */,
 				D06AD59F1340AFF80050D75C /* EnrollmentSummaryViewController.h */,
-				D011A5241340C70E00E571A2 /* EnrollmentSummaryViewController-Protected.h */,
 				D06AD5A01340AFFA0050D75C /* EnrollmentSummaryViewController.m */,
 			);
 			name = Enrollment;
@@ -696,7 +676,6 @@
 			isa = PBXGroup;
 			children = (
 				D0627E7B127F08C0004CF8D4 /* AuthenticationChallenge.h */,
-				D0EBBA85134BA45700CAAB58 /* AuthenticationChallenge-Protected.h */,
 				D0627E7C127F08C0004CF8D4 /* AuthenticationChallenge.m */,
 				D011A5321340FEBE00E571A2 /* AuthenticationConfirmationRequest.h */,
 				D011A5331340FEC200E571A2 /* AuthenticationConfirmationRequest.m */,
@@ -708,7 +687,6 @@
 			isa = PBXGroup;
 			children = (
 				D0627E7E127F08D8004CF8D4 /* EnrollmentChallenge.h */,
-				D0EBBA89134BA5AC00CAAB58 /* EnrollmentChallenge-Protected.h */,
 				D0627E7F127F08D8004CF8D4 /* EnrollmentChallenge.m */,
 				D011A5251340CC2F00E571A2 /* EnrollmentConfirmationRequest.h */,
 				D011A5261340CC3000E571A2 /* EnrollmentConfirmationRequest.m */,
@@ -736,18 +714,14 @@
 			isa = PBXGroup;
 			children = (
 				D0EECFA112782EFE001D54F8 /* AuthenticationIdentityViewController.h */,
-				D0FA39D6134468B0001F8678 /* AuthenticationIdentityViewController-Protected.h */,
 				D0EECFA212782EFE001D54F8 /* AuthenticationIdentityViewController.m */,
 				D0EECFA612782F23001D54F8 /* AuthenticationConfirmViewController.h */,
-				D011A5351341091700E571A2 /* AuthenticationConfirmViewController-Protected.h */,
 				D0EECFA712782F23001D54F8 /* AuthenticationConfirmViewController.m */,
 				D06AD5961340A5D10050D75C /* AuthenticationPINViewController.h */,
 				D06AD5971340A5D10050D75C /* AuthenticationPINViewController.m */,
 				924D6C5D13094DEC00F87B96 /* AuthenticationFallbackViewController.h */,
-				D002E0221349EAF700071321 /* AuthenticationFallbackViewController-Protected.h */,
 				924D6C5E13094DEC00F87B96 /* AuthenticationFallbackViewController.m */,
 				D011A52F1340DA7800E571A2 /* AuthenticationSummaryViewController.h */,
-				D011A5361341093600E571A2 /* AuthenticationSummaryViewController-Protected.h */,
 				D011A5301340DA7900E571A2 /* AuthenticationSummaryViewController.m */,
 			);
 			name = Authentication;
@@ -759,7 +733,6 @@
 				D0EECFAB12782F57001D54F8 /* IdentityListViewController.h */,
 				D0EECFAC12782F57001D54F8 /* IdentityListViewController.m */,
 				D0E58D6E134A149B00A79052 /* IdentityEditViewController.h */,
-				D0E58D71134A14BC00A79052 /* IdentityEditViewController-Protected.h */,
 				D0E58D6F134A149C00A79052 /* IdentityEditViewController.m */,
 			);
 			name = Identity;
@@ -769,7 +742,6 @@
 			isa = PBXGroup;
 			children = (
 				D0EECF2C12781F72001D54F8 /* AboutViewController.h */,
-				D0EBBA7A134B61BD00CAAB58 /* AboutViewController-Protected.h */,
 				D0EECF2D12781F72001D54F8 /* AboutViewController.m */,
 			);
 			name = About;
@@ -1026,6 +998,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/General/Entitlements.plist;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -1052,6 +1025,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/General/Entitlements.plist;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1164,6 +1138,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/General/Entitlements.plist;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

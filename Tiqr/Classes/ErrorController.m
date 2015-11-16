@@ -28,7 +28,15 @@
  */
 
 #import "ErrorController.h"
-#import "ErrorController-Protected.h"
+
+@interface ErrorController ()
+
+@property (nonatomic, strong) IBOutlet UIView *view;
+@property (nonatomic, strong) IBOutlet UILabel *titleLabel;
+@property (nonatomic, strong) IBOutlet UILabel *messageLabel;
+
+@end
+
 
 @implementation ErrorController
 

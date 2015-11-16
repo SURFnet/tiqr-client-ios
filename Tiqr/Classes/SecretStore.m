@@ -61,7 +61,8 @@
 	data[(__bridge id)kSecAttrAccessible] = (__bridge id)kSecAttrAccessibleWhenUnlocked;
 
     CFDictionaryRef result;
-	return SecItemAdd((__bridge CFDictionaryRef)data, (CFTypeRef *)&result) == noErr;
+    OSStatus status = SecItemAdd((__bridge CFDictionaryRef)data, (CFTypeRef *)&result);
+	return status == noErr;
 }
 
 - (BOOL)updateInKeychain {

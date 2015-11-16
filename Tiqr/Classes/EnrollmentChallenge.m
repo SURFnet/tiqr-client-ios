@@ -29,7 +29,6 @@
 
 #import "Challenge-Protected.h"
 #import "EnrollmentChallenge.h"
-#import "EnrollmentChallenge-Protected.h"
 #import "Identity+Utils.h"
 #import "IdentityProvider+Utils.h"
 
@@ -38,6 +37,18 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 @interface EnrollmentChallenge ()
 
 @property (nonatomic, assign) BOOL allowFiles;
+@property (nonatomic, copy) NSString *identityProviderIdentifier;
+@property (nonatomic, copy) NSString *identityProviderDisplayName;
+@property (nonatomic, copy) NSString *identityProviderAuthenticationUrl;
+@property (nonatomic, copy) NSString *identityProviderInfoUrl;
+@property (nonatomic, copy) NSString *identityProviderOcraSuite;
+@property (nonatomic, copy) NSData *identityProviderLogo;
+
+@property (nonatomic, copy) NSString *identityIdentifier;
+@property (nonatomic, copy) NSString *identityDisplayName;
+
+@property (nonatomic, copy) NSString *enrollmentUrl;
+@property (nonatomic, copy) NSString *returnUrl;
 
 @end
 

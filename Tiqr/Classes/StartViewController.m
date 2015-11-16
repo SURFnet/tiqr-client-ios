@@ -28,7 +28,6 @@
  */
 
 #import "StartViewController.h"
-#import "StartViewController-Protected.h"
 #import "ScanViewController.h"
 #import "IdentityListViewController.h"
 #import "ErrorController.h"
@@ -40,6 +39,7 @@
 @property (nonatomic, strong) UIBarButtonItem *identitiesButtonItem;
 @property (nonatomic, strong) ErrorController *errorController;
 @property (nonatomic, strong) IBOutlet UIButton *scanButton;
+@property (nonatomic, strong) IBOutlet UIWebView *webView;
 
 @end
 

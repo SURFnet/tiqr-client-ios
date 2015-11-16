@@ -20,7 +20,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 #import "ScanViewController.h"
-#import "ScanViewController-Protected.h"
+#import "ScanOverlayView.h"
 #import "AuthenticationChallenge.h"
 #import "EnrollmentChallenge.h"
 #import "AuthenticationIdentityViewController.h"
@@ -45,9 +45,9 @@
 
 @property (nonatomic, strong) IBOutlet UILabel *instructionLabel;
 
-- (void)initCapture;
-- (void)stopCapture;
-- (void)processChallenge:(NSString *)rawResult;
+@property (nonatomic, strong) IBOutlet UIView *previewView;
+@property (nonatomic, strong) IBOutlet ScanOverlayView *overlayView;
+@property (nonatomic, strong) IBOutlet UIView *instructionsView;
 
 @end
 
