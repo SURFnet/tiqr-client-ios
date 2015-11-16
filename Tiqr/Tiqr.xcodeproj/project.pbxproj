@@ -94,8 +94,8 @@
 		D0C54584130B4066008B807B /* SecretStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C54583130B4066008B807B /* SecretStoreTests.m */; };
 		D0D7200315930AB4008C7004 /* start.html in Resources */ = {isa = PBXBuildFile; fileRef = D0D7200215930AB4008C7004 /* start.html */; };
 		D0E58D70134A149C00A79052 /* IdentityEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E58D6F134A149C00A79052 /* IdentityEditViewController.m */; };
-		D0EBBA7D134B664B00CAAB58 /* ErrorChildView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EBBA7C134B664B00CAAB58 /* ErrorChildView.xib */; };
-		D0EBBA7F134B669800CAAB58 /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EBBA7E134B669800CAAB58 /* ErrorView.xib */; };
+		D0EBBA7D134B664B00CAAB58 /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EBBA7C134B664B00CAAB58 /* ErrorView.xib */; };
+		D0EBBA7F134B669800CAAB58 /* ErrorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EBBA7E134B669800CAAB58 /* ErrorViewController.xib */; };
 		D0EBBA83134B670300CAAB58 /* ErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EBBA82134B670300CAAB58 /* ErrorViewController.m */; };
 		D0EECF2F12781F72001D54F8 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EECF2D12781F72001D54F8 /* AboutViewController.m */; };
 		D0EECFA412782EFE001D54F8 /* AuthenticationIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EECFA212782EFE001D54F8 /* AuthenticationIdentityViewController.m */; };
@@ -240,8 +240,8 @@
 		D0D7200215930AB4008C7004 /* start.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = start.html; sourceTree = "<group>"; };
 		D0E58D6E134A149B00A79052 /* IdentityEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityEditViewController.h; sourceTree = "<group>"; };
 		D0E58D6F134A149C00A79052 /* IdentityEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityEditViewController.m; sourceTree = "<group>"; };
-		D0EBBA7C134B664B00CAAB58 /* ErrorChildView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorChildView.xib; sourceTree = "<group>"; };
-		D0EBBA7E134B669800CAAB58 /* ErrorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorView.xib; sourceTree = "<group>"; };
+		D0EBBA7C134B664B00CAAB58 /* ErrorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorView.xib; sourceTree = "<group>"; };
+		D0EBBA7E134B669800CAAB58 /* ErrorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorViewController.xib; sourceTree = "<group>"; };
 		D0EBBA81134B670300CAAB58 /* ErrorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorViewController.h; sourceTree = "<group>"; };
 		D0EBBA82134B670300CAAB58 /* ErrorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorViewController.m; sourceTree = "<group>"; };
 		D0EECF2C12781F72001D54F8 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
@@ -436,14 +436,6 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
-		D002E01A1349CE2A00071321 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				D0EBBA7C134B664B00CAAB58 /* ErrorChildView.xib */,
-			);
-			name = Common;
-			sourceTree = "<group>";
-		};
 		D0047827130A913100A06157 /* PIN */ = {
 			isa = PBXGroup;
 			children = (
@@ -513,7 +505,6 @@
 		D028BF9613092834002EA560 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D002E01A1349CE2A00071321 /* Common */,
 				D0EBBA7B134B65DA00CAAB58 /* Error */,
 				D0FED31C130967A400B96681 /* Start */,
 				D08BC9691345228400F8D75B /* Scan */,
@@ -677,7 +668,8 @@
 		D0EBBA7B134B65DA00CAAB58 /* Error */ = {
 			isa = PBXGroup;
 			children = (
-				D0EBBA7E134B669800CAAB58 /* ErrorView.xib */,
+				D0EBBA7C134B664B00CAAB58 /* ErrorView.xib */,
+				D0EBBA7E134B669800CAAB58 /* ErrorViewController.xib */,
 			);
 			name = Error;
 			sourceTree = "<group>";
@@ -869,8 +861,8 @@
 				D025994413095F9B00F1DF9A /* Localizable.strings in Resources */,
 				D06AD591134095690050D75C /* PINView.xib in Resources */,
 				D06AD590134082ED0050D75C /* animals.ttf in Resources */,
-				D0EBBA7D134B664B00CAAB58 /* ErrorChildView.xib in Resources */,
-				D0EBBA7F134B669800CAAB58 /* ErrorView.xib in Resources */,
+				D0EBBA7D134B664B00CAAB58 /* ErrorView.xib in Resources */,
+				D0EBBA7F134B669800CAAB58 /* ErrorViewController.xib in Resources */,
 				76A195AD155BBEF500A73D2D /* ScanView.xib in Resources */,
 				76A195AF155BC0C800A73D2D /* AuthenticationSummaryView.xib in Resources */,
 				76A195B1155BC27200A73D2D /* AuthenticationIdentityView.xib in Resources */,

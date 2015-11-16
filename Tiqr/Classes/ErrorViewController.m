@@ -41,7 +41,7 @@
 @implementation ErrorViewController
 
 - (instancetype)initWithTitle:(NSString *)title errorTitle:(NSString *)errorTitle errorMessage:(NSString *)errorMessage {
-    self = [super initWithNibName:@"ErrorView" bundle:nil];
+    self = [super initWithNibName:@"ErrorViewController" bundle:nil];
     if (self != nil) {
         self.title = title;
         

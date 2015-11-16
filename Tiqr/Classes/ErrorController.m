@@ -43,7 +43,7 @@
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
-        UINib *nib = [UINib nibWithNibName:@"ErrorChildView" bundle:nil];
+        UINib *nib = [UINib nibWithNibName:@"ErrorView" bundle:nil];
         [nib instantiateWithOwner:self options:nil];
     }
     
