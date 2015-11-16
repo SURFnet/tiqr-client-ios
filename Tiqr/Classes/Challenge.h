@@ -56,7 +56,7 @@
 /**
  * Contains an error message in case the challenge isn't valid.
  */
-@property (nonatomic, strong, readonly) NSError *error;
+@property (nonatomic, strong) NSError *error;
 
 /**
  * Constructs a new challenge object for the given raw challenge.

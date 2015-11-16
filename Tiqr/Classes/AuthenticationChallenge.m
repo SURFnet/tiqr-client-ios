@@ -27,10 +27,10 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "Challenge-Protected.h"
 #import "AuthenticationChallenge.h"
 #import "IdentityProvider+Utils.h"
 #import "Identity+Utils.h"
+#import "NSString+DecodeURL.h"
 
 NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 
@@ -123,8 +123,8 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
     NSString *regex = @"^http(s)?://.*";
     NSPredicate *protocolPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     
-    if (url.query != nil && [url.query length] > 0 && [protocolPredicate evaluateWithObject:[self decodeURL:url.query]] == YES) {
-        self.returnUrl = [self decodeURL:url.query];
+    if (url.query != nil && [url.query length] > 0 && [protocolPredicate evaluateWithObject:url.query.decodedURL] == YES) {
+        self.returnUrl = url.query.decodedURL;
     } else {
         self.returnUrl = nil;
     }

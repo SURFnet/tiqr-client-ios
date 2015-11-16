@@ -36,6 +36,7 @@
 		C7B96C7E16FB0C89001EC65E /* Identity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4B0A134B28D00045AF62 /* Identity.m */; };
 		C7B96C8016FB0C8C001EC65E /* IdentityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4B0D134B28D10045AF62 /* IdentityProvider.m */; };
 		C7B96C8416FB0D28001EC65E /* Tiqr.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7B96C8116FB0D28001EC65E /* Tiqr.xcdatamodeld */; };
+		CD02E29E1BF9E2C100509C3F /* NSString+DecodeURL.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E29D1BF9E2C100509C3F /* NSString+DecodeURL.m */; };
 		CD7BAB0D1BAAB87400B88393 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7BAB0C1BAAB87400B88393 /* images.xcassets */; };
 		CD7BAB101BAAE3F200B88393 /* TiqrNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */; };
 		CDBB08C01BAC3DB0008D8F94 /* TiqrToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */; };
@@ -155,6 +156,8 @@
 		C7B96C7A16FAB70F001EC65E /* OCRA_v1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCRA_v1.m; sourceTree = "<group>"; };
 		C7B96C8216FB0D28001EC65E /* Tiqr 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Tiqr 2.xcdatamodel"; sourceTree = "<group>"; };
 		C7B96C8316FB0D28001EC65E /* Tiqr.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tiqr.xcdatamodel; sourceTree = "<group>"; };
+		CD02E29C1BF9E2C100509C3F /* NSString+DecodeURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DecodeURL.h"; sourceTree = "<group>"; };
+		CD02E29D1BF9E2C100509C3F /* NSString+DecodeURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DecodeURL.m"; sourceTree = "<group>"; };
 		CD7BAB0C1BAAB87400B88393 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrNavigationBar.h; sourceTree = "<group>"; };
 		CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrNavigationBar.m; sourceTree = "<group>"; };
@@ -242,7 +245,6 @@
 		D0EBBA7E134B669800CAAB58 /* ErrorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorView.xib; sourceTree = "<group>"; };
 		D0EBBA81134B670300CAAB58 /* ErrorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorViewController.h; sourceTree = "<group>"; };
 		D0EBBA82134B670300CAAB58 /* ErrorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorViewController.m; sourceTree = "<group>"; };
-		D0EBBA84134B9F6300CAAB58 /* Challenge-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Challenge-Protected.h"; sourceTree = "<group>"; };
 		D0EECF2C12781F72001D54F8 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		D0EECF2D12781F72001D54F8 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		D0EECFA112782EFE001D54F8 /* AuthenticationIdentityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationIdentityViewController.h; sourceTree = "<group>"; };
@@ -698,7 +700,6 @@
 			isa = PBXGroup;
 			children = (
 				D0627E75127F0899004CF8D4 /* Challenge.h */,
-				D0EBBA84134B9F6300CAAB58 /* Challenge-Protected.h */,
 				D0627E76127F0899004CF8D4 /* Challenge.m */,
 				D0F51624129A7A6E0013CF3A /* SecretStore.h */,
 				D0F51625129A7A6E0013CF3A /* SecretStore.m */,
@@ -706,6 +707,8 @@
 				D0914435129BDC2E00C796AA /* NotificationRegistration.m */,
 				D0914437129BF47300C796AA /* NSData+Hex.h */,
 				D0914438129BF47300C796AA /* NSData+Hex.m */,
+				CD02E29C1BF9E2C100509C3F /* NSString+DecodeURL.h */,
+				CD02E29D1BF9E2C100509C3F /* NSString+DecodeURL.m */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -900,6 +903,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.mm in Sources */,
+				CD02E29E1BF9E2C100509C3F /* NSString+DecodeURL.m in Sources */,
 				1D3623260D0F684500981E51 /* TiqrAppDelegate.m in Sources */,
 				D0EECF2F12781F72001D54F8 /* AboutViewController.m in Sources */,
 				D0EECFA412782EFE001D54F8 /* AuthenticationIdentityViewController.m in Sources */,

@@ -28,7 +28,6 @@
  */
 
 #import "Challenge.h"
-#import "Challenge-Protected.h"
 
 @interface Challenge ()
 
@@ -54,12 +53,6 @@
 	}
 	
 	return self;
-}
-
-- (NSString *)decodeURL:(NSString *)url {
-	url = [url stringByReplacingOccurrencesOfString:@"+" withString:@" "];
-	url = [url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	return url;
 }
 
 - (void)parseRawChallenge {
