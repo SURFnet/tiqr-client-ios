@@ -99,14 +99,5 @@
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-- (void)viewDidUnload {
-    self.tableView = nil;
-    [super viewDidUnload];
-}
-
 
 @end

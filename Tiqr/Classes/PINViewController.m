@@ -199,24 +199,7 @@
     self.okButton.enabled = NO;  
 }
 
-- (void)resetOutlets {
-    self.subtitleLabel = nil;
-    self.descriptionLabel = nil;
-    self.pinField = nil;
-    self.pin1Field = nil;
-    self.pin2Field = nil;    
-    self.pin3Field = nil;    
-    self.pin4Field = nil;
-    self.okButton = nil;
-}
-
-- (void)viewDidUnload {
-    [self resetOutlets];
-    [super viewDidUnload];
-}
-
 - (void)dealloc {
-    [self resetOutlets];    
     [self.pin4Timer invalidate];
 }
 

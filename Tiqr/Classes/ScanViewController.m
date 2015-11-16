@@ -36,8 +36,8 @@
 @interface ScanViewController () <AVAudioPlayerDelegate, AVCaptureMetadataOutputObjectsDelegate>
 
 #if HAS_AVFF
-@property (nonatomic, retain) AVCaptureSession *captureSession;
-@property (nonatomic, retain) AVCaptureVideoPreviewLayer *previewLayer;
+@property (nonatomic, strong) AVCaptureSession *captureSession;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 #endif
 
 @property (nonatomic, strong) AVAudioPlayer *audioPlayer;
@@ -292,29 +292,8 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (void)resetOutlets {
-    self.previewView = nil;
-    self.instructionsView = nil;
-    self.overlayView = nil;
-    self.instructionLabel = nil;
-}
-
-- (void)viewDidUnload {
-    [self resetOutlets];
-    [super viewDidUnload];
-}
-
 - (void)dealloc {
     [self stopCapture];
-    
-    #if HAS_AVFF
-    self.captureSession = nil;
-    self.previewLayer = nil;
-    #endif
-    
-    [self resetOutlets];
-    
-    
 }
 
 @end

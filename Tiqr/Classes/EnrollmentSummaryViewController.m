@@ -95,28 +95,4 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:returnURL]];
 }
 
-- (void)resetOutlets {
-	self.identityDisplayNameLabel = nil;
-	self.identityIdentifierLabel = nil;
-    self.returnButton = nil;
-    self.accountReadyLabel = nil;
-    self.accountActivatedLabel = nil;
-    self.fullNameLabel = nil;
-    self.accountIDLabel = nil;
-    self.accountDetailsLabel = nil;
-    self.enrolledLabel = nil;
-    self.enrollmentDomainLabel = nil;
-}
-
-- (void)viewDidUnload {
-    [self resetOutlets];
-    [super viewDidUnload];
-}
-
-- (void)dealloc {
-    [self resetOutlets];
-    
-    
-}
-
 @end

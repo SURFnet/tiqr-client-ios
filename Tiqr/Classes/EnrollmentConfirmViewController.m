@@ -91,27 +91,4 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)resetOutlets {
-	self.identityDisplayNameLabel = nil;
-	self.identityIdentifierLabel = nil;
-    self.confirmAccountLabel = nil;
-    self.activateAccountLabel = nil;
-    self.enrollDomainLabel = nil;
-    self.okButton = nil;
-    self.fullNameLabel = nil;
-    self.accountIDLabel = nil;
-    self.accountDetailsLabel = nil;
-}
-
-- (void)viewDidUnload {
-    [self resetOutlets];
-    [super viewDidUnload];
-}
-
-- (void)dealloc {
-    [self resetOutlets];
-    
-    
-}
-
 @end

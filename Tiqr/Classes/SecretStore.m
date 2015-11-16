@@ -256,9 +256,6 @@
 
 - (void)dealloc {
     encryptedSecret_ = nil;
-	
-	
-	
 }
 
 + (SecretStore *)secretStoreForIdentity:(NSString *)identityIdentifier identityProvider:(NSString *)identityProviderIdentifier {

@@ -140,23 +140,4 @@
     [self.navigationController pushViewController:viewController animated:YES];	
 }
 
-- (void)resetOutlets {
-    self.webView = nil;
-}
-
-- (void)viewDidUnload {
-    [self resetOutlets];
-    
-    [self.errorController.view removeFromSuperview];
-    self.errorController = nil;
-    
-    [super viewDidUnload];
-}
-
-- (void)dealloc {
-    [self resetOutlets];
-    
-    
-}
-
 @end

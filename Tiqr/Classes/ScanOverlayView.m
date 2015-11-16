@@ -114,8 +114,4 @@
     [self setNeedsDisplay];
 }
 
-- (void)dealloc {
-    self.points = nil;
-}
-
 @end

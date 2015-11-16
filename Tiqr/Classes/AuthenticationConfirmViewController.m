@@ -86,28 +86,4 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (void)resetOutlets {
-	self.identityDisplayNameLabel = nil;
-	self.identityIdentifierLabel = nil;
-	self.serviceProviderDisplayNameLabel = nil;
-	self.serviceProviderIdentifierLabel = nil;
-    self.loggedInAsLabel = nil;
-    self.loginConfirmLabel = nil;
-    self.toLabel = nil;
-    self.okButton = nil;
-    self.accountLabel = nil;
-    self.accountIDLabel = nil;
-}
-
-- (void)viewDidUnload {
-    [self resetOutlets];
-    [super viewDidUnload];
-}
-
-- (void)dealloc {
-    [self resetOutlets];
-    
-
-}
-
 @end

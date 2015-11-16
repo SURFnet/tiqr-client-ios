@@ -66,10 +66,5 @@
     [(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:YES];
 }
 
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    [self.errorController.view removeFromSuperview];
-}
-
 
 @end

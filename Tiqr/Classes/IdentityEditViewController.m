@@ -167,22 +167,4 @@
     }
 }
 
-- (void)resetOutlets {
-    self.identityProviderLogoImageView = nil;
-    self.identityProviderIdentifierLabel = nil;    
-    self.identityProviderDisplayNameLabel = nil;
-    self.blockedWarningLabel = nil;
-    self.tableView = nil;
-    self.deleteButton = nil;
-}
-
-- (void)viewDidUnload {
-    [self resetOutlets];
-    [super viewDidUnload];
-}
-
-- (void)dealloc {
-    [self resetOutlets];
-}
-
 @end

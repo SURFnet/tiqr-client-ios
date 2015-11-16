@@ -81,26 +81,4 @@
     [(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:YES];    
 }
 
-- (void)resetOutlets {
-    self.identityIdentifierLabel = nil;
-    self.oneTimePasswordLabel = nil;
-    self.errorTitleLabel = nil;
-    self.errorInstructionLabel = nil;
-    self.yourIdLabel = nil;
-    self.oneTimeLoginCodeLabel = nil;
-    self.unverifiedPinLabel = nil;
-    self.retryLabel = nil;
-}
-
-- (void)viewDidUnload {
-    [self resetOutlets];
-    [super viewDidUnload];
-}
-
-- (void)dealloc {
-    [self resetOutlets];
-    
-	
-}
-
 @end
