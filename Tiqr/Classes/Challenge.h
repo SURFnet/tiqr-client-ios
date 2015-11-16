@@ -79,7 +79,7 @@
  *
  * @return challenge instance
  */
-- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context autoParse:(BOOL)autoParse NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context autoParse:(BOOL)autoParse;
 
 /**
  * Responsible for parsing the raw challenge.

@@ -55,6 +55,6 @@
  *
  * @return view controller instance
  */
-- (instancetype)init NS_DESIGNATED_INITIALIZER;
+- (instancetype)init;
 
 @end

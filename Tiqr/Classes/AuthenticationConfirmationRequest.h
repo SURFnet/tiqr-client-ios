@@ -78,7 +78,7 @@ enum {
 
 @property (nonatomic, weak) id<AuthenticationConfirmationRequestDelegate> delegate;
 
-- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response;
 - (void)send;
 
 @end

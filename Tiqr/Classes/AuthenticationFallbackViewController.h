@@ -51,6 +51,6 @@
  *
  * @return initialized controller instance
  */
-- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response;
 
 @end
