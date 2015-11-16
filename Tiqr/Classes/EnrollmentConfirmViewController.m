@@ -84,7 +84,6 @@
 
 - (IBAction)ok {
     EnrollmentPINViewController *viewController = [[EnrollmentPINViewController alloc] initWithEnrollmentChallenge:self.challenge];
-    viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

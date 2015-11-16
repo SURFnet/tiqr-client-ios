@@ -83,7 +83,6 @@
 
 - (IBAction)ok {
     AuthenticationPINViewController *viewController = [[AuthenticationPINViewController alloc] initWithAuthenticationChallenge:self.challenge];
-    viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

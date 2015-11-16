@@ -44,11 +44,6 @@
 @interface ScanViewController : UIViewController {
 }
 
-/**
- * The Core Data managed object context.
- */
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
 
 /**
  * Initialized the view controller

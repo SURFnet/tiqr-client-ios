@@ -96,7 +96,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	self.challenge.identity = self.challenge.identities[indexPath.row];
     AuthenticationConfirmViewController *viewController = [[AuthenticationConfirmViewController alloc] initWithAuthenticationChallenge:self.challenge];
-    viewController.managedObjectContext = self.managedObjectContext;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 

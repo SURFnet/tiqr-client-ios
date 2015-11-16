@@ -40,11 +40,6 @@
 }
 
 /**
- * Managed object context.
- */
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
-/**
  * Initializes the controller with the given authentication challenge.
  *
  * @param challenge authentication challenge

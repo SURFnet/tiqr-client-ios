@@ -37,6 +37,8 @@
 		C7B96C8016FB0C8C001EC65E /* IdentityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4B0D134B28D10045AF62 /* IdentityProvider.m */; };
 		C7B96C8416FB0D28001EC65E /* Tiqr.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7B96C8116FB0D28001EC65E /* Tiqr.xcdatamodeld */; };
 		CD02E29E1BF9E2C100509C3F /* NSString+DecodeURL.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E29D1BF9E2C100509C3F /* NSString+DecodeURL.m */; };
+		CD02E2A11BF9F21B00509C3F /* ServiceContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E2A01BF9F21B00509C3F /* ServiceContainer.m */; };
+		CD02E2A41BF9F34300509C3F /* IdentityService.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E2A31BF9F34300509C3F /* IdentityService.m */; };
 		CD7BAB0D1BAAB87400B88393 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7BAB0C1BAAB87400B88393 /* images.xcassets */; };
 		CD7BAB101BAAE3F200B88393 /* TiqrNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */; };
 		CDBB08C01BAC3DB0008D8F94 /* TiqrToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */; };
@@ -51,7 +53,6 @@
 		D028BFA213092834002EA560 /* cowbell.wav in Resources */ = {isa = PBXBuildFile; fileRef = D028BF8613092834002EA560 /* cowbell.wav */; };
 		D028BFB813092834002EA560 /* IdentityListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D028BF9F13092834002EA560 /* IdentityListView.xib */; };
 		D028BFC41309288A002EA560 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D028BFC01309288A002EA560 /* Entitlements.plist */; };
-		D0352B6D128980D400184AD5 /* Identity+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D0352B6C128980D400184AD5 /* Identity+Utils.m */; };
 		D0352BEC12898A7D00184AD5 /* IdentityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0352BEB12898A7D00184AD5 /* IdentityTableViewCell.m */; };
 		D0524F4812784A050072C1BA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0524F4712784A050072C1BA /* AudioToolbox.framework */; };
 		D0627E77127F0899004CF8D4 /* Challenge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0627E76127F0899004CF8D4 /* Challenge.m */; };
@@ -69,7 +70,6 @@
 		D06F86BB1331ED2B00C2C6FF /* AuthenticationChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0627E7C127F08C0004CF8D4 /* AuthenticationChallenge.m */; };
 		D06F86BC1331ED3500C2C6FF /* EnrollmentChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0627E7F127F08D8004CF8D4 /* EnrollmentChallenge.m */; };
 		D06F86BD1331ED4F00C2C6FF /* Challenge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0627E76127F0899004CF8D4 /* Challenge.m */; };
-		D06F86BE1331ED5500C2C6FF /* Identity+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D0352B6C128980D400184AD5 /* Identity+Utils.m */; };
 		D06F86C41331EE5600C2C6FF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D06F86C31331EE5600C2C6FF /* CoreData.framework */; };
 		D076CEFF134F31C000FE762A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D076CF00134F31C000FE762A /* MainWindow.xib */; };
 		D088C7DE130BC60F006DE593 /* SecretStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F51625129A7A6E0013CF3A /* SecretStore.m */; };
@@ -85,7 +85,6 @@
 		D0A6F5CE1353356A000F9AE5 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A6F5CD1353356A000F9AE5 /* MBProgressHUD.m */; };
 		D0B889561282D7E3003A534D /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B889541282D7E3003A534D /* StartViewController.m */; };
 		D0BE4AFD134B0A570045AF62 /* NSString+Verhoeff.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4AFC134B0A570045AF62 /* NSString+Verhoeff.m */; };
-		D0BE4B08134B14620045AF62 /* IdentityProvider+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4B07134B14620045AF62 /* IdentityProvider+Utils.m */; };
 		D0BE4B0B134B28D00045AF62 /* Identity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4B0A134B28D00045AF62 /* Identity.m */; };
 		D0BE4B0E134B28D10045AF62 /* IdentityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4B0D134B28D10045AF62 /* IdentityProvider.m */; };
 		D0C54577130B4065008B807B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -158,6 +157,10 @@
 		C7B96C8316FB0D28001EC65E /* Tiqr.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tiqr.xcdatamodel; sourceTree = "<group>"; };
 		CD02E29C1BF9E2C100509C3F /* NSString+DecodeURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DecodeURL.h"; sourceTree = "<group>"; };
 		CD02E29D1BF9E2C100509C3F /* NSString+DecodeURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DecodeURL.m"; sourceTree = "<group>"; };
+		CD02E29F1BF9F21B00509C3F /* ServiceContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceContainer.h; sourceTree = "<group>"; };
+		CD02E2A01BF9F21B00509C3F /* ServiceContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceContainer.m; sourceTree = "<group>"; };
+		CD02E2A21BF9F34300509C3F /* IdentityService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityService.h; sourceTree = "<group>"; };
+		CD02E2A31BF9F34300509C3F /* IdentityService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityService.m; sourceTree = "<group>"; };
 		CD7BAB0C1BAAB87400B88393 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrNavigationBar.h; sourceTree = "<group>"; };
 		CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrNavigationBar.m; sourceTree = "<group>"; };
@@ -170,7 +173,6 @@
 		D00C694F1280482600F6CE43 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D011A5251340CC2F00E571A2 /* EnrollmentConfirmationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnrollmentConfirmationRequest.h; sourceTree = "<group>"; };
 		D011A5261340CC3000E571A2 /* EnrollmentConfirmationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnrollmentConfirmationRequest.m; sourceTree = "<group>"; };
-		D011A5281340D47400E571A2 /* IdentityProvider+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IdentityProvider+Utils.h"; sourceTree = "<group>"; };
 		D011A52F1340DA7800E571A2 /* AuthenticationSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationSummaryViewController.h; sourceTree = "<group>"; };
 		D011A5301340DA7900E571A2 /* AuthenticationSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationSummaryViewController.m; sourceTree = "<group>"; };
 		D011A5321340FEBE00E571A2 /* AuthenticationConfirmationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationConfirmationRequest.h; sourceTree = "<group>"; };
@@ -183,8 +185,6 @@
 		D028BF9F13092834002EA560 /* IdentityListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IdentityListView.xib; sourceTree = "<group>"; };
 		D028BFC01309288A002EA560 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		D028BFC11309288A002EA560 /* Tiqr-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Tiqr-Info.plist"; sourceTree = "<group>"; };
-		D0352B6B128980D400184AD5 /* Identity+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Identity+Utils.h"; sourceTree = "<group>"; };
-		D0352B6C128980D400184AD5 /* Identity+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Identity+Utils.m"; sourceTree = "<group>"; };
 		D0352BEA12898A7D00184AD5 /* IdentityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityTableViewCell.h; sourceTree = "<group>"; };
 		D0352BEB12898A7D00184AD5 /* IdentityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityTableViewCell.m; sourceTree = "<group>"; };
 		D0524F4712784A050072C1BA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -228,7 +228,6 @@
 		D0B889541282D7E3003A534D /* StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartViewController.m; sourceTree = "<group>"; };
 		D0BE4AFB134B0A570045AF62 /* NSString+Verhoeff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Verhoeff.h"; sourceTree = "<group>"; };
 		D0BE4AFC134B0A570045AF62 /* NSString+Verhoeff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Verhoeff.m"; sourceTree = "<group>"; };
-		D0BE4B07134B14620045AF62 /* IdentityProvider+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IdentityProvider+Utils.m"; sourceTree = "<group>"; };
 		D0BE4B09134B28D00045AF62 /* Identity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Identity.h; sourceTree = "<group>"; };
 		D0BE4B0A134B28D00045AF62 /* Identity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Identity.m; sourceTree = "<group>"; };
 		D0BE4B0C134B28D10045AF62 /* IdentityProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityProvider.h; sourceTree = "<group>"; };
@@ -297,6 +296,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CD02E2A51BF9F9A500509C3F /* Services */,
 				D08F5AFC1278593D00C63A3E /* Common */,
 				D0EBBA80134B66EB00CAAB58 /* Error */,
 				D06BF5BE1339055F002A1083 /* Start */,
@@ -381,6 +381,17 @@
 				D0BE4AFC134B0A570045AF62 /* NSString+Verhoeff.m */,
 			);
 			name = Algorithms;
+			sourceTree = "<group>";
+		};
+		CD02E2A51BF9F9A500509C3F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CD02E29F1BF9F21B00509C3F /* ServiceContainer.h */,
+				CD02E2A01BF9F21B00509C3F /* ServiceContainer.m */,
+				CD02E2A21BF9F34300509C3F /* IdentityService.h */,
+				CD02E2A31BF9F34300509C3F /* IdentityService.m */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		D002E01A1349CE2A00071321 /* Common */ = {
@@ -561,10 +572,6 @@
 				D0BE4B0A134B28D00045AF62 /* Identity.m */,
 				D0BE4B0C134B28D10045AF62 /* IdentityProvider.h */,
 				D0BE4B0D134B28D10045AF62 /* IdentityProvider.m */,
-				D0352B6B128980D400184AD5 /* Identity+Utils.h */,
-				D0352B6C128980D400184AD5 /* Identity+Utils.m */,
-				D011A5281340D47400E571A2 /* IdentityProvider+Utils.h */,
-				D0BE4B07134B14620045AF62 /* IdentityProvider+Utils.m */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -910,12 +917,12 @@
 				D0EECFA912782F23001D54F8 /* AuthenticationConfirmViewController.m in Sources */,
 				D0EECFAE12782F57001D54F8 /* IdentityListViewController.m in Sources */,
 				D0EECFBA127831FE001D54F8 /* EnrollmentConfirmViewController.m in Sources */,
+				CD02E2A41BF9F34300509C3F /* IdentityService.m in Sources */,
 				D0240CBD127EF62700EB07AD /* ScanOverlayView.m in Sources */,
 				D0627E77127F0899004CF8D4 /* Challenge.m in Sources */,
 				D0627E7D127F08C0004CF8D4 /* AuthenticationChallenge.m in Sources */,
 				D0627E80127F08D8004CF8D4 /* EnrollmentChallenge.m in Sources */,
 				D0B889561282D7E3003A534D /* StartViewController.m in Sources */,
-				D0352B6D128980D400184AD5 /* Identity+Utils.m in Sources */,
 				D0352BEC12898A7D00184AD5 /* IdentityTableViewCell.m in Sources */,
 				922F08441289ABE700A33616 /* HOTP.m in Sources */,
 				922F08471289ABFE00A33616 /* OCRAWrapper.m in Sources */,
@@ -925,6 +932,7 @@
 				924D6C5F13094DEC00F87B96 /* AuthenticationFallbackViewController.m in Sources */,
 				924D6E3D130958A400F87B96 /* Reachability.m in Sources */,
 				92B92DE6132E1DD0004F390D /* OCRA.m in Sources */,
+				CD02E2A11BF9F21B00509C3F /* ServiceContainer.m in Sources */,
 				D06AD594134096F00050D75C /* PINViewController.m in Sources */,
 				D06AD5981340A5D10050D75C /* AuthenticationPINViewController.m in Sources */,
 				D06AD59B1340A5FF0050D75C /* EnrollmentPINViewController.m in Sources */,
@@ -939,7 +947,6 @@
 				CDBB08C01BAC3DB0008D8F94 /* TiqrToolbar.m in Sources */,
 				D0E58D70134A149C00A79052 /* IdentityEditViewController.m in Sources */,
 				D0BE4AFD134B0A570045AF62 /* NSString+Verhoeff.m in Sources */,
-				D0BE4B08134B14620045AF62 /* IdentityProvider+Utils.m in Sources */,
 				D0BE4B0B134B28D00045AF62 /* Identity.m in Sources */,
 				D0BE4B0E134B28D10045AF62 /* IdentityProvider.m in Sources */,
 				D0EBBA83134B670300CAAB58 /* ErrorViewController.m in Sources */,
@@ -963,7 +970,6 @@
 				D06F86BB1331ED2B00C2C6FF /* AuthenticationChallenge.m in Sources */,
 				D06F86BC1331ED3500C2C6FF /* EnrollmentChallenge.m in Sources */,
 				D06F86BD1331ED4F00C2C6FF /* Challenge.m in Sources */,
-				D06F86BE1331ED5500C2C6FF /* Identity+Utils.m in Sources */,
 				D09D79A813334F8700F3F0F6 /* EnrollmentChallengeTests.m in Sources */,
 				C7B96C7E16FB0C89001EC65E /* Identity.m in Sources */,
 				C7B96C8016FB0C8C001EC65E /* IdentityProvider.m in Sources */,

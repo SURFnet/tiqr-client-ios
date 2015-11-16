@@ -31,10 +31,11 @@
 #import "EnrollmentSummaryViewController.h"
 #import "EnrollmentConfirmationRequest.h"
 #import "IdentityProvider.h"
-#import "Identity+Utils.h"
 #import "SecretStore.h"
 #import "ErrorViewController.h"
 #import "MBProgressHUD.h"
+#import "ServiceContainer.h"
+#import "IdentityService.h"
 
 @interface EnrollmentPINVerificationViewController ()
 
@@ -67,11 +68,11 @@
 }
 
 - (BOOL)storeProviderAndIdentity {
-	NSManagedObjectContext *context = self.managedObjectContext;
+    IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
 	
 	IdentityProvider *identityProvider = self.challenge.identityProvider;
 	if (identityProvider == nil) {
-		identityProvider = [NSEntityDescription insertNewObjectForEntityForName:@"IdentityProvider" inManagedObjectContext:context];	
+		identityProvider = [identityService createIdentityProvider];
 		identityProvider.identifier = self.challenge.identityProviderIdentifier;
 		identityProvider.displayName = self.challenge.identityProviderDisplayName;
 		identityProvider.authenticationUrl = self.challenge.identityProviderAuthenticationUrl;
@@ -82,9 +83,9 @@
 	
 	Identity *identity = self.challenge.identity;
     if (identity == nil) {
-        identity = [NSEntityDescription insertNewObjectForEntityForName:@"Identity" inManagedObjectContext:context];	
+        identity = [identityService createIdentity];
         identity.identifier = self.challenge.identityIdentifier;
-        identity.sortIndex = [NSNumber numberWithInteger:[Identity maxSortIndexInManagedObjectContext:context] + 1];
+        identity.sortIndex = [NSNumber numberWithInteger:identityService.maxSortIndex + 1];
         identity.identityProvider = identityProvider;
         identity.version = @2;
         identity.salt = [SecretStore generateSecret];
@@ -92,21 +93,20 @@
     
 	identity.displayName = self.challenge.identityDisplayName;
 	
-	NSError *error = nil;
-	if ([context save:&error]) {
+	if ([identityService save]) {
         self.challenge.identity = identity;
         self.challenge.identityProvider = identityProvider;
         return YES;
 	} else {
-		[context rollback];
+		[identityService rollback];
 		return NO;			
     }
 }
 
 - (void)deleteIdentity {
     if (![self.challenge.identity.blocked boolValue]) {
-        [self.managedObjectContext deleteObject:self.challenge.identity];
-        [self.managedObjectContext save:nil];
+        [ServiceContainer.sharedInstance.identityService deleteIdentity:self.challenge.identity];
+        [ServiceContainer.sharedInstance.identityService save];
     }
 }
 
@@ -125,10 +125,9 @@
 	[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];    
     
     self.challenge.identity.blocked = @NO;
-    [self.managedObjectContext save:nil];
+    [ServiceContainer.sharedInstance.identityService save];
     
     EnrollmentSummaryViewController *viewController = [[EnrollmentSummaryViewController alloc] initWithEnrollmentChallenge:self.challenge];
-    viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

@@ -28,9 +28,9 @@
  */
 
 #import "EnrollmentChallenge.h"
-#import "Identity+Utils.h"
-#import "IdentityProvider+Utils.h"
 #import "NSString+DecodeURL.h"
+#import "ServiceContainer.h"
+#import "IdentityService.h"
 
 NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 
@@ -54,8 +54,8 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 
 @implementation EnrollmentChallenge
 
-- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context allowFiles:(BOOL)allowFiles {
-    self = [super initWithRawChallenge:challenge managedObjectContext:context autoParse:NO];
+- (instancetype)initWithRawChallenge:(NSString *)challenge allowFiles:(BOOL)allowFiles {
+    self = [super initWithRawChallenge:challenge autoParse:NO];
     if (self != nil) {
         self.allowFiles = allowFiles;
 		[self parseRawChallenge];
@@ -64,12 +64,12 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 	return self;
 }
 
-- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context {
-    return [self initWithRawChallenge:challenge managedObjectContext:context allowFiles:NO];
+- (instancetype)initWithRawChallenge:(NSString *)challenge {
+    return [self initWithRawChallenge:challenge allowFiles:NO];
 }
 
-- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context autoParse:(BOOL)autoParse {
-    return [self initWithRawChallenge:challenge managedObjectContext:context allowFiles:NO];
+- (instancetype)initWithRawChallenge:(NSString *)challenge autoParse:(BOOL)autoParse {
+    return [self initWithRawChallenge:challenge allowFiles:NO];
 }
 
 - (BOOL)isValidMetadata:(NSDictionary *)metadata {
@@ -93,7 +93,7 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 
 - (BOOL)assignIdentityProviderMetadata:(NSDictionary *)metadata {
 	self.identityProviderIdentifier = [metadata[@"identifier"] description];
-	self.identityProvider = [IdentityProvider findIdentityProviderWithIdentifier:self.identityProviderIdentifier inManagedObjectContext:self.managedObjectContext];
+	self.identityProvider = [ServiceContainer.sharedInstance.identityService findIdentityProviderWithIdentifier:self.identityProviderIdentifier];
 
 	if (self.identityProvider != nil) {
 		self.identityProviderDisplayName = self.identityProvider.displayName;
@@ -128,7 +128,7 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 	self.identitySecret = nil;
 	
 	if (self.identityProvider != nil) {
-		Identity *identity = [Identity findIdentityWithIdentifier:self.identityIdentifier forIdentityProvider:self.identityProvider inManagedObjectContext:self.managedObjectContext];
+        Identity *identity = [ServiceContainer.sharedInstance.identityService findIdentityWithIdentifier:self.identityIdentifier forIdentityProvider:self.identityProvider];
 		if (identity != nil && [identity.blocked boolValue]) {
             self.identity = identity;
         } else if (identity != nil) {

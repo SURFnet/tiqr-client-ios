@@ -34,14 +34,7 @@
  * View controller which contains the initial welcome message and 
  * usage instructions.
  */
-@interface StartViewController : UIViewController {
-
-}
-
-/**
- * The Core Data managed object context.
- */
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@interface StartViewController : UIViewController
 
 
 @end

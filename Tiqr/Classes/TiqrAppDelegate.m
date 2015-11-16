@@ -34,23 +34,19 @@
 #import "AuthenticationConfirmViewController.h"
 #import "EnrollmentConfirmViewController.h"
 #import "ScanViewController.h"
-#import "Identity+Utils.h"
 #import "NotificationRegistration.h"
 #import "Reachability.h"
 #import "ScanViewController.h"
 #import "StartViewController.h"
 #import "ErrorViewController.h"
+#import "ServiceContainer.h"
+#import "IdentityService.h"
 
 @interface TiqrAppDelegate ()
-
-@property (nonatomic, strong, readwrite) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, strong, readwrite) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic, strong, readwrite) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 - (BOOL)handleAuthenticationChallenge:(NSString *)rawChallenge;
 - (BOOL)handleEnrollmentChallenge:(NSString *)rawChallenge;
 @property (nonatomic, readonly, copy) NSURL *applicationDocumentsDirectory;
-- (void)saveContext;
 
 @end
 
@@ -59,19 +55,17 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-    self.startViewController.managedObjectContext = self.managedObjectContext;
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];	
 	BOOL showInstructions = 
         [defaults objectForKey:@"show_instructions_preference"] == nil || 
         [defaults boolForKey:@"show_instructions_preference"];		
     
-    BOOL allIdentitiesBlocked = [Identity allIdentitiesBlockedInManagedObjectContext:self.managedObjectContext];  
+    BOOL allIdentitiesBlocked = ServiceContainer.sharedInstance.identityService.allIdentitiesBlocked;
     
 	if (!allIdentitiesBlocked && !showInstructions) {
-		ScanViewController *scanViewController = [[ScanViewController alloc] init];   
-        scanViewController.managedObjectContext = self.managedObjectContext;
+		ScanViewController *scanViewController = [[ScanViewController alloc] init];
         [self.navigationController pushViewController:scanViewController animated:NO];
     }
 
@@ -104,7 +98,7 @@
 - (void)popToStartViewControllerAnimated:(BOOL)animated {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];	
     BOOL showInstructions = [defaults objectForKey:@"show_instructions_preference"] == nil || [defaults boolForKey:@"show_instructions_preference"];
-    BOOL allIdentitiesBlocked = [Identity allIdentitiesBlockedInManagedObjectContext:self.managedObjectContext];  
+    BOOL allIdentitiesBlocked = ServiceContainer.sharedInstance.identityService.allIdentitiesBlocked;
     
     if (allIdentitiesBlocked || showInstructions) {
         [self.navigationController popToRootViewControllerAnimated:animated];
@@ -115,7 +109,7 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    [self saveContext];
+    [ServiceContainer.sharedInstance.identityService save];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -123,7 +117,7 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    [self saveContext];
+    [ServiceContainer.sharedInstance.identityService save];
 }
 
 #pragma mark -
@@ -133,7 +127,7 @@
     UIViewController *firstViewController = self.navigationController.viewControllers[[self.navigationController.viewControllers count] > 1 ? 1 : 0];
     [self.navigationController popToViewController:firstViewController animated:NO];
 	
-	AuthenticationChallenge *challenge = [[AuthenticationChallenge alloc] initWithRawChallenge:rawChallenge managedObjectContext:self.managedObjectContext];
+	AuthenticationChallenge *challenge = [[AuthenticationChallenge alloc] initWithRawChallenge:rawChallenge];
 	if (!challenge.isValid) {
         NSError *error = challenge.error;
         NSString *title = NSLocalizedString(@"login_title", @"Login navigation title");        
@@ -158,7 +152,7 @@
     UIViewController *firstViewController = self.navigationController.viewControllers[[self.navigationController.viewControllers count] > 1 ? 1 : 0];
     [self.navigationController popToViewController:firstViewController animated:NO];
     
-	EnrollmentChallenge *challenge = [[EnrollmentChallenge alloc] initWithRawChallenge:rawChallenge managedObjectContext:self.managedObjectContext];
+	EnrollmentChallenge *challenge = [[EnrollmentChallenge alloc] initWithRawChallenge:rawChallenge];
 	if (!challenge.isValid) {
         NSError *error = challenge.error;
         NSString *title = NSLocalizedString(@"enrollment_confirmation_header_title", @"Account activation title");        
@@ -208,80 +202,10 @@
 	[self handleAuthenticationChallenge:[info valueForKey:@"challenge"]];
 } 
 
-#pragma mark -
-#pragma mark Core Data stack
-
-- (void)saveContext {
-    NSError *error = nil;
-	NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        } 
-    }
-}  
-
-- (NSManagedObjectContext *)managedObjectContext {
-    if (_managedObjectContext != nil) {
-        return _managedObjectContext;
-    }
-    
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    }
-    return _managedObjectContext;
-}
-
-- (NSManagedObjectModel *)managedObjectModel {
-    if (_managedObjectModel != nil) {
-        return _managedObjectModel;
-    }
-	
-    NSString *modelPath = [[NSBundle mainBundle] pathForResource:@"Tiqr" ofType:@"momd"];
-	if (modelPath == nil) {
-		modelPath = [[NSBundle mainBundle] pathForResource:@"Tiqr" ofType:@"mom"];
-	}
-	
-    NSURL *modelURL = [NSURL fileURLWithPath:modelPath];
-    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    return _managedObjectModel;
-}
-
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-    if (_persistentStoreCoordinator != nil) {
-        return _persistentStoreCoordinator;
-    }
-    
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Tiqr.sqlite"];
-    
-    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES,
-                             NSInferMappingModelAutomaticallyOption: @YES};    
-    
-    NSError *error = nil;
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }    
-    
-    return _persistentStoreCoordinator;
-}
-
 #pragma mark - 
 #pragma mark Connection handling
 - (BOOL)hasConnection {   
     return (![Reachability reachabilityForInternetConnection].currentReachabilityStatus == NotReachable);
-}
-
-
-#pragma mark -
-#pragma mark Application's Documents directory
-
-- (NSURL *)applicationDocumentsDirectory {
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
 #pragma mark -

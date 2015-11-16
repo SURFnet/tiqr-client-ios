@@ -39,11 +39,6 @@
 }
 
 /**
- * Managed object context.
- */
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
-/**
  * Initializes the controller with the given enrollment challenge.
  *
  * @param challenge enrollment challenge

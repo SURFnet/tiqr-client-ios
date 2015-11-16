@@ -39,11 +39,6 @@
 }
 
 /**
- * Managed object context.
- */
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
-/**
  * Constructs a new controller instance for the given authentication challenge.
  *
  * @param challenge authentication challenge

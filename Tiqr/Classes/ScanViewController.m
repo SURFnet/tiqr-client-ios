@@ -27,10 +27,11 @@
 #import "AuthenticationConfirmViewController.h"
 #import "AuthenticationFallbackViewController.h"
 #import "EnrollmentConfirmViewController.h"
-#import "Identity+Utils.h"
 #import "IdentityListViewController.h"
 #import "ErrorViewController.h"
 #import "MBProgressHUD.h"
+#import "ServiceContainer.h"
+#import "IdentityService.h"
 
 @interface ScanViewController () <AVAudioPlayerDelegate, AVCaptureMetadataOutputObjectsDelegate>
 
@@ -99,7 +100,7 @@
     
     self.instructionsView.alpha = 0.0;    
     
-    if ([Identity countInManagedObjectContext:self.managedObjectContext] > 0) {
+    if (ServiceContainer.sharedInstance.identityService.identityCount > 0) {
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
     } else {
         self.navigationItem.rightBarButtonItem = nil;
@@ -230,18 +231,15 @@
     if ([challenge isKindOfClass:[AuthenticationChallenge class]]) {
         AuthenticationChallenge *authenticationChallenge = (AuthenticationChallenge *)challenge;
         if (authenticationChallenge.identity == nil) {
-            AuthenticationIdentityViewController *identityViewController = [[AuthenticationIdentityViewController alloc] initWithAuthenticationChallenge:authenticationChallenge];    
-            identityViewController.managedObjectContext = self.managedObjectContext;
+            AuthenticationIdentityViewController *identityViewController = [[AuthenticationIdentityViewController alloc] initWithAuthenticationChallenge:authenticationChallenge];
             viewController = identityViewController;
         } else {
             AuthenticationConfirmViewController *confirmViewController = [[AuthenticationConfirmViewController alloc] initWithAuthenticationChallenge:authenticationChallenge];
-            confirmViewController.managedObjectContext = self.managedObjectContext;
             viewController = confirmViewController;
         } 
     } else {
         EnrollmentChallenge *enrollmentChallenge = (EnrollmentChallenge *)challenge;
-        EnrollmentConfirmViewController *confirmViewController = [[EnrollmentConfirmViewController alloc] initWithEnrollmentChallenge:enrollmentChallenge]; 
-        confirmViewController.managedObjectContext = self.managedObjectContext;
+        EnrollmentConfirmViewController *confirmViewController = [[EnrollmentConfirmViewController alloc] initWithEnrollmentChallenge:enrollmentChallenge];
         viewController = confirmViewController;
     }
     
@@ -264,11 +262,11 @@
         
         NSURL *url = [NSURL URLWithString:scanResult];
         if (url != nil && [url.scheme isEqualToString:authenticationScheme]) {
-            challenge = [[AuthenticationChallenge alloc] initWithRawChallenge:scanResult managedObjectContext:self.managedObjectContext];
+            challenge = [[AuthenticationChallenge alloc] initWithRawChallenge:scanResult];
             errorTitle = challenge.isValid ? nil : [challenge.error localizedDescription];        
             errorMessage = challenge.isValid ? nil : [challenge.error localizedFailureReason];                
         } else if (url != nil && [url.scheme isEqualToString:enrollmentScheme]) {
-            challenge = [[EnrollmentChallenge alloc] initWithRawChallenge:scanResult managedObjectContext:self.managedObjectContext];
+            challenge = [[EnrollmentChallenge alloc] initWithRawChallenge:scanResult];
             errorTitle = challenge.isValid ? nil : [challenge.error localizedDescription];        
             errorMessage = challenge.isValid ? nil : [challenge.error localizedFailureReason];                
         } else {
@@ -291,7 +289,6 @@
 
 - (void)listIdentities {
     IdentityListViewController *viewController = [[IdentityListViewController alloc] init];
-    viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

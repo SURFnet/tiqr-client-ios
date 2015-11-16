@@ -31,6 +31,8 @@
 #import "Identity.h"
 #import "IdentityProvider.h"
 #import "SecretStore.h"
+#import "ServiceContainer.h"
+#import "IdentityService.h"
 
 @interface IdentityEditViewController ()
 
@@ -134,8 +136,7 @@
 }
 
 - (void)performDeleteIdentity{
-    NSManagedObjectContext *context = self.identity.managedObjectContext;
-    
+    IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
     IdentityProvider *identityProvider = self.identity.identityProvider;
     
     SecretStore *store = nil;       
@@ -143,23 +144,21 @@
         store = [SecretStore secretStoreForIdentity:self.identity.identifier identityProvider:identityProvider.identifier];		
 		
         [identityProvider removeIdentitiesObject:self.identity];
-        [context deleteObject:self.identity];
+        [identityService deleteIdentity:self.identity];
         if ([identityProvider.identities count] == 0) {
-            [context deleteObject:identityProvider];
+            [identityService deleteIdentityProvider:identityProvider];
         }
     } else {
-        [context deleteObject:self.identity];            
+        [identityService deleteIdentity:self.identity];
     }
     
-    NSError *error = nil;
-    if ([context save:&error]) {
+    if ([identityService save]) {
         if (store != nil) {
             [store deleteFromKeychain];
         }
         
         [self.navigationController popViewControllerAnimated:YES];
     } else {
-        NSLog(@"Unexpected error: %@", error);
 		NSString *title = NSLocalizedString(@"error", "Alert title for error");		
 		NSString *message = NSLocalizedString(@"error_auth_unknown_error", "Unexpected error message");		        
 		NSString *okTitle = NSLocalizedString(@"ok_button", "OK button title");		

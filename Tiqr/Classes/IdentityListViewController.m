@@ -31,11 +31,12 @@
 #import "ScanViewController.h"
 #import "TiqrAppDelegate.h"
 #import "Identity.h"
-#import "Identity+Utils.h"
 #import "IdentityProvider.h"
 #import "SecretStore.h"
 #import "IdentityTableViewCell.h"
 #import "IdentityEditViewController.h"
+#import "ServiceContainer.h"
+#import "IdentityService.h"
 
 @interface IdentityListViewController ()
 
@@ -67,7 +68,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if ([Identity countInManagedObjectContext:self.fetchedResultsController.managedObjectContext] == 0) {
+    if (ServiceContainer.sharedInstance.identityService.identityCount == 0) {
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -148,8 +149,7 @@
 }
 
 - (void)performDeleteIdentity:(Identity *)identity {
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    
+    IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
     IdentityProvider *identityProvider = identity.identityProvider;
     
     SecretStore *store = nil;
@@ -157,25 +157,23 @@
         store = [SecretStore secretStoreForIdentity:identity.identifier identityProvider:identityProvider.identifier];
         
         [identityProvider removeIdentitiesObject:identity];
-        [context deleteObject:identity];
+        [identityService deleteIdentity:identity];
         if ([identityProvider.identities count] == 0) {
-            [context deleteObject:identityProvider];
+            [identityService deleteIdentityProvider:identityProvider];
         }
     } else {
-        [context deleteObject:identity];
+        [identityService deleteIdentity:identity];
     }
     
-    NSError *error = nil;
-    if ([context save:&error]) {
+    if ([identityService save]) {
         if (store != nil) {
             [store deleteFromKeychain];
         }
         
-        if ([Identity countInManagedObjectContext:context] == 0) {
+        if (ServiceContainer.sharedInstance.identityService.identityCount == 0) {
             [self.navigationController popViewControllerAnimated:YES];
         }
     } else {
-        NSLog(@"Unexpected error: %@", error);
         NSString *title = NSLocalizedString(@"error", "Alert title for error");
         NSString *message = NSLocalizedString(@"error_auth_unknown_error", "Unexpected error message");
         NSString *okTitle = NSLocalizedString(@"ok_button", "OK button title");
@@ -196,16 +194,13 @@
 	[fetchedObjects removeObjectAtIndex:fromIndexPath.row];
 	[fetchedObjects insertObject:movedObject atIndex:toIndexPath.row];
 	
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
 	NSInteger sortIndex = 0;
 	for (Identity *identity in fetchedObjects) {
 		identity.sortIndex = [NSNumber numberWithInteger:sortIndex];
 		sortIndex++;
 	}
 	
-    NSError *error = nil;
-    if (![context save:&error]) {
-        NSLog(@"Unexpected error: %@", error);
+    if (![ServiceContainer.sharedInstance.identityService save]) {
         NSString *title = NSLocalizedString(@"error", "Alert title for error");		
         NSString *message = NSLocalizedString(@"error_auth_unknown_error", "Unexpected error message");		        
         NSString *okTitle = NSLocalizedString(@"ok_button", "OK button title");			
@@ -224,18 +219,9 @@
         return _fetchedResultsController;
     }
     
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Identity" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
-    [fetchRequest setFetchBatchSize:20];
-    
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"sortIndex" ascending:YES];
-    NSArray *sortDescriptors = @[sortDescriptor];
-    [fetchRequest setSortDescriptors:sortDescriptors];
-    
-    NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-    fetchedResultsController.delegate = self;
-    self.fetchedResultsController = fetchedResultsController;
+    IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
+    self.fetchedResultsController = [identityService createFetchedResultsControllerForIdentities];
+    self.fetchedResultsController.delegate = self;
     
     
     NSError *error = nil;
