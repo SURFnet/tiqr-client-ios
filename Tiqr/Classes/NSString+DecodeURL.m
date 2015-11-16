@@ -34,8 +34,8 @@
 - (NSString *)decodedURL {
     
     NSString *decodedURL = [self copy];
-    decodedURL = [self stringByReplacingOccurrencesOfString:@"+" withString:@" "];
-    decodedURL = [self stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    decodedURL = [decodedURL stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+    decodedURL = [decodedURL stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     return decodedURL;
 }
 
