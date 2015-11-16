@@ -296,16 +296,11 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D08F5AFC1278593D00C63A3E /* General */,
+				CD02E2A61BFA081F00509C3F /* Model */,
 				CD02E2A51BF9F9A500509C3F /* Services */,
-				D08F5AFC1278593D00C63A3E /* Common */,
-				D0EBBA80134B66EB00CAAB58 /* Error */,
-				D06BF5BE1339055F002A1083 /* Start */,
-				D06BF5BC1338F4BD002A1083 /* Scan */,
-				D0047827130A913100A06157 /* PIN */,
-				D0EECF1112781BB6001D54F8 /* Authentication */,
-				D0B5B351133B6EDA0076B372 /* Enrollment */,
-				D0EECF1212781BC2001D54F8 /* Identity */,
-				D0EECF1312781BF8001D54F8 /* About */,
+				CD02E2A71BFA082600509C3F /* Views */,
+				CD02E2A81BFA082D00509C3F /* Controllers */,
 				1D3623240D0F684500981E51 /* TiqrAppDelegate.h */,
 				1D3623250D0F684500981E51 /* TiqrAppDelegate.m */,
 			);
@@ -394,27 +389,59 @@
 			name = Services;
 			sourceTree = "<group>";
 		};
-		D002E01A1349CE2A00071321 /* Common */ = {
+		CD02E2A61BFA081F00509C3F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D0EBBA7C134B664B00CAAB58 /* ErrorChildView.xib */,
+				D0EBBA86134BA52B00CAAB58 /* Authentication */,
+				D0EBBA87134BA54300CAAB58 /* Enrollment */,
+				D0BE4B09134B28D00045AF62 /* Identity.h */,
+				D0BE4B0A134B28D00045AF62 /* Identity.m */,
+				D0BE4B0C134B28D10045AF62 /* IdentityProvider.h */,
+				D0BE4B0D134B28D10045AF62 /* IdentityProvider.m */,
+				D0627E75127F0899004CF8D4 /* Challenge.h */,
+				D0627E76127F0899004CF8D4 /* Challenge.m */,
+				D0F51624129A7A6E0013CF3A /* SecretStore.h */,
+				D0F51625129A7A6E0013CF3A /* SecretStore.m */,
 			);
-			name = Common;
+			name = Model;
 			sourceTree = "<group>";
 		};
-		D002E01D1349D28500071321 /* UI */ = {
+		CD02E2A71BFA082600509C3F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D002E01E1349D29A00071321 /* ErrorController.h */,
-				D002E01F1349D29A00071321 /* ErrorController.m */,
 				D0352BEA12898A7D00184AD5 /* IdentityTableViewCell.h */,
 				D0352BEB12898A7D00184AD5 /* IdentityTableViewCell.m */,
 				CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */,
 				CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */,
 				CDBB08BE1BAC3DB0008D8F94 /* TiqrToolbar.h */,
 				CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */,
+				D0240CBB127EF62700EB07AD /* ScanOverlayView.h */,
+				D0240CBC127EF62700EB07AD /* ScanOverlayView.m */,
 			);
-			name = UI;
+			name = Views;
+			sourceTree = "<group>";
+		};
+		CD02E2A81BFA082D00509C3F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D0EBBA80134B66EB00CAAB58 /* Error */,
+				D06BF5BE1339055F002A1083 /* Start */,
+				D06BF5BC1338F4BD002A1083 /* Scan */,
+				D0047827130A913100A06157 /* PIN */,
+				D0EECF1112781BB6001D54F8 /* Authentication */,
+				D0B5B351133B6EDA0076B372 /* Enrollment */,
+				D0EECF1212781BC2001D54F8 /* Identity */,
+				D0EECF1312781BF8001D54F8 /* About */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		D002E01A1349CE2A00071321 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D0EBBA7C134B664B00CAAB58 /* ErrorChildView.xib */,
+			);
+			name = Common;
 			sourceTree = "<group>";
 		};
 		D0047827130A913100A06157 /* PIN */ = {
@@ -550,8 +577,6 @@
 			children = (
 				D08BC9661344F6AF00F8D75B /* ScanViewController.h */,
 				D08BC9671344F6AF00F8D75B /* ScanViewController.m */,
-				D0240CBB127EF62700EB07AD /* ScanOverlayView.h */,
-				D0240CBC127EF62700EB07AD /* ScanOverlayView.m */,
 			);
 			name = Scan;
 			sourceTree = "<group>";
@@ -565,17 +590,6 @@
 			name = Start;
 			sourceTree = "<group>";
 		};
-		D086D315129FB408002003B4 /* Core Data */ = {
-			isa = PBXGroup;
-			children = (
-				D0BE4B09134B28D00045AF62 /* Identity.h */,
-				D0BE4B0A134B28D00045AF62 /* Identity.m */,
-				D0BE4B0C134B28D10045AF62 /* IdentityProvider.h */,
-				D0BE4B0D134B28D10045AF62 /* IdentityProvider.m */,
-			);
-			name = "Core Data";
-			sourceTree = "<group>";
-		};
 		D08BC9691345228400F8D75B /* Scan */ = {
 			isa = PBXGroup;
 			children = (
@@ -584,17 +598,13 @@
 			name = Scan;
 			sourceTree = "<group>";
 		};
-		D08F5AFC1278593D00C63A3E /* Common */ = {
+		D08F5AFC1278593D00C63A3E /* General */ = {
 			isa = PBXGroup;
 			children = (
 				D0EBBA88134BA58D00CAAB58 /* Misc */,
-				D086D315129FB408002003B4 /* Core Data */,
 				922F08411289ABBD00A33616 /* Algorithms */,
-				D0EBBA86134BA52B00CAAB58 /* Authentication */,
-				D0EBBA87134BA54300CAAB58 /* Enrollment */,
-				D002E01D1349D28500071321 /* UI */,
 			);
-			name = Common;
+			name = General;
 			sourceTree = "<group>";
 		};
 		D0A6F5CB1353354F000F9AE5 /* MBProgressHUD */ = {
@@ -675,6 +685,8 @@
 		D0EBBA80134B66EB00CAAB58 /* Error */ = {
 			isa = PBXGroup;
 			children = (
+				D002E01E1349D29A00071321 /* ErrorController.h */,
+				D002E01F1349D29A00071321 /* ErrorController.m */,
 				D0EBBA81134B670300CAAB58 /* ErrorViewController.h */,
 				D0EBBA82134B670300CAAB58 /* ErrorViewController.m */,
 			);
@@ -706,10 +718,6 @@
 		D0EBBA88134BA58D00CAAB58 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				D0627E75127F0899004CF8D4 /* Challenge.h */,
-				D0627E76127F0899004CF8D4 /* Challenge.m */,
-				D0F51624129A7A6E0013CF3A /* SecretStore.h */,
-				D0F51625129A7A6E0013CF3A /* SecretStore.m */,
 				D0914434129BDC2E00C796AA /* NotificationRegistration.h */,
 				D0914435129BDC2E00C796AA /* NotificationRegistration.m */,
 				D0914437129BF47300C796AA /* NSData+Hex.h */,
