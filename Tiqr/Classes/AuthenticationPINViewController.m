@@ -32,12 +32,10 @@
 #import "AuthenticationFallbackViewController.h"
 #import "OCRAWrapper.h"
 #import "OCRAWrapper_v1.h"
-#import "SecretStore.h"
 #import "MBProgressHUD.h"
 #import "ErrorViewController.h"
 #import "OCRAProtocol.h"
 #import "ServiceContainer.h"
-#import "IdentityService.h"
 
 @interface AuthenticationPINViewController ()
 
@@ -125,8 +123,6 @@
 }
 
 - (NSString *)calculateOTPResponseForPIN:(NSString *)PIN {
-	SecretStore *store = [SecretStore secretStoreForIdentity:self.challenge.identity.identifier identityProvider:self.challenge.identityProvider.identifier];
-    
     NSObject<OCRAProtocol> *ocra;
     if (self.challenge.protocolVersion && [self.challenge.protocolVersion intValue] >= 2) {
         ocra = [[OCRAWrapper alloc] init];
@@ -135,7 +131,8 @@
     }
     
     NSError *error = nil;
-    NSString *response = [ocra generateOCRA:self.challenge.identityProvider.ocraSuite secret:[store secretForPIN:PIN salt:self.challenge.identity.salt initializationVector:self.challenge.identity.initializationVector] challenge:self.challenge.challenge sessionKey:self.challenge.sessionKey error:&error];
+    NSData *secret = [ServiceContainer.sharedInstance.secretService secretForIdentity:self.challenge.identity withPIN:PIN];
+    NSString *response = [ocra generateOCRA:self.challenge.identityProvider.ocraSuite secret:secret challenge:self.challenge.challenge sessionKey:self.challenge.sessionKey error:&error];
     if (response == nil) {
         [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
         UIViewController *viewController = [[ErrorViewController alloc] 

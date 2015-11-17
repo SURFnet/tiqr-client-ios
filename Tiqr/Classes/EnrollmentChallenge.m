@@ -30,7 +30,6 @@
 #import "EnrollmentChallenge.h"
 #import "NSString+DecodeURL.h"
 #import "ServiceContainer.h"
-#import "IdentityService.h"
 
 NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 

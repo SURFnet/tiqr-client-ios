@@ -10,8 +10,8 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of SURFnet bv nor the names of its contributors 
- *    may be used to endorse or promote products derived from this 
+ * 3. Neither the name of SURFnet bv nor the names of its contributors
+ *    may be used to endorse or promote products derived from this
  *    software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
@@ -27,81 +27,88 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "SecretStore.h"
-
 #import <Security/Security.h>
+#import <CommonCrypto/CommonCryptor.h>
 #import <CommonCrypto/CommonHMAC.h>
 #import <CommonCrypto/CommonKeyDerivation.h>
 
-@implementation SecretStore
+#import "SecretService.h"
+#import "Identity.h"
+#import "IdentityProvider.h"
 
-- (NSData *)loadFromKeychain {
-	NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
-	query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
-	query[(__bridge id)kSecAttrService] = self.identityProviderIdentifier;
-	query[(__bridge id)kSecAttrAccount] = self.identityIdentifier;		
-	query[(__bridge id)kSecMatchLimit] = (__bridge id)kSecMatchLimitOne;
-    query[(__bridge id)kSecReturnData] = (id)kCFBooleanTrue;	
-	query[(__bridge id)kSecReturnAttributes] = (id)kCFBooleanTrue;
-	
+#define kChosenCipherKeySize kCCKeySizeAES256
+
+@implementation SecretService
+
+- (NSData *)loadSecretForIdentity:(Identity *)identity {
+    NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
+    query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+    query[(__bridge id)kSecAttrService] = identity.identityProvider.identifier;
+    query[(__bridge id)kSecAttrAccount] = identity.identifier;
+    query[(__bridge id)kSecMatchLimit] = (__bridge id)kSecMatchLimitOne;
+    query[(__bridge id)kSecReturnData] = (id)kCFBooleanTrue;
+    query[(__bridge id)kSecReturnAttributes] = (id)kCFBooleanTrue;
+    
     CFDictionaryRef result;
-	if (SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result) == noErr) {
-		return (NSData *)((__bridge NSDictionary*)result)[(__bridge id)kSecValueData];
-	} else {
-		return nil;
-	}
+    if (SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result) == noErr) {
+        return (NSData *)((__bridge NSDictionary*)result)[(__bridge id)kSecValueData];
+    } else {
+        return nil;
+    }
 }
 
-- (BOOL)addToKeychain {
-	NSMutableDictionary *data = [[NSMutableDictionary alloc] init];	
-	data[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
-	data[(__bridge id)kSecAttrService] = self.identityProviderIdentifier;
-	data[(__bridge id)kSecAttrAccount] = self.identityIdentifier;		
-    data[(__bridge id)kSecValueData] = encryptedSecret_;	
-	data[(__bridge id)kSecAttrAccessible] = (__bridge id)kSecAttrAccessibleWhenUnlocked;
-
+- (BOOL)storeSecret:(NSData *)secret forIdentity:(Identity *)identity {
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
+    data[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+    data[(__bridge id)kSecAttrService] = identity.identityProvider.identifier;
+    data[(__bridge id)kSecAttrAccount] = identity.identifier;
+    data[(__bridge id)kSecValueData] = secret;
+    data[(__bridge id)kSecAttrAccessible] = (__bridge id)kSecAttrAccessibleWhenUnlocked;
+    
     CFDictionaryRef result;
     OSStatus status = SecItemAdd((__bridge CFDictionaryRef)data, (CFTypeRef *)&result);
-	return status == noErr;
+    return status == noErr;
 }
 
-- (BOOL)updateInKeychain {
-	NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
-	query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
-	query[(__bridge id)kSecAttrService] = self.identityProviderIdentifier;
-	query[(__bridge id)kSecAttrAccount] = self.identityIdentifier;
-	
-	NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
-	data[(__bridge id)kSecValueData] = encryptedSecret_;
-	
-	return SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)data) == noErr;
+- (BOOL)updateSecret:(NSData *)secret forIdentity:(Identity *)identity  {
+    NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
+    query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+    query[(__bridge id)kSecAttrService] = identity.identityProvider.identifier;
+    query[(__bridge id)kSecAttrAccount] = identity.identifier;
+    
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
+    data[(__bridge id)kSecValueData] = secret;
+    
+    return SecItemUpdate((__bridge CFDictionaryRef)query, (__bridge CFDictionaryRef)data) == noErr;
 }
 
-- (BOOL)storeInKeychain {
-	if ([self loadFromKeychain] == nil) {
-		return [self addToKeychain];
-	} else {
-		return [self updateInKeychain];
-	}
+- (BOOL)updateOrStoreSecret:(NSData *)secret forIdentity:(Identity *)identity {
+    if ([self loadSecretForIdentity:identity] == nil) {
+        return [self storeSecret:secret forIdentity:identity];
+    } else {
+        return [self updateSecret:secret forIdentity:identity];
+    }
 }
 
-- (BOOL)deleteFromKeychain {
-	NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
-	query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
-	query[(__bridge id)kSecAttrService] = self.identityProviderIdentifier;
-	query[(__bridge id)kSecAttrAccount] = self.identityIdentifier;
-	
-	return SecItemDelete((__bridge CFDictionaryRef)query) == noErr;
+- (BOOL)deleteSecretForIdentityIdentifier:(NSString *)identityIdentifier providerIdentifier:(NSString *)providerIdentifier; {
+    NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
+    query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+    query[(__bridge id)kSecAttrService] = identityIdentifier;
+    query[(__bridge id)kSecAttrAccount] = providerIdentifier;
+    
+    return SecItemDelete((__bridge CFDictionaryRef)query) == noErr;
 }
 
-- (instancetype)initWithIdentity:(NSString *)identityIdentifier identityProvider:(NSString *)identityProviderIdentifier {
-	if ((self = [super init]) != nil) {
-		_identityIdentifier = [identityIdentifier copy];
-		_identityProviderIdentifier = [identityProviderIdentifier copy];
-		encryptedSecret_ = [self loadFromKeychain];
-	}
-	
-	return self;
+- (NSData *)generateSecret {
+    uint8_t *bytes = malloc(kChosenCipherKeySize * sizeof(uint8_t));
+    memset((void *)bytes, 0x0, kChosenCipherKeySize);
+    OSStatus sanityCheck = SecRandomCopyBytes(kSecRandomDefault, kChosenCipherKeySize, bytes);
+    if (sanityCheck == noErr) {
+        NSData *secret = [[NSData alloc] initWithBytes:(const void *)bytes length:kChosenCipherKeySize];
+        return secret;
+    } else {
+        return nil;
+    }
 }
 
 - (NSString *)keyForPIN:(NSString *)PIN salt:(NSData *)salt {
@@ -109,12 +116,12 @@
     if (!salt) {
         return PIN;
     }
-
+    
     NSData *PINData = [PIN dataUsingEncoding:NSUTF8StringEncoding];
- 
+    
     // How many rounds to use so that it takes 0.1s ?
     int rounds = 32894; // Calculated using: CCCalibratePBKDF(kCCPBKDF2, PINData.length, saltData.length, kCCPRFHmacAlgSHA256, 32, 100);
-
+    
     // Open CommonKeyDerivation.h for help
     unsigned char key[32];
     int result = CCKeyDerivationPBKDF(kCCPBKDF2, PINData.bytes, PINData.length, salt.bytes, salt.length, kCCPRFHmacAlgSHA256, rounds, key, 32);
@@ -122,7 +129,7 @@
         NSLog(@"Error %d deriving key", result);
         return nil;
     }
-
+    
     NSMutableString *keyString = [[NSMutableString alloc] init];
     for (int i = 0; i < 32; ++i) {
         [keyString appendFormat:@"%02x", key[i]];
@@ -142,32 +149,32 @@
     // A separate issue for fixing this is still open because this is more complicated to fix since it requires migration of existing identities
     char keyBuffer[kChosenCipherKeySize * 2 + 1]; // room for terminator (unused)
     bzero(keyBuffer, sizeof(keyBuffer)); // fill with zeros (for padding)
-
+    
     // fetch key data
     [key getCString:keyBuffer maxLength:sizeof(keyBuffer) encoding:NSASCIIStringEncoding];
     
     // iOS getCString truncates keyBuffer to maxLength. and replaces the first character with a 0
     // To ensure upgrading from iOS6 to 7 works. Do the same.
     keyBuffer[0] = 0;
-
-    // For block ciphers, the output size will always be less than or 
-	// equal to the input size plus the size of one block.
-	// That's why we need to add the size of one block here.
+    
+    // For block ciphers, the output size will always be less than or
+    // equal to the input size plus the size of one block.
+    // That's why we need to add the size of one block here.
     size_t bufferSize = [data length] + kCCBlockSizeAES128;
-	void *buffer = malloc(bufferSize); 
-
+    void *buffer = malloc(bufferSize);
+    
     // encrypt
     size_t numBytesEncrypted = 0;
-
+    
     // check initialization vector length
     if ([initializationVector length] < kCCBlockSizeAES128) {
         initializationVector = nil;
     }
-
-    CCCryptorStatus result = CCCrypt(kCCEncrypt, 
-                                     kCCAlgorithmAES128, 
-                                     0, 
-                                     keyBuffer, 
+    
+    CCCryptorStatus result = CCCrypt(kCCEncrypt,
+                                     kCCAlgorithmAES128,
+                                     0,
+                                     keyBuffer,
                                      kChosenCipherKeySize,
                                      initializationVector ? [initializationVector bytes] : NULL, // initialization vector (optional)
                                      [data bytes], // input
@@ -175,9 +182,9 @@
                                      buffer, // output
                                      bufferSize,
                                      &numBytesEncrypted);
-
+    
     if (result == kCCSuccess) {
-        // the returned NSData takes ownership of the buffer and will free it on deallocation        
+        // the returned NSData takes ownership of the buffer and will free it on deallocation
         return [NSData dataWithBytesNoCopy:buffer length:numBytesEncrypted];
     }
     
@@ -204,24 +211,24 @@
     // To ensure upgrading from iOS6 to 7 works. Do the same.
     keyBuffer[0] = 0;
     
-    // For block ciphers, the output size will always be less than or 
-	// equal to the input size plus the size of one block.
-	// That's why we need to add the size of one block here.
+    // For block ciphers, the output size will always be less than or
+    // equal to the input size plus the size of one block.
+    // That's why we need to add the size of one block here.
     size_t bufferSize = [data length] + kCCBlockSizeAES128;
-	void *buffer = malloc(bufferSize);  
-
+    void *buffer = malloc(bufferSize);
+    
     // decrypt
     size_t numBytesDecrypted = 0;
-
+    
     // check initialization vector length
     if ([initializationVector length] < kCCBlockSizeAES128) {
         initializationVector = nil;
     }
     
     CCCryptorStatus result = CCCrypt(kCCDecrypt,
-                                     kCCAlgorithmAES128, 
-                                     0, 
-                                     keyBuffer, 
+                                     kCCAlgorithmAES128,
+                                     0,
+                                     keyBuffer,
                                      kChosenCipherKeySize,
                                      initializationVector ? [initializationVector bytes] : NULL, // initialization vector (optional)
                                      [data bytes], // input
@@ -231,7 +238,7 @@
                                      &numBytesDecrypted);
     
     if (result == kCCSuccess) {
-        // the returned NSData takes ownership of the buffer and will free it on deallocation        
+        // the returned NSData takes ownership of the buffer and will free it on deallocation
         return [NSData dataWithBytesNoCopy:buffer length:numBytesDecrypted];
     }
     
@@ -239,39 +246,30 @@
     return nil;
 }
 
-- (void)setSecret:(NSData *)secret PIN:(NSString *)PIN salt:(NSData *)salt initializationVector:(NSData *)initializationVector {
+- (BOOL)setSecret:(NSData *)secret forIdentity:(Identity *)identity withPIN:(NSString *)PIN salt:(NSData *)salt initializationVector:(NSData *)initializationVector {
     NSString *key = [self keyForPIN:PIN salt:salt];
-    encryptedSecret_ = [self encrypt:secret key:key initializationVector:initializationVector];
+    NSData *encryptedSecret = [self encrypt:secret key:key initializationVector:initializationVector];
+    
+    return [self updateOrStoreSecret:encryptedSecret forIdentity:identity];
 }
 
-- (NSData *)secretForPIN:(NSString *)PIN salt:(NSData *)salt initializationVector:(NSData *)initializationVector {
-    if (encryptedSecret_ == nil) {
+- (BOOL)setSecret:(NSData *)secret forIdentity:(Identity *)identity withPIN:(NSString *)PIN {
+    return [self setSecret:secret forIdentity:identity withPIN:PIN salt:identity.salt initializationVector:identity.initializationVector];
+}
+
+- (NSData *)secretForIdentity:(Identity *)identity withPIN:(NSString *)PIN salt:(NSData *)salt initializationVector:(NSData *)initializationVector {
+    NSData *storedEncryptedSecret = [self loadSecretForIdentity:identity];
+    if (storedEncryptedSecret == nil) {
         return nil;
     }
     
     NSString *key = [self keyForPIN:PIN salt:salt];
-    NSData *result = [self decrypt:encryptedSecret_ key:key initializationVector:initializationVector];
+    NSData *result = [self decrypt:storedEncryptedSecret key:key initializationVector:initializationVector];
     return result;
 }
 
-- (void)dealloc {
-    encryptedSecret_ = nil;
-}
-
-+ (SecretStore *)secretStoreForIdentity:(NSString *)identityIdentifier identityProvider:(NSString *)identityProviderIdentifier {
-	return [[SecretStore alloc] initWithIdentity:identityIdentifier identityProvider:identityProviderIdentifier];
-}
-
-+ (NSData *)generateSecret {
-	uint8_t *bytes = malloc(kChosenCipherKeySize * sizeof(uint8_t));
-	memset((void *)bytes, 0x0, kChosenCipherKeySize);
-	OSStatus sanityCheck = SecRandomCopyBytes(kSecRandomDefault, kChosenCipherKeySize, bytes);
-	if (sanityCheck == noErr) {
-		NSData *secret = [[NSData alloc] initWithBytes:(const void *)bytes length:kChosenCipherKeySize];
-		return secret;
-	} else {
-		return nil;
-	}
+- (NSData *)secretForIdentity:(Identity *)identity withPIN:(NSString *)PIN {
+    return [self secretForIdentity:identity withPIN:PIN salt:identity.salt initializationVector:identity.initializationVector];
 }
 
 @end

@@ -28,7 +28,10 @@
  */
 
 #import "IdentityService.h"
-#import "SecretStore.h"
+#import "IdentityProvider.h"
+#import "SecretService.h"
+
+#import "Identity.h"
 #import "IdentityProvider.h"
 
 
@@ -37,11 +40,20 @@
 @property (nonatomic, strong, readwrite) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong, readwrite) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, strong, readwrite) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+@property (nonatomic, weak) SecretService *secretService;
 
 @end
 
 
 @implementation IdentityService
+
+- (instancetype)initWithSecretService:(SecretService *)secretService {
+    if (self = [super init]) {
+        self.secretService = secretService;
+    }
+    
+    return self;
+}
 
 - (Identity *)createIdentity {
     return [NSEntityDescription insertNewObjectForEntityForName:@"Identity" inManagedObjectContext:self.managedObjectContext];
@@ -206,18 +218,16 @@
 
 - (BOOL)upgradeIdentity:(Identity *)identity withPIN:(NSString *)PIN {
     if ([identity.version integerValue] < 2) {
-        SecretStore *store = [SecretStore secretStoreForIdentity:identity.identifier identityProvider:identity.identityProvider.identifier];
         
-        NSData *secret = [store secretForPIN:PIN salt:nil initializationVector:nil];
+        NSData *secret = [self.secretService secretForIdentity:identity withPIN:PIN salt:nil initializationVector:nil];
         if (!secret) {
             return NO;
         }
         
-        NSData *salt = [SecretStore generateSecret];
-        NSData *initializationVector = [SecretStore generateSecret];
-        [store setSecret:secret PIN:PIN salt:salt initializationVector:initializationVector];
+        NSData *salt = [self.secretService generateSecret];
+        NSData *initializationVector = [self.secretService generateSecret];
         
-        if ([store storeInKeychain]) {
+        if ([self.secretService setSecret:secret forIdentity:identity withPIN:PIN salt:salt initializationVector:initializationVector]) {
             identity.salt = salt;
             identity.initializationVector = initializationVector;
             identity.version = @2;

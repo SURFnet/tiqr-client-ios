@@ -30,14 +30,14 @@
 #import <Foundation/Foundation.h>
 
 
-
-@class IdentityService;
-
+#import "IdentityService.h"
+#import "SecretService.h"
 
 
 @interface ServiceContainer : NSObject
 
 @property (nonatomic, strong, readonly) IdentityService *identityService;
+@property (nonatomic, strong, readonly) SecretService *secretService;
 
 + (instancetype)sharedInstance;
 

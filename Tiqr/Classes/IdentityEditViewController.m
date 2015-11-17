@@ -30,9 +30,7 @@
 #import "IdentityEditViewController.h"
 #import "Identity.h"
 #import "IdentityProvider.h"
-#import "SecretStore.h"
 #import "ServiceContainer.h"
-#import "IdentityService.h"
 
 @interface IdentityEditViewController ()
 
@@ -139,9 +137,10 @@
     IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
     IdentityProvider *identityProvider = self.identity.identityProvider;
     
-    SecretStore *store = nil;       
+    NSString *identityIdentifier = self.identity.identifier;
+    NSString *providerIdentifier = identityProvider.identifier;
+    
     if (identityProvider != nil) {
-        store = [SecretStore secretStoreForIdentity:self.identity.identifier identityProvider:identityProvider.identifier];		
 		
         [identityProvider removeIdentitiesObject:self.identity];
         [identityService deleteIdentity:self.identity];
@@ -151,11 +150,9 @@
     } else {
         [identityService deleteIdentity:self.identity];
     }
-    
     if ([identityService save]) {
-        if (store != nil) {
-            [store deleteFromKeychain];
-        }
+        [ServiceContainer.sharedInstance.secretService deleteSecretForIdentityIdentifier:identityIdentifier
+                                                                      providerIdentifier:providerIdentifier];
         
         [self.navigationController popViewControllerAnimated:YES];
     } else {

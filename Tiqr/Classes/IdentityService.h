@@ -28,10 +28,15 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "Identity.h"
-#import "IdentityProvider.h"
+
+@class SecretService;
+@class Identity;
+@class IdentityProvider;
+@class NSFetchedResultsController;
 
 @interface IdentityService : NSObject
+
+- (instancetype)initWithSecretService:(SecretService *)secretService;
 
 /**
  * Insert a new Identity object into the internal managed object context

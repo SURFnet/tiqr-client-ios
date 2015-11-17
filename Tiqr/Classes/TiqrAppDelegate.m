@@ -40,7 +40,6 @@
 #import "StartViewController.h"
 #import "ErrorViewController.h"
 #import "ServiceContainer.h"
-#import "IdentityService.h"
 
 @interface TiqrAppDelegate ()
 

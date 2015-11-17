@@ -33,7 +33,6 @@
 #import "ErrorController.h"
 #import "AboutViewController.h"
 #import "ServiceContainer.h"
-#import "IdentityService.h"
 
 @interface StartViewController () <UIWebViewDelegate>
 

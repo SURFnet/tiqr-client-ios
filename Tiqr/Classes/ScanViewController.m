@@ -31,7 +31,6 @@
 #import "ErrorViewController.h"
 #import "MBProgressHUD.h"
 #import "ServiceContainer.h"
-#import "IdentityService.h"
 
 @interface ScanViewController () <AVAudioPlayerDelegate, AVCaptureMetadataOutputObjectsDelegate>
 

@@ -32,11 +32,9 @@
 #import "TiqrAppDelegate.h"
 #import "Identity.h"
 #import "IdentityProvider.h"
-#import "SecretStore.h"
 #import "IdentityTableViewCell.h"
 #import "IdentityEditViewController.h"
 #import "ServiceContainer.h"
-#import "IdentityService.h"
 
 @interface IdentityListViewController ()
 
@@ -152,9 +150,10 @@
     IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
     IdentityProvider *identityProvider = identity.identityProvider;
     
-    SecretStore *store = nil;
+    NSString *identityIdentifier = identity.identifier;
+    NSString *providerIdentifier = identityProvider.identifier;
+    
     if (identityProvider != nil) {
-        store = [SecretStore secretStoreForIdentity:identity.identifier identityProvider:identityProvider.identifier];
         
         [identityProvider removeIdentitiesObject:identity];
         [identityService deleteIdentity:identity];
@@ -166,9 +165,8 @@
     }
     
     if ([identityService save]) {
-        if (store != nil) {
-            [store deleteFromKeychain];
-        }
+        [ServiceContainer.sharedInstance.secretService deleteSecretForIdentityIdentifier:identityIdentifier
+                                                                      providerIdentifier:providerIdentifier];
         
         if (ServiceContainer.sharedInstance.identityService.identityCount == 0) {
             [self.navigationController popViewControllerAnimated:YES];

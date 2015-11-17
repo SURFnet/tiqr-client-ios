@@ -30,7 +30,6 @@
 #import "AuthenticationChallenge.h"
 #import "NSString+DecodeURL.h"
 #import "ServiceContainer.h"
-#import "IdentityService.h"
 
 NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 

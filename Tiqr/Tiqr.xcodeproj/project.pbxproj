@@ -39,6 +39,7 @@
 		CD02E29E1BF9E2C100509C3F /* NSString+DecodeURL.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E29D1BF9E2C100509C3F /* NSString+DecodeURL.m */; };
 		CD02E2A11BF9F21B00509C3F /* ServiceContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E2A01BF9F21B00509C3F /* ServiceContainer.m */; };
 		CD02E2A41BF9F34300509C3F /* IdentityService.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E2A31BF9F34300509C3F /* IdentityService.m */; };
+		CD02E2AB1BFB234000509C3F /* SecretService.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E2AA1BFB234000509C3F /* SecretService.m */; };
 		CD7BAB0D1BAAB87400B88393 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7BAB0C1BAAB87400B88393 /* images.xcassets */; };
 		CD7BAB101BAAE3F200B88393 /* TiqrNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */; };
 		CDBB08C01BAC3DB0008D8F94 /* TiqrToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */; };
@@ -72,7 +73,6 @@
 		D06F86BD1331ED4F00C2C6FF /* Challenge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0627E76127F0899004CF8D4 /* Challenge.m */; };
 		D06F86C41331EE5600C2C6FF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D06F86C31331EE5600C2C6FF /* CoreData.framework */; };
 		D076CEFF134F31C000FE762A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D076CF00134F31C000FE762A /* MainWindow.xib */; };
-		D088C7DE130BC60F006DE593 /* SecretStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F51625129A7A6E0013CF3A /* SecretStore.m */; };
 		D08BC9681344F6AF00F8D75B /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D08BC9671344F6AF00F8D75B /* ScanViewController.m */; };
 		D08C03261296A6450002849A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08C03251296A6450002849A /* Security.framework */; };
 		D08F5B2612785EAD00C63A3E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08F5B2512785EAD00C63A3E /* AVFoundation.framework */; };
@@ -102,7 +102,6 @@
 		D0EECFA912782F23001D54F8 /* AuthenticationConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EECFA712782F23001D54F8 /* AuthenticationConfirmViewController.m */; };
 		D0EECFAE12782F57001D54F8 /* IdentityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EECFAC12782F57001D54F8 /* IdentityListViewController.m */; };
 		D0EECFBA127831FE001D54F8 /* EnrollmentConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EECFB8127831FE001D54F8 /* EnrollmentConfirmViewController.m */; };
-		D0F51626129A7A6E0013CF3A /* SecretStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F51625129A7A6E0013CF3A /* SecretStore.m */; };
 		D0FF34EA1309462C004096E1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0FF34E91309462C004096E1 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
@@ -161,6 +160,8 @@
 		CD02E2A01BF9F21B00509C3F /* ServiceContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceContainer.m; sourceTree = "<group>"; };
 		CD02E2A21BF9F34300509C3F /* IdentityService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityService.h; sourceTree = "<group>"; };
 		CD02E2A31BF9F34300509C3F /* IdentityService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityService.m; sourceTree = "<group>"; };
+		CD02E2A91BFB234000509C3F /* SecretService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecretService.h; sourceTree = "<group>"; };
+		CD02E2AA1BFB234000509C3F /* SecretService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecretService.m; sourceTree = "<group>"; };
 		CD7BAB0C1BAAB87400B88393 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrNavigationBar.h; sourceTree = "<group>"; };
 		CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrNavigationBar.m; sourceTree = "<group>"; };
@@ -254,8 +255,6 @@
 		D0EECFAC12782F57001D54F8 /* IdentityListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityListViewController.m; sourceTree = "<group>"; };
 		D0EECFB7127831FE001D54F8 /* EnrollmentConfirmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnrollmentConfirmViewController.h; sourceTree = "<group>"; };
 		D0EECFB8127831FE001D54F8 /* EnrollmentConfirmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnrollmentConfirmViewController.m; sourceTree = "<group>"; };
-		D0F51624129A7A6E0013CF3A /* SecretStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecretStore.h; sourceTree = "<group>"; };
-		D0F51625129A7A6E0013CF3A /* SecretStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecretStore.m; sourceTree = "<group>"; };
 		D0FF34E91309462C004096E1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -385,6 +384,8 @@
 				CD02E2A01BF9F21B00509C3F /* ServiceContainer.m */,
 				CD02E2A21BF9F34300509C3F /* IdentityService.h */,
 				CD02E2A31BF9F34300509C3F /* IdentityService.m */,
+				CD02E2A91BFB234000509C3F /* SecretService.h */,
+				CD02E2AA1BFB234000509C3F /* SecretService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -400,8 +401,6 @@
 				D0BE4B0D134B28D10045AF62 /* IdentityProvider.m */,
 				D0627E75127F0899004CF8D4 /* Challenge.h */,
 				D0627E76127F0899004CF8D4 /* Challenge.m */,
-				D0F51624129A7A6E0013CF3A /* SecretStore.h */,
-				D0F51625129A7A6E0013CF3A /* SecretStore.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -922,11 +921,11 @@
 				D0627E77127F0899004CF8D4 /* Challenge.m in Sources */,
 				D0627E7D127F08C0004CF8D4 /* AuthenticationChallenge.m in Sources */,
 				D0627E80127F08D8004CF8D4 /* EnrollmentChallenge.m in Sources */,
+				CD02E2AB1BFB234000509C3F /* SecretService.m in Sources */,
 				D0B889561282D7E3003A534D /* StartViewController.m in Sources */,
 				D0352BEC12898A7D00184AD5 /* IdentityTableViewCell.m in Sources */,
 				922F08441289ABE700A33616 /* HOTP.m in Sources */,
 				922F08471289ABFE00A33616 /* OCRAWrapper.m in Sources */,
-				D0F51626129A7A6E0013CF3A /* SecretStore.m in Sources */,
 				D0914436129BDC2E00C796AA /* NotificationRegistration.m in Sources */,
 				D0914439129BF47300C796AA /* NSData+Hex.m in Sources */,
 				924D6C5F13094DEC00F87B96 /* AuthenticationFallbackViewController.m in Sources */,
@@ -961,7 +960,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D088C7DE130BC60F006DE593 /* SecretStore.m in Sources */,
 				D0C54584130B4066008B807B /* SecretStoreTests.m in Sources */,
 				92B92DE3132E114E004F390D /* OcraTests.m in Sources */,
 				92B92DE7132E34CD004F390D /* OCRAWrapper.m in Sources */,

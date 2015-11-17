@@ -31,11 +31,9 @@
 #import "EnrollmentSummaryViewController.h"
 #import "EnrollmentConfirmationRequest.h"
 #import "IdentityProvider.h"
-#import "SecretStore.h"
 #import "ErrorViewController.h"
 #import "MBProgressHUD.h"
 #import "ServiceContainer.h"
-#import "IdentityService.h"
 
 @interface EnrollmentPINVerificationViewController ()
 
@@ -69,6 +67,7 @@
 
 - (BOOL)storeProviderAndIdentity {
     IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
+    SecretService *secretService = ServiceContainer.sharedInstance.secretService;
 	
 	IdentityProvider *identityProvider = self.challenge.identityProvider;
 	if (identityProvider == nil) {
@@ -88,7 +87,7 @@
         identity.sortIndex = [NSNumber numberWithInteger:identityService.maxSortIndex + 1];
         identity.identityProvider = identityProvider;
         identity.version = @2;
-        identity.salt = [SecretStore generateSecret];
+        identity.salt = [secretService generateSecret];
     }
     
 	identity.displayName = self.challenge.identityDisplayName;
@@ -111,14 +110,14 @@
 }
 
 - (BOOL)storeSecret {
-    SecretStore *store = [SecretStore secretStoreForIdentity:self.challenge.identityIdentifier identityProvider:self.challenge.identityProviderIdentifier];	
-    [store setSecret:self.challenge.identitySecret PIN:self.challenge.identityPIN salt:self.challenge.identity.salt initializationVector:self.challenge.identity.initializationVector];
-    return [store storeInKeychain];
+    return [ServiceContainer.sharedInstance.secretService setSecret:self.challenge.identitySecret
+                                                        forIdentity:self.challenge.identity
+                                                            withPIN:self.challenge.identityPIN];
 }
 
 - (void)deleteSecret {
-    SecretStore *store = [SecretStore secretStoreForIdentity:self.challenge.identityIdentifier identityProvider:self.challenge.identityProviderIdentifier];	
-    [store deleteFromKeychain];
+    [ServiceContainer.sharedInstance.secretService deleteSecretForIdentityIdentifier:self.challenge.identityIdentifier
+                                                                  providerIdentifier:self.challenge.identityProviderIdentifier];
 }
 
 - (void)enrollmentConfirmationRequestDidFinish:(EnrollmentConfirmationRequest *)request {
@@ -149,8 +148,8 @@
         [self.view endEditing:YES];
         return;
     }
-    
-	self.challenge.identitySecret = [SecretStore generateSecret];
+
+	self.challenge.identitySecret = [ServiceContainer.sharedInstance.secretService generateSecret];
 	self.challenge.identityPIN = PIN;
     
     if (![self storeProviderAndIdentity]) {

@@ -28,12 +28,12 @@
  */
 
 #import "ServiceContainer.h"
-#import "IdentityService.h"
 
 
 @interface ServiceContainer ()
 
 @property (nonatomic, strong) IdentityService *identityService;
+@property (nonatomic, strong) SecretService *secretService;
 
 @end
 
@@ -44,6 +44,7 @@
 - (instancetype)init {
     if (self = [super init]) {
         self.identityService = [[IdentityService alloc] init];
+        self.secretService = [[SecretService alloc] init];
     }
     
     return self;
