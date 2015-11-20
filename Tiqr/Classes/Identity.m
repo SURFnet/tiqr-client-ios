@@ -40,6 +40,7 @@
 @dynamic sortIndex;
 @dynamic blocked;
 @dynamic identityProvider;
+@dynamic touchID;
 
 
 @end

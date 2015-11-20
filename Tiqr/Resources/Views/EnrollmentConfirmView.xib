@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EnrollmentConfirmViewController">
@@ -16,7 +16,8 @@
                 <outlet property="fullNameLabel" destination="Fqj-QD-mR6" id="hK7-r5-3tt"/>
                 <outlet property="identityDisplayNameLabel" destination="33" id="36"/>
                 <outlet property="identityIdentifierLabel" destination="34" id="Nfo-Xk-BDL"/>
-                <outlet property="okButton" destination="9" id="45"/>
+                <outlet property="pinButton" destination="qX0-7r-AgK" id="AeY-oK-qpI"/>
+                <outlet property="touchIDButton" destination="9" id="vrx-da-GYJ"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -34,18 +35,18 @@
                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9">
-                    <rect key="frame" x="60" y="263" width="200" height="37"/>
+                    <rect key="frame" x="15" y="263" width="137" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <animations/>
                     <color key="backgroundColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="OK">
+                    <state key="normal" title="TouchID">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="ok" destination="-1" eventType="touchUpInside" id="26"/>
+                        <action selector="useTouchID" destination="-1" eventType="touchUpInside" id="9ZF-fh-JN5"/>
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Identity Name" lineBreakMode="tailTruncation" minimumFontSize="10" id="33">
@@ -126,18 +127,28 @@
                         <action selector="cancel" destination="-1" eventType="touchUpInside" id="iIo-qS-AHd"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qX0-7r-AgK">
+                    <rect key="frame" x="168" y="263" width="137" height="37"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <animations/>
+                    <color key="backgroundColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="PIN">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="usePIN" destination="-1" eventType="touchUpInside" id="guz-Kw-rvF"/>
+                    </connections>
+                </button>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-202" y="453"/>
+            <point key="canvasLocation" x="-202" y="452.5"/>
         </view>
     </objects>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

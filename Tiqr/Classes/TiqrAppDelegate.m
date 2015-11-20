@@ -108,7 +108,7 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    [ServiceContainer.sharedInstance.identityService save];
+    [ServiceContainer.sharedInstance.identityService saveIdentities];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -116,7 +116,7 @@
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    [ServiceContainer.sharedInstance.identityService save];
+    [ServiceContainer.sharedInstance.identityService saveIdentities];
 }
 
 #pragma mark -

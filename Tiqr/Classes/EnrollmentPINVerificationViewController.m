@@ -86,18 +86,17 @@
         identity.identifier = self.challenge.identityIdentifier;
         identity.sortIndex = [NSNumber numberWithInteger:identityService.maxSortIndex + 1];
         identity.identityProvider = identityProvider;
-        identity.version = @2;
         identity.salt = [secretService generateSecret];
     }
     
 	identity.displayName = self.challenge.identityDisplayName;
 	
-	if ([identityService save]) {
+	if ([identityService saveIdentities]) {
         self.challenge.identity = identity;
         self.challenge.identityProvider = identityProvider;
         return YES;
 	} else {
-		[identityService rollback];
+		[identityService rollbackIdentities];
 		return NO;			
     }
 }
@@ -105,7 +104,7 @@
 - (void)deleteIdentity {
     if (![self.challenge.identity.blocked boolValue]) {
         [ServiceContainer.sharedInstance.identityService deleteIdentity:self.challenge.identity];
-        [ServiceContainer.sharedInstance.identityService save];
+        [ServiceContainer.sharedInstance.identityService saveIdentities];
     }
 }
 
@@ -124,7 +123,7 @@
 	[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];    
     
     self.challenge.identity.blocked = @NO;
-    [ServiceContainer.sharedInstance.identityService save];
+    [ServiceContainer.sharedInstance.identityService saveIdentities];
     
     EnrollmentSummaryViewController *viewController = [[EnrollmentSummaryViewController alloc] initWithEnrollmentChallenge:self.challenge];
     [self.navigationController pushViewController:viewController animated:YES];

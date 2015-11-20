@@ -40,6 +40,7 @@
 		CD02E2A11BF9F21B00509C3F /* ServiceContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E2A01BF9F21B00509C3F /* ServiceContainer.m */; };
 		CD02E2A41BF9F34300509C3F /* IdentityService.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E2A31BF9F34300509C3F /* IdentityService.m */; };
 		CD02E2AB1BFB234000509C3F /* SecretService.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E2AA1BFB234000509C3F /* SecretService.m */; };
+		CD51EF6D1BFE0BC50032C9A2 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD51EF6C1BFE0BC50032C9A2 /* LocalAuthentication.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		CD7BAB0D1BAAB87400B88393 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7BAB0C1BAAB87400B88393 /* images.xcassets */; };
 		CD7BAB101BAAE3F200B88393 /* TiqrNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */; };
 		CDBB08C01BAC3DB0008D8F94 /* TiqrToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */; };
@@ -162,6 +163,8 @@
 		CD02E2A31BF9F34300509C3F /* IdentityService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityService.m; sourceTree = "<group>"; };
 		CD02E2A91BFB234000509C3F /* SecretService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecretService.h; sourceTree = "<group>"; };
 		CD02E2AA1BFB234000509C3F /* SecretService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecretService.m; sourceTree = "<group>"; };
+		CD51EF6C1BFE0BC50032C9A2 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		CD51EF6E1BFF1BB40032C9A2 /* Tiqr 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Tiqr 3.xcdatamodel"; sourceTree = "<group>"; };
 		CD7BAB0C1BAAB87400B88393 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrNavigationBar.h; sourceTree = "<group>"; };
 		CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrNavigationBar.m; sourceTree = "<group>"; };
@@ -263,6 +266,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD51EF6D1BFE0BC50032C9A2 /* LocalAuthentication.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765080DF74369002DB57D /* CoreGraphics.framework in Frameworks */,
@@ -342,6 +346,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD51EF6C1BFE0BC50032C9A2 /* LocalAuthentication.framework */,
 				D06F86C31331EE5600C2C6FF /* CoreData.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
@@ -1289,10 +1294,11 @@
 		C7B96C8116FB0D28001EC65E /* Tiqr.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				CD51EF6E1BFF1BB40032C9A2 /* Tiqr 3.xcdatamodel */,
 				C7B96C8216FB0D28001EC65E /* Tiqr 2.xcdatamodel */,
 				C7B96C8316FB0D28001EC65E /* Tiqr.xcdatamodel */,
 			);
-			currentVersion = C7B96C8216FB0D28001EC65E /* Tiqr 2.xcdatamodel */;
+			currentVersion = CD51EF6E1BFF1BB40032C9A2 /* Tiqr 3.xcdatamodel */;
 			path = Tiqr.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

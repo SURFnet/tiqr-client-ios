@@ -33,6 +33,8 @@
 
 @interface SecretService : NSObject
 
+@property (nonatomic, assign, readonly) BOOL touchIDIsAvailable;
+
 /**
  * Generate a new random secret.
  *
@@ -71,12 +73,20 @@
  * @param secret    secret
  * @param identity  identity
  * @param PIN       PIN
- * @param salt      salt
- * @param initializationVector  initializationVector
  *
  * @return whether setting the secret was successful or not
  */
 - (BOOL)setSecret:(NSData *)secret forIdentity:(Identity *)identity withPIN:(NSString *)PIN;
+
+/**
+ * Attempts to store the secret on the Secure Enclave of the device using TouchID
+ *
+ * @param secret    secret
+ * @param identity  identity
+ * @param completionHandler    The block to be executed when the operation is completed
+ *
+ */
+- (void)setSecret:(NSData *)secret usingTouchIDforIdentity:(Identity *)identity withCompletionHandler:(void (^)(BOOL success))completionHandler;
 
 /**
  * Returns the decrypted secret, decrypted with the given PIN.
@@ -102,5 +112,16 @@
  * @return decrypted secret
  */
 - (NSData *)secretForIdentity:(Identity *)identity withPIN:(NSString *)PIN;
+
+/**
+ * Attempts to use TouchID to fetch the secret for an identity
+ *
+ * Uses the salt and initializationVector from the supplied Identity
+ *
+ * @param identity             identity
+ * @param completionHandler    The block to be executed when the operation is completed
+ *
+ */
+- (void)secretForIdentity:(Identity *)identity touchIDPrompt:(NSString *)prompt withSuccessHandler:(void (^)(NSData *secret))successHandler failureHandler:(void (^)(BOOL cancelled))failureHandler;
 
 @end

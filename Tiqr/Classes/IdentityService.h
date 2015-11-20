@@ -126,21 +126,22 @@
 
 
 /**
- * Upgrades the identity to use salt and initialization vector.
+ * Upgrades the identity to use salt and a initialization vector. If TouchID is available this will setup TouchID for this identity
  *
- * NOTE: should be called with valid PIN only!
+ * @param PIN The PIN for this identity or nil
+ *
  */
-- (BOOL)upgradeIdentity:(Identity *)identity withPIN:(NSString *)PIN;
+- (void)upgradeIdentity:(Identity *)identity withPIN:(NSString *)PIN;
 
 /**
  * Saves the internal managed object context
  */
-- (BOOL)save;
+- (BOOL)saveIdentities;
 
 /**
  * Performs a rollback on the internal managed object context
  */
-- (void)rollback;
+- (void)rollbackIdentities;
 
 
 @end

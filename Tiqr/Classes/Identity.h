@@ -44,5 +44,6 @@
 @property (nonatomic, strong) NSNumber * sortIndex;
 @property (nonatomic, strong) NSNumber * blocked;
 @property (nonatomic, strong) IdentityProvider * identityProvider;
+@property (nonatomic, strong) NSNumber * touchID;
 
 @end

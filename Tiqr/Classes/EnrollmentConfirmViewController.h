@@ -28,6 +28,7 @@
  */
 
 #import "EnrollmentChallenge.h"
+#import "EnrollmentConfirmationRequest.h"
 
 /**
  * Enrollment confirmation controller.
@@ -35,7 +36,7 @@
  * Gives the user the opportunity to confirm an enrollment.
  * After confirmation the user is redirect to the PIN screen.
  */
-@interface EnrollmentConfirmViewController : UIViewController {
+@interface EnrollmentConfirmViewController : UIViewController <EnrollmentConfirmationRequestDelegate> {
 
 }
 

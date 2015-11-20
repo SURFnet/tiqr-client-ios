@@ -29,6 +29,10 @@
 
 #import "EnrollmentConfirmViewController.h"
 #import "EnrollmentPINViewController.h"
+#import "ServiceContainer.h"
+#import "MBProgressHUD.h"
+#import "ErrorViewController.h"
+#import "EnrollmentSummaryViewController.h"
 
 @interface EnrollmentConfirmViewController ()
 
@@ -36,7 +40,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *confirmAccountLabel;
 @property (nonatomic, strong) IBOutlet UILabel *activateAccountLabel;
 @property (nonatomic, strong) IBOutlet UILabel *enrollDomainLabel;
-@property (nonatomic, strong) IBOutlet UIButton *okButton;
+@property (nonatomic, strong) IBOutlet UIButton *pinButton;
+@property (nonatomic, strong) IBOutlet UIButton *touchIDButton;
 @property (nonatomic, strong) IBOutlet UILabel *fullNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *accountIDLabel;
 @property (nonatomic, strong) IBOutlet UILabel *accountDetailsLabel;
@@ -68,8 +73,11 @@
     self.accountIDLabel.text = NSLocalizedString(@"id", @"Tiqr account ID");
     self.accountDetailsLabel.text = NSLocalizedString(@"account_details_title", "Account details");
     
-    [self.okButton setTitle:NSLocalizedString(@"ok_button", @"OK") forState:UIControlStateNormal];
-    self.okButton.layer.cornerRadius = 5;
+    [self.pinButton setTitle:@"PIN" forState:UIControlStateNormal];
+    self.pinButton.layer.cornerRadius = 5;
+    
+    [self.touchIDButton setTitle:@"TouchID" forState:UIControlStateNormal];
+    self.touchIDButton.layer.cornerRadius = 5;
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
 
@@ -82,9 +90,134 @@
     }
 }
 
-- (IBAction)ok {
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    CGRect touchIDFrame = self.touchIDButton.frame;
+    CGRect PINFrame = self.pinButton.frame;
+    
+    if (ServiceContainer.sharedInstance.secretService.touchIDIsAvailable) {
+        
+        CGFloat availableWidth = self.view.frame.size.width - 45.0f;
+        
+        touchIDFrame.size.width = PINFrame.size.width = availableWidth / 2.0f;
+        touchIDFrame.origin.x = 15.0f;
+        PINFrame.origin.x = (self.view.frame.size.width + 15.0f) / 2.0f;
+    } else {
+        self.touchIDButton.hidden = YES;
+        
+        PINFrame.size.width = 200.0f;
+        PINFrame.origin.x = (self.view.frame.size.width - 200.0f) / 2.0f;
+    }
+}
+
+
+
+- (IBAction)usePIN {
     EnrollmentPINViewController *viewController = [[EnrollmentPINViewController alloc] initWithEnrollmentChallenge:self.challenge];
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (IBAction)useTouchID {
+    self.challenge.identitySecret = [ServiceContainer.sharedInstance.secretService generateSecret];
+    SecretService *secretService = ServiceContainer.sharedInstance.secretService;
+    
+    if (![self storeProviderAndIdentity]) {
+        NSString *errorTitle = NSLocalizedString(@"error_enroll_failed_to_store_identity_title", @"Account cannot be saved title");
+        NSString *errorMessage = NSLocalizedString(@"error_enroll_failed_to_store_identity", @"Account cannot be saved message");
+        UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:errorTitle errorMessage:errorMessage];
+        [self.navigationController pushViewController:viewController animated:YES];
+        return;
+    }
+    
+    [secretService setSecret:self.challenge.identitySecret usingTouchIDforIdentity:self.challenge.identity withCompletionHandler:^(BOOL success) {
+        if (success) {
+            [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            EnrollmentConfirmationRequest *request = [[EnrollmentConfirmationRequest alloc] initWithEnrollmentChallenge:self.challenge];
+            request.delegate = self;
+            [request send];
+
+            self.challenge.identity.touchID = @YES;
+        } else {
+            NSString *errorTitle = NSLocalizedString(@"error_enroll_failed_to_store_identity_title", @"Account cannot be saved title");
+            NSString *errorMessage = NSLocalizedString(@"error_enroll_failed_to_generate_secret", @"Failed to generate identity secret. Please contact support.");
+            UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:errorTitle errorMessage:errorMessage];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+    }];
+}
+
+- (void)enrollmentConfirmationRequestDidFinish:(EnrollmentConfirmationRequest *)request {
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    
+    self.challenge.identity.blocked = @NO;
+    [ServiceContainer.sharedInstance.identityService saveIdentities];
+    
+    EnrollmentSummaryViewController *viewController = [[EnrollmentSummaryViewController alloc] initWithEnrollmentChallenge:self.challenge];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)enrollmentConfirmationRequest:(EnrollmentConfirmationRequest *)request didFailWithError:(NSError *)error {
+    [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+    [self deleteIdentity];
+    [self deleteSecret];
+    
+    UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (BOOL)storeProviderAndIdentity {
+    IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
+    SecretService *secretService = ServiceContainer.sharedInstance.secretService;
+    
+    IdentityProvider *identityProvider = self.challenge.identityProvider;
+    if (identityProvider == nil) {
+        identityProvider = [identityService createIdentityProvider];
+        identityProvider.identifier = self.challenge.identityProviderIdentifier;
+        identityProvider.displayName = self.challenge.identityProviderDisplayName;
+        identityProvider.authenticationUrl = self.challenge.identityProviderAuthenticationUrl;
+        identityProvider.infoUrl = self.challenge.identityProviderInfoUrl;
+        identityProvider.ocraSuite = self.challenge.identityProviderOcraSuite;
+        identityProvider.logo = self.challenge.identityProviderLogo;
+    }
+    
+    Identity *identity = self.challenge.identity;
+    if (identity == nil) {
+        identity = [identityService createIdentity];
+        identity.identifier = self.challenge.identityIdentifier;
+        identity.sortIndex = [NSNumber numberWithInteger:identityService.maxSortIndex + 1];
+        identity.identityProvider = identityProvider;
+        identity.salt = [secretService generateSecret];
+    }
+    
+    identity.displayName = self.challenge.identityDisplayName;
+    
+    if ([identityService saveIdentities]) {
+        self.challenge.identity = identity;
+        self.challenge.identityProvider = identityProvider;
+        return YES;
+    } else {
+        [identityService rollbackIdentities];
+        return NO;			
+    }
+}
+
+- (void)deleteIdentity {
+    if (![self.challenge.identity.blocked boolValue]) {
+        [ServiceContainer.sharedInstance.identityService deleteIdentity:self.challenge.identity];
+        [ServiceContainer.sharedInstance.identityService saveIdentities];
+    }
+}
+
+- (BOOL)storeSecret {
+    return [ServiceContainer.sharedInstance.secretService setSecret:self.challenge.identitySecret
+                                                        forIdentity:self.challenge.identity
+                                                            withPIN:self.challenge.identityPIN];
+}
+
+- (void)deleteSecret {
+    [ServiceContainer.sharedInstance.secretService deleteSecretForIdentityIdentifier:self.challenge.identityIdentifier
+                                                                  providerIdentifier:self.challenge.identityProviderIdentifier];
 }
 
 - (IBAction)cancel {

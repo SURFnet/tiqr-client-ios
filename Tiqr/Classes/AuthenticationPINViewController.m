@@ -71,9 +71,8 @@
 }
 
 - (void)authenticationConfirmationRequestDidFinish:(AuthenticationConfirmationRequest *)request {
-    if( ![ServiceContainer.sharedInstance.identityService upgradeIdentity:self.challenge.identity withPIN:self.PIN] ) {
-        [ServiceContainer.sharedInstance.identityService save];
-    }
+    [ServiceContainer.sharedInstance.identityService upgradeIdentity:self.challenge.identity withPIN:self.PIN];
+    
     self.PIN = nil;
 
 	[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];    
@@ -97,7 +96,7 @@
         }
         case TIQRACRAccountBlockedError: {
             self.challenge.identity.blocked = @YES;
-            [ServiceContainer.sharedInstance.identityService save];
+            [ServiceContainer.sharedInstance.identityService saveIdentities];
             UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
             [self.navigationController pushViewController:viewController animated:YES];
             break;
@@ -106,7 +105,7 @@
             NSNumber *attemptsLeft = [error userInfo][TIQRACRAttemptsLeftErrorKey];
             if (attemptsLeft != nil && [attemptsLeft intValue] == 0) {
                 [ServiceContainer.sharedInstance.identityService blockAllIdentities];
-                [ServiceContainer.sharedInstance.identityService save];
+                [ServiceContainer.sharedInstance.identityService saveIdentities];
                 UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
                 [self.navigationController pushViewController:viewController animated:YES];
             } else {

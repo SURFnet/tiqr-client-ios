@@ -216,12 +216,12 @@
     }
 }
 
-- (BOOL)upgradeIdentity:(Identity *)identity withPIN:(NSString *)PIN {
+- (void)upgradeIdentity:(Identity *)identity withPIN:(NSString *)PIN {
     if ([identity.version integerValue] < 2) {
         
         NSData *secret = [self.secretService secretForIdentity:identity withPIN:PIN salt:nil initializationVector:nil];
         if (!secret) {
-            return NO;
+            return;
         }
         
         NSData *salt = [self.secretService generateSecret];
@@ -231,10 +231,17 @@
             identity.salt = salt;
             identity.initializationVector = initializationVector;
             identity.version = @2;
-            return YES;
+            
+            [self saveIdentities];
         }
     }
-    return NO;
+    
+    if ([identity.version integerValue] < 3) {
+        identity.version = @3;
+        [self saveIdentities];
+    }
+    
+    return;
 }
 
 
@@ -242,7 +249,7 @@
 #pragma mark -
 #pragma mark Core Data stack
 
-- (BOOL)save {
+- (BOOL)saveIdentities {
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {
@@ -255,7 +262,7 @@
     return YES;
 }
 
-- (void)rollback {
+- (void)rollbackIdentities {
     [self.managedObjectContext rollback];
 }
 

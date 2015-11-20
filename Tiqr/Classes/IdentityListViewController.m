@@ -164,7 +164,7 @@
         [identityService deleteIdentity:identity];
     }
     
-    if ([identityService save]) {
+    if ([identityService saveIdentities]) {
         [ServiceContainer.sharedInstance.secretService deleteSecretForIdentityIdentifier:identityIdentifier
                                                                       providerIdentifier:providerIdentifier];
         
@@ -198,7 +198,7 @@
 		sortIndex++;
 	}
 	
-    if (![ServiceContainer.sharedInstance.identityService save]) {
+    if (![ServiceContainer.sharedInstance.identityService saveIdentities]) {
         NSString *title = NSLocalizedString(@"error", "Alert title for error");		
         NSString *message = NSLocalizedString(@"error_auth_unknown_error", "Unexpected error message");		        
         NSString *okTitle = NSLocalizedString(@"ok_button", "OK button title");			
