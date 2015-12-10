@@ -28,7 +28,6 @@
  */
 
 #import "AuthenticationConfirmViewController.h"
-#import "AuthenticationConfirmViewController-Protected.h"
 #import "AuthenticationPINViewController.h"
 
 @interface AuthenticationConfirmViewController ()
@@ -40,6 +39,10 @@
 @property (nonatomic, strong) IBOutlet UIButton *okButton;
 @property (nonatomic, strong) IBOutlet UILabel *accountLabel;
 @property (nonatomic, strong) IBOutlet UILabel *accountIDLabel;
+@property (nonatomic, strong) IBOutlet UILabel *identityDisplayNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *identityIdentifierLabel;
+@property (nonatomic, strong) IBOutlet UILabel *serviceProviderDisplayNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *serviceProviderIdentifierLabel;
 
 @end
 
@@ -78,34 +81,9 @@
     }
 }
 
-- (void)ok {
+- (IBAction)ok {
     AuthenticationPINViewController *viewController = [[AuthenticationPINViewController alloc] initWithAuthenticationChallenge:self.challenge];
-    viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (void)resetOutlets {
-	self.identityDisplayNameLabel = nil;
-	self.identityIdentifierLabel = nil;
-	self.serviceProviderDisplayNameLabel = nil;
-	self.serviceProviderIdentifierLabel = nil;
-    self.loggedInAsLabel = nil;
-    self.loginConfirmLabel = nil;
-    self.toLabel = nil;
-    self.okButton = nil;
-    self.accountLabel = nil;
-    self.accountIDLabel = nil;
-}
-
-- (void)viewDidUnload {
-    [self resetOutlets];
-    [super viewDidUnload];
-}
-
-- (void)dealloc {
-    [self resetOutlets];
-    
-
 }
 
 @end

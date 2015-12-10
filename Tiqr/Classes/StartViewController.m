@@ -28,18 +28,18 @@
  */
 
 #import "StartViewController.h"
-#import "StartViewController-Protected.h"
 #import "ScanViewController.h"
 #import "IdentityListViewController.h"
 #import "ErrorController.h"
-#import "Identity+Utils.h"
 #import "AboutViewController.h"
+#import "ServiceContainer.h"
 
 @interface StartViewController () <UIWebViewDelegate>
 
 @property (nonatomic, strong) UIBarButtonItem *identitiesButtonItem;
 @property (nonatomic, strong) ErrorController *errorController;
 @property (nonatomic, strong) IBOutlet UIButton *scanButton;
+@property (nonatomic, strong) IBOutlet UIWebView *webView;
 
 @end
 
@@ -75,14 +75,14 @@
     self.webView.frame = CGRectMake(0.0, 0.0, self.webView.frame.size.width, self.view.frame.size.height);
     
     NSString *content = @"";
-    if ([Identity allIdentitiesBlockedInManagedObjectContext:self.managedObjectContext]) {
+    if (ServiceContainer.sharedInstance.identityService.allIdentitiesBlocked) {
         self.webView.frame = CGRectMake(0.0, self.errorController.view.frame.size.height, self.webView.frame.size.width, self.view.frame.size.height - self.errorController.view.frame.size.height);
         self.errorController.view.hidden = NO;
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
         self.errorController.title = NSLocalizedString(@"error_auth_account_blocked_title", @"Accounts blocked error title");
         self.errorController.message = NSLocalizedString(@"to_many_attempts", @"Accounts blocked error message");        
         content = NSLocalizedString(@"main_text_blocked", @"");                
-    } else if ([Identity countInManagedObjectContext:self.managedObjectContext] > 0) {
+    } else if (ServiceContainer.sharedInstance.identityService.identityCount > 0) {
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
         content = NSLocalizedString(@"main_text_instructions", @"");        
     } else {
@@ -107,7 +107,7 @@
 
 - (IBAction)scan {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];	
-    if ([Identity countInManagedObjectContext:self.managedObjectContext] > 0 &&
+    if (ServiceContainer.sharedInstance.identityService.identityCount > 0 &&
         [defaults objectForKey:@"show_instructions_preference"] == nil) {
 		NSString *message = NSLocalizedString(@"show_instructions_preference_message", @"Do you want to see these instructions when you start the application in the future? You can always open the instructions from the Scan window or change this behavior in Settings.");		
 		NSString *yesTitle = NSLocalizedString(@"yes_button", @"Yes button title");
@@ -116,7 +116,6 @@
 		[alertView show];
 	} else {
 		ScanViewController *viewController = [[ScanViewController alloc] init];
-        viewController.managedObjectContext = self.managedObjectContext;
 		[self.navigationController pushViewController:viewController animated:YES];	
 	}
 }
@@ -128,7 +127,6 @@
 
 - (void)listIdentities {
     IdentityListViewController *viewController = [[IdentityListViewController alloc] init];
-    viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -138,27 +136,7 @@
 	[defaults setBool:showInstructions forKey:@"show_instructions_preference"];
 	
     ScanViewController *viewController = [[ScanViewController alloc] init];
-    viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];	
-}
-
-- (void)resetOutlets {
-    self.webView = nil;
-}
-
-- (void)viewDidUnload {
-    [self resetOutlets];
-    
-    [self.errorController.view removeFromSuperview];
-    self.errorController = nil;
-    
-    [super viewDidUnload];
-}
-
-- (void)dealloc {
-    [self resetOutlets];
-    
-    
 }
 
 @end

@@ -28,7 +28,6 @@
  */
 
 #import "EnrollmentSummaryViewController.h"
-#import "EnrollmentSummaryViewController-Protected.h"
 #import "TiqrAppDelegate.h"
 
 @interface EnrollmentSummaryViewController ()
@@ -41,6 +40,9 @@
 @property (nonatomic, strong) IBOutlet UILabel *accountDetailsLabel;
 @property (nonatomic, strong) IBOutlet UILabel *enrolledLabel;
 @property (nonatomic, strong) IBOutlet UILabel *enrollmentDomainLabel;
+@property (nonatomic, strong) IBOutlet UILabel *identityDisplayNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *identityIdentifierLabel;
+@property (nonatomic, strong) IBOutlet UIButton *returnButton;
 
 @end
 
@@ -87,34 +89,10 @@
     [(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:YES];    
 }
 
-- (void)returnToCaller {
+- (IBAction)returnToCaller {
     [(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:NO];    
     NSString *returnURL = [NSString stringWithFormat:@"%@?successful=1", self.challenge.returnUrl];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:returnURL]];
-}
-
-- (void)resetOutlets {
-	self.identityDisplayNameLabel = nil;
-	self.identityIdentifierLabel = nil;
-    self.returnButton = nil;
-    self.accountReadyLabel = nil;
-    self.accountActivatedLabel = nil;
-    self.fullNameLabel = nil;
-    self.accountIDLabel = nil;
-    self.accountDetailsLabel = nil;
-    self.enrolledLabel = nil;
-    self.enrollmentDomainLabel = nil;
-}
-
-- (void)viewDidUnload {
-    [self resetOutlets];
-    [super viewDidUnload];
-}
-
-- (void)dealloc {
-    [self resetOutlets];
-    
-    
 }
 
 @end

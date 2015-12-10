@@ -28,7 +28,6 @@
  */
 
 #import "PINViewController.h"
-#import "PINViewController-Protected.h"
 #import "ErrorController.h"
 #import "NSString+Verhoeff.h"
 
@@ -38,8 +37,17 @@
 @property (nonatomic, strong) ErrorController *errorController;
 @property (nonatomic, strong) IBOutlet UIButton *confirmButton;
 @property (strong, nonatomic) IBOutlet UILabel *notesLabel;
+@property (nonatomic, strong) IBOutlet UILabel *subtitleLabel;
+@property (nonatomic, strong) IBOutlet UILabel *descriptionLabel;
+@property (nonatomic, strong) IBOutlet UITextField *pinField;
+@property (nonatomic, strong) IBOutlet UITextField *pin1Field;
+@property (nonatomic, strong) IBOutlet UITextField *pin2Field;
+@property (nonatomic, strong) IBOutlet UITextField *pin3Field;
+@property (nonatomic, strong) IBOutlet UITextField *pin4Field;
+@property (nonatomic, strong) IBOutlet UIButton *okButton;
 
 @end
+
 
 @implementation PINViewController
 
@@ -169,7 +177,7 @@
     return YES;
 }
 
-- (void)ok {
+- (IBAction)ok {
     [self dismissViewControllerAnimated:YES completion:nil];
     NSString *pin = self.pinField.text;
     [self.delegate PINViewController:self didFinishWithPIN:pin];
@@ -191,24 +199,7 @@
     self.okButton.enabled = NO;  
 }
 
-- (void)resetOutlets {
-    self.subtitleLabel = nil;
-    self.descriptionLabel = nil;
-    self.pinField = nil;
-    self.pin1Field = nil;
-    self.pin2Field = nil;    
-    self.pin3Field = nil;    
-    self.pin4Field = nil;
-    self.okButton = nil;
-}
-
-- (void)viewDidUnload {
-    [self resetOutlets];
-    [super viewDidUnload];
-}
-
 - (void)dealloc {
-    [self resetOutlets];    
     [self.pin4Timer invalidate];
 }
 

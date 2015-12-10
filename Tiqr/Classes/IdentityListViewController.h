@@ -39,10 +39,5 @@
 
 }
 
-/**
- * Managed object context.
- */
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
 
 @end

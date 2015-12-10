@@ -63,7 +63,7 @@ enum {
 
 @property (nonatomic, weak) id<EnrollmentConfirmationRequestDelegate> delegate;
 
-- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge;
 - (void)send;
 
 @end

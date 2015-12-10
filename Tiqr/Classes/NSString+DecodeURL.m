@@ -10,8 +10,8 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of SURFnet bv nor the names of its contributors 
- *    may be used to endorse or promote products derived from this 
+ * 3. Neither the name of SURFnet bv nor the names of its contributors
+ *    may be used to endorse or promote products derived from this
  *    software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
@@ -27,14 +27,16 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "EnrollmentSummaryViewController.h"
+#import "NSString+DecodeURL.h"
 
-@interface EnrollmentSummaryViewController ()
+@implementation NSString (DecodeURL)
 
-@property (nonatomic, strong) IBOutlet UILabel *identityDisplayNameLabel;
-@property (nonatomic, strong) IBOutlet UILabel *identityIdentifierLabel;
-@property (nonatomic, strong) IBOutlet UIButton *returnButton;
-
-- (IBAction)returnToCaller;
+- (NSString *)decodedURL {
+    
+    NSString *decodedURL = [self copy];
+    decodedURL = [decodedURL stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+    decodedURL = [decodedURL stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    return decodedURL;
+}
 
 @end

@@ -28,7 +28,6 @@
  */
 
 #import "AuthenticationIdentityViewController.h"
-#import "AuthenticationIdentityViewController-Protected.h"
 #import "AuthenticationConfirmViewController.h"
 #import "Identity.h"
 #import "IdentityTableViewCell.h"
@@ -37,6 +36,7 @@
 
 @property (nonatomic, strong) AuthenticationChallenge *challenge;
 @property (nonatomic, strong) IBOutlet UILabel *selectAccountLabel;
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @end
 
@@ -96,17 +96,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	self.challenge.identity = self.challenge.identities[indexPath.row];
     AuthenticationConfirmViewController *viewController = [[AuthenticationConfirmViewController alloc] initWithAuthenticationChallenge:self.challenge];
-    viewController.managedObjectContext = self.managedObjectContext;
 	[self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-- (void)viewDidUnload {
-    self.tableView = nil;
-    [super viewDidUnload];
 }
 
 

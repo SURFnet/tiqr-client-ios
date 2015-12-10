@@ -41,7 +41,7 @@
 @implementation ErrorViewController
 
 - (instancetype)initWithTitle:(NSString *)title errorTitle:(NSString *)errorTitle errorMessage:(NSString *)errorMessage {
-    self = [super initWithNibName:@"ErrorView" bundle:nil];
+    self = [super initWithNibName:@"ErrorViewController" bundle:nil];
     if (self != nil) {
         self.title = title;
         
@@ -64,11 +64,6 @@
 
 - (void)done {
     [(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:YES];
-}
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    [self.errorController.view removeFromSuperview];
 }
 
 

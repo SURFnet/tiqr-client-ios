@@ -28,15 +28,19 @@
  */
 
 #import "IdentityEditViewController.h"
-#import "IdentityEditViewController-Protected.h"
 #import "Identity.h"
 #import "IdentityProvider.h"
-#import "SecretStore.h"
+#import "ServiceContainer.h"
 
 @interface IdentityEditViewController ()
 
 @property (nonatomic, strong) Identity *identity;
 @property (nonatomic, strong) IBOutlet UIButton *deleteButton;
+@property (nonatomic, strong) IBOutlet UIImageView *identityProviderLogoImageView;
+@property (nonatomic, strong) IBOutlet UILabel *identityProviderIdentifierLabel;
+@property (nonatomic, strong) IBOutlet UILabel *identityProviderDisplayNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *blockedWarningLabel;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -114,7 +118,7 @@
     }
 }
 
-- (void)deleteIdentity {
+- (IBAction)deleteIdentity {
     NSString *title = NSLocalizedString(@"confirm_delete_title", @"Sure?");
     NSString *message = NSLocalizedString(@"confirm_delete", @"Are you sure you want to delete this identity?");
     NSString *yesTitle = NSLocalizedString(@"yes_button", @"Yes button title");
@@ -130,56 +134,34 @@
 }
 
 - (void)performDeleteIdentity{
-    NSManagedObjectContext *context = self.identity.managedObjectContext;
-    
+    IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
     IdentityProvider *identityProvider = self.identity.identityProvider;
     
-    SecretStore *store = nil;       
+    NSString *identityIdentifier = self.identity.identifier;
+    NSString *providerIdentifier = identityProvider.identifier;
+    
     if (identityProvider != nil) {
-        store = [SecretStore secretStoreForIdentity:self.identity.identifier identityProvider:identityProvider.identifier];		
 		
         [identityProvider removeIdentitiesObject:self.identity];
-        [context deleteObject:self.identity];
+        [identityService deleteIdentity:self.identity];
         if ([identityProvider.identities count] == 0) {
-            [context deleteObject:identityProvider];
+            [identityService deleteIdentityProvider:identityProvider];
         }
     } else {
-        [context deleteObject:self.identity];            
+        [identityService deleteIdentity:self.identity];
     }
-    
-    NSError *error = nil;
-    if ([context save:&error]) {
-        if (store != nil) {
-            [store deleteFromKeychain];
-        }
+    if ([identityService save]) {
+        [ServiceContainer.sharedInstance.secretService deleteSecretForIdentityIdentifier:identityIdentifier
+                                                                      providerIdentifier:providerIdentifier];
         
         [self.navigationController popViewControllerAnimated:YES];
     } else {
-        NSLog(@"Unexpected error: %@", error);
 		NSString *title = NSLocalizedString(@"error", "Alert title for error");		
 		NSString *message = NSLocalizedString(@"error_auth_unknown_error", "Unexpected error message");		        
 		NSString *okTitle = NSLocalizedString(@"ok_button", "OK button title");		
 		UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:okTitle otherButtonTitles:nil];
 		[alertView show];
     }
-}
-
-- (void)resetOutlets {
-    self.identityProviderLogoImageView = nil;
-    self.identityProviderIdentifierLabel = nil;    
-    self.identityProviderDisplayNameLabel = nil;
-    self.blockedWarningLabel = nil;
-    self.tableView = nil;
-    self.deleteButton = nil;
-}
-
-- (void)viewDidUnload {
-    [self resetOutlets];
-    [super viewDidUnload];
-}
-
-- (void)dealloc {
-    [self resetOutlets];
 }
 
 @end

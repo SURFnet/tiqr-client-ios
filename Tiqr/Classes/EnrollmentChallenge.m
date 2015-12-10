@@ -27,24 +27,34 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "Challenge-Protected.h"
 #import "EnrollmentChallenge.h"
-#import "EnrollmentChallenge-Protected.h"
-#import "Identity+Utils.h"
-#import "IdentityProvider+Utils.h"
+#import "NSString+DecodeURL.h"
+#import "ServiceContainer.h"
 
 NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 
 @interface EnrollmentChallenge ()
 
 @property (nonatomic, assign) BOOL allowFiles;
+@property (nonatomic, copy) NSString *identityProviderIdentifier;
+@property (nonatomic, copy) NSString *identityProviderDisplayName;
+@property (nonatomic, copy) NSString *identityProviderAuthenticationUrl;
+@property (nonatomic, copy) NSString *identityProviderInfoUrl;
+@property (nonatomic, copy) NSString *identityProviderOcraSuite;
+@property (nonatomic, copy) NSData *identityProviderLogo;
+
+@property (nonatomic, copy) NSString *identityIdentifier;
+@property (nonatomic, copy) NSString *identityDisplayName;
+
+@property (nonatomic, copy) NSString *enrollmentUrl;
+@property (nonatomic, copy) NSString *returnUrl;
 
 @end
 
 @implementation EnrollmentChallenge
 
-- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context allowFiles:(BOOL)allowFiles {
-    self = [super initWithRawChallenge:challenge managedObjectContext:context autoParse:NO];
+- (instancetype)initWithRawChallenge:(NSString *)challenge allowFiles:(BOOL)allowFiles {
+    self = [super initWithRawChallenge:challenge autoParse:NO];
     if (self != nil) {
         self.allowFiles = allowFiles;
 		[self parseRawChallenge];
@@ -53,12 +63,12 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 	return self;
 }
 
-- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context {
-    return [self initWithRawChallenge:challenge managedObjectContext:context allowFiles:NO];
+- (instancetype)initWithRawChallenge:(NSString *)challenge {
+    return [self initWithRawChallenge:challenge allowFiles:NO];
 }
 
-- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context autoParse:(BOOL)autoParse {
-    return [self initWithRawChallenge:challenge managedObjectContext:context allowFiles:NO];
+- (instancetype)initWithRawChallenge:(NSString *)challenge autoParse:(BOOL)autoParse {
+    return [self initWithRawChallenge:challenge allowFiles:NO];
 }
 
 - (BOOL)isValidMetadata:(NSDictionary *)metadata {
@@ -82,7 +92,7 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 
 - (BOOL)assignIdentityProviderMetadata:(NSDictionary *)metadata {
 	self.identityProviderIdentifier = [metadata[@"identifier"] description];
-	self.identityProvider = [IdentityProvider findIdentityProviderWithIdentifier:self.identityProviderIdentifier inManagedObjectContext:self.managedObjectContext];
+	self.identityProvider = [ServiceContainer.sharedInstance.identityService findIdentityProviderWithIdentifier:self.identityProviderIdentifier];
 
 	if (self.identityProvider != nil) {
 		self.identityProviderDisplayName = self.identityProvider.displayName;
@@ -117,7 +127,7 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
 	self.identitySecret = nil;
 	
 	if (self.identityProvider != nil) {
-		Identity *identity = [Identity findIdentityWithIdentifier:self.identityIdentifier forIdentityProvider:self.identityProvider inManagedObjectContext:self.managedObjectContext];
+        Identity *identity = [ServiceContainer.sharedInstance.identityService findIdentityWithIdentifier:self.identityIdentifier forIdentityProvider:self.identityProvider];
 		if (identity != nil && [identity.blocked boolValue]) {
             self.identity = identity;
         } else if (identity != nil) {
@@ -215,7 +225,7 @@ NSString *const TIQRECErrorDomain = @"org.tiqr.ec";
     NSPredicate *protocolPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     
     if (url.query != nil && [url.query length] > 0 && [protocolPredicate evaluateWithObject:url.query] == YES) {
-        self.returnUrl = [self decodeURL:url.query];
+        self.returnUrl = url.query.decodedURL;
     } else {
         self.returnUrl = nil;
     }

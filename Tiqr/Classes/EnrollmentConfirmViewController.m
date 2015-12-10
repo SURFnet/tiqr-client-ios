@@ -28,7 +28,6 @@
  */
 
 #import "EnrollmentConfirmViewController.h"
-#import "EnrollmentConfirmViewController-Protected.h"
 #import "EnrollmentPINViewController.h"
 
 @interface EnrollmentConfirmViewController ()
@@ -41,6 +40,10 @@
 @property (nonatomic, strong) IBOutlet UILabel *fullNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *accountIDLabel;
 @property (nonatomic, strong) IBOutlet UILabel *accountDetailsLabel;
+
+@property (nonatomic, strong) IBOutlet UILabel *identityDisplayNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *identityIdentifierLabel;
+@property (nonatomic, strong) IBOutlet UILabel *enrollmentURLDomainLabel;
 
 @end
 
@@ -79,37 +82,13 @@
     }
 }
 
-- (void)ok {
+- (IBAction)ok {
     EnrollmentPINViewController *viewController = [[EnrollmentPINViewController alloc] initWithEnrollmentChallenge:self.challenge];
-    viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (IBAction)cancel {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)resetOutlets {
-	self.identityDisplayNameLabel = nil;
-	self.identityIdentifierLabel = nil;
-    self.confirmAccountLabel = nil;
-    self.activateAccountLabel = nil;
-    self.enrollDomainLabel = nil;
-    self.okButton = nil;
-    self.fullNameLabel = nil;
-    self.accountIDLabel = nil;
-    self.accountDetailsLabel = nil;
-}
-
-- (void)viewDidUnload {
-    [self resetOutlets];
-    [super viewDidUnload];
-}
-
-- (void)dealloc {
-    [self resetOutlets];
-    
-    
 }
 
 @end

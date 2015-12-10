@@ -44,11 +44,6 @@
 @property (nonatomic, copy, readonly) NSString *rawChallenge;
 
 /**
- * Managed object context.
- */
-@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
-
-/**
  * Can be used to check is the raw challenge could be parsed successfully.
  */
 @property (nonatomic, assign, getter=isValid, readonly) BOOL valid;
@@ -56,7 +51,7 @@
 /**
  * Contains an error message in case the challenge isn't valid.
  */
-@property (nonatomic, strong, readonly) NSError *error;
+@property (nonatomic, strong) NSError *error;
 
 /**
  * Constructs a new challenge object for the given raw challenge.
@@ -64,22 +59,20 @@
  * Immediately calls the parseRawChallenge method.
  *
  * @param challenge the raw challenge
- * @param context   the managed object context
  *
  * @return challenge instance
  */
-- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context;
+- (instancetype)initWithRawChallenge:(NSString *)challenge;
 
 /**
  * Constructs a new challenge object for the given raw challenge.
  *
  * @param challenge the raw challenge
- * @param context   the managed object context
  * @param autoParse automatically parse the challenge?
  *
  * @return challenge instance
  */
-- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context autoParse:(BOOL)autoParse NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithRawChallenge:(NSString *)challenge autoParse:(BOOL)autoParse;
 
 /**
  * Responsible for parsing the raw challenge.

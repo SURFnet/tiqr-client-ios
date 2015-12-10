@@ -10,8 +10,8 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of SURFnet bv nor the names of its contributors 
- *    may be used to endorse or promote products derived from this 
+ * 3. Neither the name of SURFnet bv nor the names of its contributors
+ *    may be used to endorse or promote products derived from this
  *    software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
@@ -27,10 +27,40 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "AuthenticationIdentityViewController.h"
+#import "ServiceContainer.h"
 
-@interface AuthenticationIdentityViewController ()
 
-@property (nonatomic, strong) IBOutlet UITableView *tableView;
+@interface ServiceContainer ()
+
+@property (nonatomic, strong) IdentityService *identityService;
+@property (nonatomic, strong) SecretService *secretService;
+
+@end
+
+
+@implementation ServiceContainer
+
+
+- (instancetype)init {
+    if (self = [super init]) {
+        self.identityService = [[IdentityService alloc] init];
+        self.secretService = [[SecretService alloc] init];
+    }
+    
+    return self;
+}
+
+
+
++ (instancetype)sharedInstance {
+    static id instance = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        instance = [[self alloc] init];
+    });
+    
+    return instance;
+}
 
 @end

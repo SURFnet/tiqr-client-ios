@@ -44,6 +44,6 @@
  *
  * @return initialized view controller
  */
-- (instancetype)initWithIdentity:(Identity *)identity NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithIdentity:(Identity *)identity;
 
 @end

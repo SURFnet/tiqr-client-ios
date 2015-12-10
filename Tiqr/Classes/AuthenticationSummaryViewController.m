@@ -28,7 +28,6 @@
  */
 
 #import "AuthenticationSummaryViewController.h"
-#import "AuthenticationSummaryViewController-Protected.h"
 #import "TiqrAppDelegate.h"
 
 @interface AuthenticationSummaryViewController ()
@@ -40,6 +39,11 @@
 @property (nonatomic, strong) IBOutlet UILabel *toLabel;
 @property (nonatomic, strong) IBOutlet UILabel *accountLabel;
 @property (nonatomic, strong) IBOutlet UILabel *accountIDLabel;
+@property (nonatomic, strong) IBOutlet UILabel *identityDisplayNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *identityIdentifierLabel;
+@property (nonatomic, strong) IBOutlet UILabel *serviceProviderDisplayNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *serviceProviderIdentifierLabel;
+@property (nonatomic, strong) IBOutlet UIButton *returnButton;
 
 @end
 
@@ -85,34 +89,10 @@
     [(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:YES];
 }
 
-- (void)returnToCaller {
+- (IBAction)returnToCaller {
     [(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:NO];
     NSString *returnURL = [NSString stringWithFormat:@"%@?successful=1", self.challenge.returnUrl];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:returnURL]];
-}
-
-- (void)resetOutlets {
-	self.identityDisplayNameLabel = nil;
-	self.identityIdentifierLabel = nil;
-	self.serviceProviderDisplayNameLabel = nil;
-	self.serviceProviderIdentifierLabel = nil;
-    self.returnButton = nil;
-    self.loginConfirmLabel = nil;
-    self.loginInformationLabel = nil;
-    self.toLabel = nil;
-    self.accountLabel = nil;
-    self.accountIDLabel = nil;
-}
-
-- (void)viewDidUnload {
-    [self resetOutlets];
-    [super viewDidUnload];
-}
-
-- (void)dealloc {
-    [self resetOutlets];
-    
-    
 }
 
 @end

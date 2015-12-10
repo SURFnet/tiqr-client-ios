@@ -10,8 +10,8 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of SURFnet bv nor the names of its contributors 
- *    may be used to endorse or promote products derived from this 
+ * 3. Neither the name of SURFnet bv nor the names of its contributors
+ *    may be used to endorse or promote products derived from this
  *    software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
@@ -27,22 +27,10 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "EnrollmentChallenge.h"
-#import "Challenge-Protected.h"
+#import <Foundation/Foundation.h>
 
-@interface EnrollmentChallenge ()
+@interface NSString (DecodeURL)
 
-@property (nonatomic, copy) NSString *identityProviderIdentifier;
-@property (nonatomic, copy) NSString *identityProviderDisplayName;
-@property (nonatomic, copy) NSString *identityProviderAuthenticationUrl;
-@property (nonatomic, copy) NSString *identityProviderInfoUrl;
-@property (nonatomic, copy) NSString *identityProviderOcraSuite;
-@property (nonatomic, copy) NSData *identityProviderLogo;
-
-@property (nonatomic, copy) NSString *identityIdentifier;
-@property (nonatomic, copy) NSString *identityDisplayName;
-
-@property (nonatomic, copy) NSString *enrollmentUrl;
-@property (nonatomic, copy) NSString *returnUrl;
+- (NSString *)decodedURL;
 
 @end

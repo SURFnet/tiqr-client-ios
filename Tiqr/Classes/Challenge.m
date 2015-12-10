@@ -28,25 +28,22 @@
  */
 
 #import "Challenge.h"
-#import "Challenge-Protected.h"
 
 @interface Challenge ()
 
 @property (nonatomic, copy) NSString *rawChallenge;
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 @end
 
 @implementation Challenge
 
-- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context {
-    return [self initWithRawChallenge:challenge managedObjectContext:context autoParse:YES];
+- (instancetype)initWithRawChallenge:(NSString *)challenge {
+    return [self initWithRawChallenge:challenge autoParse:YES];
 }
 
-- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context autoParse:(BOOL)autoParse {
+- (instancetype)initWithRawChallenge:(NSString *)challenge autoParse:(BOOL)autoParse {
 	if ((self = [super init]) != nil) {
 		self.rawChallenge = challenge;
-        self.managedObjectContext = context;
         
         if (autoParse) {
             [self parseRawChallenge];
@@ -54,12 +51,6 @@
 	}
 	
 	return self;
-}
-
-- (NSString *)decodeURL:(NSString *)url {
-	url = [url stringByReplacingOccurrencesOfString:@"+" withString:@" "];
-	url = [url stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	return url;
 }
 
 - (void)parseRawChallenge {

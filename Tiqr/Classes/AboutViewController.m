@@ -28,7 +28,6 @@
  */
 
 #import "AboutViewController.h"
-#import "AboutViewController-Protected.h"
 
 @interface AboutViewController ()
 
@@ -36,6 +35,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *developedByLabel;
 @property (nonatomic, strong) IBOutlet UILabel *interactionDesignLabel;
 @property (nonatomic, strong) IBOutlet UIButton *okButton;
+@property (nonatomic, strong) IBOutlet UILabel *versionLabel;
 
 @end
 

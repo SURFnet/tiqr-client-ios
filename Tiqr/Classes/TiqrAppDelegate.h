@@ -55,22 +55,6 @@
 @property (nonatomic, strong) IBOutlet UIWindow *window;
 
 /**
- * The Core Data managed object context.
- */
-@property (nonatomic, strong, readonly) NSManagedObjectContext *managedObjectContext;
-
-/**
- * The Core Data managed object model.
- */
-@property (nonatomic, strong, readonly) NSManagedObjectModel *managedObjectModel;
-
-/**
- * The Core Data persistent store coordinator.
- */
-@property (nonatomic, strong, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-
-
-/**
  * The navigation controller.
  */
 @property (nonatomic, strong) IBOutlet UINavigationController *navigationController;

@@ -10,8 +10,8 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. Neither the name of SURFnet bv nor the names of its contributors 
- *    may be used to endorse or promote products derived from this 
+ * 3. Neither the name of SURFnet bv nor the names of its contributors
+ *    may be used to endorse or promote products derived from this
  *    software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
@@ -27,27 +27,18 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "IdentityProvider+Utils.h"
+#import <Foundation/Foundation.h>
 
-@implementation IdentityProvider (Utils)
 
-+ (IdentityProvider *)findIdentityProviderWithIdentifier:(NSString *)identifier inManagedObjectContext:(NSManagedObjectContext *)context  {
-	NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"IdentityProvider" inManagedObjectContext:context];
-	NSFetchRequest *request = [[NSFetchRequest alloc] init];
-	[request setEntity:entityDescription];
-	
-	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"identifier = %@", identifier];
-	[request setPredicate:predicate];
-	
-	NSError *error = nil;
-	NSArray *result = [context executeFetchRequest:request error:&error];
-    
-	IdentityProvider *identityProvider = nil;
-	if (result != nil && [result count] == 1) {
-		identityProvider = result[0];
-	}
-	
-	return identityProvider;
-}
+#import "IdentityService.h"
+#import "SecretService.h"
+
+
+@interface ServiceContainer : NSObject
+
+@property (nonatomic, strong, readonly) IdentityService *identityService;
+@property (nonatomic, strong, readonly) SecretService *secretService;
+
++ (instancetype)sharedInstance;
 
 @end

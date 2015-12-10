@@ -32,11 +32,10 @@
 #import "AuthenticationFallbackViewController.h"
 #import "OCRAWrapper.h"
 #import "OCRAWrapper_v1.h"
-#import "SecretStore.h"
 #import "MBProgressHUD.h"
-#import "Identity+Utils.h"
 #import "ErrorViewController.h"
 #import "OCRAProtocol.h"
+#import "ServiceContainer.h"
 
 @interface AuthenticationPINViewController ()
 
@@ -68,23 +67,17 @@
 
 - (void)showFallback {
     AuthenticationFallbackViewController *viewController = [[AuthenticationFallbackViewController alloc] initWithAuthenticationChallenge:self.challenge response:self.response];
-    viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)authenticationConfirmationRequestDidFinish:(AuthenticationConfirmationRequest *)request {
-    if( ![self.challenge.identity upgradeWithPIN:self.PIN]) {
-        NSError *error = nil;
-        if (![self.managedObjectContext save:&error]) {
-            // Hmm, saving failed, but keychain has already been updated!
-            NSLog(@"Saving error after upgrade: %@", error);
-        }
-    };
+    if( ![ServiceContainer.sharedInstance.identityService upgradeIdentity:self.challenge.identity withPIN:self.PIN] ) {
+        [ServiceContainer.sharedInstance.identityService save];
+    }
     self.PIN = nil;
 
 	[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];    
     AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] initWithAuthenticationChallenge:self.challenge];
-    viewController.managedObjectContext = self.managedObjectContext;
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -104,7 +97,7 @@
         }
         case TIQRACRAccountBlockedError: {
             self.challenge.identity.blocked = @YES;
-            [self.managedObjectContext save:nil];
+            [ServiceContainer.sharedInstance.identityService save];
             UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
             [self.navigationController pushViewController:viewController animated:YES];
             break;
@@ -112,8 +105,8 @@
         case TIQRACRInvalidResponseError: {
             NSNumber *attemptsLeft = [error userInfo][TIQRACRAttemptsLeftErrorKey];
             if (attemptsLeft != nil && [attemptsLeft intValue] == 0) {
-                [Identity blockAllIdentitiesInManagedObjectContext:self.managedObjectContext];
-                [self.managedObjectContext save:nil];
+                [ServiceContainer.sharedInstance.identityService blockAllIdentities];
+                [ServiceContainer.sharedInstance.identityService save];
                 UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
                 [self.navigationController pushViewController:viewController animated:YES];
             } else {
@@ -130,8 +123,6 @@
 }
 
 - (NSString *)calculateOTPResponseForPIN:(NSString *)PIN {
-	SecretStore *store = [SecretStore secretStoreForIdentity:self.challenge.identity.identifier identityProvider:self.challenge.identityProvider.identifier];
-    
     NSObject<OCRAProtocol> *ocra;
     if (self.challenge.protocolVersion && [self.challenge.protocolVersion intValue] >= 2) {
         ocra = [[OCRAWrapper alloc] init];
@@ -140,7 +131,8 @@
     }
     
     NSError *error = nil;
-    NSString *response = [ocra generateOCRA:self.challenge.identityProvider.ocraSuite secret:[store secretForPIN:PIN salt:self.challenge.identity.salt initializationVector:self.challenge.identity.initializationVector] challenge:self.challenge.challenge sessionKey:self.challenge.sessionKey error:&error];
+    NSData *secret = [ServiceContainer.sharedInstance.secretService secretForIdentity:self.challenge.identity withPIN:PIN];
+    NSString *response = [ocra generateOCRA:self.challenge.identityProvider.ocraSuite secret:secret challenge:self.challenge.challenge sessionKey:self.challenge.sessionKey error:&error];
     if (response == nil) {
         [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
         UIViewController *viewController = [[ErrorViewController alloc] 

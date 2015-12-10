@@ -65,12 +65,11 @@ enum {
  * Doesn't allow local files.
  *
  * @param challenge  the raw challenge
- * @param context    the managed object context
  * @param allowFiles allow local files for the enrollment details?
  *
  * @return EnrollmentChallenge
  */
-- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context allowFiles:(BOOL)allowFiles NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithRawChallenge:(NSString *)challenge allowFiles:(BOOL)allowFiles NS_DESIGNATED_INITIALIZER;
 
 /**
  * Initialize the enrollment challenge handler.
@@ -78,11 +77,10 @@ enum {
  * Doesn't allow local files for the enrollment details
  *
  * @param challenge the raw challenge
- * @param context   the managed object context
  *
  * @return EnrollmentChallenge
  */
-- (instancetype)initWithRawChallenge:(NSString *)challenge managedObjectContext:(NSManagedObjectContext *)context;    
+- (instancetype)initWithRawChallenge:(NSString *)challenge;
 
 /**
  * Identity provider identifier.

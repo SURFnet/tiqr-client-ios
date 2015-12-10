@@ -36,6 +36,10 @@
 		C7B96C7E16FB0C89001EC65E /* Identity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4B0A134B28D00045AF62 /* Identity.m */; };
 		C7B96C8016FB0C8C001EC65E /* IdentityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4B0D134B28D10045AF62 /* IdentityProvider.m */; };
 		C7B96C8416FB0D28001EC65E /* Tiqr.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C7B96C8116FB0D28001EC65E /* Tiqr.xcdatamodeld */; };
+		CD02E29E1BF9E2C100509C3F /* NSString+DecodeURL.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E29D1BF9E2C100509C3F /* NSString+DecodeURL.m */; };
+		CD02E2A11BF9F21B00509C3F /* ServiceContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E2A01BF9F21B00509C3F /* ServiceContainer.m */; };
+		CD02E2A41BF9F34300509C3F /* IdentityService.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E2A31BF9F34300509C3F /* IdentityService.m */; };
+		CD02E2AB1BFB234000509C3F /* SecretService.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E2AA1BFB234000509C3F /* SecretService.m */; };
 		CD7BAB0D1BAAB87400B88393 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7BAB0C1BAAB87400B88393 /* images.xcassets */; };
 		CD7BAB101BAAE3F200B88393 /* TiqrNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */; };
 		CDBB08C01BAC3DB0008D8F94 /* TiqrToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */; };
@@ -50,7 +54,6 @@
 		D028BFA213092834002EA560 /* cowbell.wav in Resources */ = {isa = PBXBuildFile; fileRef = D028BF8613092834002EA560 /* cowbell.wav */; };
 		D028BFB813092834002EA560 /* IdentityListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D028BF9F13092834002EA560 /* IdentityListView.xib */; };
 		D028BFC41309288A002EA560 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D028BFC01309288A002EA560 /* Entitlements.plist */; };
-		D0352B6D128980D400184AD5 /* Identity+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D0352B6C128980D400184AD5 /* Identity+Utils.m */; };
 		D0352BEC12898A7D00184AD5 /* IdentityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0352BEB12898A7D00184AD5 /* IdentityTableViewCell.m */; };
 		D0524F4812784A050072C1BA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0524F4712784A050072C1BA /* AudioToolbox.framework */; };
 		D0627E77127F0899004CF8D4 /* Challenge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0627E76127F0899004CF8D4 /* Challenge.m */; };
@@ -68,10 +71,8 @@
 		D06F86BB1331ED2B00C2C6FF /* AuthenticationChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0627E7C127F08C0004CF8D4 /* AuthenticationChallenge.m */; };
 		D06F86BC1331ED3500C2C6FF /* EnrollmentChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0627E7F127F08D8004CF8D4 /* EnrollmentChallenge.m */; };
 		D06F86BD1331ED4F00C2C6FF /* Challenge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0627E76127F0899004CF8D4 /* Challenge.m */; };
-		D06F86BE1331ED5500C2C6FF /* Identity+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D0352B6C128980D400184AD5 /* Identity+Utils.m */; };
 		D06F86C41331EE5600C2C6FF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D06F86C31331EE5600C2C6FF /* CoreData.framework */; };
 		D076CEFF134F31C000FE762A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D076CF00134F31C000FE762A /* MainWindow.xib */; };
-		D088C7DE130BC60F006DE593 /* SecretStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F51625129A7A6E0013CF3A /* SecretStore.m */; };
 		D08BC9681344F6AF00F8D75B /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D08BC9671344F6AF00F8D75B /* ScanViewController.m */; };
 		D08C03261296A6450002849A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08C03251296A6450002849A /* Security.framework */; };
 		D08F5B2612785EAD00C63A3E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08F5B2512785EAD00C63A3E /* AVFoundation.framework */; };
@@ -84,7 +85,6 @@
 		D0A6F5CE1353356A000F9AE5 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D0A6F5CD1353356A000F9AE5 /* MBProgressHUD.m */; };
 		D0B889561282D7E3003A534D /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0B889541282D7E3003A534D /* StartViewController.m */; };
 		D0BE4AFD134B0A570045AF62 /* NSString+Verhoeff.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4AFC134B0A570045AF62 /* NSString+Verhoeff.m */; };
-		D0BE4B08134B14620045AF62 /* IdentityProvider+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4B07134B14620045AF62 /* IdentityProvider+Utils.m */; };
 		D0BE4B0B134B28D00045AF62 /* Identity.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4B0A134B28D00045AF62 /* Identity.m */; };
 		D0BE4B0E134B28D10045AF62 /* IdentityProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BE4B0D134B28D10045AF62 /* IdentityProvider.m */; };
 		D0C54577130B4065008B807B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -94,15 +94,14 @@
 		D0C54584130B4066008B807B /* SecretStoreTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D0C54583130B4066008B807B /* SecretStoreTests.m */; };
 		D0D7200315930AB4008C7004 /* start.html in Resources */ = {isa = PBXBuildFile; fileRef = D0D7200215930AB4008C7004 /* start.html */; };
 		D0E58D70134A149C00A79052 /* IdentityEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E58D6F134A149C00A79052 /* IdentityEditViewController.m */; };
-		D0EBBA7D134B664B00CAAB58 /* ErrorChildView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EBBA7C134B664B00CAAB58 /* ErrorChildView.xib */; };
-		D0EBBA7F134B669800CAAB58 /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EBBA7E134B669800CAAB58 /* ErrorView.xib */; };
+		D0EBBA7D134B664B00CAAB58 /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EBBA7C134B664B00CAAB58 /* ErrorView.xib */; };
+		D0EBBA7F134B669800CAAB58 /* ErrorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0EBBA7E134B669800CAAB58 /* ErrorViewController.xib */; };
 		D0EBBA83134B670300CAAB58 /* ErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EBBA82134B670300CAAB58 /* ErrorViewController.m */; };
 		D0EECF2F12781F72001D54F8 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EECF2D12781F72001D54F8 /* AboutViewController.m */; };
 		D0EECFA412782EFE001D54F8 /* AuthenticationIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EECFA212782EFE001D54F8 /* AuthenticationIdentityViewController.m */; };
 		D0EECFA912782F23001D54F8 /* AuthenticationConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EECFA712782F23001D54F8 /* AuthenticationConfirmViewController.m */; };
 		D0EECFAE12782F57001D54F8 /* IdentityListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EECFAC12782F57001D54F8 /* IdentityListViewController.m */; };
 		D0EECFBA127831FE001D54F8 /* EnrollmentConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EECFB8127831FE001D54F8 /* EnrollmentConfirmViewController.m */; };
-		D0F51626129A7A6E0013CF3A /* SecretStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D0F51625129A7A6E0013CF3A /* SecretStore.m */; };
 		D0FF34EA1309462C004096E1 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D0FF34E91309462C004096E1 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
@@ -155,6 +154,14 @@
 		C7B96C7A16FAB70F001EC65E /* OCRA_v1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCRA_v1.m; sourceTree = "<group>"; };
 		C7B96C8216FB0D28001EC65E /* Tiqr 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Tiqr 2.xcdatamodel"; sourceTree = "<group>"; };
 		C7B96C8316FB0D28001EC65E /* Tiqr.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tiqr.xcdatamodel; sourceTree = "<group>"; };
+		CD02E29C1BF9E2C100509C3F /* NSString+DecodeURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DecodeURL.h"; sourceTree = "<group>"; };
+		CD02E29D1BF9E2C100509C3F /* NSString+DecodeURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DecodeURL.m"; sourceTree = "<group>"; };
+		CD02E29F1BF9F21B00509C3F /* ServiceContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceContainer.h; sourceTree = "<group>"; };
+		CD02E2A01BF9F21B00509C3F /* ServiceContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceContainer.m; sourceTree = "<group>"; };
+		CD02E2A21BF9F34300509C3F /* IdentityService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityService.h; sourceTree = "<group>"; };
+		CD02E2A31BF9F34300509C3F /* IdentityService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityService.m; sourceTree = "<group>"; };
+		CD02E2A91BFB234000509C3F /* SecretService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecretService.h; sourceTree = "<group>"; };
+		CD02E2AA1BFB234000509C3F /* SecretService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecretService.m; sourceTree = "<group>"; };
 		CD7BAB0C1BAAB87400B88393 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrNavigationBar.h; sourceTree = "<group>"; };
 		CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrNavigationBar.m; sourceTree = "<group>"; };
@@ -162,21 +169,15 @@
 		CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrToolbar.m; sourceTree = "<group>"; };
 		D002E01E1349D29A00071321 /* ErrorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorController.h; sourceTree = "<group>"; };
 		D002E01F1349D29A00071321 /* ErrorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorController.m; sourceTree = "<group>"; };
-		D002E0211349D39C00071321 /* ErrorController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ErrorController-Protected.h"; sourceTree = "<group>"; };
-		D002E0221349EAF700071321 /* AuthenticationFallbackViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AuthenticationFallbackViewController-Protected.h"; sourceTree = "<group>"; };
 		D002E0261349F4D400071321 /* StartView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = StartView.xib; path = ../StartView.xib; sourceTree = "<group>"; };
 		D0047828130A916B00A06157 /* PINViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PINViewController.h; sourceTree = "<group>"; };
 		D00C694F1280482600F6CE43 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		D011A5241340C70E00E571A2 /* EnrollmentSummaryViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EnrollmentSummaryViewController-Protected.h"; sourceTree = "<group>"; };
 		D011A5251340CC2F00E571A2 /* EnrollmentConfirmationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnrollmentConfirmationRequest.h; sourceTree = "<group>"; };
 		D011A5261340CC3000E571A2 /* EnrollmentConfirmationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnrollmentConfirmationRequest.m; sourceTree = "<group>"; };
-		D011A5281340D47400E571A2 /* IdentityProvider+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IdentityProvider+Utils.h"; sourceTree = "<group>"; };
 		D011A52F1340DA7800E571A2 /* AuthenticationSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationSummaryViewController.h; sourceTree = "<group>"; };
 		D011A5301340DA7900E571A2 /* AuthenticationSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationSummaryViewController.m; sourceTree = "<group>"; };
 		D011A5321340FEBE00E571A2 /* AuthenticationConfirmationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationConfirmationRequest.h; sourceTree = "<group>"; };
 		D011A5331340FEC200E571A2 /* AuthenticationConfirmationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationConfirmationRequest.m; sourceTree = "<group>"; };
-		D011A5351341091700E571A2 /* AuthenticationConfirmViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AuthenticationConfirmViewController-Protected.h"; sourceTree = "<group>"; };
-		D011A5361341093600E571A2 /* AuthenticationSummaryViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AuthenticationSummaryViewController-Protected.h"; sourceTree = "<group>"; };
 		D0240CBB127EF62700EB07AD /* ScanOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanOverlayView.h; sourceTree = "<group>"; };
 		D0240CBC127EF62700EB07AD /* ScanOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanOverlayView.m; sourceTree = "<group>"; };
 		D025994513095F9B00F1DF9A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -185,8 +186,6 @@
 		D028BF9F13092834002EA560 /* IdentityListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IdentityListView.xib; sourceTree = "<group>"; };
 		D028BFC01309288A002EA560 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		D028BFC11309288A002EA560 /* Tiqr-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Tiqr-Info.plist"; sourceTree = "<group>"; };
-		D0352B6B128980D400184AD5 /* Identity+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Identity+Utils.h"; sourceTree = "<group>"; };
-		D0352B6C128980D400184AD5 /* Identity+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Identity+Utils.m"; sourceTree = "<group>"; };
 		D0352BEA12898A7D00184AD5 /* IdentityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityTableViewCell.h; sourceTree = "<group>"; };
 		D0352BEB12898A7D00184AD5 /* IdentityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityTableViewCell.m; sourceTree = "<group>"; };
 		D0524F4712784A050072C1BA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -199,7 +198,6 @@
 		D06AD58F134082ED0050D75C /* animals.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = animals.ttf; sourceTree = "<group>"; };
 		D06AD592134095690050D75C /* PINView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PINView.xib; sourceTree = "<group>"; };
 		D06AD593134096F00050D75C /* PINViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PINViewController.m; sourceTree = "<group>"; };
-		D06AD595134097E00050D75C /* PINViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PINViewController-Protected.h"; sourceTree = "<group>"; };
 		D06AD5961340A5D10050D75C /* AuthenticationPINViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationPINViewController.h; sourceTree = "<group>"; };
 		D06AD5971340A5D10050D75C /* AuthenticationPINViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationPINViewController.m; sourceTree = "<group>"; };
 		D06AD5991340A5FF0050D75C /* EnrollmentPINViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnrollmentPINViewController.h; sourceTree = "<group>"; };
@@ -208,15 +206,12 @@
 		D06AD59D1340A7CD0050D75C /* EnrollmentPINVerificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnrollmentPINVerificationViewController.m; sourceTree = "<group>"; };
 		D06AD59F1340AFF80050D75C /* EnrollmentSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnrollmentSummaryViewController.h; sourceTree = "<group>"; };
 		D06AD5A01340AFFA0050D75C /* EnrollmentSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnrollmentSummaryViewController.m; sourceTree = "<group>"; };
-		D06AD5A21340B4010050D75C /* EnrollmentConfirmViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EnrollmentConfirmViewController-Protected.h"; sourceTree = "<group>"; };
 		D06F86B71331EA5D00C2C6FF /* AuthenticationChallengeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationChallengeTests.h; sourceTree = "<group>"; };
 		D06F86B81331EA5D00C2C6FF /* AuthenticationChallengeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationChallengeTests.m; sourceTree = "<group>"; };
 		D06F86C31331EE5600C2C6FF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D076CF00134F31C000FE762A /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		D076CF2D134F5FD000FE762A /* StartViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "StartViewController-Protected.h"; sourceTree = "<group>"; };
 		D08BC9661344F6AF00F8D75B /* ScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
 		D08BC9671344F6AF00F8D75B /* ScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
-		D08BC96C134524AA00F8D75B /* ScanViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ScanViewController-Protected.h"; sourceTree = "<group>"; };
 		D08C03251296A6450002849A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		D08F5B2512785EAD00C63A3E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D08F5B3512785F5F00C63A3E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -234,7 +229,6 @@
 		D0B889541282D7E3003A534D /* StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartViewController.m; sourceTree = "<group>"; };
 		D0BE4AFB134B0A570045AF62 /* NSString+Verhoeff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Verhoeff.h"; sourceTree = "<group>"; };
 		D0BE4AFC134B0A570045AF62 /* NSString+Verhoeff.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Verhoeff.m"; sourceTree = "<group>"; };
-		D0BE4B07134B14620045AF62 /* IdentityProvider+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "IdentityProvider+Utils.m"; sourceTree = "<group>"; };
 		D0BE4B09134B28D00045AF62 /* Identity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Identity.h; sourceTree = "<group>"; };
 		D0BE4B0A134B28D00045AF62 /* Identity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Identity.m; sourceTree = "<group>"; };
 		D0BE4B0C134B28D10045AF62 /* IdentityProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityProvider.h; sourceTree = "<group>"; };
@@ -247,15 +241,10 @@
 		D0D7200215930AB4008C7004 /* start.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = start.html; sourceTree = "<group>"; };
 		D0E58D6E134A149B00A79052 /* IdentityEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityEditViewController.h; sourceTree = "<group>"; };
 		D0E58D6F134A149C00A79052 /* IdentityEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityEditViewController.m; sourceTree = "<group>"; };
-		D0E58D71134A14BC00A79052 /* IdentityEditViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "IdentityEditViewController-Protected.h"; sourceTree = "<group>"; };
-		D0EBBA7A134B61BD00CAAB58 /* AboutViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AboutViewController-Protected.h"; sourceTree = "<group>"; };
-		D0EBBA7C134B664B00CAAB58 /* ErrorChildView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorChildView.xib; sourceTree = "<group>"; };
-		D0EBBA7E134B669800CAAB58 /* ErrorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorView.xib; sourceTree = "<group>"; };
+		D0EBBA7C134B664B00CAAB58 /* ErrorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorView.xib; sourceTree = "<group>"; };
+		D0EBBA7E134B669800CAAB58 /* ErrorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorViewController.xib; sourceTree = "<group>"; };
 		D0EBBA81134B670300CAAB58 /* ErrorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorViewController.h; sourceTree = "<group>"; };
 		D0EBBA82134B670300CAAB58 /* ErrorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorViewController.m; sourceTree = "<group>"; };
-		D0EBBA84134B9F6300CAAB58 /* Challenge-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Challenge-Protected.h"; sourceTree = "<group>"; };
-		D0EBBA85134BA45700CAAB58 /* AuthenticationChallenge-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AuthenticationChallenge-Protected.h"; sourceTree = "<group>"; };
-		D0EBBA89134BA5AC00CAAB58 /* EnrollmentChallenge-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EnrollmentChallenge-Protected.h"; sourceTree = "<group>"; };
 		D0EECF2C12781F72001D54F8 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		D0EECF2D12781F72001D54F8 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		D0EECFA112782EFE001D54F8 /* AuthenticationIdentityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationIdentityViewController.h; sourceTree = "<group>"; };
@@ -266,9 +255,6 @@
 		D0EECFAC12782F57001D54F8 /* IdentityListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityListViewController.m; sourceTree = "<group>"; };
 		D0EECFB7127831FE001D54F8 /* EnrollmentConfirmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnrollmentConfirmViewController.h; sourceTree = "<group>"; };
 		D0EECFB8127831FE001D54F8 /* EnrollmentConfirmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnrollmentConfirmViewController.m; sourceTree = "<group>"; };
-		D0F51624129A7A6E0013CF3A /* SecretStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecretStore.h; sourceTree = "<group>"; };
-		D0F51625129A7A6E0013CF3A /* SecretStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecretStore.m; sourceTree = "<group>"; };
-		D0FA39D6134468B0001F8678 /* AuthenticationIdentityViewController-Protected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AuthenticationIdentityViewController-Protected.h"; sourceTree = "<group>"; };
 		D0FF34E91309462C004096E1 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -309,15 +295,11 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				D08F5AFC1278593D00C63A3E /* Common */,
-				D0EBBA80134B66EB00CAAB58 /* Error */,
-				D06BF5BE1339055F002A1083 /* Start */,
-				D06BF5BC1338F4BD002A1083 /* Scan */,
-				D0047827130A913100A06157 /* PIN */,
-				D0EECF1112781BB6001D54F8 /* Authentication */,
-				D0B5B351133B6EDA0076B372 /* Enrollment */,
-				D0EECF1212781BC2001D54F8 /* Identity */,
-				D0EECF1312781BF8001D54F8 /* About */,
+				D08F5AFC1278593D00C63A3E /* General */,
+				CD02E2A61BFA081F00509C3F /* Model */,
+				CD02E2A51BF9F9A500509C3F /* Services */,
+				CD02E2A71BFA082600509C3F /* Views */,
+				CD02E2A81BFA082D00509C3F /* Controllers */,
 				1D3623240D0F684500981E51 /* TiqrAppDelegate.h */,
 				1D3623250D0F684500981E51 /* TiqrAppDelegate.m */,
 			);
@@ -395,35 +377,68 @@
 			name = Algorithms;
 			sourceTree = "<group>";
 		};
-		D002E01A1349CE2A00071321 /* Common */ = {
+		CD02E2A51BF9F9A500509C3F /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				D0EBBA7C134B664B00CAAB58 /* ErrorChildView.xib */,
+				CD02E29F1BF9F21B00509C3F /* ServiceContainer.h */,
+				CD02E2A01BF9F21B00509C3F /* ServiceContainer.m */,
+				CD02E2A21BF9F34300509C3F /* IdentityService.h */,
+				CD02E2A31BF9F34300509C3F /* IdentityService.m */,
+				CD02E2A91BFB234000509C3F /* SecretService.h */,
+				CD02E2AA1BFB234000509C3F /* SecretService.m */,
 			);
-			name = Common;
+			name = Services;
 			sourceTree = "<group>";
 		};
-		D002E01D1349D28500071321 /* UI */ = {
+		CD02E2A61BFA081F00509C3F /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D002E01E1349D29A00071321 /* ErrorController.h */,
-				D002E0211349D39C00071321 /* ErrorController-Protected.h */,
-				D002E01F1349D29A00071321 /* ErrorController.m */,
+				D0EBBA86134BA52B00CAAB58 /* Authentication */,
+				D0EBBA87134BA54300CAAB58 /* Enrollment */,
+				D0BE4B09134B28D00045AF62 /* Identity.h */,
+				D0BE4B0A134B28D00045AF62 /* Identity.m */,
+				D0BE4B0C134B28D10045AF62 /* IdentityProvider.h */,
+				D0BE4B0D134B28D10045AF62 /* IdentityProvider.m */,
+				D0627E75127F0899004CF8D4 /* Challenge.h */,
+				D0627E76127F0899004CF8D4 /* Challenge.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		CD02E2A71BFA082600509C3F /* Views */ = {
+			isa = PBXGroup;
+			children = (
 				D0352BEA12898A7D00184AD5 /* IdentityTableViewCell.h */,
 				D0352BEB12898A7D00184AD5 /* IdentityTableViewCell.m */,
 				CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */,
 				CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */,
 				CDBB08BE1BAC3DB0008D8F94 /* TiqrToolbar.h */,
 				CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */,
+				D0240CBB127EF62700EB07AD /* ScanOverlayView.h */,
+				D0240CBC127EF62700EB07AD /* ScanOverlayView.m */,
 			);
-			name = UI;
+			name = Views;
+			sourceTree = "<group>";
+		};
+		CD02E2A81BFA082D00509C3F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D0EBBA80134B66EB00CAAB58 /* Error */,
+				D06BF5BE1339055F002A1083 /* Start */,
+				D06BF5BC1338F4BD002A1083 /* Scan */,
+				D0047827130A913100A06157 /* PIN */,
+				D0EECF1112781BB6001D54F8 /* Authentication */,
+				D0B5B351133B6EDA0076B372 /* Enrollment */,
+				D0EECF1212781BC2001D54F8 /* Identity */,
+				D0EECF1312781BF8001D54F8 /* About */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		D0047827130A913100A06157 /* PIN */ = {
 			isa = PBXGroup;
 			children = (
 				D0047828130A916B00A06157 /* PINViewController.h */,
-				D06AD595134097E00050D75C /* PINViewController-Protected.h */,
 				D06AD593134096F00050D75C /* PINViewController.m */,
 			);
 			name = PIN;
@@ -489,7 +504,6 @@
 		D028BF9613092834002EA560 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D002E01A1349CE2A00071321 /* Common */,
 				D0EBBA7B134B65DA00CAAB58 /* Error */,
 				D0FED31C130967A400B96681 /* Start */,
 				D08BC9691345228400F8D75B /* Scan */,
@@ -552,10 +566,7 @@
 			isa = PBXGroup;
 			children = (
 				D08BC9661344F6AF00F8D75B /* ScanViewController.h */,
-				D08BC96C134524AA00F8D75B /* ScanViewController-Protected.h */,
 				D08BC9671344F6AF00F8D75B /* ScanViewController.m */,
-				D0240CBB127EF62700EB07AD /* ScanOverlayView.h */,
-				D0240CBC127EF62700EB07AD /* ScanOverlayView.m */,
 			);
 			name = Scan;
 			sourceTree = "<group>";
@@ -564,25 +575,9 @@
 			isa = PBXGroup;
 			children = (
 				D0B889531282D7E3003A534D /* StartViewController.h */,
-				D076CF2D134F5FD000FE762A /* StartViewController-Protected.h */,
 				D0B889541282D7E3003A534D /* StartViewController.m */,
 			);
 			name = Start;
-			sourceTree = "<group>";
-		};
-		D086D315129FB408002003B4 /* Core Data */ = {
-			isa = PBXGroup;
-			children = (
-				D0BE4B09134B28D00045AF62 /* Identity.h */,
-				D0BE4B0A134B28D00045AF62 /* Identity.m */,
-				D0BE4B0C134B28D10045AF62 /* IdentityProvider.h */,
-				D0BE4B0D134B28D10045AF62 /* IdentityProvider.m */,
-				D0352B6B128980D400184AD5 /* Identity+Utils.h */,
-				D0352B6C128980D400184AD5 /* Identity+Utils.m */,
-				D011A5281340D47400E571A2 /* IdentityProvider+Utils.h */,
-				D0BE4B07134B14620045AF62 /* IdentityProvider+Utils.m */,
-			);
-			name = "Core Data";
 			sourceTree = "<group>";
 		};
 		D08BC9691345228400F8D75B /* Scan */ = {
@@ -593,17 +588,13 @@
 			name = Scan;
 			sourceTree = "<group>";
 		};
-		D08F5AFC1278593D00C63A3E /* Common */ = {
+		D08F5AFC1278593D00C63A3E /* General */ = {
 			isa = PBXGroup;
 			children = (
 				D0EBBA88134BA58D00CAAB58 /* Misc */,
-				D086D315129FB408002003B4 /* Core Data */,
 				922F08411289ABBD00A33616 /* Algorithms */,
-				D0EBBA86134BA52B00CAAB58 /* Authentication */,
-				D0EBBA87134BA54300CAAB58 /* Enrollment */,
-				D002E01D1349D28500071321 /* UI */,
 			);
-			name = Common;
+			name = General;
 			sourceTree = "<group>";
 		};
 		D0A6F5CB1353354F000F9AE5 /* MBProgressHUD */ = {
@@ -619,14 +610,12 @@
 			isa = PBXGroup;
 			children = (
 				D0EECFB7127831FE001D54F8 /* EnrollmentConfirmViewController.h */,
-				D06AD5A21340B4010050D75C /* EnrollmentConfirmViewController-Protected.h */,
 				D0EECFB8127831FE001D54F8 /* EnrollmentConfirmViewController.m */,
 				D06AD5991340A5FF0050D75C /* EnrollmentPINViewController.h */,
 				D06AD59A1340A5FF0050D75C /* EnrollmentPINViewController.m */,
 				D06AD59C1340A7CC0050D75C /* EnrollmentPINVerificationViewController.h */,
 				D06AD59D1340A7CD0050D75C /* EnrollmentPINVerificationViewController.m */,
 				D06AD59F1340AFF80050D75C /* EnrollmentSummaryViewController.h */,
-				D011A5241340C70E00E571A2 /* EnrollmentSummaryViewController-Protected.h */,
 				D06AD5A01340AFFA0050D75C /* EnrollmentSummaryViewController.m */,
 			);
 			name = Enrollment;
@@ -678,7 +667,8 @@
 		D0EBBA7B134B65DA00CAAB58 /* Error */ = {
 			isa = PBXGroup;
 			children = (
-				D0EBBA7E134B669800CAAB58 /* ErrorView.xib */,
+				D0EBBA7C134B664B00CAAB58 /* ErrorView.xib */,
+				D0EBBA7E134B669800CAAB58 /* ErrorViewController.xib */,
 			);
 			name = Error;
 			sourceTree = "<group>";
@@ -686,6 +676,8 @@
 		D0EBBA80134B66EB00CAAB58 /* Error */ = {
 			isa = PBXGroup;
 			children = (
+				D002E01E1349D29A00071321 /* ErrorController.h */,
+				D002E01F1349D29A00071321 /* ErrorController.m */,
 				D0EBBA81134B670300CAAB58 /* ErrorViewController.h */,
 				D0EBBA82134B670300CAAB58 /* ErrorViewController.m */,
 			);
@@ -696,7 +688,6 @@
 			isa = PBXGroup;
 			children = (
 				D0627E7B127F08C0004CF8D4 /* AuthenticationChallenge.h */,
-				D0EBBA85134BA45700CAAB58 /* AuthenticationChallenge-Protected.h */,
 				D0627E7C127F08C0004CF8D4 /* AuthenticationChallenge.m */,
 				D011A5321340FEBE00E571A2 /* AuthenticationConfirmationRequest.h */,
 				D011A5331340FEC200E571A2 /* AuthenticationConfirmationRequest.m */,
@@ -708,7 +699,6 @@
 			isa = PBXGroup;
 			children = (
 				D0627E7E127F08D8004CF8D4 /* EnrollmentChallenge.h */,
-				D0EBBA89134BA5AC00CAAB58 /* EnrollmentChallenge-Protected.h */,
 				D0627E7F127F08D8004CF8D4 /* EnrollmentChallenge.m */,
 				D011A5251340CC2F00E571A2 /* EnrollmentConfirmationRequest.h */,
 				D011A5261340CC3000E571A2 /* EnrollmentConfirmationRequest.m */,
@@ -719,15 +709,12 @@
 		D0EBBA88134BA58D00CAAB58 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				D0627E75127F0899004CF8D4 /* Challenge.h */,
-				D0EBBA84134B9F6300CAAB58 /* Challenge-Protected.h */,
-				D0627E76127F0899004CF8D4 /* Challenge.m */,
-				D0F51624129A7A6E0013CF3A /* SecretStore.h */,
-				D0F51625129A7A6E0013CF3A /* SecretStore.m */,
 				D0914434129BDC2E00C796AA /* NotificationRegistration.h */,
 				D0914435129BDC2E00C796AA /* NotificationRegistration.m */,
 				D0914437129BF47300C796AA /* NSData+Hex.h */,
 				D0914438129BF47300C796AA /* NSData+Hex.m */,
+				CD02E29C1BF9E2C100509C3F /* NSString+DecodeURL.h */,
+				CD02E29D1BF9E2C100509C3F /* NSString+DecodeURL.m */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -736,18 +723,14 @@
 			isa = PBXGroup;
 			children = (
 				D0EECFA112782EFE001D54F8 /* AuthenticationIdentityViewController.h */,
-				D0FA39D6134468B0001F8678 /* AuthenticationIdentityViewController-Protected.h */,
 				D0EECFA212782EFE001D54F8 /* AuthenticationIdentityViewController.m */,
 				D0EECFA612782F23001D54F8 /* AuthenticationConfirmViewController.h */,
-				D011A5351341091700E571A2 /* AuthenticationConfirmViewController-Protected.h */,
 				D0EECFA712782F23001D54F8 /* AuthenticationConfirmViewController.m */,
 				D06AD5961340A5D10050D75C /* AuthenticationPINViewController.h */,
 				D06AD5971340A5D10050D75C /* AuthenticationPINViewController.m */,
 				924D6C5D13094DEC00F87B96 /* AuthenticationFallbackViewController.h */,
-				D002E0221349EAF700071321 /* AuthenticationFallbackViewController-Protected.h */,
 				924D6C5E13094DEC00F87B96 /* AuthenticationFallbackViewController.m */,
 				D011A52F1340DA7800E571A2 /* AuthenticationSummaryViewController.h */,
-				D011A5361341093600E571A2 /* AuthenticationSummaryViewController-Protected.h */,
 				D011A5301340DA7900E571A2 /* AuthenticationSummaryViewController.m */,
 			);
 			name = Authentication;
@@ -759,7 +742,6 @@
 				D0EECFAB12782F57001D54F8 /* IdentityListViewController.h */,
 				D0EECFAC12782F57001D54F8 /* IdentityListViewController.m */,
 				D0E58D6E134A149B00A79052 /* IdentityEditViewController.h */,
-				D0E58D71134A14BC00A79052 /* IdentityEditViewController-Protected.h */,
 				D0E58D6F134A149C00A79052 /* IdentityEditViewController.m */,
 			);
 			name = Identity;
@@ -769,7 +751,6 @@
 			isa = PBXGroup;
 			children = (
 				D0EECF2C12781F72001D54F8 /* AboutViewController.h */,
-				D0EBBA7A134B61BD00CAAB58 /* AboutViewController-Protected.h */,
 				D0EECF2D12781F72001D54F8 /* AboutViewController.m */,
 			);
 			name = About;
@@ -829,7 +810,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0640;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = Egeniq;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Tiqr" */;
@@ -879,8 +860,8 @@
 				D025994413095F9B00F1DF9A /* Localizable.strings in Resources */,
 				D06AD591134095690050D75C /* PINView.xib in Resources */,
 				D06AD590134082ED0050D75C /* animals.ttf in Resources */,
-				D0EBBA7D134B664B00CAAB58 /* ErrorChildView.xib in Resources */,
-				D0EBBA7F134B669800CAAB58 /* ErrorView.xib in Resources */,
+				D0EBBA7D134B664B00CAAB58 /* ErrorView.xib in Resources */,
+				D0EBBA7F134B669800CAAB58 /* ErrorViewController.xib in Resources */,
 				76A195AD155BBEF500A73D2D /* ScanView.xib in Resources */,
 				76A195AF155BC0C800A73D2D /* AuthenticationSummaryView.xib in Resources */,
 				76A195B1155BC27200A73D2D /* AuthenticationIdentityView.xib in Resources */,
@@ -928,27 +909,29 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.mm in Sources */,
+				CD02E29E1BF9E2C100509C3F /* NSString+DecodeURL.m in Sources */,
 				1D3623260D0F684500981E51 /* TiqrAppDelegate.m in Sources */,
 				D0EECF2F12781F72001D54F8 /* AboutViewController.m in Sources */,
 				D0EECFA412782EFE001D54F8 /* AuthenticationIdentityViewController.m in Sources */,
 				D0EECFA912782F23001D54F8 /* AuthenticationConfirmViewController.m in Sources */,
 				D0EECFAE12782F57001D54F8 /* IdentityListViewController.m in Sources */,
 				D0EECFBA127831FE001D54F8 /* EnrollmentConfirmViewController.m in Sources */,
+				CD02E2A41BF9F34300509C3F /* IdentityService.m in Sources */,
 				D0240CBD127EF62700EB07AD /* ScanOverlayView.m in Sources */,
 				D0627E77127F0899004CF8D4 /* Challenge.m in Sources */,
 				D0627E7D127F08C0004CF8D4 /* AuthenticationChallenge.m in Sources */,
 				D0627E80127F08D8004CF8D4 /* EnrollmentChallenge.m in Sources */,
+				CD02E2AB1BFB234000509C3F /* SecretService.m in Sources */,
 				D0B889561282D7E3003A534D /* StartViewController.m in Sources */,
-				D0352B6D128980D400184AD5 /* Identity+Utils.m in Sources */,
 				D0352BEC12898A7D00184AD5 /* IdentityTableViewCell.m in Sources */,
 				922F08441289ABE700A33616 /* HOTP.m in Sources */,
 				922F08471289ABFE00A33616 /* OCRAWrapper.m in Sources */,
-				D0F51626129A7A6E0013CF3A /* SecretStore.m in Sources */,
 				D0914436129BDC2E00C796AA /* NotificationRegistration.m in Sources */,
 				D0914439129BF47300C796AA /* NSData+Hex.m in Sources */,
 				924D6C5F13094DEC00F87B96 /* AuthenticationFallbackViewController.m in Sources */,
 				924D6E3D130958A400F87B96 /* Reachability.m in Sources */,
 				92B92DE6132E1DD0004F390D /* OCRA.m in Sources */,
+				CD02E2A11BF9F21B00509C3F /* ServiceContainer.m in Sources */,
 				D06AD594134096F00050D75C /* PINViewController.m in Sources */,
 				D06AD5981340A5D10050D75C /* AuthenticationPINViewController.m in Sources */,
 				D06AD59B1340A5FF0050D75C /* EnrollmentPINViewController.m in Sources */,
@@ -963,7 +946,6 @@
 				CDBB08C01BAC3DB0008D8F94 /* TiqrToolbar.m in Sources */,
 				D0E58D70134A149C00A79052 /* IdentityEditViewController.m in Sources */,
 				D0BE4AFD134B0A570045AF62 /* NSString+Verhoeff.m in Sources */,
-				D0BE4B08134B14620045AF62 /* IdentityProvider+Utils.m in Sources */,
 				D0BE4B0B134B28D00045AF62 /* Identity.m in Sources */,
 				D0BE4B0E134B28D10045AF62 /* IdentityProvider.m in Sources */,
 				D0EBBA83134B670300CAAB58 /* ErrorViewController.m in Sources */,
@@ -978,7 +960,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D088C7DE130BC60F006DE593 /* SecretStore.m in Sources */,
 				D0C54584130B4066008B807B /* SecretStoreTests.m in Sources */,
 				92B92DE3132E114E004F390D /* OcraTests.m in Sources */,
 				92B92DE7132E34CD004F390D /* OCRAWrapper.m in Sources */,
@@ -987,7 +968,6 @@
 				D06F86BB1331ED2B00C2C6FF /* AuthenticationChallenge.m in Sources */,
 				D06F86BC1331ED3500C2C6FF /* EnrollmentChallenge.m in Sources */,
 				D06F86BD1331ED4F00C2C6FF /* Challenge.m in Sources */,
-				D06F86BE1331ED5500C2C6FF /* Identity+Utils.m in Sources */,
 				D09D79A813334F8700F3F0F6 /* EnrollmentChallengeTests.m in Sources */,
 				C7B96C7E16FB0C89001EC65E /* Identity.m in Sources */,
 				C7B96C8016FB0C8C001EC65E /* IdentityProvider.m in Sources */,
@@ -1026,6 +1006,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/General/Entitlements.plist;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -1042,6 +1023,7 @@
 				INFOPLIST_FILE = "Resources/General/Tiqr-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = org.example.tiqr;
 				PRODUCT_NAME = Example;
 			};
 			name = Debug;
@@ -1052,6 +1034,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/General/Entitlements.plist;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1066,6 +1049,7 @@
 				INFOPLIST_FILE = "Resources/General/Tiqr-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = org.example.tiqr;
 				PRODUCT_NAME = Example;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1083,6 +1067,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_THUMB_SUPPORT = NO;
@@ -1164,6 +1149,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/General/Entitlements.plist;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1178,6 +1164,7 @@
 				INFOPLIST_FILE = "Resources/General/Tiqr-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = org.example.tiqr;
 				PRODUCT_NAME = Example;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1205,6 +1192,7 @@
 					"-framework",
 					SenTestingKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.surfnet.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1230,6 +1218,7 @@
 					"-framework",
 					SenTestingKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.surfnet.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -1255,6 +1244,7 @@
 					"-framework",
 					SenTestingKit,
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "nl.surfnet.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};

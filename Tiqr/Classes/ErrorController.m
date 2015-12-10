@@ -28,14 +28,22 @@
  */
 
 #import "ErrorController.h"
-#import "ErrorController-Protected.h"
+
+@interface ErrorController ()
+
+@property (nonatomic, strong) IBOutlet UIView *view;
+@property (nonatomic, strong) IBOutlet UILabel *titleLabel;
+@property (nonatomic, strong) IBOutlet UILabel *messageLabel;
+
+@end
+
 
 @implementation ErrorController
 
 - (instancetype)init {
     self = [super init];
     if (self != nil) {
-        UINib *nib = [UINib nibWithNibName:@"ErrorChildView" bundle:nil];
+        UINib *nib = [UINib nibWithNibName:@"ErrorView" bundle:nil];
         [nib instantiateWithOwner:self options:nil];
     }
     

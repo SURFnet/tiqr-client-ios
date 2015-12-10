@@ -27,13 +27,24 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "Challenge-Protected.h"
 #import "AuthenticationChallenge.h"
-#import "AuthenticationChallenge-Protected.h"
-#import "IdentityProvider+Utils.h"
-#import "Identity+Utils.h"
+#import "NSString+DecodeURL.h"
+#import "ServiceContainer.h"
 
 NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
+
+@interface AuthenticationChallenge ()
+
+@property (nonatomic, strong) IdentityProvider *identityProvider;
+@property (nonatomic, strong) NSArray *identities;
+@property (nonatomic, copy) NSString *serviceProviderIdentifier;
+@property (nonatomic, copy) NSString *serviceProviderDisplayName;
+@property (nonatomic, copy) NSString *sessionKey;
+@property (nonatomic, copy) NSString *challenge;
+@property (nonatomic, copy) NSString *returnUrl;
+@property (nonatomic, copy) NSString *protocolVersion;
+
+@end
 
 @implementation AuthenticationChallenge
 
@@ -41,6 +52,8 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
     NSString *scheme = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TIQRAuthenticationURLScheme"]; 
     
 	NSURL *url = [NSURL URLWithString:self.rawChallenge];
+    
+    IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
         
 	if (url == nil || ![url.scheme isEqualToString:scheme] || [url.pathComponents count] < 3) {
         NSString *errorTitle = NSLocalizedString(@"error_auth_invalid_qr_code", @"Invalid QR tag title");
@@ -50,7 +63,7 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 		return;
 	}
 
-	IdentityProvider *identityProvider = [IdentityProvider findIdentityProviderWithIdentifier:url.host inManagedObjectContext:self.managedObjectContext];
+	IdentityProvider *identityProvider = [identityService findIdentityProviderWithIdentifier:url.host];
 	if (identityProvider == nil) {
         NSString *errorTitle = NSLocalizedString(@"error_auth_unknown_identity", @"No account title");
         NSString *errorMessage = NSLocalizedString(@"error_auth_no_identities_for_identity_provider", @"No account message");
@@ -60,7 +73,7 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 	}
 	
 	if (url.user != nil) {
-		Identity *identity = [Identity findIdentityWithIdentifier:url.user forIdentityProvider:identityProvider inManagedObjectContext:self.managedObjectContext];
+		Identity *identity = [identityService findIdentityWithIdentifier:url.user forIdentityProvider:identityProvider];
 		if (identity == nil) {
             NSString *errorTitle = NSLocalizedString(@"error_auth_invalid_account", @"Unknown account title");
             NSString *errorMessage = NSLocalizedString(@"error_auth_invalid_account_message", @"Unknown account message");
@@ -72,7 +85,7 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 		self.identities = @[identity];
 		self.identity = identity;
 	} else {
-		NSArray *identities = [Identity findIdentitiesForIdentityProvider:identityProvider inManagedObjectContext:self.managedObjectContext];
+        NSArray *identities = [identityService findIdentitiesForIdentityProvider:identityProvider];
 		if (identities == nil || [identities count] == 0) {
             NSString *errorTitle = NSLocalizedString(@"error_auth_invalid_account", @"No account title");
             NSString *errorMessage = NSLocalizedString(@"error_auth_invalid_account_message", @"No account message");
@@ -111,8 +124,8 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
     NSString *regex = @"^http(s)?://.*";
     NSPredicate *protocolPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     
-    if (url.query != nil && [url.query length] > 0 && [protocolPredicate evaluateWithObject:[self decodeURL:url.query]] == YES) {
-        self.returnUrl = [self decodeURL:url.query];
+    if (url.query != nil && [url.query length] > 0 && [protocolPredicate evaluateWithObject:url.query.decodedURL] == YES) {
+        self.returnUrl = url.query.decodedURL;
     } else {
         self.returnUrl = nil;
     }
