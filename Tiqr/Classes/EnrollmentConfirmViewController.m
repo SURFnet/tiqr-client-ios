@@ -125,7 +125,7 @@
     if (![self storeProviderAndIdentity]) {
         NSString *errorTitle = NSLocalizedString(@"error_enroll_failed_to_store_identity_title", @"Account cannot be saved title");
         NSString *errorMessage = NSLocalizedString(@"error_enroll_failed_to_store_identity", @"Account cannot be saved message");
-        UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:errorTitle errorMessage:errorMessage];
+        UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:errorTitle errorMessage:errorMessage];
         [self.navigationController pushViewController:viewController animated:YES];
         return;
     }
@@ -141,7 +141,7 @@
         } else {
             NSString *errorTitle = NSLocalizedString(@"error_enroll_failed_to_store_identity_title", @"Account cannot be saved title");
             NSString *errorMessage = NSLocalizedString(@"error_enroll_failed_to_generate_secret", @"Failed to generate identity secret. Please contact support.");
-            UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:errorTitle errorMessage:errorMessage];
+            UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:errorTitle errorMessage:errorMessage];
             [self.navigationController pushViewController:viewController animated:YES];
         }
     }];
@@ -162,7 +162,7 @@
     [self deleteIdentity];
     [self deleteSecret];
     
-    UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
+    UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

@@ -32,12 +32,14 @@
 
 #import "IdentityService.h"
 #import "SecretService.h"
+#import "ChallengeService.h"
 
 
 @interface ServiceContainer : NSObject
 
 @property (nonatomic, strong, readonly) IdentityService *identityService;
 @property (nonatomic, strong, readonly) SecretService *secretService;
+@property (nonatomic, strong, readonly) ChallengeService *challengeService;
 
 + (instancetype)sharedInstance;
 

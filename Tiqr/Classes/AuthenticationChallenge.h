@@ -52,9 +52,7 @@ enum {
  * available containing the identity provider, identity (or multiple identities
  * if more than one identity matches), session key etc.
  */
-@interface AuthenticationChallenge : Challenge {
-	
-}
+@interface AuthenticationChallenge : NSObject
 
 /**
  * Identity provider.
@@ -100,5 +98,7 @@ enum {
  * The prefered protocol version the the challenge requires
  */
 @property (nonatomic, copy, readonly) NSString *protocolVersion;
+
++ (AuthenticationChallenge *)challengeWithChallengeString:(NSString *)challengeString error:(NSError **)error;
 
 @end

@@ -34,6 +34,7 @@
 
 @property (nonatomic, strong) IdentityService *identityService;
 @property (nonatomic, strong) SecretService *secretService;
+@property (nonatomic, strong) ChallengeService *challengeService;
 
 @end
 
@@ -45,6 +46,7 @@
     if (self = [super init]) {
         self.identityService = [[IdentityService alloc] init];
         self.secretService = [[SecretService alloc] init];
+        self.challengeService = [[ChallengeService alloc] init];
     }
     
     return self;

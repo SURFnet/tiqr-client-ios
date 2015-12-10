@@ -163,13 +163,9 @@
     [UIView commitAnimations];
     
     // now, in a selector, call the delegate to give this overlay time to show the points
-    [self performSelector:@selector(didScanResult:) withObject:metadataObject.stringValue afterDelay:1.0];
+    [self performSelector:@selector(processChallenge:) withObject:metadataObject.stringValue afterDelay:1.0];
     [self setMixableAudioShouldDuckActive:YES];
 	[self.audioPlayer play];
-}
-
-- (void)didScanResult:(NSString *)result {
-    [self processChallenge:result];
 }
 
 #pragma mark - 
@@ -225,65 +221,49 @@
 }
 
 
-- (void)pushViewControllerForChallenge:(Challenge *)challenge {
+- (void)pushViewControllerForChallengeType:(TIQRChallengeType) type {
     UIViewController *viewController = nil;
-    if ([challenge isKindOfClass:[AuthenticationChallenge class]]) {
-        AuthenticationChallenge *authenticationChallenge = (AuthenticationChallenge *)challenge;
-        if (authenticationChallenge.identity == nil) {
-            AuthenticationIdentityViewController *identityViewController = [[AuthenticationIdentityViewController alloc] initWithAuthenticationChallenge:authenticationChallenge];
-            viewController = identityViewController;
-        } else {
-            AuthenticationConfirmViewController *confirmViewController = [[AuthenticationConfirmViewController alloc] initWithAuthenticationChallenge:authenticationChallenge];
+    
+    ChallengeService *challengeService = ServiceContainer.sharedInstance.challengeService;
+    
+    switch (type) {
+        case TIQRChallengeTypeAuthentication: {
+            if (challengeService.currentAuthenticationChallenge.identity == nil) {
+                AuthenticationIdentityViewController *identityViewController = [[AuthenticationIdentityViewController alloc] init];
+                viewController = identityViewController;
+            } else {
+                AuthenticationConfirmViewController *confirmViewController = [[AuthenticationConfirmViewController alloc] init];
+                viewController = confirmViewController;
+            }
+        } break;
+            
+        case TIQRChallengeTypeEnrollment: {
+            EnrollmentConfirmViewController *confirmViewController = [[EnrollmentConfirmViewController alloc] init];
             viewController = confirmViewController;
-        } 
-    } else {
-        EnrollmentChallenge *enrollmentChallenge = (EnrollmentChallenge *)challenge;
-        EnrollmentConfirmViewController *confirmViewController = [[EnrollmentConfirmViewController alloc] initWithEnrollmentChallenge:enrollmentChallenge];
-        viewController = confirmViewController;
+        }
+            
+        default:
+            break;
     }
     
     [self.navigationController pushViewController:viewController animated:YES];
-    
 }
 
 - (void)processChallenge:(NSString *)scanResult {
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		dispatch_async(dispatch_get_main_queue(), ^{
-			[MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-		});
+    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
+    [ServiceContainer.sharedInstance.challengeService startChallengeFromScanResult:scanResult completionHandler:^(TIQRChallengeType type, NSError *error) {
         
-        Challenge *challenge = nil;
-        NSString *errorTitle = nil;
-        NSString *errorMessage = nil;
+        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
         
-        NSString *authenticationScheme = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TIQRAuthenticationURLScheme"]; 
-        NSString *enrollmentScheme = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TIQREnrollmentURLScheme"]; 
-        
-        NSURL *url = [NSURL URLWithString:scanResult];
-        if (url != nil && [url.scheme isEqualToString:authenticationScheme]) {
-            challenge = [[AuthenticationChallenge alloc] initWithRawChallenge:scanResult];
-            errorTitle = challenge.isValid ? nil : [challenge.error localizedDescription];        
-            errorMessage = challenge.isValid ? nil : [challenge.error localizedFailureReason];                
-        } else if (url != nil && [url.scheme isEqualToString:enrollmentScheme]) {
-            challenge = [[EnrollmentChallenge alloc] initWithRawChallenge:scanResult];
-            errorTitle = challenge.isValid ? nil : [challenge.error localizedDescription];        
-            errorMessage = challenge.isValid ? nil : [challenge.error localizedFailureReason];                
+        if (type != TIQRChallengeTypeInvalid) {
+            [self pushViewControllerForChallengeType:type];
         } else {
-            errorTitle = NSLocalizedString(@"error_auth_invalid_qr_code", @"Invalid QR tag title");
-            errorMessage = NSLocalizedString(@"error_auth_invalid_challenge_message", @"Unable to interpret the scanned QR tag. Please try again. If the problem persists, please contact the website adminstrator");
-        }        
+            ErrorViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:error.localizedDescription errorMessage:error.localizedFailureReason];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
         
-		dispatch_async(dispatch_get_main_queue(), ^{
-			[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-            
-            if (challenge != nil && errorTitle == nil) {
-                [self pushViewControllerForChallenge:challenge];
-            } else {
-                ErrorViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:errorTitle errorMessage:errorMessage];
-                [self.navigationController pushViewController:viewController animated:YES];
-            }            
-		});
-	});    
+    }];
 }
 
 - (void)listIdentities {

@@ -43,8 +43,6 @@
 
 @interface TiqrAppDelegate ()
 
-- (BOOL)handleAuthenticationChallenge:(NSString *)rawChallenge;
-- (BOOL)handleEnrollmentChallenge:(NSString *)rawChallenge;
 @property (nonatomic, readonly, copy) NSURL *applicationDocumentsDirectory;
 
 @end
@@ -73,7 +71,8 @@
 
 	NSDictionary *info = [launchOptions valueForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
 	if (info != nil) {
-		return [self handleAuthenticationChallenge:[info valueForKey:@"challenge"]];
+        [self startChallenge:[info valueForKey:@"challenge"]];
+        return YES;
 	}
     
     #if !TARGET_IPHONE_SIMULATOR
@@ -122,64 +121,49 @@
 #pragma mark -
 #pragma mark Authentication / enrollment challenge
 
-- (BOOL)handleAuthenticationChallenge:(NSString *)rawChallenge {
-    UIViewController *firstViewController = self.navigationController.viewControllers[[self.navigationController.viewControllers count] > 1 ? 1 : 0];
-    [self.navigationController popToViewController:firstViewController animated:NO];
-	
-	AuthenticationChallenge *challenge = [[AuthenticationChallenge alloc] initWithRawChallenge:rawChallenge];
-	if (!challenge.isValid) {
-        NSError *error = challenge.error;
-        NSString *title = NSLocalizedString(@"login_title", @"Login navigation title");        
-        ErrorViewController *viewController = [[ErrorViewController alloc] initWithTitle:title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
-        [self.navigationController pushViewController:viewController animated:NO];
-		return NO;
-	}
-	
-	UIViewController *viewController = nil;
-	if (challenge.identity != nil) {
-		viewController = [[AuthenticationConfirmViewController alloc] initWithAuthenticationChallenge:challenge];
-	} else {
-		viewController = [[AuthenticationIdentityViewController alloc] initWithAuthenticationChallenge:challenge];
-	}	
-	
-	[self.navigationController pushViewController:viewController animated:NO];
-	
-    return YES;		
-}
-
-- (BOOL)handleEnrollmentChallenge:(NSString *)rawChallenge {
+- (void)startChallenge: (NSString *)rawChallenge  {
     UIViewController *firstViewController = self.navigationController.viewControllers[[self.navigationController.viewControllers count] > 1 ? 1 : 0];
     [self.navigationController popToViewController:firstViewController animated:NO];
     
-	EnrollmentChallenge *challenge = [[EnrollmentChallenge alloc] initWithRawChallenge:rawChallenge];
-	if (!challenge.isValid) {
-        NSError *error = challenge.error;
-        NSString *title = NSLocalizedString(@"enrollment_confirmation_header_title", @"Account activation title");        
-        ErrorViewController *viewController = [[ErrorViewController alloc] initWithTitle:title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
-        [self.navigationController pushViewController:viewController animated:NO];
-		return NO;
-	}
-	
-	UIViewController *viewController = [[EnrollmentConfirmViewController alloc] initWithEnrollmentChallenge:challenge];
-	[self.navigationController pushViewController:viewController animated:NO];
-	
-    return YES;	
+    ChallengeService *challengeService = ServiceContainer.sharedInstance.challengeService;
+    
+    [challengeService startChallengeFromScanResult:rawChallenge completionHandler:^(TIQRChallengeType type, NSError *error) {
+        if (!error) {
+            switch (type) {
+                case TIQRChallengeTypeAuthentication: {
+                    UIViewController *viewController = nil;
+                    
+                    if (challengeService.currentAuthenticationChallenge.identity != nil) {
+                        viewController = [[AuthenticationConfirmViewController alloc] initWithAuthenticationChallenge:challengeService.currentAuthenticationChallenge];
+                    } else {
+                        viewController = [[AuthenticationIdentityViewController alloc] initWithAuthenticationChallenge:challengeService.currentAuthenticationChallenge];
+                    }
+                    
+                    [self.navigationController pushViewController:viewController animated:NO];
+                } break;
+                    
+                case TIQRChallengeTypeEnrollment: {
+                    EnrollmentConfirmViewController *enrollmentConfirmViewController = [[EnrollmentConfirmViewController alloc] initWithEnrollmentChallenge:challengeService.currentEnrollmentChallenge];
+                    [self.navigationController pushViewController:enrollmentConfirmViewController animated:NO];
+                } break;
+                    
+                default: break;
+            }
+        } else {
+            ErrorViewController *errorViewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
+            [self.navigationController pushViewController:errorViewController animated:NO];
+        }
+    }];
+
 }
 
 #pragma mark -
 #pragma mark Handle open URL
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    NSString *authenticationScheme = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TIQRAuthenticationURLScheme"]; 
-    NSString *enrollmentScheme = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TIQREnrollmentURLScheme"]; 
-    
-	if ([url.scheme isEqualToString:authenticationScheme]) {
-		return [self handleAuthenticationChallenge:[url description]];
-	} else if ([url.scheme isEqualToString:enrollmentScheme]) {
-		return [self handleEnrollmentChallenge:[url description]];
-	} else {
-		return NO;
-	}
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
+    [self startChallenge:[url description]];
+
+    return YES;
 }
 
 #pragma mark -
@@ -198,7 +182,7 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)info {
-	[self handleAuthenticationChallenge:[info valueForKey:@"challenge"]];
+	[self startChallenge:[info valueForKey:@"challenge"]];
 } 
 
 #pragma mark - 

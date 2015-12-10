@@ -148,14 +148,14 @@
             [self showFallback];
             break;
         case TIQRACRAccountBlockedErrorTemporary: {
-            UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
+            UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
             [self.navigationController pushViewController:viewController animated:YES];
             break;
         }
         case TIQRACRAccountBlockedError: {
             self.challenge.identity.blocked = @YES;
             [ServiceContainer.sharedInstance.identityService saveIdentities];
-            UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
+            UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
             [self.navigationController pushViewController:viewController animated:YES];
             break;
         }
@@ -164,7 +164,7 @@
             if (attemptsLeft != nil && [attemptsLeft intValue] == 0) {
                 [ServiceContainer.sharedInstance.identityService blockAllIdentities];
                 [ServiceContainer.sharedInstance.identityService saveIdentities];
-                UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
+                UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
                 [self.navigationController pushViewController:viewController animated:YES];
             } else {
 //                [self clear];
@@ -173,7 +173,7 @@
             break;
         }
         default: {
-            UIViewController *viewController = [[ErrorViewController alloc] initWithTitle:self.title errorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
+            UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
             [self.navigationController pushViewController:viewController animated:YES];
         }
     }
@@ -202,8 +202,7 @@
     if (response == nil) {
         [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
         UIViewController *viewController = [[ErrorViewController alloc]
-                                            initWithTitle:@"Error"
-                                            errorTitle:[error localizedDescription]
+                                            initWithErrorTitle:[error localizedDescription]
                                             errorMessage:[error localizedFailureReason]];
         [self.navigationController pushViewController:viewController animated:YES];
     }

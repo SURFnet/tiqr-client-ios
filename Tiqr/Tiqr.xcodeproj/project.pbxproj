@@ -41,6 +41,7 @@
 		CD02E2A41BF9F34300509C3F /* IdentityService.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E2A31BF9F34300509C3F /* IdentityService.m */; };
 		CD02E2AB1BFB234000509C3F /* SecretService.m in Sources */ = {isa = PBXBuildFile; fileRef = CD02E2AA1BFB234000509C3F /* SecretService.m */; };
 		CD51EF6D1BFE0BC50032C9A2 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD51EF6C1BFE0BC50032C9A2 /* LocalAuthentication.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		CD688F4F1C035FCE006FF469 /* ChallengeService.m in Sources */ = {isa = PBXBuildFile; fileRef = CD688F4E1C035FCE006FF469 /* ChallengeService.m */; };
 		CD7BAB0D1BAAB87400B88393 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7BAB0C1BAAB87400B88393 /* images.xcassets */; };
 		CD7BAB101BAAE3F200B88393 /* TiqrNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */; };
 		CDBB08C01BAC3DB0008D8F94 /* TiqrToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */; };
@@ -57,7 +58,6 @@
 		D028BFC41309288A002EA560 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = D028BFC01309288A002EA560 /* Entitlements.plist */; };
 		D0352BEC12898A7D00184AD5 /* IdentityTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0352BEB12898A7D00184AD5 /* IdentityTableViewCell.m */; };
 		D0524F4812784A050072C1BA /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0524F4712784A050072C1BA /* AudioToolbox.framework */; };
-		D0627E77127F0899004CF8D4 /* Challenge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0627E76127F0899004CF8D4 /* Challenge.m */; };
 		D0627E7D127F08C0004CF8D4 /* AuthenticationChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0627E7C127F08C0004CF8D4 /* AuthenticationChallenge.m */; };
 		D0627E80127F08D8004CF8D4 /* EnrollmentChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0627E7F127F08D8004CF8D4 /* EnrollmentChallenge.m */; };
 		D062B2FD130B4908004F28AE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D08C03251296A6450002849A /* Security.framework */; };
@@ -71,7 +71,6 @@
 		D06F86B91331EA5D00C2C6FF /* AuthenticationChallengeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D06F86B81331EA5D00C2C6FF /* AuthenticationChallengeTests.m */; };
 		D06F86BB1331ED2B00C2C6FF /* AuthenticationChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0627E7C127F08C0004CF8D4 /* AuthenticationChallenge.m */; };
 		D06F86BC1331ED3500C2C6FF /* EnrollmentChallenge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0627E7F127F08D8004CF8D4 /* EnrollmentChallenge.m */; };
-		D06F86BD1331ED4F00C2C6FF /* Challenge.m in Sources */ = {isa = PBXBuildFile; fileRef = D0627E76127F0899004CF8D4 /* Challenge.m */; };
 		D06F86C41331EE5600C2C6FF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D06F86C31331EE5600C2C6FF /* CoreData.framework */; };
 		D076CEFF134F31C000FE762A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D076CF00134F31C000FE762A /* MainWindow.xib */; };
 		D08BC9681344F6AF00F8D75B /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D08BC9671344F6AF00F8D75B /* ScanViewController.m */; };
@@ -165,6 +164,8 @@
 		CD02E2AA1BFB234000509C3F /* SecretService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecretService.m; sourceTree = "<group>"; };
 		CD51EF6C1BFE0BC50032C9A2 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		CD51EF6E1BFF1BB40032C9A2 /* Tiqr 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Tiqr 3.xcdatamodel"; sourceTree = "<group>"; };
+		CD688F4D1C035FCE006FF469 /* ChallengeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeService.h; sourceTree = "<group>"; };
+		CD688F4E1C035FCE006FF469 /* ChallengeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeService.m; sourceTree = "<group>"; };
 		CD7BAB0C1BAAB87400B88393 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrNavigationBar.h; sourceTree = "<group>"; };
 		CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrNavigationBar.m; sourceTree = "<group>"; };
@@ -192,8 +193,6 @@
 		D0352BEA12898A7D00184AD5 /* IdentityTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityTableViewCell.h; sourceTree = "<group>"; };
 		D0352BEB12898A7D00184AD5 /* IdentityTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityTableViewCell.m; sourceTree = "<group>"; };
 		D0524F4712784A050072C1BA /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		D0627E75127F0899004CF8D4 /* Challenge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Challenge.h; sourceTree = "<group>"; };
-		D0627E76127F0899004CF8D4 /* Challenge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Challenge.m; sourceTree = "<group>"; };
 		D0627E7B127F08C0004CF8D4 /* AuthenticationChallenge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationChallenge.h; sourceTree = "<group>"; };
 		D0627E7C127F08C0004CF8D4 /* AuthenticationChallenge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationChallenge.m; sourceTree = "<group>"; };
 		D0627E7E127F08D8004CF8D4 /* EnrollmentChallenge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnrollmentChallenge.h; sourceTree = "<group>"; };
@@ -391,6 +390,8 @@
 				CD02E2A31BF9F34300509C3F /* IdentityService.m */,
 				CD02E2A91BFB234000509C3F /* SecretService.h */,
 				CD02E2AA1BFB234000509C3F /* SecretService.m */,
+				CD688F4D1C035FCE006FF469 /* ChallengeService.h */,
+				CD688F4E1C035FCE006FF469 /* ChallengeService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -404,8 +405,6 @@
 				D0BE4B0A134B28D00045AF62 /* Identity.m */,
 				D0BE4B0C134B28D10045AF62 /* IdentityProvider.h */,
 				D0BE4B0D134B28D10045AF62 /* IdentityProvider.m */,
-				D0627E75127F0899004CF8D4 /* Challenge.h */,
-				D0627E76127F0899004CF8D4 /* Challenge.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -923,7 +922,6 @@
 				D0EECFBA127831FE001D54F8 /* EnrollmentConfirmViewController.m in Sources */,
 				CD02E2A41BF9F34300509C3F /* IdentityService.m in Sources */,
 				D0240CBD127EF62700EB07AD /* ScanOverlayView.m in Sources */,
-				D0627E77127F0899004CF8D4 /* Challenge.m in Sources */,
 				D0627E7D127F08C0004CF8D4 /* AuthenticationChallenge.m in Sources */,
 				D0627E80127F08D8004CF8D4 /* EnrollmentChallenge.m in Sources */,
 				CD02E2AB1BFB234000509C3F /* SecretService.m in Sources */,
@@ -942,6 +940,7 @@
 				D06AD59B1340A5FF0050D75C /* EnrollmentPINViewController.m in Sources */,
 				D06AD59E1340A7CF0050D75C /* EnrollmentPINVerificationViewController.m in Sources */,
 				D06AD5A11340AFFF0050D75C /* EnrollmentSummaryViewController.m in Sources */,
+				CD688F4F1C035FCE006FF469 /* ChallengeService.m in Sources */,
 				CD7BAB101BAAE3F200B88393 /* TiqrNavigationBar.m in Sources */,
 				D011A5271340CC3000E571A2 /* EnrollmentConfirmationRequest.m in Sources */,
 				D011A5311340DA7900E571A2 /* AuthenticationSummaryViewController.m in Sources */,
@@ -972,7 +971,6 @@
 				D06F86B91331EA5D00C2C6FF /* AuthenticationChallengeTests.m in Sources */,
 				D06F86BB1331ED2B00C2C6FF /* AuthenticationChallenge.m in Sources */,
 				D06F86BC1331ED3500C2C6FF /* EnrollmentChallenge.m in Sources */,
-				D06F86BD1331ED4F00C2C6FF /* Challenge.m in Sources */,
 				D09D79A813334F8700F3F0F6 /* EnrollmentChallengeTests.m in Sources */,
 				C7B96C7E16FB0C89001EC65E /* Identity.m in Sources */,
 				C7B96C8016FB0C8C001EC65E /* IdentityProvider.m in Sources */,
