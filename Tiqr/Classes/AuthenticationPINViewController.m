@@ -47,10 +47,10 @@
 
 @implementation AuthenticationPINViewController
 
-- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
+- (instancetype)init {
     self = [super init];
     if (self != nil) {
-        self.challenge = challenge;
+        self.challenge = ServiceContainer.sharedInstance.challengeService.currentAuthenticationChallenge;
         self.delegate = self;
     }
 	
@@ -66,7 +66,7 @@
 }
 
 - (void)showFallback {
-    AuthenticationFallbackViewController *viewController = [[AuthenticationFallbackViewController alloc] initWithAuthenticationChallenge:self.challenge response:self.response];
+    AuthenticationFallbackViewController *viewController = [[AuthenticationFallbackViewController alloc] initWithResponse:self.response];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -76,7 +76,7 @@
     self.PIN = nil;
 
 	[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];    
-    AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] initWithAuthenticationChallenge:self.challenge];
+    AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] init];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

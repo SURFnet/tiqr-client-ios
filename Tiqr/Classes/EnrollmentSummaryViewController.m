@@ -29,6 +29,7 @@
 
 #import "EnrollmentSummaryViewController.h"
 #import "TiqrAppDelegate.h"
+#import "ServiceContainer.h"
 
 @interface EnrollmentSummaryViewController ()
 
@@ -48,10 +49,10 @@
 
 @implementation EnrollmentSummaryViewController
 
-- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
+- (instancetype)init {
     self = [super initWithNibName:@"EnrollmentSummaryView" bundle:nil];
 	if (self != nil) {
-		self.challenge = challenge;
+		self.challenge = ServiceContainer.sharedInstance.challengeService.currentEnrollmentChallenge;
 	}
 	
 	return self;

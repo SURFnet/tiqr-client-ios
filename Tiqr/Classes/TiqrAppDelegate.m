@@ -134,16 +134,16 @@
                     UIViewController *viewController = nil;
                     
                     if (challengeService.currentAuthenticationChallenge.identity != nil) {
-                        viewController = [[AuthenticationConfirmViewController alloc] initWithAuthenticationChallenge:challengeService.currentAuthenticationChallenge];
+                        viewController = [[AuthenticationConfirmViewController alloc] init];
                     } else {
-                        viewController = [[AuthenticationIdentityViewController alloc] initWithAuthenticationChallenge:challengeService.currentAuthenticationChallenge];
+                        viewController = [[AuthenticationIdentityViewController alloc] init];
                     }
                     
                     [self.navigationController pushViewController:viewController animated:NO];
                 } break;
                     
                 case TIQRChallengeTypeEnrollment: {
-                    EnrollmentConfirmViewController *enrollmentConfirmViewController = [[EnrollmentConfirmViewController alloc] initWithEnrollmentChallenge:challengeService.currentEnrollmentChallenge];
+                    EnrollmentConfirmViewController *enrollmentConfirmViewController = [[EnrollmentConfirmViewController alloc] init];
                     [self.navigationController pushViewController:enrollmentConfirmViewController animated:NO];
                 } break;
                     

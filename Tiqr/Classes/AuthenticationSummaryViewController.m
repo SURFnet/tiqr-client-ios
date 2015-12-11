@@ -29,6 +29,7 @@
 
 #import "AuthenticationSummaryViewController.h"
 #import "TiqrAppDelegate.h"
+#import "ServiceContainer.h"
 
 @interface AuthenticationSummaryViewController ()
 
@@ -49,10 +50,10 @@
 
 @implementation AuthenticationSummaryViewController
 
-- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
+- (instancetype)init {
     self = [super initWithNibName:@"AuthenticationSummaryView" bundle:nil];
 	if (self != nil) {
-		self.challenge = challenge;
+		self.challenge = ServiceContainer.sharedInstance.challengeService.currentAuthenticationChallenge;
 	}
 	
 	return self;

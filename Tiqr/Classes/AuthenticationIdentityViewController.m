@@ -31,6 +31,7 @@
 #import "AuthenticationConfirmViewController.h"
 #import "Identity.h"
 #import "IdentityTableViewCell.h"
+#import "ServiceContainer.h"
 
 @interface AuthenticationIdentityViewController ()
 
@@ -42,10 +43,10 @@
 
 @implementation AuthenticationIdentityViewController
 
-- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
+- (instancetype)init {
     self = [super initWithNibName:@"AuthenticationIdentityView" bundle:nil];
 	if (self != nil) {
-		self.challenge = challenge;
+		self.challenge = ServiceContainer.sharedInstance.challengeService.currentAuthenticationChallenge;
 	}
 	
 	return self;
@@ -95,7 +96,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	self.challenge.identity = self.challenge.identities[indexPath.row];
-    AuthenticationConfirmViewController *viewController = [[AuthenticationConfirmViewController alloc] initWithAuthenticationChallenge:self.challenge];
+    AuthenticationConfirmViewController *viewController = [[AuthenticationConfirmViewController alloc] init];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 

@@ -29,6 +29,7 @@
 
 #import "EnrollmentPINViewController.h"
 #import "EnrollmentPINVerificationViewController.h"
+#import "ServiceContainer.h"
 
 @interface EnrollmentPINViewController ()
 
@@ -38,10 +39,10 @@
 
 @implementation EnrollmentPINViewController
 
-- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
+- (instancetype)init {
     self = [super init];
     if (self != nil) {
-        self.challenge = challenge;
+        self.challenge = ServiceContainer.sharedInstance.challengeService.currentEnrollmentChallenge;;
         self.delegate = self;
     }
 	
@@ -58,7 +59,7 @@
 }
 
 - (void)PINViewController:(PINViewController *)pinViewController didFinishWithPIN:(NSString *)PIN {
-    EnrollmentPINVerificationViewController *viewController = [[EnrollmentPINVerificationViewController alloc] initWithEnrollmentChallenge:self.challenge PIN:PIN];
+    EnrollmentPINVerificationViewController *viewController = [[EnrollmentPINVerificationViewController alloc] initWithPIN:PIN];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

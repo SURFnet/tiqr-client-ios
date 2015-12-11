@@ -47,23 +47,10 @@ enum {
     TIQRECRConnectionError = 201
 };
 
-@class EnrollmentConfirmationRequest;
 
-@protocol EnrollmentConfirmationRequestDelegate <NSObject>
-
-@required
-- (void)enrollmentConfirmationRequestDidFinish:(EnrollmentConfirmationRequest *)request;
-- (void)enrollmentConfirmationRequest:(EnrollmentConfirmationRequest *)request didFailWithError:(NSError *)error;
-
-@end
-
-@interface EnrollmentConfirmationRequest : NSObject {
-    
-}
-
-@property (nonatomic, weak) id<EnrollmentConfirmationRequestDelegate> delegate;
+@interface EnrollmentConfirmationRequest : NSObject
 
 - (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge;
-- (void)send;
+- (void)sendWithCompletionHandler:(void(^)(BOOL success, NSError *error))completionHandler;
 
 @end

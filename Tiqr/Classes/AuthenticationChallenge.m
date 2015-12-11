@@ -48,6 +48,14 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
 
 @implementation AuthenticationChallenge
 
++ (BOOL)applyError:(NSError *)error toError:(NSError **)otherError {
+    if (otherError != NULL) {
+        *otherError = error;
+    }
+    
+    return YES;
+}
+
 + (AuthenticationChallenge *)challengeWithChallengeString:(NSString *)challengeString error:(NSError **)error {
     
     NSString *scheme = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TIQRAuthenticationURLScheme"]; 
@@ -63,7 +71,7 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
         NSString *errorMessage = NSLocalizedString(@"error_auth_invalid_challenge_message", @"Invalid QR tag message");
         NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
         [NSError errorWithDomain:TIQRACErrorDomain code:TIQRACInvalidQRTagError userInfo:details];
-		*error = [NSError errorWithDomain:TIQRACErrorDomain code:TIQRACInvalidQRTagError userInfo:details];
+        [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACInvalidQRTagError userInfo:details] toError:error];
         return nil;
 	}
 
@@ -72,7 +80,7 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
         NSString *errorTitle = NSLocalizedString(@"error_auth_unknown_identity", @"No account title");
         NSString *errorMessage = NSLocalizedString(@"error_auth_no_identities_for_identity_provider", @"No account message");
         NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
-		*error = [NSError errorWithDomain:TIQRACErrorDomain code:TIQRACUnknownIdentityProviderError userInfo:details];
+        [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACUnknownIdentityProviderError userInfo:details] toError:error];
         return nil;
 	}
 	
@@ -82,7 +90,7 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
             NSString *errorTitle = NSLocalizedString(@"error_auth_invalid_account", @"Unknown account title");
             NSString *errorMessage = NSLocalizedString(@"error_auth_invalid_account_message", @"Unknown account message");
             NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
-            *error = [NSError errorWithDomain:TIQRACErrorDomain code:TIQRACUnknownIdentityError userInfo:details];
+            [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACUnknownIdentityError userInfo:details] toError:error];
             return nil;
 		}
 		
@@ -94,7 +102,8 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
             NSString *errorTitle = NSLocalizedString(@"error_auth_invalid_account", @"No account title");
             NSString *errorMessage = NSLocalizedString(@"error_auth_invalid_account_message", @"No account message");
             NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
-            *error = [NSError errorWithDomain:TIQRACErrorDomain code:TIQRACZeroIdentitiesForIdentityProviderError userInfo:details];
+            
+            [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACZeroIdentitiesForIdentityProviderError userInfo:details] toError:error];
             return nil;
 		}
 		
@@ -106,7 +115,8 @@ NSString *const TIQRACErrorDomain = @"org.tiqr.ac";
         NSString *errorTitle = NSLocalizedString(@"error_auth_account_blocked_title", @"Account blocked title");
         NSString *errorMessage = NSLocalizedString(@"error_auth_account_blocked_message", @"Account blocked message");
         NSDictionary *details = @{NSLocalizedDescriptionKey: errorTitle, NSLocalizedFailureReasonErrorKey: errorMessage};
-        *error = [NSError errorWithDomain:TIQRACErrorDomain code:TIQRACIdentityBlockedError userInfo:details];
+        
+        [self applyError:[NSError errorWithDomain:TIQRACErrorDomain code:TIQRACIdentityBlockedError userInfo:details] toError:error];
         return nil;
     }
     

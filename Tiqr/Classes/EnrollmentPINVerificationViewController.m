@@ -45,10 +45,10 @@
 
 @implementation EnrollmentPINVerificationViewController
 
-- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge PIN:(NSString *)PIN {
+- (instancetype)initWithPIN:(NSString *)PIN {
     self = [super init];
     if (self != nil) {
-        self.challenge = challenge;
+        self.challenge = ServiceContainer.sharedInstance.challengeService.currentEnrollmentChallenge;
         self.PIN = PIN;
         self.delegate = self;        
     }
@@ -65,79 +65,6 @@
     self.pinNotes = NSLocalizedString(@"remember_pincode_notice", @"Remember your PIN, it cannot be changed!");
 }
 
-- (BOOL)storeProviderAndIdentity {
-    IdentityService *identityService = ServiceContainer.sharedInstance.identityService;
-    SecretService *secretService = ServiceContainer.sharedInstance.secretService;
-	
-	IdentityProvider *identityProvider = self.challenge.identityProvider;
-	if (identityProvider == nil) {
-		identityProvider = [identityService createIdentityProvider];
-		identityProvider.identifier = self.challenge.identityProviderIdentifier;
-		identityProvider.displayName = self.challenge.identityProviderDisplayName;
-		identityProvider.authenticationUrl = self.challenge.identityProviderAuthenticationUrl;
-        identityProvider.infoUrl = self.challenge.identityProviderInfoUrl;
-        identityProvider.ocraSuite = self.challenge.identityProviderOcraSuite;
-		identityProvider.logo = self.challenge.identityProviderLogo;
-  	}
-	
-	Identity *identity = self.challenge.identity;
-    if (identity == nil) {
-        identity = [identityService createIdentity];
-        identity.identifier = self.challenge.identityIdentifier;
-        identity.sortIndex = [NSNumber numberWithInteger:identityService.maxSortIndex + 1];
-        identity.identityProvider = identityProvider;
-        identity.salt = [secretService generateSecret];
-    }
-    
-	identity.displayName = self.challenge.identityDisplayName;
-	
-	if ([identityService saveIdentities]) {
-        self.challenge.identity = identity;
-        self.challenge.identityProvider = identityProvider;
-        return YES;
-	} else {
-		[identityService rollbackIdentities];
-		return NO;			
-    }
-}
-
-- (void)deleteIdentity {
-    if (![self.challenge.identity.blocked boolValue]) {
-        [ServiceContainer.sharedInstance.identityService deleteIdentity:self.challenge.identity];
-        [ServiceContainer.sharedInstance.identityService saveIdentities];
-    }
-}
-
-- (BOOL)storeSecret {
-    return [ServiceContainer.sharedInstance.secretService setSecret:self.challenge.identitySecret
-                                                        forIdentity:self.challenge.identity
-                                                            withPIN:self.challenge.identityPIN];
-}
-
-- (void)deleteSecret {
-    [ServiceContainer.sharedInstance.secretService deleteSecretForIdentityIdentifier:self.challenge.identityIdentifier
-                                                                  providerIdentifier:self.challenge.identityProviderIdentifier];
-}
-
-- (void)enrollmentConfirmationRequestDidFinish:(EnrollmentConfirmationRequest *)request {
-	[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];    
-    
-    self.challenge.identity.blocked = @NO;
-    [ServiceContainer.sharedInstance.identityService saveIdentities];
-    
-    EnrollmentSummaryViewController *viewController = [[EnrollmentSummaryViewController alloc] initWithEnrollmentChallenge:self.challenge];
-    [self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (void)enrollmentConfirmationRequest:(EnrollmentConfirmationRequest *)request didFailWithError:(NSError *)error {
-	[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];    
-    [self deleteIdentity];
-    [self deleteSecret];
-
-    UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
-    [self.navigationController pushViewController:viewController animated:YES];
-}
-
 - (void)PINViewController:(PINViewController *)viewController didFinishWithPIN:(NSString *)PIN {
     if (![PIN isEqualToString:self.PIN]) {
         [self clear];
@@ -147,30 +74,22 @@
         [self.view endEditing:YES];
         return;
     }
-
-	self.challenge.identitySecret = [ServiceContainer.sharedInstance.secretService generateSecret];
-	self.challenge.identityPIN = PIN;
     
-    if (![self storeProviderAndIdentity]) {
-        NSString *errorTitle = NSLocalizedString(@"error_enroll_failed_to_store_identity_title", @"Account cannot be saved title");
-        NSString *errorMessage = NSLocalizedString(@"error_enroll_failed_to_store_identity", @"Account cannot be saved message");
-        UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:errorTitle errorMessage:errorMessage];
-        [self.navigationController pushViewController:viewController animated:YES];
-        return;
-    }
+    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
-    if (![self storeSecret]) {
-        NSString *errorTitle = NSLocalizedString(@"error_enroll_failed_to_store_identity_title", @"Account cannot be saved title");
-        NSString *errorMessage = NSLocalizedString(@"error_enroll_failed_to_generate_secret", @"Failed to generate identity secret. Please contact support.");
-        UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:errorTitle errorMessage:errorMessage];
-        [self.navigationController pushViewController:viewController animated:YES];
-        return;
-    }
-    
-	[MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];        
-    EnrollmentConfirmationRequest *request = [[EnrollmentConfirmationRequest alloc] initWithEnrollmentChallenge:self.challenge];
-    request.delegate = self;
-    [request send];
+    [ServiceContainer.sharedInstance.challengeService completeEnrollmentChallengeUsingTouchID:NO withPIN:PIN completionHandler:^(BOOL succes, NSError *error) {
+        
+        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+        
+        if (succes) {
+            EnrollmentSummaryViewController *viewController = [[EnrollmentSummaryViewController alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else {
+            UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+        
+    }];
 }
 
 

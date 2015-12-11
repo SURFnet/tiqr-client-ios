@@ -29,6 +29,7 @@
 
 #import "AuthenticationFallbackViewController.h"
 #import "TiqrAppDelegate.h"
+#import "ServiceContainer.h"
 
 @interface AuthenticationFallbackViewController ()
 
@@ -47,10 +48,10 @@
 
 @implementation AuthenticationFallbackViewController
 
-- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response {
+- (instancetype)initWithResponse:(NSString *)response {
     self = [super initWithNibName:@"AuthenticationFallbackView" bundle:nil];   
 	if (self != nil) {
-		self.challenge = challenge;
+		self.challenge = ServiceContainer.sharedInstance.challengeService.currentAuthenticationChallenge;
         self.response = response;
 	}
 	

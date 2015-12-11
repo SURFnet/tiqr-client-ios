@@ -58,10 +58,10 @@
 
 @implementation AuthenticationConfirmViewController
 
-- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
+- (instancetype)init {
     self = [super initWithNibName:@"AuthenticationConfirmView" bundle:nil];
 	if (self != nil) {
-		self.challenge = challenge;
+		self.challenge = ServiceContainer.sharedInstance.challengeService.currentAuthenticationChallenge;
 	}
 	
 	return self;
@@ -135,7 +135,7 @@
 
     
     [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-    AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] initWithAuthenticationChallenge:self.challenge];
+    AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] init];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -180,12 +180,12 @@
 }
 
 - (IBAction)ok {
-    AuthenticationPINViewController *viewController = [[AuthenticationPINViewController alloc] initWithAuthenticationChallenge:self.challenge];
+    AuthenticationPINViewController *viewController = [[AuthenticationPINViewController alloc] init];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)showFallback {
-    AuthenticationFallbackViewController *viewController = [[AuthenticationFallbackViewController alloc] initWithAuthenticationChallenge:self.challenge response:self.response];
+    AuthenticationFallbackViewController *viewController = [[AuthenticationFallbackViewController alloc] initWithResponse:self.response];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

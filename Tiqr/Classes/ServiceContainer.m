@@ -46,7 +46,7 @@
     if (self = [super init]) {
         self.identityService = [[IdentityService alloc] init];
         self.secretService = [[SecretService alloc] init];
-        self.challengeService = [[ChallengeService alloc] init];
+        self.challengeService = [[ChallengeService alloc] initWithSecretService:self.secretService identityService:self.identityService];
     }
     
     return self;
