@@ -40,7 +40,6 @@
 @interface AuthenticationPINViewController ()
 
 @property (nonatomic, strong) AuthenticationChallenge *challenge;
-@property (nonatomic, copy) NSString *response;
 @property (nonatomic, copy) NSString *PIN;
 
 @end
@@ -51,7 +50,6 @@
     self = [super init];
     if (self != nil) {
         self.challenge = ServiceContainer.sharedInstance.challengeService.currentAuthenticationChallenge;
-        self.delegate = self;
     }
 	
 	return self;
@@ -65,95 +63,66 @@
     self.pinDescription = NSLocalizedString(@"enter_four_digit_pin", @"You need to enter your 4-digit PIN to login.");
 }
 
-- (void)showFallback {
-    AuthenticationFallbackViewController *viewController = [[AuthenticationFallbackViewController alloc] initWithResponse:self.response];
-    [self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (void)authenticationConfirmationRequestDidFinish:(AuthenticationConfirmationRequest *)request {
-    [ServiceContainer.sharedInstance.identityService upgradeIdentity:self.challenge.identity withPIN:self.PIN];
-    
-    self.PIN = nil;
-
-	[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];    
-    AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] init];
-    [self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (void)authenticationConfirmationRequest:(AuthenticationConfirmationRequest *)request didFailWithError:(NSError *)error {
-    self.PIN = nil;
-
-	[MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-    
-    switch ([error code]) {
-        case TIQRACRConnectionError:
-            [self showFallback];
-            break;
-        case TIQRACRAccountBlockedErrorTemporary: {
-            UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
-            [self.navigationController pushViewController:viewController animated:YES];
-            break;
-        }
-        case TIQRACRAccountBlockedError: {
-            self.challenge.identity.blocked = @YES;
-            [ServiceContainer.sharedInstance.identityService saveIdentities];
-            UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
-            [self.navigationController pushViewController:viewController animated:YES];
-            break;
-        }            
-        case TIQRACRInvalidResponseError: {
-            NSNumber *attemptsLeft = [error userInfo][TIQRACRAttemptsLeftErrorKey];
-            if (attemptsLeft != nil && [attemptsLeft intValue] == 0) {
-                [ServiceContainer.sharedInstance.identityService blockAllIdentities];
-                [ServiceContainer.sharedInstance.identityService saveIdentities];
-                UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
-                [self.navigationController pushViewController:viewController animated:YES];
-            } else {
-                [self clear];
-                [self showErrorWithTitle:[error localizedDescription] message:[error localizedFailureReason]];
-            }
-            break;
-        }
-        default: {
-            UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
-            [self.navigationController pushViewController:viewController animated:YES];
-        }
-    }
-}
-
-- (NSString *)calculateOTPResponseForPIN:(NSString *)PIN {
-    NSObject<OCRAProtocol> *ocra;
-    if (self.challenge.protocolVersion && [self.challenge.protocolVersion intValue] >= 2) {
-        ocra = [[OCRAWrapper alloc] init];
-    } else {
-        ocra = [[OCRAWrapper_v1 alloc] init];
-    }
-    
-    NSError *error = nil;
-    NSData *secret = [ServiceContainer.sharedInstance.secretService secretForIdentity:self.challenge.identity withPIN:PIN];
-    NSString *response = [ocra generateOCRA:self.challenge.identityProvider.ocraSuite secret:secret challenge:self.challenge.challenge sessionKey:self.challenge.sessionKey error:&error];
-    if (response == nil) {
-        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-        UIViewController *viewController = [[ErrorViewController alloc] 
-                                            initWithErrorTitle:[error localizedDescription]
-                                            errorMessage:[error localizedFailureReason]];
-        [self.navigationController pushViewController:viewController animated:YES];
-    }
-
-    return response;
-}
-
 - (void)PINViewController:(PINViewController *)pinViewController didFinishWithPIN:(NSString *)PIN {
-    self.response = [self calculateOTPResponseForPIN:PIN];
-    if (self.response == nil) {
-        return;
-    }
     self.PIN = PIN;
+    NSData *secret = [ServiceContainer.sharedInstance.secretService secretForIdentity:self.challenge.identity withPIN:PIN];
+    
+    
+    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
+    [ServiceContainer.sharedInstance.challengeService completeAuthenticationChallengeWithSecret:secret completionHandler:^(BOOL succes, NSString *response, NSError *error) {
+        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+        
+        if (succes) {
+            [ServiceContainer.sharedInstance.identityService upgradeIdentity:self.challenge.identity withPIN:self.PIN];
+            
+            self.PIN = nil;
+            
+            [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+            AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] init];
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else {
+            switch ([error code]) {
+                case TIQRACRConnectionError: {
+                    AuthenticationFallbackViewController *viewController = [[AuthenticationFallbackViewController alloc] initWithResponse:response];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                    break;
+                }
+                    
+                case TIQRACRAccountBlockedError: {
+                    self.challenge.identity.blocked = @YES;
+                    [ServiceContainer.sharedInstance.identityService saveIdentities];
+                    
+                    [self presentErrorViewControllerWithError:error];
+                    break;
+                }
+                    
+                case TIQRACRInvalidResponseError: {
+                    NSNumber *attemptsLeft = [error userInfo][TIQRACRAttemptsLeftErrorKey];
+                    if (attemptsLeft != nil && [attemptsLeft intValue] == 0) {
+                        [ServiceContainer.sharedInstance.identityService blockAllIdentities];
+                        [ServiceContainer.sharedInstance.identityService saveIdentities];
+                        
+                        [self presentErrorViewControllerWithError:error];
+                    } else {
+                        [self clear];
+                        [self showErrorWithTitle:[error localizedDescription] message:[error localizedFailureReason]];
+                    }
+                    break;
+                }
+                    
+                default: {
+                    [self presentErrorViewControllerWithError:error];
+                    break;
+                }
+            }
+        }
+    }];
+}
 
-	[MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];    
-    AuthenticationConfirmationRequest *request = [[AuthenticationConfirmationRequest alloc] initWithAuthenticationChallenge:self.challenge response:self.response];
-    request.delegate = self;
-    [request send];
+- (void)presentErrorViewControllerWithError:(NSError *)error {
+    UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 

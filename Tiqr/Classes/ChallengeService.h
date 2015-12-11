@@ -51,6 +51,8 @@ typedef NS_ENUM(NSInteger, TIQRChallengeType) {
 - (void)startChallengeFromScanResult:(NSString *)scanResult completionHandler:(void (^)(TIQRChallengeType type, NSError *error))completionHanlder;
 
 
-- (void)completeEnrollmentChallengeUsingTouchID:(BOOL)touchID withPIN:(NSString *)PINOrNil completionHandler:(void (^)(BOOL, NSError *))completionHandler;
+- (void)completeEnrollmentChallengeUsingTouchID:(BOOL)touchID withPIN:(NSString *)PINOrNil completionHandler:(void (^)(BOOL succes, NSError *error))completionHandler;
+
+- (void)completeAuthenticationChallengeWithSecret:(NSData *)secret completionHandler:(void (^)(BOOL succes, NSString *response, NSError *error))completionHandler;
 
 @end

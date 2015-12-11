@@ -31,7 +31,11 @@
 #import "EnrollmentChallenge.h"
 #import "EnrollmentConfirmationRequest.h"
 #import "AuthenticationChallenge.h"
+#import "AuthenticationConfirmationRequest.h"
 #import "ServiceContainer.h"
+#import "OCRAWrapper.h"
+#import "OCRAWrapper_v1.h"
+#import "OCRAProtocol.h"
 
 
 @interface ChallengeService ()
@@ -142,6 +146,7 @@
         
         NSError *error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECUnknownError userInfo:details];
         completionHandler(false, error);
+        self.currentEnrollmentChallenge = nil;
         return;
     }
     
@@ -155,6 +160,7 @@
                 self.currentEnrollmentChallenge.identity.blocked = @NO;
                 [ServiceContainer.sharedInstance.identityService saveIdentities];
                 completionHandler(true, nil);
+                self.currentEnrollmentChallenge = nil;
             } else {
                 if (![self.currentEnrollmentChallenge.identity.blocked boolValue]) {
                     [self.identityService deleteIdentity:self.currentEnrollmentChallenge.identity];
@@ -164,6 +170,7 @@
                 [self.secretService deleteSecretForIdentityIdentifier:self.currentEnrollmentChallenge.identityIdentifier
                                                    providerIdentifier:self.currentEnrollmentChallenge.identityProviderIdentifier];
                 completionHandler(false, error);
+                self.currentEnrollmentChallenge = nil;
             }
         }];
     };
@@ -177,6 +184,7 @@
                 
                 NSError *error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECUnknownError userInfo:details];
                 completionHandler(false, error);
+                self.currentEnrollmentChallenge = nil;
                 return;
             }
             
@@ -192,6 +200,30 @@
         sendConfirmationBlock();
     }
     
+}
+
+- (void)completeAuthenticationChallengeWithSecret:(NSData *)secret completionHandler:(void (^)(BOOL succes, NSString *response, NSError *error))completionHandler {
+    
+    NSObject<OCRAProtocol> *ocra;
+    if (self.currentAuthenticationChallenge.protocolVersion && [self.currentAuthenticationChallenge.protocolVersion intValue] >= 2) {
+        ocra = [[OCRAWrapper alloc] init];
+    } else {
+        ocra = [[OCRAWrapper_v1 alloc] init];
+    }
+    
+    NSError *error = nil;
+    NSString *response = [ocra generateOCRA:self.currentAuthenticationChallenge.identityProvider.ocraSuite secret:secret challenge:self.currentAuthenticationChallenge.challenge sessionKey:self.currentAuthenticationChallenge.sessionKey error:&error];
+    if (response == nil) {
+        completionHandler(false, nil, error);
+        self.currentAuthenticationChallenge = nil;
+        return;
+    }
+    
+    AuthenticationConfirmationRequest *request = [[AuthenticationConfirmationRequest alloc] initWithAuthenticationChallenge:self.currentAuthenticationChallenge response:response];
+    [request sendWithCompletionHandler:^(BOOL success, NSError *error) {
+        completionHandler(success, response, error);
+        self.currentAuthenticationChallenge = nil;
+    }];
 }
 
 @end

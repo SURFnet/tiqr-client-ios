@@ -62,23 +62,10 @@ enum {
     TIQRACRAccountBlockedErrorTemporary = 306
 };
 
-@class AuthenticationConfirmationRequest;
 
-@protocol AuthenticationConfirmationRequestDelegate <NSObject>
-
-@required
-- (void)authenticationConfirmationRequestDidFinish:(AuthenticationConfirmationRequest *)request;
-- (void)authenticationConfirmationRequest:(AuthenticationConfirmationRequest *)request didFailWithError:(NSError *)error;
-
-@end
-
-@interface AuthenticationConfirmationRequest : NSObject {
-    
-}
-
-@property (nonatomic, weak) id<AuthenticationConfirmationRequestDelegate> delegate;
+@interface AuthenticationConfirmationRequest : NSObject
 
 - (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response;
-- (void)send;
+- (void)sendWithCompletionHandler:(void(^)(BOOL success, NSError *error))completionHandler;
 
 @end

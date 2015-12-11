@@ -36,7 +36,7 @@
  *
  * Gives the user the opportunity to confirm a login.
  */
-@interface AuthenticationConfirmViewController : UIViewController <AuthenticationConfirmationRequestDelegate> {
+@interface AuthenticationConfirmViewController : UIViewController {
 
 }
 
