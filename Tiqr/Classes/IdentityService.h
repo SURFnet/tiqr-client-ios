@@ -134,6 +134,14 @@
 - (void)upgradeIdentity:(Identity *)identity withPIN:(NSString *)PIN;
 
 /**
+ * Upgrades the identity to use TouchID
+ *
+ * @param PIN The current PIN for this identity
+ *
+ */
+- (void)upgradeIdentityToTouchID:(Identity *)identity withPIN:(NSString *)PIN;
+
+/**
  * Saves the internal managed object context
  */
 - (BOOL)saveIdentities;

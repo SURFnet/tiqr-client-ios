@@ -50,6 +50,7 @@
     self = [super init];
     if (self != nil) {
         self.challenge = ServiceContainer.sharedInstance.challengeService.currentAuthenticationChallenge;
+        self.delegate = self;
     }
 	
 	return self;
@@ -76,11 +77,11 @@
         if (succes) {
             [ServiceContainer.sharedInstance.identityService upgradeIdentity:self.challenge.identity withPIN:self.PIN];
             
-            self.PIN = nil;
-            
             [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-            AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] init];
+            AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] initWithUsedPIN:self.PIN];
             [self.navigationController pushViewController:viewController animated:YES];
+            
+            self.PIN = nil;
         } else {
             switch ([error code]) {
                 case TIQRACRConnectionError: {

@@ -34,6 +34,8 @@
 @class SecretService;
 @class IdentityService;
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, TIQRChallengeType) {
     TIQRChallengeTypeEnrollment,
     TIQRChallengeTypeAuthentication,
@@ -43,16 +45,18 @@ typedef NS_ENUM(NSInteger, TIQRChallengeType) {
 
 @interface ChallengeService : NSObject
 
-@property (nonatomic, strong, readonly) AuthenticationChallenge *currentAuthenticationChallenge;
-@property (nonatomic, strong, readonly) EnrollmentChallenge *currentEnrollmentChallenge;
+@property (nonatomic, strong, readonly, nullable) AuthenticationChallenge *currentAuthenticationChallenge;
+@property (nonatomic, strong, readonly, nullable) EnrollmentChallenge *currentEnrollmentChallenge;
 
 - (instancetype)initWithSecretService:(SecretService *)secretService identityService:(IdentityService *)identityService;
 
 - (void)startChallengeFromScanResult:(NSString *)scanResult completionHandler:(void (^)(TIQRChallengeType type, NSError *error))completionHanlder;
 
 
-- (void)completeEnrollmentChallengeUsingTouchID:(BOOL)touchID withPIN:(NSString *)PINOrNil completionHandler:(void (^)(BOOL succes, NSError *error))completionHandler;
+- (void)completeEnrollmentChallengeUsingTouchID:(BOOL)touchID withPIN:(nullable NSString *)PIN completionHandler:(void (^)(BOOL succes, NSError *error))completionHandler;
 
 - (void)completeAuthenticationChallengeWithSecret:(NSData *)secret completionHandler:(void (^)(BOOL succes, NSString *response, NSError *error))completionHandler;
 
 @end
+
+NS_ASSUME_NONNULL_END

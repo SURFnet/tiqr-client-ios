@@ -99,14 +99,6 @@
     });
 }
 
-- (void)completeEnrollmentChallengeWithPIN:(NSString *)PIN completionHandler:(void (^)(BOOL success, NSError *error))completionHandler {
-    
-}
-
-- (void)completeEnrollmentChallengeUsingTouchIDWithCompletionHandler:(void (^)(BOOL success, NSError *error))completionHandler {
-    
-}
-
 - (void)completeEnrollmentChallengeUsingTouchID:(BOOL)touchID withPIN:(NSString *)PINOrNil completionHandler:(void (^)(BOOL, NSError *))completionHandler {
 
     self.currentEnrollmentChallenge.identitySecret = [self.secretService generateSecret];

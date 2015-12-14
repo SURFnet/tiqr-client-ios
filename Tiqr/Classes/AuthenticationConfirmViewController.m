@@ -122,7 +122,7 @@
             [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
             
             if (succes) {
-                AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] init];
+                AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] initWithUsedPIN:nil];
                 [self.navigationController pushViewController:viewController animated:YES];
             } else  {
                 switch ([error code]) {

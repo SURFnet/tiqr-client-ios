@@ -45,15 +45,17 @@
 @property (nonatomic, strong) IBOutlet UILabel *serviceProviderDisplayNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *serviceProviderIdentifierLabel;
 @property (nonatomic, strong) IBOutlet UIButton *returnButton;
+@property (nonatomic, copy) NSString *PIN;
 
 @end
 
 @implementation AuthenticationSummaryViewController
 
-- (instancetype)init {
+- (instancetype)initWithUsedPIN:(NSString *)PIN {
     self = [super initWithNibName:@"AuthenticationSummaryView" bundle:nil];
 	if (self != nil) {
 		self.challenge = ServiceContainer.sharedInstance.challengeService.currentAuthenticationChallenge;
+        self.PIN = PIN;
 	}
 	
 	return self;
@@ -86,6 +88,15 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (ServiceContainer.sharedInstance.secretService.touchIDIsAvailable && !self.challenge.identity.touchID.boolValue && self.PIN) {
+        UIAlertView *upgradeAlert = [[UIAlertView alloc] initWithTitle:@"Account upgraden" message:@"Wil je dit account upgraden naar TouchID? Hierdoor kun je in het vervolg inloggen met jouw vingerafdruk in plaats van een PIN-code" delegate:self cancelButtonTitle:@"Annuleer" otherButtonTitles:@"Upgraden", nil];
+        [upgradeAlert show];
+    }
+}
+
 - (void)done {
     [(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:YES];
 }
@@ -94,6 +105,15 @@
     [(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:NO];
     NSString *returnURL = [NSString stringWithFormat:@"%@?successful=1", self.challenge.returnUrl];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:returnURL]];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == alertView.cancelButtonIndex) {
+        return;
+    }
+    
+    [ServiceContainer.sharedInstance.identityService upgradeIdentityToTouchID:self.challenge.identity withPIN:self.PIN];
+    self.PIN = nil;
 }
 
 @end

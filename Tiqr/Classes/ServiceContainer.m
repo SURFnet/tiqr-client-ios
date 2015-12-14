@@ -44,8 +44,8 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.identityService = [[IdentityService alloc] init];
         self.secretService = [[SecretService alloc] init];
+        self.identityService = [[IdentityService alloc] initWithSecretService:self.secretService];
         self.challengeService = [[ChallengeService alloc] initWithSecretService:self.secretService identityService:self.identityService];
     }
     

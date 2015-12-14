@@ -217,31 +217,48 @@
 }
 
 - (void)upgradeIdentity:(Identity *)identity withPIN:(NSString *)PIN {
-    if ([identity.version integerValue] < 2) {
-        
+    if (identity.version.integerValue < 2) {
         NSData *secret = [self.secretService secretForIdentity:identity withPIN:PIN salt:nil initializationVector:nil];
-        if (!secret) {
-            return;
-        }
-        
-        NSData *salt = [self.secretService generateSecret];
-        NSData *initializationVector = [self.secretService generateSecret];
-        
-        if ([self.secretService setSecret:secret forIdentity:identity withPIN:PIN salt:salt initializationVector:initializationVector]) {
-            identity.salt = salt;
-            identity.initializationVector = initializationVector;
-            identity.version = @2;
+        if (secret) {
+            NSData *salt = [self.secretService generateSecret];
+            NSData *initializationVector = [self.secretService generateSecret];
             
-            [self saveIdentities];
+            if ([self.secretService setSecret:secret forIdentity:identity withPIN:PIN salt:salt initializationVector:initializationVector]) {
+                identity.salt = salt;
+                identity.initializationVector = initializationVector;
+                identity.version = @2;
+                
+                [self saveIdentities];
+            }
         }
     }
     
-    if ([identity.version integerValue] < 3) {
+    if (identity.version.integerValue == 2) {
         identity.version = @3;
         [self saveIdentities];
     }
     
     return;
+}
+
+
+- (void)upgradeIdentityToTouchID:(Identity *)identity withPIN:(NSString *)PIN {
+    NSData *secret = [self.secretService secretForIdentity:identity withPIN:PIN];
+    
+    if (!secret || identity.version.integerValue < 3) {
+        return;
+    }
+    
+    [self.secretService deleteSecretForIdentityIdentifier:identity.identifier providerIdentifier:identity.identityProvider.identifier];
+    [self.secretService setSecret:secret usingTouchIDforIdentity:identity withCompletionHandler:^(BOOL success) {
+        if (success) {
+            identity.touchID = @YES;
+            [self saveIdentities];
+        } else {
+            // Attempt to restore
+            [self.secretService setSecret:secret forIdentity:identity withPIN:PIN salt:identity.salt initializationVector:identity.initializationVector];
+        }
+    }];
 }
 
 
