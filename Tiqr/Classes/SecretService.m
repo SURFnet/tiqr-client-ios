@@ -281,8 +281,7 @@
     
     LAContext *context = [[LAContext alloc] init];
     
-    // TODO: NSLocalizedString
-    [context evaluateAccessControl:sacObject operation:LAAccessControlOperationCreateItem localizedReason:@"Authenticeren bij provider" reply:^(BOOL success, NSError * _Nullable error) {
+    [context evaluateAccessControl:sacObject operation:LAAccessControlOperationCreateItem localizedReason:NSLocalizedString(@"touch_id_reason", @"Tiqr wants to save the identity") reply:^(BOOL success, NSError * _Nullable error) {
         
         if (success) {
             

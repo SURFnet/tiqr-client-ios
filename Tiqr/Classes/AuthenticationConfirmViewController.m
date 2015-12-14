@@ -101,7 +101,7 @@
 
 - (void)authenticateWithTouchId {
     self.nonTouchIDViewsContainer.hidden = YES;
-    self.loginConfirmLabel.text = @"TouchID gebruiken om in te loggen";
+    self.loginConfirmLabel.text = NSLocalizedString(@"use_touch_id_title", @"Use TouchID to login");
     
     SecretService *secretService = ServiceContainer.sharedInstance.secretService;
     ChallengeService *challengeService = ServiceContainer.sharedInstance.challengeService;
