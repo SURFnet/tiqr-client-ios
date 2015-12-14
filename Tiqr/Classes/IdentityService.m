@@ -249,16 +249,17 @@
         return;
     }
     
-    [self.secretService deleteSecretForIdentityIdentifier:identity.identifier providerIdentifier:identity.identityProvider.identifier];
-    [self.secretService setSecret:secret usingTouchIDforIdentity:identity withCompletionHandler:^(BOOL success) {
-        if (success) {
-            identity.touchID = @YES;
-            [self saveIdentities];
-        } else {
-            // Attempt to restore
-            [self.secretService setSecret:secret forIdentity:identity withPIN:PIN salt:identity.salt initializationVector:identity.initializationVector];
-        }
-    }];
+    if ([self.secretService deleteSecretForIdentityIdentifier:identity.identifier providerIdentifier:identity.identityProvider.identifier]) {
+        [self.secretService setSecret:secret usingTouchIDforIdentity:identity withCompletionHandler:^(BOOL success) {
+            if (success) {
+                identity.touchID = @YES;
+                [self saveIdentities];
+            } else {
+                // Attempt to restore
+                [self.secretService setSecret:secret forIdentity:identity withPIN:PIN salt:identity.salt initializationVector:identity.initializationVector];
+            }
+        }];
+    }
 }
 
 

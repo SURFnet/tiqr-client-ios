@@ -108,10 +108,11 @@
 - (BOOL)deleteSecretForIdentityIdentifier:(NSString *)identityIdentifier providerIdentifier:(NSString *)providerIdentifier; {
     NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
     query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
-    query[(__bridge id)kSecAttrService] = identityIdentifier;
-    query[(__bridge id)kSecAttrAccount] = providerIdentifier;
+    query[(__bridge id)kSecAttrService] = providerIdentifier;
+    query[(__bridge id)kSecAttrAccount] = identityIdentifier;
     
-    return SecItemDelete((__bridge CFDictionaryRef)query) == noErr;
+    OSStatus status = SecItemDelete((__bridge CFDictionaryRef)query);
+    return status == noErr;
 }
 
 - (NSData *)generateSecret {
