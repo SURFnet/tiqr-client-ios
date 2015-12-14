@@ -92,7 +92,7 @@
     [super viewDidAppear:animated];
     
     if (ServiceContainer.sharedInstance.secretService.touchIDIsAvailable && !self.challenge.identity.touchID.boolValue && self.PIN) {
-        UIAlertView *upgradeAlert = [[UIAlertView alloc] initWithTitle:@"Account upgraden" message:@"Wil je dit account upgraden naar TouchID? Hierdoor kun je in het vervolg inloggen met jouw vingerafdruk in plaats van een PIN-code" delegate:self cancelButtonTitle:@"Annuleer" otherButtonTitles:@"Upgraden", nil];
+        UIAlertView *upgradeAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"upgrade_to_touch_id_title", @"Upgrade account") message:NSLocalizedString(@"upgrade_to_touch_id_message", @"Upgrade account to TouchID alert message") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") otherButtonTitles:NSLocalizedString(@"upgrade", @"Upgrade"), nil];
         [upgradeAlert show];
     }
 }
