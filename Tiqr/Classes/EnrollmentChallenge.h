@@ -133,6 +133,17 @@ enum {
 @property (nonatomic, copy, readonly) NSString *returnUrl;
 
 
+/**
+ * Initialize the enrollment challenge handler.
+ *
+ * Doesn't allow local files.
+ *
+ * @param challengeString   the raw challenge
+ * @param allowFiles        allow local files for the enrollment details?
+ * @param error             the error object that will be set when an error occurs
+ *
+ * @return EnrollmentChallenge
+ */
 + (EnrollmentChallenge *)challengeWithChallengeString:(NSString *)challengeString allowFiles:(BOOL)allowFiles error:(NSError **)error;
 
 @end

@@ -99,6 +99,14 @@ enum {
  */
 @property (nonatomic, copy, readonly) NSString *protocolVersion;
 
+/**
+ * Initialize the authentication challenge handler.
+ *
+ * @param challengeString   the raw challenge
+ * @param error             the error object that will be set when an error occurs
+ *
+ * @return AuthenticationChallenge
+ */
 + (AuthenticationChallenge *)challengeWithChallengeString:(NSString *)challengeString error:(NSError **)error;
 
 @end
