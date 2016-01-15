@@ -32,7 +32,7 @@
 #import "MBProgressHUD.h"
 #import "ServiceContainer.h"
 
-@interface ScanViewController () <AVAudioPlayerDelegate, AVCaptureMetadataOutputObjectsDelegate>
+@interface ScanViewController () <AVAudioPlayerDelegate, AVCaptureMetadataOutputObjectsDelegate, UIAlertViewDelegate>
 
 #if HAS_AVFF
 @property (nonatomic, strong) AVCaptureSession *captureSession;
@@ -116,12 +116,43 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.decoding = YES;
-    [self initCapture];    
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.5];
     self.instructionsView.alpha = 0.7;
     [UIView commitAnimations];
+    
+    [self startCameraIfAllowed];
+}
+
+- (void)startCameraIfAllowed {
+
+    switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo]) {
+        case AVAuthorizationStatusNotDetermined:
+            [self promptForCameraAccess];
+            break;
+            
+        case AVAuthorizationStatusAuthorized:
+            [self initCapture];
+            break;
+            
+        default:
+            [self promptForCameraSettings];
+            break;
+    }
+}
+
+- (void)promptForCameraAccess {
+    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self startCameraIfAllowed];
+        });
+    }];
+}
+
+- (void)promptForCameraSettings {
+    UIAlertView *settingsPrompt = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"camera_prompt_title", @"Camera access prompt title") message:NSLocalizedString(@"camera_prompt_message", @"Camera access prompt message") delegate:self cancelButtonTitle:nil otherButtonTitles: NSLocalizedString(@"settings_app_name", @"Name of the settings app"), nil];
+    [settingsPrompt show];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -136,6 +167,13 @@
     self.instructionsView.alpha = 0.0;      
     
     [self stopCapture];
+}
+
+#pragma mark -
+#pragma mark AlertView delegate
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
 
 #pragma mark -
