@@ -45,9 +45,6 @@ typedef NS_ENUM(NSInteger, TIQRChallengeType) {
 
 @interface ChallengeService : NSObject
 
-@property (nonatomic, strong, readonly, nullable) AuthenticationChallenge *currentAuthenticationChallenge;
-@property (nonatomic, strong, readonly, nullable) EnrollmentChallenge *currentEnrollmentChallenge;
-
 - (instancetype)initWithSecretService:(SecretService *)secretService identityService:(IdentityService *)identityService;
 
 
@@ -56,29 +53,31 @@ typedef NS_ENUM(NSInteger, TIQRChallengeType) {
  *
  * @param completionHandler     The block that will be called when this method finishes
  */
-- (void)startChallengeFromScanResult:(NSString *)scanResult completionHandler:(void (^)(TIQRChallengeType type, NSError *error))completionHanlder;
+- (void)startChallengeFromScanResult:(NSString *)scanResult completionHandler:(void (^)(TIQRChallengeType type, NSObject *challengeObject, NSError *error))completionHanlder;
 
 /**
  * Attempts to complete the current enrollment challenge with the supplied data
  *
+ * @param challenge             The enrollment challenge
  * @param touchID               Indicates whether the secret for the identity should be stored using TouchID or using a PIN.
  * @param PIN                   the PIN that is to be used when the secret shouldn't be stored using TouchID
  * @param completionHandler     The block that will be called when this method finishes
  *
  * @return list of identities
  */
-- (void)completeEnrollmentChallengeUsingTouchID:(BOOL)touchID withPIN:(nullable NSString *)PIN completionHandler:(void (^)(BOOL succes, NSError *error))completionHandler;
+- (void)completeEnrollmentChallenge:(EnrollmentChallenge *)challenge usingTouchID:(BOOL)touchID withPIN:(nullable NSString *)PIN completionHandler:(void (^)(BOOL succes, NSError *error))completionHandler;
 
 
 /**
  * Attempts to complete the current authentication challenge with the supplied data
  *
+ * @param challenge             The authentication challenge
  * @param secret                The secret belonging to the identity for the current authentication challenge
  * @param completionHandler     The block that will be called when this method finishes
  *
  * @return list of identities
  */
-- (void)completeAuthenticationChallengeWithSecret:(NSData *)secret completionHandler:(void (^)(BOOL succes, NSString *response, NSError *error))completionHandler;
+- (void)completeAuthenticationChallenge:(AuthenticationChallenge *)challenge withSecret:(NSData *)secret completionHandler:(void (^)(BOOL succes, NSString *response, NSError *error))completionHandler;
 
 @end
 

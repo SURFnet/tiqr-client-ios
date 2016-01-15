@@ -40,10 +40,12 @@
 }
 
 /**
- * Initializes the controller with the current authentication challenge.
+ * Initializes the controller with the given authentication challenge.
+ *
+ * @param challenge authentication challenge
  *
  * @return initialized controller instance
  */
-- (instancetype)init;
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge;
 
 @end

@@ -39,12 +39,13 @@
 }
 
 /**
- * Initializes the controller for the current authentication challenge.
+ * Initializes the controller for the given authentication challenge.
  *
+ * @param challenge authentication challenge
  * @param response  response for challenge
  *
  * @return initialized controller instance
  */
-- (instancetype)initWithResponse:(NSString *)response;
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response;
 
 @end

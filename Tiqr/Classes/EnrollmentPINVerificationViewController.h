@@ -44,12 +44,13 @@
 }
 
 /**
- * Initializes the controller with the current enrollment challenge.
+ * Initializes the controller with the given enrollment challenge.
  *
+ * @param challenge enrollment challenge
  * @param pin       choosen PIN code
  *
  * @return initialized controller instance
  */
-- (instancetype)initWithPIN:(NSString *)PIN;
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge PIN:(NSString *)PIN;
 
 @end

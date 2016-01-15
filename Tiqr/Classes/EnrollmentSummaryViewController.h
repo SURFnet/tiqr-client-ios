@@ -38,10 +38,12 @@
 }
 
 /**
- * Initializes the controller with the current enrollment challenge.
+ * Initializes the controller with the given enrollment challenge.
+ *
+ * @param challenge enrollment challenge
  *
  * @return initialized controller instance
  */
-- (instancetype)init;
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge;
 
 @end

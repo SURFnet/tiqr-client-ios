@@ -39,10 +39,10 @@
 
 @implementation EnrollmentPINViewController
 
-- (instancetype)init {
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super init];
     if (self != nil) {
-        self.challenge = ServiceContainer.sharedInstance.challengeService.currentEnrollmentChallenge;;
+        self.challenge = challenge;
         self.delegate = self;
     }
 	
@@ -59,7 +59,7 @@
 }
 
 - (void)PINViewController:(PINViewController *)pinViewController didFinishWithPIN:(NSString *)PIN {
-    EnrollmentPINVerificationViewController *viewController = [[EnrollmentPINVerificationViewController alloc] initWithPIN:PIN];
+    EnrollmentPINVerificationViewController *viewController = [[EnrollmentPINVerificationViewController alloc] initWithEnrollmentChallenge:self.challenge PIN:PIN];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

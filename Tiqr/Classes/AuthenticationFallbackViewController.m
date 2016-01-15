@@ -48,12 +48,12 @@
 
 @implementation AuthenticationFallbackViewController
 
-- (instancetype)initWithResponse:(NSString *)response {
-    self = [super initWithNibName:@"AuthenticationFallbackView" bundle:nil];   
-	if (self != nil) {
-		self.challenge = ServiceContainer.sharedInstance.challengeService.currentAuthenticationChallenge;
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge response:(NSString *)response {
+    self = [super initWithNibName:@"AuthenticationFallbackView" bundle:nil];
+    if (self != nil) {
+        self.challenge = challenge;
         self.response = response;
-	}
+    }
 	
 	return self;
 }

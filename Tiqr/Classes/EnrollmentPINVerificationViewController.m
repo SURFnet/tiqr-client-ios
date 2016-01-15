@@ -45,12 +45,12 @@
 
 @implementation EnrollmentPINVerificationViewController
 
-- (instancetype)initWithPIN:(NSString *)PIN {
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge PIN:(NSString *)PIN {
     self = [super init];
     if (self != nil) {
-        self.challenge = ServiceContainer.sharedInstance.challengeService.currentEnrollmentChallenge;
+        self.challenge = challenge;
         self.PIN = PIN;
-        self.delegate = self;        
+        self.delegate = self;
     }
 	
 	return self;
@@ -77,12 +77,12 @@
     
     [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
-    [ServiceContainer.sharedInstance.challengeService completeEnrollmentChallengeUsingTouchID:NO withPIN:PIN completionHandler:^(BOOL succes, NSError *error) {
+    [ServiceContainer.sharedInstance.challengeService completeEnrollmentChallenge:self.challenge usingTouchID:NO withPIN:PIN completionHandler:^(BOOL succes, NSError *error) {
         
         [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
         
         if (succes) {
-            EnrollmentSummaryViewController *viewController = [[EnrollmentSummaryViewController alloc] init];
+            EnrollmentSummaryViewController *viewController = [[EnrollmentSummaryViewController alloc] initWithEnrollmentChallenge:self.challenge];
             [self.navigationController pushViewController:viewController animated:YES];
         } else {
             UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];

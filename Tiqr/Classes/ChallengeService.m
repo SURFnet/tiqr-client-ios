@@ -40,8 +40,6 @@
 
 @interface ChallengeService ()
 
-@property (nonatomic, strong) AuthenticationChallenge *currentAuthenticationChallenge;
-@property (nonatomic, strong) EnrollmentChallenge *currentEnrollmentChallenge;
 @property (nonatomic, strong) SecretService *secretService;
 @property (nonatomic, strong) IdentityService *identityService;
 
@@ -60,7 +58,7 @@
     return self;
 }
 
-- (void)startChallengeFromScanResult:(NSString *)scanResult completionHandler:(void (^)(TIQRChallengeType, NSError *))completionHandler {
+- (void)startChallengeFromScanResult:(NSString *)scanResult completionHandler:(void (^)(TIQRChallengeType, NSObject *, NSError *))completionHandler {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
@@ -68,6 +66,7 @@
         NSString *enrollmentScheme = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TIQREnrollmentURLScheme"];
         
         TIQRChallengeType type = TIQRChallengeTypeInvalid;
+        NSObject *challengeObject  = nil;
         
         NSURL *url = [NSURL URLWithString:scanResult];
         NSError *error = nil;
@@ -76,14 +75,14 @@
             AuthenticationChallenge *challenge = [AuthenticationChallenge challengeWithChallengeString:scanResult error:&error];
             
             if (!error) {
-                self.currentAuthenticationChallenge = challenge;
+                challengeObject = challenge;
             }
         } else if (url != nil && [url.scheme isEqualToString:enrollmentScheme]) {
             type = TIQRChallengeTypeEnrollment;
             EnrollmentChallenge *challenge = [EnrollmentChallenge challengeWithChallengeString:scanResult allowFiles:NO error:&error];
             
             if (!error) {
-                self.currentEnrollmentChallenge = challenge;
+                challengeObject = challenge;
             }
         } else {
             NSString *errorTitle = NSLocalizedString(@"error_auth_invalid_qr_code", @"Invalid QR tag title");
@@ -94,40 +93,40 @@
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            completionHandler(type, error);
+            completionHandler(type, challengeObject, error);
         });
     });
 }
 
-- (void)completeEnrollmentChallengeUsingTouchID:(BOOL)touchID withPIN:(NSString *)PINOrNil completionHandler:(void (^)(BOOL, NSError *))completionHandler {
+- (void)completeEnrollmentChallenge:(EnrollmentChallenge *)challenge usingTouchID:(BOOL)touchID withPIN:(NSString *)PINOrNil completionHandler:(void (^)(BOOL, NSError *))completionHandler {
 
-    self.currentEnrollmentChallenge.identitySecret = [self.secretService generateSecret];
+    challenge.identitySecret = [self.secretService generateSecret];
     
     if (!touchID) {
-        self.currentEnrollmentChallenge.identityPIN = PINOrNil;
+        challenge.identityPIN = PINOrNil;
     }
     
-    IdentityProvider *identityProvider = self.currentEnrollmentChallenge.identityProvider;
+    IdentityProvider *identityProvider = challenge.identityProvider;
     if (identityProvider == nil) {
         identityProvider = [self.identityService createIdentityProvider];
-        identityProvider.identifier = self.currentEnrollmentChallenge.identityProviderIdentifier;
-        identityProvider.displayName = self.currentEnrollmentChallenge.identityProviderDisplayName;
-        identityProvider.authenticationUrl = self.currentEnrollmentChallenge.identityProviderAuthenticationUrl;
-        identityProvider.infoUrl = self.currentEnrollmentChallenge.identityProviderInfoUrl;
-        identityProvider.ocraSuite = self.currentEnrollmentChallenge.identityProviderOcraSuite;
-        identityProvider.logo = self.currentEnrollmentChallenge.identityProviderLogo;
+        identityProvider.identifier = challenge.identityProviderIdentifier;
+        identityProvider.displayName = challenge.identityProviderDisplayName;
+        identityProvider.authenticationUrl = challenge.identityProviderAuthenticationUrl;
+        identityProvider.infoUrl = challenge.identityProviderInfoUrl;
+        identityProvider.ocraSuite = challenge.identityProviderOcraSuite;
+        identityProvider.logo = challenge.identityProviderLogo;
     }
     
-    Identity *identity = self.currentEnrollmentChallenge.identity;
+    Identity *identity = challenge.identity;
     if (identity == nil) {
         identity = [self.identityService createIdentity];
-        identity.identifier = self.currentEnrollmentChallenge.identityIdentifier;
+        identity.identifier = challenge.identityIdentifier;
         identity.sortIndex = [NSNumber numberWithInteger:self.identityService.maxSortIndex + 1];
         identity.identityProvider = identityProvider;
         identity.salt = [self.secretService generateSecret];
     }
     
-    identity.displayName = self.currentEnrollmentChallenge.identityDisplayName;
+    identity.displayName = challenge.identityDisplayName;
     
     if (![self.identityService saveIdentities]) {
         [self.identityService rollbackIdentities];
@@ -138,37 +137,35 @@
         
         NSError *error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECUnknownError userInfo:details];
         completionHandler(false, error);
-        self.currentEnrollmentChallenge = nil;
+        challenge = nil;
         return;
     }
     
-    self.currentEnrollmentChallenge.identity = identity;
-    self.currentEnrollmentChallenge.identityProvider = identityProvider;
+    challenge.identity = identity;
+    challenge.identityProvider = identityProvider;
     
     void (^sendConfirmationBlock)() = ^{
-        EnrollmentConfirmationRequest *request = [[EnrollmentConfirmationRequest alloc] initWithEnrollmentChallenge:self.currentEnrollmentChallenge];
+        EnrollmentConfirmationRequest *request = [[EnrollmentConfirmationRequest alloc] initWithEnrollmentChallenge:challenge];
         [request sendWithCompletionHandler:^(BOOL success, NSError *error) {
             if (success) {
-                self.currentEnrollmentChallenge.identity.blocked = @NO;
+                challenge.identity.blocked = @NO;
                 [ServiceContainer.sharedInstance.identityService saveIdentities];
                 completionHandler(true, nil);
-                self.currentEnrollmentChallenge = nil;
             } else {
-                if (![self.currentEnrollmentChallenge.identity.blocked boolValue]) {
-                    [self.identityService deleteIdentity:self.currentEnrollmentChallenge.identity];
+                if (![challenge.identity.blocked boolValue]) {
+                    [self.identityService deleteIdentity:challenge.identity];
                     [self.identityService saveIdentities];
                 }
                 
-                [self.secretService deleteSecretForIdentityIdentifier:self.currentEnrollmentChallenge.identityIdentifier
-                                                   providerIdentifier:self.currentEnrollmentChallenge.identityProviderIdentifier];
+                [self.secretService deleteSecretForIdentityIdentifier:challenge.identityIdentifier
+                                                   providerIdentifier:challenge.identityProviderIdentifier];
                 completionHandler(false, error);
-                self.currentEnrollmentChallenge = nil;
             }
         }];
     };
     
     if (touchID) {
-        [self.secretService setSecret:self.currentEnrollmentChallenge.identitySecret usingTouchIDforIdentity:self.currentEnrollmentChallenge.identity withCompletionHandler:^(BOOL success) {
+        [self.secretService setSecret:challenge.identitySecret usingTouchIDforIdentity:challenge.identity withCompletionHandler:^(BOOL success) {
             if (!success) {
                 NSString *errorTitle = NSLocalizedString(@"error_enroll_failed_to_store_identity_title", @"Account cannot be saved title");
                 NSString *errorMessage = NSLocalizedString(@"error_enroll_failed_to_generate_secret", @"Failed to generate identity secret. Please contact support.");
@@ -176,45 +173,42 @@
                 
                 NSError *error = [NSError errorWithDomain:TIQRECErrorDomain code:TIQRECUnknownError userInfo:details];
                 completionHandler(false, error);
-                self.currentEnrollmentChallenge = nil;
                 return;
             }
             
-            self.currentEnrollmentChallenge.identity.touchID = @YES;
+            challenge.identity.touchID = @YES;
             
             sendConfirmationBlock();
         }];
     } else {
-        [self.secretService setSecret:self.currentEnrollmentChallenge.identitySecret
-                          forIdentity:self.currentEnrollmentChallenge.identity
-                              withPIN:self.currentEnrollmentChallenge.identityPIN];
+        [self.secretService setSecret:challenge.identitySecret
+                          forIdentity:challenge.identity
+                              withPIN:challenge.identityPIN];
         
         sendConfirmationBlock();
     }
     
 }
 
-- (void)completeAuthenticationChallengeWithSecret:(NSData *)secret completionHandler:(void (^)(BOOL succes, NSString *response, NSError *error))completionHandler {
+- (void)completeAuthenticationChallenge:(AuthenticationChallenge *)challenge withSecret:(NSData *)secret completionHandler:(void (^)(BOOL succes, NSString *response, NSError *error))completionHandler {
     
     NSObject<OCRAProtocol> *ocra;
-    if (self.currentAuthenticationChallenge.protocolVersion && [self.currentAuthenticationChallenge.protocolVersion intValue] >= 2) {
+    if (challenge.protocolVersion && [challenge.protocolVersion intValue] >= 2) {
         ocra = [[OCRAWrapper alloc] init];
     } else {
         ocra = [[OCRAWrapper_v1 alloc] init];
     }
     
     NSError *error = nil;
-    NSString *response = [ocra generateOCRA:self.currentAuthenticationChallenge.identityProvider.ocraSuite secret:secret challenge:self.currentAuthenticationChallenge.challenge sessionKey:self.currentAuthenticationChallenge.sessionKey error:&error];
+    NSString *response = [ocra generateOCRA:challenge.identityProvider.ocraSuite secret:secret challenge:challenge.challenge sessionKey:challenge.sessionKey error:&error];
     if (response == nil) {
         completionHandler(false, nil, error);
-        self.currentAuthenticationChallenge = nil;
         return;
     }
     
-    AuthenticationConfirmationRequest *request = [[AuthenticationConfirmationRequest alloc] initWithAuthenticationChallenge:self.currentAuthenticationChallenge response:response];
+    AuthenticationConfirmationRequest *request = [[AuthenticationConfirmationRequest alloc] initWithAuthenticationChallenge:challenge response:response];
     [request sendWithCompletionHandler:^(BOOL success, NSError *error) {
         completionHandler(success, response, error);
-        self.currentAuthenticationChallenge = nil;
     }];
 }
 

@@ -49,11 +49,11 @@
 
 @implementation EnrollmentSummaryViewController
 
-- (instancetype)init {
+- (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super initWithNibName:@"EnrollmentSummaryView" bundle:nil];
-	if (self != nil) {
-		self.challenge = ServiceContainer.sharedInstance.challengeService.currentEnrollmentChallenge;
-	}
+    if (self != nil) {
+        self.challenge = challenge;
+    }
 	
 	return self;
 }

@@ -42,9 +42,11 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Initializes the controller with the current authentication challenge.
  *
+ * @param challenge authentication challenge
+ *
  * @return initialized controller instance
  */
-- (instancetype)initWithUsedPIN:(nullable NSString *)PIN;
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge usedPIN:(nullable NSString *)PIN;
 
 NS_ASSUME_NONNULL_END
 

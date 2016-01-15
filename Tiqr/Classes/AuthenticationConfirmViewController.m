@@ -58,11 +58,11 @@
 
 @implementation AuthenticationConfirmViewController
 
-- (instancetype)init {
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
     self = [super initWithNibName:@"AuthenticationConfirmView" bundle:nil];
-	if (self != nil) {
-		self.challenge = ServiceContainer.sharedInstance.challengeService.currentAuthenticationChallenge;
-	}
+    if (self != nil) {
+        self.challenge = challenge;
+    }
 	
 	return self;
 }
@@ -117,17 +117,17 @@
     [secretService secretForIdentity:self.challenge.identity touchIDPrompt:touchIDPrompt withSuccessHandler:^(NSData *secret) {
         
         [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        [challengeService completeAuthenticationChallengeWithSecret:secret completionHandler:^(BOOL succes, NSString *response, NSError *error) {
+        [challengeService completeAuthenticationChallenge:self.challenge withSecret:secret completionHandler:^(BOOL succes, NSString *response, NSError *error) {
         
             [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
             
             if (succes) {
-                AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] initWithUsedPIN:nil];
+                AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] initWithAuthenticationChallenge:self.challenge usedPIN:nil];
                 [self.navigationController pushViewController:viewController animated:YES];
             } else  {
                 switch ([error code]) {
                     case TIQRACRConnectionError: {
-                        AuthenticationFallbackViewController *viewController = [[AuthenticationFallbackViewController alloc] initWithResponse:response];
+                        AuthenticationFallbackViewController *viewController = [[AuthenticationFallbackViewController alloc] initWithAuthenticationChallenge:self.challenge response:response];
                         [self.navigationController pushViewController:viewController animated:YES];
                         break;
                     }
@@ -168,7 +168,7 @@
 }
 
 - (IBAction)ok {
-    AuthenticationPINViewController *viewController = [[AuthenticationPINViewController alloc] init];
+    AuthenticationPINViewController *viewController = [[AuthenticationPINViewController alloc] initWithAuthenticationChallenge:self.challenge];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

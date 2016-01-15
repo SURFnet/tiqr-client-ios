@@ -51,10 +51,10 @@
 
 @implementation AuthenticationSummaryViewController
 
-- (instancetype)initWithUsedPIN:(NSString *)PIN {
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge usedPIN:(NSString *)PIN {
     self = [super initWithNibName:@"AuthenticationSummaryView" bundle:nil];
 	if (self != nil) {
-		self.challenge = ServiceContainer.sharedInstance.challengeService.currentAuthenticationChallenge;
+		self.challenge = challenge;
         self.PIN = PIN;
 	}
 	

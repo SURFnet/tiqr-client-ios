@@ -127,23 +127,24 @@
     
     ChallengeService *challengeService = ServiceContainer.sharedInstance.challengeService;
     
-    [challengeService startChallengeFromScanResult:rawChallenge completionHandler:^(TIQRChallengeType type, NSError *error) {
+    [challengeService startChallengeFromScanResult:rawChallenge completionHandler:^(TIQRChallengeType type, NSObject *challengeObject, NSError *error) {
         if (!error) {
             switch (type) {
                 case TIQRChallengeTypeAuthentication: {
                     UIViewController *viewController = nil;
+                    AuthenticationChallenge *authenticationChallenge = (AuthenticationChallenge *)challengeObject;
                     
-                    if (challengeService.currentAuthenticationChallenge.identity != nil) {
-                        viewController = [[AuthenticationConfirmViewController alloc] init];
+                    if (authenticationChallenge.identity != nil) {
+                        viewController = [[AuthenticationConfirmViewController alloc] initWithAuthenticationChallenge:authenticationChallenge];
                     } else {
-                        viewController = [[AuthenticationIdentityViewController alloc] init];
+                        viewController = [[AuthenticationIdentityViewController alloc] initWithAuthenticationChallenge:authenticationChallenge];
                     }
                     
                     [self.navigationController pushViewController:viewController animated:NO];
                 } break;
                     
                 case TIQRChallengeTypeEnrollment: {
-                    EnrollmentConfirmViewController *enrollmentConfirmViewController = [[EnrollmentConfirmViewController alloc] init];
+                    EnrollmentConfirmViewController *enrollmentConfirmViewController = [[EnrollmentConfirmViewController alloc] initWithEnrollmentChallenge:(EnrollmentChallenge *)challengeObject];
                     [self.navigationController pushViewController:enrollmentConfirmViewController animated:NO];
                 } break;
                     

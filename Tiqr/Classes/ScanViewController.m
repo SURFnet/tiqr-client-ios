@@ -259,24 +259,23 @@
 }
 
 
-- (void)pushViewControllerForChallengeType:(TIQRChallengeType) type {
+- (void)pushViewControllerForChallenge:(NSObject *)challenge Type:(TIQRChallengeType) type {
     UIViewController *viewController = nil;
-    
-    ChallengeService *challengeService = ServiceContainer.sharedInstance.challengeService;
     
     switch (type) {
         case TIQRChallengeTypeAuthentication: {
-            if (challengeService.currentAuthenticationChallenge.identity == nil) {
-                AuthenticationIdentityViewController *identityViewController = [[AuthenticationIdentityViewController alloc] init];
+            AuthenticationChallenge *authenticationChallenge = (AuthenticationChallenge *)challenge;
+            if (authenticationChallenge.identity == nil) {
+                AuthenticationIdentityViewController *identityViewController = [[AuthenticationIdentityViewController alloc] initWithAuthenticationChallenge:authenticationChallenge];
                 viewController = identityViewController;
             } else {
-                AuthenticationConfirmViewController *confirmViewController = [[AuthenticationConfirmViewController alloc] init];
+                AuthenticationConfirmViewController *confirmViewController = [[AuthenticationConfirmViewController alloc] initWithAuthenticationChallenge:authenticationChallenge];
                 viewController = confirmViewController;
             }
         } break;
             
         case TIQRChallengeTypeEnrollment: {
-            EnrollmentConfirmViewController *confirmViewController = [[EnrollmentConfirmViewController alloc] init];
+            EnrollmentConfirmViewController *confirmViewController = [[EnrollmentConfirmViewController alloc] initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge];
             viewController = confirmViewController;
         }
             
@@ -290,12 +289,12 @@
 - (void)processChallenge:(NSString *)scanResult {
     [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
-    [ServiceContainer.sharedInstance.challengeService startChallengeFromScanResult:scanResult completionHandler:^(TIQRChallengeType type, NSError *error) {
+    [ServiceContainer.sharedInstance.challengeService startChallengeFromScanResult:scanResult completionHandler:^(TIQRChallengeType type, NSObject *challengeObject, NSError *error) {
         
         [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
         
         if (type != TIQRChallengeTypeInvalid) {
-            [self pushViewControllerForChallengeType:type];
+            [self pushViewControllerForChallenge:challengeObject Type:type];
         } else {
             ErrorViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:error.localizedDescription errorMessage:error.localizedFailureReason];
             [self.navigationController pushViewController:viewController animated:YES];
