@@ -30,20 +30,25 @@
 #import <CoreData/CoreData.h>
 #import "AuthenticationChallenge.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  * Gives the user an overview of the login that he/she just completed.
  */
-@interface AuthenticationSummaryViewController : UIViewController {
+@interface AuthenticationSummaryViewController : UIViewController <UIAlertViewDelegate> {
     
 }
 
 /**
- * Initializes the controller with the given authentication challenge.
+ * Initializes the controller with the current authentication challenge.
  *
  * @param challenge authentication challenge
  *
  * @return initialized controller instance
  */
-- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge;
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge usedPIN:(nullable NSString *)PIN;
+
+NS_ASSUME_NONNULL_END
+
 
 @end

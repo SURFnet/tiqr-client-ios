@@ -28,6 +28,7 @@
  */
 
 #import "EnrollmentChallenge.h"
+#import "EnrollmentConfirmationRequest.h"
 
 /**
  * Enrollment confirmation controller.

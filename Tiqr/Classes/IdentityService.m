@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2011 SURFnet bv
+ * Copyright (c) 2015-2016 SURFnet bv
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -216,25 +216,50 @@
     }
 }
 
-- (BOOL)upgradeIdentity:(Identity *)identity withPIN:(NSString *)PIN {
-    if ([identity.version integerValue] < 2) {
-        
+- (void)upgradeIdentity:(Identity *)identity withPIN:(NSString *)PIN {
+    if (identity.version.integerValue < 2) {
         NSData *secret = [self.secretService secretForIdentity:identity withPIN:PIN salt:nil initializationVector:nil];
-        if (!secret) {
-            return NO;
-        }
-        
-        NSData *salt = [self.secretService generateSecret];
-        NSData *initializationVector = [self.secretService generateSecret];
-        
-        if ([self.secretService setSecret:secret forIdentity:identity withPIN:PIN salt:salt initializationVector:initializationVector]) {
-            identity.salt = salt;
-            identity.initializationVector = initializationVector;
-            identity.version = @2;
-            return YES;
+        if (secret) {
+            NSData *salt = [self.secretService generateSecret];
+            NSData *initializationVector = [self.secretService generateSecret];
+            
+            if ([self.secretService setSecret:secret forIdentity:identity withPIN:PIN salt:salt initializationVector:initializationVector]) {
+                identity.salt = salt;
+                identity.initializationVector = initializationVector;
+                identity.version = @2;
+                
+                [self saveIdentities];
+            }
         }
     }
-    return NO;
+    
+    if (identity.version.integerValue == 2) {
+        identity.version = @3;
+        [self saveIdentities];
+    }
+    
+    return;
+}
+
+
+- (void)upgradeIdentityToTouchID:(Identity *)identity withPIN:(NSString *)PIN {
+    NSData *secret = [self.secretService secretForIdentity:identity withPIN:PIN];
+    
+    if (!secret || identity.version.integerValue < 3) {
+        return;
+    }
+    
+    if ([self.secretService deleteSecretForIdentityIdentifier:identity.identifier providerIdentifier:identity.identityProvider.identifier]) {
+        [self.secretService setSecret:secret usingTouchIDforIdentity:identity withCompletionHandler:^(BOOL success) {
+            if (success) {
+                identity.touchID = @YES;
+                [self saveIdentities];
+            } else {
+                // Attempt to restore
+                [self.secretService setSecret:secret forIdentity:identity withPIN:PIN salt:identity.salt initializationVector:identity.initializationVector];
+            }
+        }];
+    }
 }
 
 
@@ -242,7 +267,7 @@
 #pragma mark -
 #pragma mark Core Data stack
 
-- (BOOL)save {
+- (BOOL)saveIdentities {
     NSError *error = nil;
     NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
     if (managedObjectContext != nil) {
@@ -255,7 +280,7 @@
     return YES;
 }
 
-- (void)rollback {
+- (void)rollbackIdentities {
     [self.managedObjectContext rollback];
 }
 

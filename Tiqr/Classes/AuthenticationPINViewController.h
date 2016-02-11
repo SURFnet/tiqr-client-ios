@@ -35,7 +35,7 @@
 /**
  * Lets the user enter his/her PIN as part of the authentication process.
  */
-@interface AuthenticationPINViewController : PINViewController <PINViewControllerDelegate, AuthenticationConfirmationRequestDelegate> {
+@interface AuthenticationPINViewController : PINViewController <PINViewControllerDelegate> {
     
 }
 

@@ -29,6 +29,14 @@
 
 #import "AuthenticationConfirmViewController.h"
 #import "AuthenticationPINViewController.h"
+#import "AuthenticationSummaryViewController.h"
+#import "AuthenticationFallbackViewController.h"
+#import "ServiceContainer.h"
+#import "OCRAWrapper.h"
+#import "OCRAWrapper_v1.h"
+#import "ErrorViewController.h"
+#import "OCRAProtocol.h"
+#import "MBProgressHUD.h"
 
 @interface AuthenticationConfirmViewController ()
 
@@ -43,6 +51,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *identityIdentifierLabel;
 @property (nonatomic, strong) IBOutlet UILabel *serviceProviderDisplayNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *serviceProviderIdentifierLabel;
+@property (nonatomic, copy) NSString *response;
+@property (strong, nonatomic) IBOutlet UIView *nonTouchIDViewsContainer;
 
 @end
 
@@ -50,9 +60,9 @@
 
 - (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
     self = [super initWithNibName:@"AuthenticationConfirmView" bundle:nil];
-	if (self != nil) {
-		self.challenge = challenge;
-	}
+    if (self != nil) {
+        self.challenge = challenge;
+    }
 	
 	return self;
 }
@@ -79,6 +89,82 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (self.challenge.identity.touchID.boolValue) {
+        [self authenticateWithTouchId];
+    }
+}
+
+- (void)authenticateWithTouchId {
+    self.nonTouchIDViewsContainer.hidden = YES;
+    self.loginConfirmLabel.text = NSLocalizedString(@"use_touch_id_title", @"Use TouchID to login");
+    
+    SecretService *secretService = ServiceContainer.sharedInstance.secretService;
+    ChallengeService *challengeService = ServiceContainer.sharedInstance.challengeService;
+    
+    NSMutableString *touchIDPrompt = [NSLocalizedString(@"you_will_be_logged_in_as", @"You will be logged in as:") mutableCopy];
+    [touchIDPrompt appendString:@" "];
+    [touchIDPrompt appendString:self.challenge.identity.displayName];
+    [touchIDPrompt appendString:@"\n"];
+    [touchIDPrompt appendString:NSLocalizedString(@"to_service_provider", @"to:")];
+    [touchIDPrompt appendString:@" "];
+    [touchIDPrompt appendString:self.challenge.serviceProviderDisplayName];
+    
+    [secretService secretForIdentity:self.challenge.identity touchIDPrompt:touchIDPrompt withSuccessHandler:^(NSData *secret) {
+        
+        [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+        [challengeService completeAuthenticationChallenge:self.challenge withSecret:secret completionHandler:^(BOOL succes, NSString *response, NSError *error) {
+        
+            [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+            
+            if (succes) {
+                AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] initWithAuthenticationChallenge:self.challenge usedPIN:nil];
+                [self.navigationController pushViewController:viewController animated:YES];
+            } else  {
+                switch ([error code]) {
+                    case TIQRACRConnectionError: {
+                        AuthenticationFallbackViewController *viewController = [[AuthenticationFallbackViewController alloc] initWithAuthenticationChallenge:self.challenge response:response];
+                        [self.navigationController pushViewController:viewController animated:YES];
+                        break;
+                    }
+                        
+                    case TIQRACRAccountBlockedError: {
+                        self.challenge.identity.blocked = @YES;
+                        [ServiceContainer.sharedInstance.identityService saveIdentities];
+                        
+                        [self presentErrorViewControllerWithError:error];
+                        break;
+                    }
+                    case TIQRACRInvalidResponseError: {
+                        NSNumber *attemptsLeft = [error userInfo][TIQRACRAttemptsLeftErrorKey];
+                        if (attemptsLeft != nil && [attemptsLeft intValue] == 0) {
+                            [ServiceContainer.sharedInstance.identityService blockAllIdentities];
+                            [ServiceContainer.sharedInstance.identityService saveIdentities];
+                        }
+                        
+                        [self presentErrorViewControllerWithError:error];
+                        break;
+                    }
+                        
+                    default: {
+                        [self presentErrorViewControllerWithError:error];
+                        break;
+                    }
+                }
+            }
+        }];
+    } failureHandler:^(BOOL cancelled) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }];
+}
+
+- (void)presentErrorViewControllerWithError:(NSError *)error {
+    UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (IBAction)ok {

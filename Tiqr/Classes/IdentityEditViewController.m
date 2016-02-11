@@ -150,7 +150,7 @@
     } else {
         [identityService deleteIdentity:self.identity];
     }
-    if ([identityService save]) {
+    if ([identityService saveIdentities]) {
         [ServiceContainer.sharedInstance.secretService deleteSecretForIdentityIdentifier:identityIdentifier
                                                                       providerIdentifier:providerIdentifier];
         

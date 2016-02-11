@@ -43,10 +43,6 @@
  */
 @property (nonatomic, copy, readonly) NSString *rawChallenge;
 
-/**
- * Can be used to check is the raw challenge could be parsed successfully.
- */
-@property (nonatomic, assign, getter=isValid, readonly) BOOL valid;
 
 /**
  * Contains an error message in case the challenge isn't valid.

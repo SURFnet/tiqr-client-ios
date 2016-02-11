@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2011 SURFnet bv
+ * Copyright (c) 2015-2016 SURFnet bv
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -126,21 +126,30 @@
 
 
 /**
- * Upgrades the identity to use salt and initialization vector.
+ * Upgrades the identity to use salt and a initialization vector. If TouchID is available this will setup TouchID for this identity
  *
- * NOTE: should be called with valid PIN only!
+ * @param PIN The PIN for this identity or nil
+ *
  */
-- (BOOL)upgradeIdentity:(Identity *)identity withPIN:(NSString *)PIN;
+- (void)upgradeIdentity:(Identity *)identity withPIN:(NSString *)PIN;
+
+/**
+ * Upgrades the identity to use TouchID
+ *
+ * @param PIN The current PIN for this identity
+ *
+ */
+- (void)upgradeIdentityToTouchID:(Identity *)identity withPIN:(NSString *)PIN;
 
 /**
  * Saves the internal managed object context
  */
-- (BOOL)save;
+- (BOOL)saveIdentities;
 
 /**
  * Performs a rollback on the internal managed object context
  */
-- (void)rollback;
+- (void)rollbackIdentities;
 
 
 @end

@@ -40,10 +40,9 @@
 
 @implementation ErrorViewController
 
-- (instancetype)initWithTitle:(NSString *)title errorTitle:(NSString *)errorTitle errorMessage:(NSString *)errorMessage {
+- (instancetype)initWithErrorTitle:(NSString *)errorTitle errorMessage:(NSString *)errorMessage {
     self = [super initWithNibName:@"ErrorViewController" bundle:nil];
     if (self != nil) {
-        self.title = title;
         
         self.errorController = [[ErrorController alloc] init];
         self.errorController.title = errorTitle;

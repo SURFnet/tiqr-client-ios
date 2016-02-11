@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2011 SURFnet bv
+ * Copyright (c) 2015-2016 SURFnet bv
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,6 +34,7 @@
 
 @property (nonatomic, strong) IdentityService *identityService;
 @property (nonatomic, strong) SecretService *secretService;
+@property (nonatomic, strong) ChallengeService *challengeService;
 
 @end
 
@@ -43,8 +44,9 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.identityService = [[IdentityService alloc] init];
         self.secretService = [[SecretService alloc] init];
+        self.identityService = [[IdentityService alloc] initWithSecretService:self.secretService];
+        self.challengeService = [[ChallengeService alloc] initWithSecretService:self.secretService identityService:self.identityService];
     }
     
     return self;

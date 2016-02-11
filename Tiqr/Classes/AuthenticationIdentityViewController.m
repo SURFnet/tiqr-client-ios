@@ -31,6 +31,7 @@
 #import "AuthenticationConfirmViewController.h"
 #import "Identity.h"
 #import "IdentityTableViewCell.h"
+#import "ServiceContainer.h"
 
 @interface AuthenticationIdentityViewController ()
 

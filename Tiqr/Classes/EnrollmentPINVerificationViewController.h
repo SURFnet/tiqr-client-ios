@@ -30,7 +30,6 @@
 #import <CoreData/CoreData.h>
 #import "PINViewController.h"
 #import "EnrollmentChallenge.h"
-#import "EnrollmentConfirmationRequest.h"
 
 /**
  * Verifies the PIN the user entered earlier and completes the enrollment.
@@ -40,7 +39,7 @@
  * - The secret and enrollment results are communicated to the server.
  * - The enrollment result is shown to the user.
  */
-@interface EnrollmentPINVerificationViewController : PINViewController <PINViewControllerDelegate, EnrollmentConfirmationRequestDelegate> {
+@interface EnrollmentPINVerificationViewController : PINViewController <PINViewControllerDelegate> {
     
 }
 

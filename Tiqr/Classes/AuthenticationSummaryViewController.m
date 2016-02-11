@@ -29,6 +29,7 @@
 
 #import "AuthenticationSummaryViewController.h"
 #import "TiqrAppDelegate.h"
+#import "ServiceContainer.h"
 
 @interface AuthenticationSummaryViewController ()
 
@@ -44,15 +45,17 @@
 @property (nonatomic, strong) IBOutlet UILabel *serviceProviderDisplayNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *serviceProviderIdentifierLabel;
 @property (nonatomic, strong) IBOutlet UIButton *returnButton;
+@property (nonatomic, copy) NSString *PIN;
 
 @end
 
 @implementation AuthenticationSummaryViewController
 
-- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge {
+- (instancetype)initWithAuthenticationChallenge:(AuthenticationChallenge *)challenge usedPIN:(NSString *)PIN {
     self = [super initWithNibName:@"AuthenticationSummaryView" bundle:nil];
 	if (self != nil) {
 		self.challenge = challenge;
+        self.PIN = PIN;
 	}
 	
 	return self;
@@ -85,6 +88,15 @@
     }
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if (ServiceContainer.sharedInstance.secretService.touchIDIsAvailable && !self.challenge.identity.touchID.boolValue && self.PIN) {
+        UIAlertView *upgradeAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"upgrade_to_touch_id_title", @"Upgrade account") message:NSLocalizedString(@"upgrade_to_touch_id_message", @"Upgrade account to TouchID alert message") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") otherButtonTitles:NSLocalizedString(@"upgrade", @"Upgrade"), nil];
+        [upgradeAlert show];
+    }
+}
+
 - (void)done {
     [(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:YES];
 }
@@ -93,6 +105,15 @@
     [(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:NO];
     NSString *returnURL = [NSString stringWithFormat:@"%@?successful=1", self.challenge.returnUrl];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:returnURL]];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == alertView.cancelButtonIndex) {
+        return;
+    }
+    
+    [ServiceContainer.sharedInstance.identityService upgradeIdentityToTouchID:self.challenge.identity withPIN:self.PIN];
+    self.PIN = nil;
 }
 
 @end

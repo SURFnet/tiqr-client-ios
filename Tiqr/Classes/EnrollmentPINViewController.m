@@ -29,6 +29,7 @@
 
 #import "EnrollmentPINViewController.h"
 #import "EnrollmentPINVerificationViewController.h"
+#import "ServiceContainer.h"
 
 @interface EnrollmentPINViewController ()
 

@@ -29,6 +29,10 @@
 
 #import "EnrollmentConfirmViewController.h"
 #import "EnrollmentPINViewController.h"
+#import "ServiceContainer.h"
+#import "MBProgressHUD.h"
+#import "ErrorViewController.h"
+#import "EnrollmentSummaryViewController.h"
 
 @interface EnrollmentConfirmViewController ()
 
@@ -51,10 +55,9 @@
 
 - (instancetype)initWithEnrollmentChallenge:(EnrollmentChallenge *)challenge {
     self = [super initWithNibName:@"EnrollmentConfirmView" bundle:nil];
-	if (self != nil) {
-		self.challenge = challenge;
-	}
-	
+    if (self != nil) {
+        self.challenge = challenge;
+    }
 	return self;
 }
 
@@ -82,9 +85,37 @@
     }
 }
 
+
 - (IBAction)ok {
+    if (ServiceContainer.sharedInstance.secretService.touchIDIsAvailable) {
+        [self useTouchID];
+    } else {
+        [self usePIN];
+    }
+}
+
+
+- (void)usePIN {
     EnrollmentPINViewController *viewController = [[EnrollmentPINViewController alloc] initWithEnrollmentChallenge:self.challenge];
     [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)useTouchID {
+    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    
+    [ServiceContainer.sharedInstance.challengeService
+     completeEnrollmentChallenge:self.challenge usingTouchID:YES withPIN:nil completionHandler:^(BOOL success, NSError *error) {
+        
+        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+        
+        if (success) {
+            EnrollmentSummaryViewController *viewController = [[EnrollmentSummaryViewController alloc] initWithEnrollmentChallenge:self.challenge];
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else {
+            UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+    }];
 }
 
 - (IBAction)cancel {

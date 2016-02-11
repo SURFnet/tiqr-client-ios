@@ -33,12 +33,15 @@
 
 NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
 
+typedef void (^CompletionBlock)(BOOL success, NSError *error);
+
 @interface EnrollmentConfirmationRequest ()
 
 @property (nonatomic, strong) EnrollmentChallenge *challenge;
 @property (nonatomic, strong) NSMutableData *data;
 @property (nonatomic, copy) NSString *protocolVersion;
 @property (nonatomic, strong) NSURLConnection *sendConnection;
+@property (nonatomic, strong) CompletionBlock completionBlock;
 
 @end
 
@@ -53,7 +56,9 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
     return self;
 }
 
-- (void)send {
+- (void)sendWithCompletionHandler:(void (^)(BOOL, NSError *))completionHandler {
+    self.completionBlock = completionHandler;
+
 	NSString *secret = [self.challenge.identitySecret hexStringValue];
 	NSString *escapedSecret = [secret stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *escapedLanguage = [[NSLocale preferredLanguages][0] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -102,7 +107,8 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
     [details setValue:connectionError forKey:NSUnderlyingErrorKey];
     
     NSError *error = [NSError errorWithDomain:TIQRECRErrorDomain code:TIQRECRConnectionError userInfo:details];
-    [self.delegate enrollmentConfirmationRequest:self didFailWithError:error];    
+    
+    self.completionBlock(false, error);
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
@@ -113,7 +119,7 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
         
         NSNumber *responseCode = @([[result valueForKey:@"responseCode"] intValue]);
         if ([responseCode intValue] == EnrollmentChallengeResponseCodeSuccess || [responseCode intValue] == EnrollmentChallengeResponseCodeSuccessUsernameByServer) {
-            [self.delegate enrollmentConfirmationRequestDidFinish:self];
+            self.completionBlock(true, nil);
         } else {
             NSString *title = NSLocalizedString(@"enroll_error_title", @"Enrollment error title");
             NSString *message = nil;
@@ -135,14 +141,14 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
             [details setValue:message forKey:NSLocalizedFailureReasonErrorKey];
             
             NSError *error = [NSError errorWithDomain:TIQRECRErrorDomain code:TIQRECRUnknownError userInfo:details];
-            [self.delegate enrollmentConfirmationRequest:self didFailWithError:error];
+            self.completionBlock(false, error);
         }
     } else {
         // Parse string result
         NSString *response = [[NSString alloc] initWithBytes:[self.data bytes] length:[self.data length] encoding:NSUTF8StringEncoding];
         self.data = nil;
         if ([response isEqualToString:@"OK"]) {
-            [self.delegate enrollmentConfirmationRequestDidFinish:self];
+            self.completionBlock(true, nil);
         } else {
             // TODO: server should return different error codes
             NSString *title = NSLocalizedString(@"unknown_error", @"Unknown error title");
@@ -153,7 +159,7 @@ NSString *const TIQRECRErrorDomain = @"org.tiqr.ecr";
             [details setValue:message forKey:NSLocalizedFailureReasonErrorKey];
             
             NSError *error = [NSError errorWithDomain:TIQRECRErrorDomain code:TIQRECRUnknownError userInfo:details];
-            [self.delegate enrollmentConfirmationRequest:self didFailWithError:error];
+            self.completionBlock(false, error);
         }
         
     }

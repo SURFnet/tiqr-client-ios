@@ -29,6 +29,7 @@
 
 #import <CoreData/CoreData.h>
 #import "AuthenticationChallenge.h"
+#import "AuthenticationConfirmationRequest.h"
 
 /**
  * Authentication confirmation controller.

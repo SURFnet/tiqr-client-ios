@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2011 SURFnet bv
+ * Copyright (c) 2015-2016 SURFnet bv
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,12 +32,14 @@
 
 #import "IdentityService.h"
 #import "SecretService.h"
+#import "ChallengeService.h"
 
 
 @interface ServiceContainer : NSObject
 
 @property (nonatomic, strong, readonly) IdentityService *identityService;
 @property (nonatomic, strong, readonly) SecretService *secretService;
+@property (nonatomic, strong, readonly) ChallengeService *challengeService;
 
 + (instancetype)sharedInstance;
 

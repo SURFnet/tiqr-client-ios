@@ -56,9 +56,5 @@
 - (void)parseRawChallenge {
 }
 
-- (BOOL)isValid {
-    return self.error == nil;
-}
-
 
 @end

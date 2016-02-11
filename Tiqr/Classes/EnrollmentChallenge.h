@@ -55,32 +55,8 @@ enum {
  * enrollment details, identity provider logo etc. Make sure you instantiate
  * this class in a separate thread.
  */
-@interface EnrollmentChallenge : Challenge {
+@interface EnrollmentChallenge : NSObject
 
-}
-
-/**
- * Initialize the enrollment challenge handler.
- *
- * Doesn't allow local files.
- *
- * @param challenge  the raw challenge
- * @param allowFiles allow local files for the enrollment details?
- *
- * @return EnrollmentChallenge
- */
-- (instancetype)initWithRawChallenge:(NSString *)challenge allowFiles:(BOOL)allowFiles NS_DESIGNATED_INITIALIZER;
-
-/**
- * Initialize the enrollment challenge handler.
- *
- * Doesn't allow local files for the enrollment details
- *
- * @param challenge the raw challenge
- *
- * @return EnrollmentChallenge
- */
-- (instancetype)initWithRawChallenge:(NSString *)challenge;
 
 /**
  * Identity provider identifier.
@@ -155,5 +131,19 @@ enum {
  * Return URL, if invoked using an URL handler.
  */
 @property (nonatomic, copy, readonly) NSString *returnUrl;
+
+
+/**
+ * Initialize the enrollment challenge handler.
+ *
+ * Doesn't allow local files.
+ *
+ * @param challengeString   the raw challenge
+ * @param allowFiles        allow local files for the enrollment details?
+ * @param error             the error object that will be set when an error occurs
+ *
+ * @return EnrollmentChallenge
+ */
++ (EnrollmentChallenge *)challengeWithChallengeString:(NSString *)challengeString allowFiles:(BOOL)allowFiles error:(NSError **)error;
 
 @end

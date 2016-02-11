@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010-2011 SURFnet bv
+ * Copyright (c) 2015-2016 SURFnet bv
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,6 +31,7 @@
 #import <CommonCrypto/CommonCryptor.h>
 #import <CommonCrypto/CommonHMAC.h>
 #import <CommonCrypto/CommonKeyDerivation.h>
+#import <LocalAuthentication/LocalAuthentication.h>
 
 #import "SecretService.h"
 #import "Identity.h"
@@ -38,7 +39,21 @@
 
 #define kChosenCipherKeySize kCCKeySizeAES256
 
+
 @implementation SecretService
+
+- (instancetype)init {
+    if (self = [super init]) {
+        if ([LAContext class]) {
+            LAContext *context = [[LAContext alloc] init];
+            NSError *error = nil;
+            _touchIDIsAvailable = [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error] &&
+                                  [context respondsToSelector:@selector(evaluateAccessControl:operation:localizedReason:reply:)];
+        }
+    }
+    
+    return self;
+}
 
 - (NSData *)loadSecretForIdentity:(Identity *)identity {
     NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
@@ -93,10 +108,11 @@
 - (BOOL)deleteSecretForIdentityIdentifier:(NSString *)identityIdentifier providerIdentifier:(NSString *)providerIdentifier; {
     NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
     query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
-    query[(__bridge id)kSecAttrService] = identityIdentifier;
-    query[(__bridge id)kSecAttrAccount] = providerIdentifier;
+    query[(__bridge id)kSecAttrService] = providerIdentifier;
+    query[(__bridge id)kSecAttrAccount] = identityIdentifier;
     
-    return SecItemDelete((__bridge CFDictionaryRef)query) == noErr;
+    OSStatus status = SecItemDelete((__bridge CFDictionaryRef)query);
+    return status == noErr;
 }
 
 - (NSData *)generateSecret {
@@ -257,19 +273,108 @@
     return [self setSecret:secret forIdentity:identity withPIN:PIN salt:identity.salt initializationVector:identity.initializationVector];
 }
 
-- (NSData *)secretForIdentity:(Identity *)identity withPIN:(NSString *)PIN salt:(NSData *)salt initializationVector:(NSData *)initializationVector {
+- (void)setSecret:(NSData *)secret usingTouchIDforIdentity:(Identity *)identity withCompletionHandler:(void (^)(BOOL success))completionHandler {
+    CFErrorRef error = NULL;
+    SecAccessControlRef sacObject = SecAccessControlCreateWithFlags(kCFAllocatorDefault,
+                                                                    kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
+                                                                    kSecAccessControlTouchIDAny, &error);
+    
+    LAContext *context = [[LAContext alloc] init];
+    
+    [context evaluateAccessControl:sacObject operation:LAAccessControlOperationCreateItem localizedReason:NSLocalizedString(@"touch_id_reason", @"Tiqr wants to save the identity") reply:^(BOOL success, NSError * _Nullable error) {
+        
+        if (success) {
+            
+            NSDictionary *data = @{
+                                   (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+                                   (__bridge id)kSecAttrService: identity.identityProvider.identifier,
+                                   (__bridge id)kSecAttrAccount: identity.identifier,
+                                   (__bridge id)kSecValueData: secret,
+                                   (__bridge id)kSecAttrAccessible: (__bridge id)kSecAttrAccessibleWhenUnlocked,
+                                   (__bridge id)kSecUseAuthenticationContext: context
+                                   };
+            
+            CFDictionaryRef result;
+            OSStatus status = SecItemAdd((__bridge CFDictionaryRef)data, (CFTypeRef *)&result);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionHandler(status == noErr);
+            });
+            
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionHandler(false);
+            });
+        }
+        
+    }];
+}
+
+- (NSData *)secretForIdentity:(Identity *)identity withKey:(NSString *)key salt:(NSData *)salt initializationVector:(NSData *)initializationVector {
     NSData *storedEncryptedSecret = [self loadSecretForIdentity:identity];
     if (storedEncryptedSecret == nil) {
         return nil;
     }
     
-    NSString *key = [self keyForPIN:PIN salt:salt];
     NSData *result = [self decrypt:storedEncryptedSecret key:key initializationVector:initializationVector];
     return result;
 }
 
+- (NSData *)secretForIdentity:(Identity *)identity withPIN:(NSString *)PIN salt:(NSData *)salt initializationVector:(NSData *)initializationVector {
+    
+    NSString *key = [self keyForPIN:PIN salt:salt];
+    return [self secretForIdentity:identity withKey:key salt:salt initializationVector:initializationVector];
+}
+
 - (NSData *)secretForIdentity:(Identity *)identity withPIN:(NSString *)PIN {
     return [self secretForIdentity:identity withPIN:PIN salt:identity.salt initializationVector:identity.initializationVector];
+}
+
+- (void)secretForIdentity:(Identity *)identity touchIDPrompt:(NSString *)prompt withSuccessHandler:(void (^)(NSData *secret))successHandler failureHandler:(void (^)(BOOL cancelled))failureHandler {
+    
+    if (!self.touchIDIsAvailable || ![identity.touchID boolValue]) {
+        failureHandler(false);
+        return;
+    }
+    
+    CFErrorRef error = NULL;
+    SecAccessControlRef sacObject = SecAccessControlCreateWithFlags(kCFAllocatorDefault,
+                                                                    kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
+                                                                    kSecAccessControlTouchIDAny, &error);
+    
+    LAContext *context = [[LAContext alloc] init];
+    
+    [context evaluateAccessControl:sacObject operation:LAAccessControlOperationUseItem localizedReason:prompt reply:^(BOOL success, NSError * _Nullable error) {
+        
+        if (success) {
+            NSDictionary *query = @{
+                                    (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
+                                    (__bridge id)kSecAttrService: identity.identityProvider.identifier,
+                                    (__bridge id)kSecAttrAccount: identity.identifier,
+                                    (__bridge id)kSecMatchLimit: (__bridge id)kSecMatchLimitOne,
+                                    (__bridge id)kSecReturnData: (id)kCFBooleanTrue,
+                                    (__bridge id)kSecReturnAttributes: (id)kCFBooleanTrue,
+                                    (__bridge id)kSecUseAuthenticationContext: context
+                                    };
+            
+            CFDictionaryRef result;
+            OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, (CFTypeRef *)&result);
+            if (status == noErr) {
+                NSData *secret = (NSData *)((__bridge NSDictionary*)result)[(__bridge id)kSecValueData];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    successHandler(secret);
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    failureHandler(false);
+                });
+            }
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                failureHandler(error.code == kLAErrorUserCancel);
+            });
+        }
+    }];
 }
 
 @end

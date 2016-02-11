@@ -32,7 +32,9 @@
 
 
 NSString *const TIQRACRErrorDomain = @"org.tiqr.acr";
-NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";  
+NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
+
+typedef void (^CompletionBlock)(BOOL success, NSError *error);
 
 @interface AuthenticationConfirmationRequest ()
 
@@ -41,6 +43,7 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
 @property (nonatomic, strong) NSMutableData *data;
 @property (nonatomic, copy) NSString *protocolVersion;
 @property (nonatomic, strong) NSURLConnection *sendConnection;
+@property (nonatomic, strong) CompletionBlock completionBlock;
 
 @end
 
@@ -82,7 +85,7 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
     [details setValue:connectionError forKey:NSUnderlyingErrorKey];
     
     NSError *error = [NSError errorWithDomain:TIQRACRErrorDomain code:TIQRACRConnectionError userInfo:details];
-    [self.delegate authenticationConfirmationRequest:self didFailWithError:error];    
+    self.completionBlock(false, error);
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
@@ -94,7 +97,7 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
         
         NSNumber *responseCode = @([[result valueForKey:@"responseCode"] intValue]);
         if ([responseCode intValue] == AuthenticationChallengeResponseCodeSuccess) {
-            [self.delegate authenticationConfirmationRequestDidFinish:self];
+            self.completionBlock(true, nil);
         } else {
             NSInteger code = TIQRACRUnknownError;
             NSString *title = NSLocalizedString(@"unknown_error", @"Unknown error title");
@@ -157,13 +160,13 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
             }
             
             NSError *error = [NSError errorWithDomain:TIQRACRErrorDomain code:code userInfo:details];
-            [self.delegate authenticationConfirmationRequest:self didFailWithError:error];
+            self.completionBlock(false, error);
         }
     } else {
         // Parse String result
         NSString *response = [[NSString alloc] initWithBytes:[self.data bytes] length:[self.data length] encoding:NSUTF8StringEncoding];
         if ([response isEqualToString:@"OK"]) {
-            [self.delegate authenticationConfirmationRequestDidFinish:self];
+            self.completionBlock(true, nil);
         } else {
             NSInteger code = TIQRACRUnknownError;
             NSString *title = NSLocalizedString(@"unknown_error", @"Unknown error title");
@@ -209,13 +212,15 @@ NSString *const TIQRACRAttemptsLeftErrorKey = @"AttempsLeftErrorKey";
             }
             
             NSError *error = [NSError errorWithDomain:TIQRACRErrorDomain code:code userInfo:details];
-            [self.delegate authenticationConfirmationRequest:self didFailWithError:error];
+            self.completionBlock(false, error);
         }
     }
     
 }
 
-- (void)send {
+- (void)sendWithCompletionHandler:(void(^)(BOOL success, NSError *error))completionHandler {
+    self.completionBlock = completionHandler;
+    
 	NSString *escapedSessionKey = [self.challenge.sessionKey stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *escapedUserId = [self.challenge.identity.identifier stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *escapedResponse = [self.response stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
