@@ -33,9 +33,12 @@
 
 - (void)awakeFromNib {
     UIImageView *tiqrHeaderView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tiqr-header"]];
+    tiqrHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
+    
     [self addSubview:tiqrHeaderView];
     
-    tiqrHeaderView.center = self.center;
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:tiqrHeaderView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:tiqrHeaderView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1 constant:0]];
 }
 
 /*

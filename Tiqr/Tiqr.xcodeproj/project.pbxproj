@@ -26,7 +26,6 @@
 		924D6C5F13094DEC00F87B96 /* AuthenticationFallbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 924D6C5E13094DEC00F87B96 /* AuthenticationFallbackViewController.m */; };
 		924D6E3D130958A400F87B96 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 924D6E3C130958A400F87B96 /* Reachability.m */; };
 		924D6E4913095A6900F87B96 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 924D6E4813095A6900F87B96 /* SystemConfiguration.framework */; };
-		9264034716C92C360032A4FE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9264034616C92C360032A4FE /* Default-568h@2x.png */; };
 		92B92DE3132E114E004F390D /* OcraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B92DE2132E114D004F390D /* OcraTests.m */; };
 		92B92DE6132E1DD0004F390D /* OCRA.m in Sources */ = {isa = PBXBuildFile; fileRef = 92B92DE5132E1DCE004F390D /* OCRA.m */; };
 		92B92DE7132E34CD004F390D /* OCRAWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 922F08461289ABFE00A33616 /* OCRAWrapper.m */; };
@@ -44,6 +43,7 @@
 		CD688F4F1C035FCE006FF469 /* ChallengeService.m in Sources */ = {isa = PBXBuildFile; fileRef = CD688F4E1C035FCE006FF469 /* ChallengeService.m */; };
 		CD7BAB0D1BAAB87400B88393 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7BAB0C1BAAB87400B88393 /* images.xcassets */; };
 		CD7BAB101BAAE3F200B88393 /* TiqrNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */; };
+		CD96F1F61C7C7B6B00E79F32 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD96F1F51C7C7B6B00E79F32 /* Launch Screen.xib */; };
 		CDBB08C01BAC3DB0008D8F94 /* TiqrToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */; };
 		D002E0201349D29A00071321 /* ErrorController.m in Sources */ = {isa = PBXBuildFile; fileRef = D002E01F1349D29A00071321 /* ErrorController.m */; };
 		D002E0251349F4D400071321 /* StartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D002E0261349F4D400071321 /* StartView.xib */; };
@@ -142,7 +142,6 @@
 		9264034316C92BCC0032A4FE /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9264034416C92BDF0032A4FE /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9264034516C92BEB0032A4FE /* sr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sr; path = sr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		9264034616C92C360032A4FE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		92829C8F16C92AC000D0F8BA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		92B92DE1132E114C004F390D /* OcraTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OcraTests.h; sourceTree = "<group>"; };
 		92B92DE2132E114D004F390D /* OcraTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OcraTests.m; sourceTree = "<group>"; };
@@ -169,6 +168,7 @@
 		CD7BAB0C1BAAB87400B88393 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrNavigationBar.h; sourceTree = "<group>"; };
 		CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrNavigationBar.m; sourceTree = "<group>"; };
+		CD96F1F51C7C7B6B00E79F32 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		CDBB08BE1BAC3DB0008D8F94 /* TiqrToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrToolbar.h; sourceTree = "<group>"; };
 		CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrToolbar.m; sourceTree = "<group>"; };
 		D002E01E1349D29A00071321 /* ErrorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorController.h; sourceTree = "<group>"; };
@@ -321,7 +321,6 @@
 		29B97314FDCFA39411CA2CEA /* MobileAuth */ = {
 			isa = PBXGroup;
 			children = (
-				9264034616C92C360032A4FE /* Default-568h@2x.png */,
 				D016F8A31338C83C00B997D9 /* External */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				D028BF8313092834002EA560 /* Resources */,
@@ -517,6 +516,7 @@
 				D0E58D6B134A12B100A79052 /* Identity */,
 				D0BE4B0F134B3DC50045AF62 /* About */,
 				D076CF00134F31C000FE762A /* MainWindow.xib */,
+				CD96F1F51C7C7B6B00E79F32 /* Launch Screen.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -860,6 +860,7 @@
 				D028BFB813092834002EA560 /* IdentityListView.xib in Resources */,
 				D076CEFF134F31C000FE762A /* MainWindow.xib in Resources */,
 				D028BFC41309288A002EA560 /* Entitlements.plist in Resources */,
+				CD96F1F61C7C7B6B00E79F32 /* Launch Screen.xib in Resources */,
 				D0FF34EA1309462C004096E1 /* Settings.bundle in Resources */,
 				D025994413095F9B00F1DF9A /* Localizable.strings in Resources */,
 				D06AD591134095690050D75C /* PINView.xib in Resources */,
@@ -877,7 +878,6 @@
 				CD7BAB0D1BAAB87400B88393 /* images.xcassets in Resources */,
 				76A195C0155BCACC00A73D2D /* AboutView.xib in Resources */,
 				D0D7200315930AB4008C7004 /* start.html in Resources */,
-				9264034716C92C360032A4FE /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1007,6 +1007,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch Images";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/General/Entitlements.plist;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1035,6 +1036,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch Images";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/General/Entitlements.plist;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1150,6 +1152,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Launch Images";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/General/Entitlements.plist;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

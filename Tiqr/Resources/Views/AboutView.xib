@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutViewController">
@@ -19,26 +19,11 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="tiqr is provided by:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="13">
-                    <rect key="frame" x="8" y="108" width="304" height="21"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <color key="textColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Developed by:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="5">
-                    <rect key="frame" x="8" y="204" width="304" height="21"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <color key="textColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="11">
-                    <rect key="frame" x="20" y="18" width="280" height="72"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="11" userLabel="Tiqr Button">
+                    <rect key="frame" x="20" y="25" width="280" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="cOM-VT-vIl"/>
+                    </constraints>
                     <state key="normal" image="tiqr-logo">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -46,19 +31,95 @@
                         <action selector="tiqr" destination="-1" eventType="touchUpInside" id="16"/>
                     </connections>
                 </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Interaction design:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="25">
-                    <rect key="frame" x="8" y="291" width="304" height="21"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <color key="textColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8bT-Wx-H7J">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q4F-vZ-NtQ">
+                    <rect key="frame" x="0.0" y="95" width="320" height="85.5"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="tiqr is provided by:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="13">
+                            <rect key="frame" x="96" y="0.0" width="129" height="17"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <color key="textColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15" userLabel="Surfnet Button">
+                            <rect key="frame" x="89" y="27" width="143" height="43"/>
+                            <state key="normal" image="surfnet-logo">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="surfnet" destination="-1" eventType="touchUpInside" id="fzp-cy-giz"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="13" firstAttribute="centerX" secondItem="Q4F-vZ-NtQ" secondAttribute="centerX" id="2Jr-bh-Iop"/>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="4zA-gb-XhA"/>
+                        <constraint firstItem="15" firstAttribute="centerX" secondItem="Q4F-vZ-NtQ" secondAttribute="centerX" id="Ea5-qY-o6h"/>
+                        <constraint firstItem="13" firstAttribute="top" secondItem="Q4F-vZ-NtQ" secondAttribute="top" id="G5j-Ly-smH"/>
+                        <constraint firstItem="15" firstAttribute="top" secondItem="13" secondAttribute="bottom" constant="10" id="oQD-zB-lHd"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oz3-51-JvV">
+                    <rect key="frame" x="0.0" y="190" width="320" height="86"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12" userLabel="Egeniq Button">
+                            <rect key="frame" x="85" y="27" width="150" height="42"/>
+                            <state key="normal" image="egeniq-logo">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="egeniq" destination="-1" eventType="touchUpInside" id="18"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Developed by:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5">
+                            <rect key="frame" x="111" y="0.0" width="98.5" height="17"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <color key="textColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="5" firstAttribute="top" secondItem="Oz3-51-JvV" secondAttribute="top" id="2h0-LU-f15"/>
+                        <constraint firstItem="12" firstAttribute="top" secondItem="5" secondAttribute="bottom" constant="10" id="82p-Sw-XUn"/>
+                        <constraint firstItem="12" firstAttribute="centerX" secondItem="Oz3-51-JvV" secondAttribute="centerX" id="HgW-0L-o9u"/>
+                        <constraint firstItem="5" firstAttribute="centerX" secondItem="Oz3-51-JvV" secondAttribute="centerX" id="c7d-kM-X1o"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVO-Gp-2Jf">
+                    <rect key="frame" x="0.0" y="286" width="320" height="85.5"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Interaction design:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="25">
+                            <rect key="frame" x="95" y="0.0" width="130.5" height="17"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <color key="textColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26" userLabel="Stroomt Button">
+                            <rect key="frame" x="94" y="27" width="132" height="40"/>
+                            <state key="normal" image="stroomt-logo">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="stroomt" destination="-1" eventType="touchUpInside" id="28"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="26" firstAttribute="centerX" secondItem="yVO-Gp-2Jf" secondAttribute="centerX" id="Dhu-SZ-zh3"/>
+                        <constraint firstItem="25" firstAttribute="top" secondItem="yVO-Gp-2Jf" secondAttribute="top" id="ehk-n7-d7J"/>
+                        <constraint firstItem="26" firstAttribute="top" secondItem="25" secondAttribute="bottom" constant="10" id="gpJ-x9-bOG"/>
+                        <constraint firstItem="25" firstAttribute="centerX" secondItem="yVO-Gp-2Jf" secondAttribute="centerX" id="wlM-Hb-2eh"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8bT-Wx-H7J">
                     <rect key="frame" x="60" y="392" width="200" height="44"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <animations/>
                     <color key="backgroundColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="200" id="8Ak-wb-XB0"/>
+                        <constraint firstAttribute="height" constant="44" id="zmN-7l-qIj"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" title="Button">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -68,43 +129,30 @@
                         <action selector="done" destination="-1" eventType="touchUpInside" id="knT-vy-rQT"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="12">
-                    <rect key="frame" x="74" y="221" width="172" height="57"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <state key="normal" image="egeniq-logo">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="egeniq" destination="-1" eventType="touchUpInside" id="18"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="15">
-                    <rect key="frame" x="74" y="121" width="172" height="71"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <state key="normal" image="surfnet-logo">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="surfnet" destination="-1" eventType="touchUpInside" id="fzp-cy-giz"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="26">
-                    <rect key="frame" x="74" y="304" width="172" height="65"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <animations/>
-                    <state key="normal" image="stroomt-logo">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="stroomt" destination="-1" eventType="touchUpInside" id="28"/>
-                    </connections>
-                </button>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="yVO-Gp-2Jf" firstAttribute="height" secondItem="Oz3-51-JvV" secondAttribute="height" id="5AH-8I-e9d"/>
+                <constraint firstItem="11" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="7jm-ca-OgE"/>
+                <constraint firstItem="Oz3-51-JvV" firstAttribute="height" secondItem="Q4F-vZ-NtQ" secondAttribute="height" id="Ecp-hj-9eB"/>
+                <constraint firstItem="11" firstAttribute="top" secondItem="1" secondAttribute="top" constant="25" id="HbN-wE-eOW"/>
+                <constraint firstItem="8bT-Wx-H7J" firstAttribute="top" secondItem="yVO-Gp-2Jf" secondAttribute="bottom" priority="750" constant="20" id="Os1-7f-cTh"/>
+                <constraint firstItem="yVO-Gp-2Jf" firstAttribute="top" secondItem="Oz3-51-JvV" secondAttribute="bottom" constant="10" id="PhR-Fi-LlZ"/>
+                <constraint firstItem="Oz3-51-JvV" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="R93-Ob-Kc1"/>
+                <constraint firstAttribute="trailing" secondItem="11" secondAttribute="trailing" constant="20" id="UGq-iv-cUh"/>
+                <constraint firstItem="Q4F-vZ-NtQ" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="dOk-PY-22L"/>
+                <constraint firstItem="Oz3-51-JvV" firstAttribute="top" secondItem="Q4F-vZ-NtQ" secondAttribute="bottom" constant="10" id="eXV-gN-Onz"/>
+                <constraint firstItem="8bT-Wx-H7J" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="edO-MI-N5y"/>
+                <constraint firstAttribute="bottom" secondItem="8bT-Wx-H7J" secondAttribute="bottom" constant="44" id="ivO-v3-pAM"/>
+                <constraint firstItem="Q4F-vZ-NtQ" firstAttribute="top" secondItem="11" secondAttribute="bottom" constant="20" id="mj0-a0-aF4"/>
+                <constraint firstItem="8bT-Wx-H7J" firstAttribute="top" relation="greaterThanOrEqual" secondItem="yVO-Gp-2Jf" secondAttribute="bottom" constant="20" id="oeK-Pn-3Fi"/>
+                <constraint firstAttribute="trailing" secondItem="yVO-Gp-2Jf" secondAttribute="trailing" id="ojz-0Y-hAC"/>
+                <constraint firstAttribute="trailing" secondItem="Oz3-51-JvV" secondAttribute="trailing" id="tQv-wM-grh"/>
+                <constraint firstItem="yVO-Gp-2Jf" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="wRF-VV-bkY"/>
+                <constraint firstAttribute="trailing" secondItem="Q4F-vZ-NtQ" secondAttribute="trailing" id="xFY-E8-MJ9"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-112" y="522"/>
         </view>
     </objects>
     <resources>
