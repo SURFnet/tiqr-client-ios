@@ -1,116 +1,151 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AuthenticationSummaryViewController">
             <connections>
-                <outlet property="accountIDLabel" destination="Wes-Gj-fx8" id="nbv-kV-xxe"/>
-                <outlet property="accountLabel" destination="0Pk-Ya-V3L" id="L0o-43-vtT"/>
-                <outlet property="identityDisplayNameLabel" destination="M3r-TW-LYX" id="xwe-fu-Ez2"/>
-                <outlet property="identityIdentifierLabel" destination="6Pz-3g-43f" id="w62-gN-P8m"/>
-                <outlet property="loginConfirmLabel" destination="w59-e8-yup" id="wen-oC-8Nq"/>
-                <outlet property="loginInformationLabel" destination="pQj-af-CAC" id="6gq-Ao-9bz"/>
-                <outlet property="returnButton" destination="tPr-N6-ERp" id="vWl-pQ-dG2"/>
-                <outlet property="serviceProviderDisplayNameLabel" destination="dNh-0O-sQT" id="ER7-IC-693"/>
-                <outlet property="serviceProviderIdentifierLabel" destination="B2a-Mw-XQt" id="lmo-t7-tm6"/>
-                <outlet property="toLabel" destination="N6k-f2-ERc" id="9BO-rC-TJv"/>
-                <outlet property="view" destination="3" id="15"/>
+                <outlet property="accountIDLabel" destination="Zn1-3h-ybg" id="9mu-4Z-kpl"/>
+                <outlet property="accountLabel" destination="j58-rT-tLQ" id="JTR-0e-KV9"/>
+                <outlet property="identityDisplayNameLabel" destination="Kw1-XH-hja" id="303-qS-1Gc"/>
+                <outlet property="identityIdentifierLabel" destination="Awg-YQ-Jxj" id="Ra7-Ld-77G"/>
+                <outlet property="loginConfirmLabel" destination="o6a-cd-JcA" id="mIJ-rM-KDb"/>
+                <outlet property="loginInformationLabel" destination="K60-E8-eg5" id="h8P-7B-fP9"/>
+                <outlet property="returnButton" destination="nwF-oz-iaH" id="KR1-nb-goc"/>
+                <outlet property="serviceProviderDisplayNameLabel" destination="rni-ma-yYs" id="KTG-2I-0bQ"/>
+                <outlet property="serviceProviderIdentifierLabel" destination="SQP-nt-WRU" id="8HI-qO-RBD"/>
+                <outlet property="toLabel" destination="fJL-Lk-K36" id="8v3-0o-lrq"/>
+                <outlet property="view" destination="gnc-8V-DGV" id="RId-My-whp"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="3">
+        <view contentMode="scaleToFill" id="gnc-8V-DGV">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="You have successfully logged in!" lineBreakMode="tailTruncation" minimumFontSize="10" id="w59-e8-yup">
-                    <rect key="frame" x="15" y="10" width="290" height="28"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="You have successfully logged in!" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="o6a-cd-JcA">
+                    <rect key="frame" x="15" y="19" width="290" height="20"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="to:" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="N6k-f2-ERc">
-                    <rect key="frame" x="15" y="172" width="290" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Service Provider Name" lineBreakMode="tailTruncation" minimumFontSize="10" id="dNh-0O-sQT">
-                    <rect key="frame" x="30" y="201" width="275" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Service Provider Identifier" lineBreakMode="tailTruncation" minimumFontSize="10" id="B2a-Mw-XQt">
-                    <rect key="frame" x="30" y="223" width="275" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
-                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="You logged in with the following account" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" id="pQj-af-CAC">
-                    <rect key="frame" x="15" y="62" width="294" height="27"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tPr-N6-ERp">
-                    <rect key="frame" x="60" y="394" width="200" height="37"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <color key="backgroundColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <state key="normal" title="OK">
-                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="returnToCaller" destination="-1" eventType="touchUpInside" id="MRW-8q-dGw"/>
-                    </connections>
-                </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Identity Name" lineBreakMode="tailTruncation" minimumFontSize="10" id="M3r-TW-LYX">
-                    <rect key="frame" x="159" y="102" width="146" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Identity identifier" lineBreakMode="tailTruncation" minimumFontSize="10" id="6Pz-3g-43f">
-                    <rect key="frame" x="159" y="122" width="146" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Account" lineBreakMode="tailTruncation" minimumFontSize="10" id="0Pk-Ya-V3L">
-                    <rect key="frame" x="30" y="102" width="121" height="22"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Tiqr account ID" lineBreakMode="tailTruncation" minimumFontSize="10" id="Wes-Gj-fx8">
-                    <rect key="frame" x="30" y="122" width="121" height="21"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2BE-Ps-1Hc">
+                    <rect key="frame" x="0.0" y="50" width="320" height="430"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Identity Name" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Kw1-XH-hja">
+                            <rect key="frame" x="168" y="74" width="142" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Identity identifier" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Awg-YQ-Jxj">
+                            <rect key="frame" x="168" y="96" width="142" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="1000" text="Account" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="j58-rT-tLQ">
+                            <rect key="frame" x="35" y="74" width="125" height="17"/>
+                            <constraints>
+                                <constraint firstAttribute="width" relation="lessThanOrEqual" constant="125" id="oIy-Zr-nLk"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="1000" text="Tiqr account ID" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Zn1-3h-ybg">
+                            <rect key="frame" x="35" y="96" width="125" height="17"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="You logged in with the following account" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="K60-E8-eg5">
+                            <rect key="frame" x="20" y="24" width="280" height="39"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </label>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nwF-oz-iaH">
+                            <rect key="frame" x="60" y="353" width="200" height="37"/>
+                            <color key="backgroundColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="37" id="d5L-tj-agZ"/>
+                                <constraint firstAttribute="width" constant="200" id="z9k-0N-C5P"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <state key="normal" title="OK">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="returnToCaller" destination="-1" eventType="touchUpInside" id="WQW-ig-cCR"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Service Provider Name" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="rni-ma-yYs">
+                            <rect key="frame" x="35" y="178" width="275" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Service Provider Identifier" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="SQP-nt-WRU">
+                            <rect key="frame" x="35" y="200" width="275" height="17"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
+                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="to:" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="fJL-Lk-K36">
+                            <rect key="frame" x="20" y="150" width="280" height="19"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="rni-ma-yYs" firstAttribute="top" secondItem="fJL-Lk-K36" secondAttribute="bottom" constant="9" id="2oC-mr-2Fd"/>
+                        <constraint firstAttribute="trailing" secondItem="Kw1-XH-hja" secondAttribute="trailing" constant="10" id="CQP-lc-IrT"/>
+                        <constraint firstItem="SQP-nt-WRU" firstAttribute="top" secondItem="rni-ma-yYs" secondAttribute="bottom" constant="5" id="E6P-dV-XGG"/>
+                        <constraint firstItem="j58-rT-tLQ" firstAttribute="leading" secondItem="2BE-Ps-1Hc" secondAttribute="leading" constant="35" id="LF8-RN-yGJ"/>
+                        <constraint firstItem="fJL-Lk-K36" firstAttribute="leading" secondItem="K60-E8-eg5" secondAttribute="leading" id="O3B-I0-Yki"/>
+                        <constraint firstItem="Awg-YQ-Jxj" firstAttribute="trailing" secondItem="Kw1-XH-hja" secondAttribute="trailing" id="OY8-1z-xki"/>
+                        <constraint firstItem="SQP-nt-WRU" firstAttribute="leading" secondItem="rni-ma-yYs" secondAttribute="leading" id="V7Y-Np-2q4"/>
+                        <constraint firstItem="Kw1-XH-hja" firstAttribute="baseline" secondItem="j58-rT-tLQ" secondAttribute="baseline" id="XDx-Cu-UlY"/>
+                        <constraint firstItem="fJL-Lk-K36" firstAttribute="top" secondItem="Zn1-3h-ybg" secondAttribute="bottom" constant="37" id="YqI-T6-YQr"/>
+                        <constraint firstItem="rni-ma-yYs" firstAttribute="leading" secondItem="j58-rT-tLQ" secondAttribute="leading" id="bh2-DN-ymT"/>
+                        <constraint firstItem="Zn1-3h-ybg" firstAttribute="top" secondItem="j58-rT-tLQ" secondAttribute="bottom" constant="5" id="buN-Ff-X1D"/>
+                        <constraint firstItem="Zn1-3h-ybg" firstAttribute="leading" secondItem="j58-rT-tLQ" secondAttribute="leading" id="dQX-Pb-trH"/>
+                        <constraint firstItem="Zn1-3h-ybg" firstAttribute="trailing" secondItem="j58-rT-tLQ" secondAttribute="trailing" id="ezQ-cZ-PRb"/>
+                        <constraint firstItem="nwF-oz-iaH" firstAttribute="centerX" secondItem="2BE-Ps-1Hc" secondAttribute="centerX" id="lDK-Vq-ZWP"/>
+                        <constraint firstItem="Awg-YQ-Jxj" firstAttribute="baseline" secondItem="Zn1-3h-ybg" secondAttribute="baseline" id="net-ns-e2N"/>
+                        <constraint firstItem="fJL-Lk-K36" firstAttribute="trailing" secondItem="K60-E8-eg5" secondAttribute="trailing" id="o4v-64-cf5"/>
+                        <constraint firstAttribute="bottom" secondItem="nwF-oz-iaH" secondAttribute="bottom" constant="41" id="otN-PF-31Q"/>
+                        <constraint firstItem="K60-E8-eg5" firstAttribute="top" secondItem="2BE-Ps-1Hc" secondAttribute="top" constant="24" id="q9g-BZ-HHk"/>
+                        <constraint firstAttribute="trailing" secondItem="rni-ma-yYs" secondAttribute="trailing" constant="10" id="rRL-7r-XRE"/>
+                        <constraint firstItem="SQP-nt-WRU" firstAttribute="trailing" secondItem="rni-ma-yYs" secondAttribute="trailing" id="tHb-Ra-f76"/>
+                        <constraint firstItem="Kw1-XH-hja" firstAttribute="leading" secondItem="j58-rT-tLQ" secondAttribute="trailing" constant="8" id="tKW-C5-Hgm"/>
+                        <constraint firstItem="Awg-YQ-Jxj" firstAttribute="leading" secondItem="Kw1-XH-hja" secondAttribute="leading" id="u0U-3e-3V1"/>
+                        <constraint firstItem="K60-E8-eg5" firstAttribute="leading" secondItem="2BE-Ps-1Hc" secondAttribute="leading" constant="20" id="uj5-u6-J5x"/>
+                        <constraint firstAttribute="trailing" secondItem="K60-E8-eg5" secondAttribute="trailing" constant="20" id="vwl-Bt-W3O"/>
+                        <constraint firstItem="j58-rT-tLQ" firstAttribute="top" secondItem="K60-E8-eg5" secondAttribute="bottom" constant="11" id="vxp-iV-M9B"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="2BE-Ps-1Hc" firstAttribute="leading" secondItem="gnc-8V-DGV" secondAttribute="leading" id="8rM-Dp-YCD"/>
+                <constraint firstAttribute="trailing" secondItem="o6a-cd-JcA" secondAttribute="trailing" constant="15" id="Dab-aR-yjO"/>
+                <constraint firstItem="o6a-cd-JcA" firstAttribute="top" secondItem="gnc-8V-DGV" secondAttribute="top" constant="19" id="KEN-Ae-ZgG"/>
+                <constraint firstItem="2BE-Ps-1Hc" firstAttribute="top" secondItem="o6a-cd-JcA" secondAttribute="bottom" constant="11" id="NEa-ov-BDl"/>
+                <constraint firstAttribute="bottom" secondItem="2BE-Ps-1Hc" secondAttribute="bottom" id="Ueq-QS-GP9"/>
+                <constraint firstAttribute="trailing" secondItem="2BE-Ps-1Hc" secondAttribute="trailing" id="dgb-YC-RNu"/>
+                <constraint firstItem="o6a-cd-JcA" firstAttribute="leading" secondItem="gnc-8V-DGV" secondAttribute="leading" constant="15" id="uF7-5Z-jQZ"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="283" y="617"/>
         </view>
     </objects>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

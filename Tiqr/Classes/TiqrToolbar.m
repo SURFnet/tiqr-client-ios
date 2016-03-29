@@ -29,15 +29,25 @@
 
 #import "TiqrToolbar.h"
 
+@interface TiqrToolbar()
+
+@property (nonatomic, strong) UIButton *surfnetButton;
+
+@end
+
 @implementation TiqrToolbar
 
 - (void)awakeFromNib {
-    UIButton *surfnetButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [surfnetButton setImage:[UIImage imageNamed:@"surfnet-logo"] forState:UIControlStateNormal];
-    [surfnetButton addTarget:self action:@selector(surfnet) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:surfnetButton];
-    
-    surfnetButton.frame = CGRectMake(self.frame.size.width - 109, 6, 109, 32);
+    self.surfnetButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.surfnetButton setImage:[UIImage imageNamed:@"surfnet-logo"] forState:UIControlStateNormal];
+    [self.surfnetButton addTarget:self action:@selector(surfnet) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:self.surfnetButton];
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+
+    self.surfnetButton.frame = CGRectMake(self.frame.size.width - 109, 6, 109, 32);
 }
 
 - (void)surfnet {

@@ -57,11 +57,11 @@
 
 @implementation ScanOverlayView
 
-- (void)setFrame:(CGRect)frame {
-	[super setFrame:frame];
-	
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
     CGFloat rectSize = self.frame.size.width - kPadding * 2;
-	self.cropRect = CGRectMake(kPadding, (self.frame.size.height - rectSize) / 2, rectSize, rectSize);
+    self.cropRect = CGRectMake(kPadding, (self.frame.size.height - rectSize) / 2, rectSize, rectSize);
 }
 
 - (void)drawRect:(CGRect)rect inContext:(CGContextRef)context {

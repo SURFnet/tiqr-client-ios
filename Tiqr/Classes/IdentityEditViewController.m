@@ -40,7 +40,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *identityProviderIdentifierLabel;
 @property (nonatomic, strong) IBOutlet UILabel *identityProviderDisplayNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *blockedWarningLabel;
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
 
 @end
 
@@ -74,6 +74,8 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    
+    self.tableView.tableFooterView = [UIView new];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

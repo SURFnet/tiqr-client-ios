@@ -45,6 +45,8 @@
     if (self != nil) {
         UINib *nib = [UINib nibWithNibName:@"ErrorView" bundle:nil];
         [nib instantiateWithOwner:self options:nil];
+        
+        self.view.translatesAutoresizingMaskIntoConstraints = NO;
     }
     
     return self;
@@ -52,8 +54,10 @@
 
 - (void)addToView:(UIView *)view {
     [self.view removeFromSuperview];
-    self.view.frame = view.frame;
     [view addSubview:self.view];
+    
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[errorView]|" options:0 metrics:nil views:@{@"errorView" : self.view}]];
+    [view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[errorView]|" options:0 metrics:nil views:@{@"errorView" : self.view}]];
 }
 
 - (NSString *)title {
