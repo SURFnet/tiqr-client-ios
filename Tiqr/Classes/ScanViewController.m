@@ -216,10 +216,14 @@
     
     AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     AVCaptureDeviceInput *captureInput = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:nil];
-    [self.captureSession addInput:captureInput];
+    if ([self.captureSession canAddInput:captureInput]) {
+        [self.captureSession addInput:captureInput];
+    }
     
     AVCaptureMetadataOutput *captureOutput = [[AVCaptureMetadataOutput alloc] init];
-    [self.captureSession addOutput:captureOutput];
+    if ([self.captureSession canAddOutput:captureOutput]) {
+        [self.captureSession addOutput:captureOutput];
+    }
     
     [captureOutput setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
     captureOutput.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
@@ -248,10 +252,17 @@
     
     #if HAS_AVFF
     [self.captureSession stopRunning];
-    AVCaptureInput* input = [self.captureSession.inputs objectAtIndex:0];
-    [self.captureSession removeInput:input];
-    AVCaptureVideoDataOutput* output = (AVCaptureVideoDataOutput *)[self.captureSession.outputs objectAtIndex:0];
-    [self.captureSession removeOutput:output];
+    
+    if ([self.captureSession.inputs count]) {
+        AVCaptureInput* input = [self.captureSession.inputs objectAtIndex:0];
+        [self.captureSession removeInput:input];
+    }
+    
+    if ([self.captureSession.outputs count]) {
+        AVCaptureVideoDataOutput* output = (AVCaptureVideoDataOutput *)[self.captureSession.outputs objectAtIndex:0];
+        [self.captureSession removeOutput:output];
+    }
+
     [self.previewLayer removeFromSuperlayer];
     self.previewLayer = nil;
     self.captureSession = nil;
