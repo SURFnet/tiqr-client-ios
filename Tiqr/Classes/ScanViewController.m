@@ -151,7 +151,12 @@
 }
 
 - (void)promptForCameraSettings {
-    UIAlertView *settingsPrompt = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"camera_prompt_title", @"Camera access prompt title") message:NSLocalizedString(@"camera_prompt_message", @"Camera access prompt message") delegate:self cancelButtonTitle:nil otherButtonTitles: NSLocalizedString(@"settings_app_name", @"Name of the settings app"), nil];
+    NSString *buttonTitle = NSLocalizedString(@"ok_button", @"OK Button");
+    if (&UIApplicationOpenSettingsURLString) { // Only link to settings on iOS 8.x and above
+        buttonTitle = NSLocalizedString(@"settings_app_name", @"Name of the settings app");
+    }
+    
+    UIAlertView *settingsPrompt = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"camera_prompt_title", @"Camera access prompt title") message:NSLocalizedString(@"camera_prompt_message", @"Camera access prompt message") delegate:self cancelButtonTitle:nil otherButtonTitles: buttonTitle, nil];
     [settingsPrompt show];
 }
 
@@ -173,7 +178,9 @@
 #pragma mark AlertView delegate
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    if (&UIApplicationOpenSettingsURLString) { // Only link to settings on iOS 8.x and above
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }
 }
 
 #pragma mark -
@@ -216,10 +223,14 @@
     
     AVCaptureDevice *captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     AVCaptureDeviceInput *captureInput = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:nil];
-    [self.captureSession addInput:captureInput];
+    if ([self.captureSession canAddInput:captureInput]) {
+        [self.captureSession addInput:captureInput];
+    }
     
     AVCaptureMetadataOutput *captureOutput = [[AVCaptureMetadataOutput alloc] init];
-    [self.captureSession addOutput:captureOutput];
+    if ([self.captureSession canAddOutput:captureOutput]) {
+        [self.captureSession addOutput:captureOutput];
+    }
     
     [captureOutput setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
     captureOutput.metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
@@ -248,10 +259,17 @@
     
     #if HAS_AVFF
     [self.captureSession stopRunning];
-    AVCaptureInput* input = [self.captureSession.inputs objectAtIndex:0];
-    [self.captureSession removeInput:input];
-    AVCaptureVideoDataOutput* output = (AVCaptureVideoDataOutput *)[self.captureSession.outputs objectAtIndex:0];
-    [self.captureSession removeOutput:output];
+    
+    if ([self.captureSession.inputs count]) {
+        AVCaptureInput* input = [self.captureSession.inputs objectAtIndex:0];
+        [self.captureSession removeInput:input];
+    }
+    
+    if ([self.captureSession.outputs count]) {
+        AVCaptureVideoDataOutput* output = (AVCaptureVideoDataOutput *)[self.captureSession.outputs objectAtIndex:0];
+        [self.captureSession removeOutput:output];
+    }
+
     [self.previewLayer removeFromSuperlayer];
     self.previewLayer = nil;
     self.captureSession = nil;
