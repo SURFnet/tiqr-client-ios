@@ -151,7 +151,12 @@
 }
 
 - (void)promptForCameraSettings {
-    UIAlertView *settingsPrompt = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"camera_prompt_title", @"Camera access prompt title") message:NSLocalizedString(@"camera_prompt_message", @"Camera access prompt message") delegate:self cancelButtonTitle:nil otherButtonTitles: NSLocalizedString(@"settings_app_name", @"Name of the settings app"), nil];
+    NSString *buttonTitle = NSLocalizedString(@"ok_button", @"OK Button");
+    if (&UIApplicationOpenSettingsURLString) { // Only link to settings on iOS 8.x and above
+        buttonTitle = NSLocalizedString(@"settings_app_name", @"Name of the settings app");
+    }
+    
+    UIAlertView *settingsPrompt = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"camera_prompt_title", @"Camera access prompt title") message:NSLocalizedString(@"camera_prompt_message", @"Camera access prompt message") delegate:self cancelButtonTitle:nil otherButtonTitles: buttonTitle, nil];
     [settingsPrompt show];
 }
 
@@ -173,7 +178,9 @@
 #pragma mark AlertView delegate
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    if (&UIApplicationOpenSettingsURLString) { // Only link to settings on iOS 8.x and above
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }
 }
 
 #pragma mark -
