@@ -62,7 +62,7 @@
     self.okButton.layer.cornerRadius = 5;
     
     NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
-    self.versionLabel.text = [self.versionLabel.text stringByAppendingFormat:@" %@", version];
+    self.versionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"app_version", @"App version: %@"), version];
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;

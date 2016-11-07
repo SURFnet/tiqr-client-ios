@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AboutViewController">
@@ -11,6 +15,7 @@
                 <outlet property="interactionDesignLabel" destination="25" id="31"/>
                 <outlet property="okButton" destination="8bT-Wx-H7J" id="EpK-w4-Pz8"/>
                 <outlet property="tiqrProvidedByLabel" destination="13" id="32"/>
+                <outlet property="versionLabel" destination="Q7W-OY-vTR" id="jUN-Nc-qch"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -25,7 +30,7 @@
                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="cOM-VT-vIl"/>
                     </constraints>
                     <state key="normal" image="tiqr-logo">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="tiqr" destination="-1" eventType="touchUpInside" id="16"/>
@@ -37,20 +42,20 @@
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="tiqr is provided by:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="13">
                             <rect key="frame" x="96" y="0.0" width="129" height="17"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                            <color key="textColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
-                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="0.54165369272232056" green="0.65141624212265015" blue="0.094028428196907043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15" userLabel="Surfnet Button">
                             <rect key="frame" x="89" y="27" width="143" height="43"/>
                             <state key="normal" image="surfnet-logo">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
                                 <action selector="surfnet" destination="-1" eventType="touchUpInside" id="fzp-cy-giz"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="13" firstAttribute="centerX" secondItem="Q4F-vZ-NtQ" secondAttribute="centerX" id="2Jr-bh-Iop"/>
                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="4zA-gb-XhA"/>
@@ -63,22 +68,22 @@
                     <rect key="frame" x="0.0" y="190" width="320" height="86"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12" userLabel="Egeniq Button">
-                            <rect key="frame" x="85" y="27" width="150" height="42"/>
+                            <rect key="frame" x="85" y="27" width="150" height="41"/>
                             <state key="normal" image="egeniq-logo">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
                                 <action selector="egeniq" destination="-1" eventType="touchUpInside" id="18"/>
                             </connections>
                         </button>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Developed by:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5">
-                            <rect key="frame" x="111" y="0.0" width="98.5" height="17"/>
+                            <rect key="frame" x="111.5" y="0.0" width="98" height="17"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                            <color key="textColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
-                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="0.54165369272232056" green="0.65141624212265015" blue="0.094028428196907043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="5" firstAttribute="top" secondItem="Oz3-51-JvV" secondAttribute="top" id="2h0-LU-f15"/>
                         <constraint firstItem="12" firstAttribute="top" secondItem="5" secondAttribute="bottom" constant="10" id="82p-Sw-XUn"/>
@@ -92,20 +97,20 @@
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Interaction design:" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="25">
                             <rect key="frame" x="95" y="0.0" width="130.5" height="17"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
-                            <color key="textColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
-                            <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="0.54165369272232056" green="0.65141624212265015" blue="0.094028428196907043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26" userLabel="Stroomt Button">
                             <rect key="frame" x="94" y="27" width="132" height="40"/>
                             <state key="normal" image="stroomt-logo">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
                                 <action selector="stroomt" destination="-1" eventType="touchUpInside" id="28"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="26" firstAttribute="centerX" secondItem="yVO-Gp-2Jf" secondAttribute="centerX" id="Dhu-SZ-zh3"/>
                         <constraint firstItem="25" firstAttribute="top" secondItem="yVO-Gp-2Jf" secondAttribute="top" id="ehk-n7-d7J"/>
@@ -115,22 +120,28 @@
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8bT-Wx-H7J">
                     <rect key="frame" x="60" y="392" width="200" height="44"/>
-                    <color key="backgroundColor" red="0.60784313729999995" green="0.69803921570000005" blue="0.1176470588" alpha="1" colorSpace="deviceRGB"/>
+                    <color key="backgroundColor" red="0.54165369272232056" green="0.65141624212265015" blue="0.094028428196907043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="200" id="8Ak-wb-XB0"/>
                         <constraint firstAttribute="height" constant="44" id="zmN-7l-qIj"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <state key="normal" title="Button">
-                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>
                         <action selector="done" destination="-1" eventType="touchUpInside" id="knT-vy-rQT"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="App version: 2.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q7W-OY-vTR">
+                    <rect key="frame" x="118" y="451" width="85.5" height="13.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="yVO-Gp-2Jf" firstAttribute="height" secondItem="Oz3-51-JvV" secondAttribute="height" id="5AH-8I-e9d"/>
                 <constraint firstItem="11" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="7jm-ca-OgE"/>
@@ -141,8 +152,10 @@
                 <constraint firstItem="Oz3-51-JvV" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="R93-Ob-Kc1"/>
                 <constraint firstAttribute="trailing" secondItem="11" secondAttribute="trailing" constant="20" id="UGq-iv-cUh"/>
                 <constraint firstItem="Q4F-vZ-NtQ" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="dOk-PY-22L"/>
+                <constraint firstItem="Q7W-OY-vTR" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="eVN-9s-eE4"/>
                 <constraint firstItem="Oz3-51-JvV" firstAttribute="top" secondItem="Q4F-vZ-NtQ" secondAttribute="bottom" constant="10" id="eXV-gN-Onz"/>
                 <constraint firstItem="8bT-Wx-H7J" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="edO-MI-N5y"/>
+                <constraint firstItem="Q7W-OY-vTR" firstAttribute="top" secondItem="8bT-Wx-H7J" secondAttribute="bottom" constant="15" id="hNE-l6-i7C"/>
                 <constraint firstAttribute="bottom" secondItem="8bT-Wx-H7J" secondAttribute="bottom" constant="44" id="ivO-v3-pAM"/>
                 <constraint firstItem="Q4F-vZ-NtQ" firstAttribute="top" secondItem="11" secondAttribute="bottom" constant="20" id="mj0-a0-aF4"/>
                 <constraint firstItem="8bT-Wx-H7J" firstAttribute="top" relation="greaterThanOrEqual" secondItem="yVO-Gp-2Jf" secondAttribute="bottom" constant="20" id="oeK-Pn-3Fi"/>
@@ -156,9 +169,14 @@
         </view>
     </objects>
     <resources>
-        <image name="egeniq-logo" width="150" height="42"/>
+        <image name="egeniq-logo" width="150" height="41"/>
         <image name="stroomt-logo" width="132" height="40"/>
         <image name="surfnet-logo" width="143" height="43"/>
-        <image name="tiqr-logo" width="115" height="50"/>
+        <image name="tiqr-logo" width="114" height="50"/>
     </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
+    </simulatedMetricsContainer>
 </document>
