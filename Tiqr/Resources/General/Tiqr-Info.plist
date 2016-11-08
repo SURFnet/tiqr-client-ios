@@ -67,6 +67,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Tiqr uses the camera to scan QR-codes</string>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>SANotificationRegistrationURL</key>

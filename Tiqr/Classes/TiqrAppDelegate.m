@@ -189,7 +189,7 @@
 #pragma mark - 
 #pragma mark Connection handling
 - (BOOL)hasConnection {   
-    return (![Reachability reachabilityForInternetConnection].currentReachabilityStatus == NotReachable);
+    return ([Reachability reachabilityForInternetConnection].currentReachabilityStatus != NotReachable);
 }
 
 #pragma mark -

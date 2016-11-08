@@ -44,6 +44,7 @@
 		CD7BAB0D1BAAB87400B88393 /* images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD7BAB0C1BAAB87400B88393 /* images.xcassets */; };
 		CD7BAB101BAAE3F200B88393 /* TiqrNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */; };
 		CD96F1F61C7C7B6B00E79F32 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD96F1F51C7C7B6B00E79F32 /* Launch Screen.xib */; };
+		CD98B0D71DD08632004EED39 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD98B0D51DD08632004EED39 /* InfoPlist.strings */; };
 		CDBB08C01BAC3DB0008D8F94 /* TiqrToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */; };
 		D002E0201349D29A00071321 /* ErrorController.m in Sources */ = {isa = PBXBuildFile; fileRef = D002E01F1349D29A00071321 /* ErrorController.m */; };
 		D002E0251349F4D400071321 /* StartView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D002E0261349F4D400071321 /* StartView.xib */; };
@@ -169,6 +170,19 @@
 		CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrNavigationBar.h; sourceTree = "<group>"; };
 		CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrNavigationBar.m; sourceTree = "<group>"; };
 		CD96F1F51C7C7B6B00E79F32 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		CD98B0D61DD08632004EED39 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD98B0D81DD08636004EED39 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD98B0D91DD08636004EED39 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD98B0DA1DD08637004EED39 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD98B0DB1DD08638004EED39 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD98B0DC1DD08639004EED39 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD98B0DD1DD0863A004EED39 /* sr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sr; path = sr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD98B0DE1DD0863A004EED39 /* sk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sk; path = sk.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD98B0DF1DD0863B004EED39 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD98B0E01DD0863B004EED39 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD98B0E11DD0863C004EED39 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD98B0E21DD0863C004EED39 /* fy */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fy; path = fy.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CD98B0E31DD0863D004EED39 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CDBB08BE1BAC3DB0008D8F94 /* TiqrToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrToolbar.h; sourceTree = "<group>"; };
 		CDBB08BF1BAC3DB0008D8F94 /* TiqrToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrToolbar.m; sourceTree = "<group>"; };
 		D002E01E1349D29A00071321 /* ErrorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorController.h; sourceTree = "<group>"; };
@@ -524,6 +538,7 @@
 		D028BFBF1309288A002EA560 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				CD98B0D51DD08632004EED39 /* InfoPlist.strings */,
 				D028BFC01309288A002EA560 /* Entitlements.plist */,
 				D025994613095F9B00F1DF9A /* Localizable.strings */,
 				D028BFC11309288A002EA560 /* Tiqr-Info.plist */,
@@ -816,6 +831,16 @@
 			attributes = {
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = Egeniq;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Tiqr" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -839,6 +864,7 @@
 				sr,
 				sl,
 				ja,
+				nb,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* MobileAuth */;
 			projectDirPath = "";
@@ -856,6 +882,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D028BFA213092834002EA560 /* cowbell.wav in Resources */,
+				CD98B0D71DD08632004EED39 /* InfoPlist.strings in Resources */,
 				D002E0251349F4D400071321 /* StartView.xib in Resources */,
 				D028BFB813092834002EA560 /* IdentityListView.xib in Resources */,
 				D076CEFF134F31C000FE762A /* MainWindow.xib in Resources */,
@@ -980,6 +1007,26 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		CD98B0D51DD08632004EED39 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CD98B0D61DD08632004EED39 /* en */,
+				CD98B0D81DD08636004EED39 /* ja */,
+				CD98B0D91DD08636004EED39 /* fr */,
+				CD98B0DA1DD08637004EED39 /* de */,
+				CD98B0DB1DD08638004EED39 /* nl */,
+				CD98B0DC1DD08639004EED39 /* sl */,
+				CD98B0DD1DD0863A004EED39 /* sr */,
+				CD98B0DE1DD0863A004EED39 /* sk */,
+				CD98B0DF1DD0863B004EED39 /* ro */,
+				CD98B0E01DD0863B004EED39 /* nb */,
+				CD98B0E11DD0863C004EED39 /* hr */,
+				CD98B0E21DD0863C004EED39 /* fy */,
+				CD98B0E31DD0863D004EED39 /* es */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		D025994613095F9B00F1DF9A /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1011,7 +1058,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/General/Entitlements.plist;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1040,7 +1089,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/General/Entitlements.plist;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = "";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tiqr_Prefix.pch;
@@ -1156,7 +1207,9 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_ENTITLEMENTS = Resources/General/Entitlements.plist;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = "";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tiqr_Prefix.pch;

@@ -1,0 +1,9 @@
+/* 
+  infoPlist.strings
+  Tiqr
+
+  Created by Thom Hoekstra on 07-11-16.
+  Copyright © 2016 Egeniq. All rights reserved.
+*/
+
+NSCameraUsageDescription = "Tiqr gebruikt de camera om QR-codes te scannen";
