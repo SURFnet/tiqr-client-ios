@@ -33,6 +33,11 @@
 
 @interface SecretService : NSObject
 
+/** 
+ * Indicates if Tiqr can use Touch ID
+ *
+ * It's possible to disable Touch ID by defining DISABLE_TOUCHID_SUPPORT
+ */
 @property (nonatomic, assign, readonly) BOOL touchIDIsAvailable;
 
 /**
