@@ -45,10 +45,19 @@
 - (instancetype)init {
     if (self = [super init]) {
         if ([LAContext class]) {
+            
+#ifdef DISABLE_TOUCHID_SUPPORT
+            _touchIDIsAvailable = NO;
+#else
             LAContext *context = [[LAContext alloc] init];
             NSError *error = nil;
+            
             _touchIDIsAvailable = [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error] &&
                                   [context respondsToSelector:@selector(evaluateAccessControl:operation:localizedReason:reply:)];
+#endif
+            
+        } else {
+            _touchIDIsAvailable = NO;
         }
     }
     
