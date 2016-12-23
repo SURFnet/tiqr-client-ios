@@ -71,17 +71,17 @@
         NSURL *url = [NSURL URLWithString:scanResult];
         NSError *error = nil;
         if (url != nil && [url.scheme isEqualToString:authenticationScheme]) {
-            type = TIQRChallengeTypeAuthentication;
             AuthenticationChallenge *challenge = [AuthenticationChallenge challengeWithChallengeString:scanResult error:&error];
             
             if (!error) {
+                type = TIQRChallengeTypeAuthentication;
                 challengeObject = challenge;
             }
         } else if (url != nil && [url.scheme isEqualToString:enrollmentScheme]) {
-            type = TIQRChallengeTypeEnrollment;
             EnrollmentChallenge *challenge = [EnrollmentChallenge challengeWithChallengeString:scanResult allowFiles:NO error:&error];
             
             if (!error) {
+                type = TIQRChallengeTypeEnrollment;
                 challengeObject = challenge;
             }
         } else {
