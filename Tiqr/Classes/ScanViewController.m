@@ -301,7 +301,9 @@
             break;
     }
     
-    [self.navigationController pushViewController:viewController animated:YES];
+    if (viewController) {
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 
 - (void)processChallenge:(NSString *)scanResult {
