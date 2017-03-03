@@ -103,48 +103,64 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
             NSString *title = NSLocalizedString(@"unknown_error", @"Unknown error title");
             NSString *message = NSLocalizedString(@"error_auth_unknown_error", @"Unknown error message");
             NSNumber *attemptsLeft = nil;
-            if ([responseCode intValue] == AuthenticationChallengeResponseCodeAccountBlocked) {
-                if ([result valueForKey:@"duration"] != nil) {
-                    NSNumber *duration = @([[result valueForKey:@"duration"] intValue]);
-                    code = TIQRACRAccountBlockedErrorTemporary;
-                    title = NSLocalizedString(@"error_auth_account_blocked_temporary_title", @"INVALID_RESPONSE error title (account blocked temporary)");
-                    message = [NSString stringWithFormat:NSLocalizedString(@"error_auth_account_blocked_temporary_message", @"INVALID_RESPONSE error message (account blocked temporary"), duration];
-                } else {
-                    code = TIQRACRAccountBlockedError;
-                    title = NSLocalizedString(@"error_auth_account_blocked_title", @"INVALID_RESPONSE error title (0 attempts left)");
-                    message = NSLocalizedString(@"error_auth_account_blocked_message", @"INVALID_RESPONSE error message (0 attempts left)");
-                }
-            } else if ([responseCode intValue] == AuthenticationChallengeResponseCodeInvalidChallenge) {
-                code = TIQRACRInvalidChallengeError;
-                title = NSLocalizedString(@"error_auth_invalid_challenge_title", @"INVALID_CHALLENGE error title");
-                message = NSLocalizedString(@"error_auth_invalid_challenge_message", @"INVALID_CHALLENGE error message");
-            } else if ([responseCode intValue] == AuthenticationChallengeResponseCodeInvalidRequest) {
-                code = TIQRACRInvalidRequestError;
-                title = NSLocalizedString(@"error_auth_invalid_request_title", @"INVALID_REQUEST error title");
-                message = NSLocalizedString(@"error_auth_invalid_request_message", @"INVALID_REQUEST error message");
-            } else if ([responseCode intValue] == AuthenticationChallengeResponseCodeInvalidUsernamePasswordPin) {                    code = TIQRACRInvalidResponseError;
-                if ([result valueForKey:@"attemptsLeft"] != nil) {
-                    attemptsLeft = @([[result valueForKey:@"attemptsLeft"] intValue]);
-                    if ([attemptsLeft intValue] > 1) {
-                        title = NSLocalizedString(@"error_auth_wrong_pin", @"INVALID_RESPONSE error title (> 1 attempts left)");
-                        message = NSLocalizedString(@"error_auth_x_attempts_left", @"INVALID_RESPONSE error message (> 1 attempts left)");
-                        message = [NSString stringWithFormat:message, [attemptsLeft intValue]];
-                    } else if ([attemptsLeft intValue] == 1) {
-                        title = NSLocalizedString(@"error_auth_wrong_pin", @"INVALID_RESPONSE error title (1 attempt left)");
-                        message = NSLocalizedString(@"error_auth_one_attempt_left", @"INVALID_RESPONSE error message (1 attempt left)");
+            
+            switch ([responseCode intValue]) {
+                case AuthenticationChallengeResponseCodeAccountBlocked: {
+                    if ([result valueForKey:@"duration"] != nil) {
+                        NSNumber *duration = @([[result valueForKey:@"duration"] intValue]);
+                        code = TIQRACRAccountBlockedErrorTemporary;
+                        title = NSLocalizedString(@"error_auth_account_blocked_temporary_title", @"INVALID_RESPONSE error title (account blocked temporary)");
+                        message = [NSString stringWithFormat:NSLocalizedString(@"error_auth_account_blocked_temporary_message", @"INVALID_RESPONSE error message (account blocked temporary"), duration];
                     } else {
+                        code = TIQRACRAccountBlockedError;
                         title = NSLocalizedString(@"error_auth_account_blocked_title", @"INVALID_RESPONSE error title (0 attempts left)");
                         message = NSLocalizedString(@"error_auth_account_blocked_message", @"INVALID_RESPONSE error message (0 attempts left)");
                     }
-                } else {
-                    title = NSLocalizedString(@"error_auth_wrong_pin", @"INVALID_RESPONSE error title (infinite attempts left)");
-                    message = NSLocalizedString(@"error_auth_infinite_attempts_left", @"INVALID_RESPONSE erorr message (infinite attempts left)");
-                }
+                } break;
+                    
+                case AuthenticationChallengeResponseCodeInvalidChallenge: {
+                    code = TIQRACRInvalidChallengeError;
+                    title = NSLocalizedString(@"error_auth_invalid_challenge_title", @"INVALID_CHALLENGE error title");
+                    message = NSLocalizedString(@"error_auth_invalid_challenge_message", @"INVALID_CHALLENGE error message");
+                } break;
+                    
+                case AuthenticationChallengeResponseCodeInvalidRequest: {
+                    code = TIQRACRInvalidRequestError;
+                    title = NSLocalizedString(@"error_auth_invalid_request_title", @"INVALID_REQUEST error title");
+                    message = NSLocalizedString(@"error_auth_invalid_request_message", @"INVALID_REQUEST error message");
+                } break;
+                    
+                case AuthenticationChallengeResponseCodeInvalidUsernamePasswordPin: {                    code = TIQRACRInvalidResponseError;
+                    if ([result valueForKey:@"attemptsLeft"] != nil) {
+                        attemptsLeft = @([[result valueForKey:@"attemptsLeft"] intValue]);
+                        if ([attemptsLeft intValue] > 1) {
+                            title = NSLocalizedString(@"error_auth_wrong_pin", @"INVALID_RESPONSE error title (> 1 attempts left)");
+                            message = NSLocalizedString(@"error_auth_x_attempts_left", @"INVALID_RESPONSE error message (> 1 attempts left)");
+                            message = [NSString stringWithFormat:message, [attemptsLeft intValue]];
+                        } else if ([attemptsLeft intValue] == 1) {
+                            title = NSLocalizedString(@"error_auth_wrong_pin", @"INVALID_RESPONSE error title (1 attempt left)");
+                            message = NSLocalizedString(@"error_auth_one_attempt_left", @"INVALID_RESPONSE error message (1 attempt left)");
+                        } else {
+                            title = NSLocalizedString(@"error_auth_account_blocked_title", @"INVALID_RESPONSE error title (0 attempts left)");
+                            message = NSLocalizedString(@"error_auth_account_blocked_message", @"INVALID_RESPONSE error message (0 attempts left)");
+                        }
+                    } else {
+                        title = NSLocalizedString(@"error_auth_wrong_pin", @"INVALID_RESPONSE error title (infinite attempts left)");
+                        message = NSLocalizedString(@"error_auth_infinite_attempts_left", @"INVALID_RESPONSE erorr message (infinite attempts left)");
+                    }
+                } break;
                 
-            } else if ([responseCode intValue] == AuthenticationChallengeResponseCodeInvalidUser) {
-                code = TIQRACRInvalidUserError;
-                title = NSLocalizedString(@"error_auth_invalid_account", @"INVALID_USERID error title");
-                message = NSLocalizedString(@"error_auth_invalid_account_message", @"INVALID_USERID error message");
+                case AuthenticationChallengeResponseCodeInvalidUser: {
+                    code = TIQRACRInvalidUserError;
+                    title = NSLocalizedString(@"error_auth_invalid_account", @"INVALID_USERID error title");
+                    message = NSLocalizedString(@"error_auth_invalid_account_message", @"INVALID_USERID error message");
+                } break;
+                    
+                default: {
+                    code = TIQRACUnknownError;
+                    title = NSLocalizedString(@"error_auth_unknown_reponsecode", @"UNKNOWN_RESPONSE_CODE error title");
+                    message = NSLocalizedString(@"error_auth_unknown_reponsecode_message", @"UNKNOWN_RESPONSE_CODE error message");
+                }
             }
             
             NSString *serverMessage = [result valueForKey:@"message"];
