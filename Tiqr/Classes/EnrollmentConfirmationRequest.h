@@ -31,10 +31,7 @@
 
 typedef NS_ENUM(unsigned int, EnrollmentChallengeResponseCode) {
     EnrollmentChallengeResponseCodeSuccess = 1,
-    EnrollmentChallengeResponseCodeVerificationRequired = 100,
-    EnrollmentChallengeResponseCodeSuccessUsernameByServer = 101,
-    EnrollmentChallengeResponseCodeFailureUsernameTaken = 102,
-    EnrollmentChallengeResponseCodeFailure = 103
+    EnrollmentChallengeResponseCodeError = 101
 };
 
 /**

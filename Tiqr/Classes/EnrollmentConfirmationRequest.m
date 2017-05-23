@@ -118,7 +118,7 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
         self.data = nil;
         
         NSNumber *responseCode = @([[result valueForKey:@"responseCode"] intValue]);
-        if ([responseCode intValue] == EnrollmentChallengeResponseCodeSuccess || [responseCode intValue] == EnrollmentChallengeResponseCodeSuccessUsernameByServer) {
+        if ([responseCode intValue] == EnrollmentChallengeResponseCodeSuccess) {
             self.completionBlock(true, nil);
         } else {
             NSString *title = NSLocalizedString(@"enroll_error_title", @"Enrollment error title");
@@ -126,12 +126,6 @@ typedef void (^CompletionBlock)(BOOL success, NSError *error);
             NSString *serverMessage = [result valueForKey:@"message"];
             if (serverMessage) {
                 message = serverMessage;
-            } else if ([responseCode intValue] == EnrollmentChallengeResponseCodeVerificationRequired) {
-                message = NSLocalizedString(@"enroll_error_verification_needed", @"Account created, verification required error message");
-            } else if ([responseCode intValue] == EnrollmentChallengeResponseCodeFailureUsernameTaken) {
-                message = NSLocalizedString(@"enroll_error_username_taken", @"Enrollment username exists");
-            } else if ([responseCode intValue] == EnrollmentChallengeResponseCodeFailure) {
-                message = NSLocalizedString(@"unknown_enroll_error_message", @"Unknown error message");
             } else {
                 message = NSLocalizedString(@"unknown_enroll_error_message", @"Unknown error message");
             }
