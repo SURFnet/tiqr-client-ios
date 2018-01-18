@@ -88,7 +88,7 @@
 
 - (IBAction)ok {
     if (ServiceContainer.sharedInstance.secretService.biometricIDAvailable) {
-        [self useTouchID];
+        [self useBiometricID];
     } else {
         [self usePIN];
     }
@@ -100,7 +100,7 @@
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (void)useTouchID {
+- (void)useBiometricID {
     [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
     [ServiceContainer.sharedInstance.challengeService
