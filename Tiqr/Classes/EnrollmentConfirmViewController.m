@@ -87,7 +87,7 @@
 
 
 - (IBAction)ok {
-    if (ServiceContainer.sharedInstance.secretService.touchIDIsAvailable) {
+    if (ServiceContainer.sharedInstance.secretService.biometricIDAvailable) {
         [self useTouchID];
     } else {
         [self usePIN];

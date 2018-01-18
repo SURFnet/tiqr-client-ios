@@ -42,26 +42,48 @@
 
 @implementation SecretService
 
-- (instancetype)init {
-    if (self = [super init]) {
-        if ([LAContext class]) {
-            
-#ifdef DISABLE_TOUCHID_SUPPORT
-            _touchIDIsAvailable = NO;
-#else
-            LAContext *context = [[LAContext alloc] init];
-            NSError *error = nil;
-            
-            _touchIDIsAvailable = [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error] &&
-                                  [context respondsToSelector:@selector(evaluateAccessControl:operation:localizedReason:reply:)];
+- (SecretServiceBiometricType)biometricType {
+    if (!NSClassFromString(@"LAContext")) {
+        return SecretServiceBiometricTypeNone;
+    }
+
+#ifdef DISABLE_BIOMETRIC_SUPPORT
+    return SecretServiceBiometricTypeNone;
 #endif
-            
-        } else {
-            _touchIDIsAvailable = NO;
+
+    LAContext *context = [[LAContext alloc] init];
+    NSError *error = nil;
+
+    BOOL enabled = [context canEvaluatePolicy:LAPolicyDeviceOwnerAuthenticationWithBiometrics error:&error] &&
+                   [context respondsToSelector:@selector(evaluateAccessControl:operation:localizedReason:reply:)];
+
+    if (!enabled) {
+        return SecretServiceBiometricTypeNone;
+    }
+
+    if (@available(iOS 11, *)) {
+        switch (context.biometryType) {
+            case LABiometryTypeTouchID:
+                return SecretServiceBiometricTypeTouchID;
+                break;
+            case LABiometryTypeFaceID:
+                return SecretServiceBiometricTypeFaceID;
+            default:
+                return SecretServiceBiometricTypeNone;
         }
     }
-    
-    return self;
+
+    return SecretServiceBiometricTypeTouchID;
+}
+
+- (BOOL)biometricIDAvailable {
+    switch (self.biometricType) {
+        case SecretServiceBiometricTypeTouchID:
+        case SecretServiceBiometricTypeFaceID:
+            return YES;
+        case SecretServiceBiometricTypeNone:
+            return NO;
+    }
 }
 
 - (NSData *)loadSecretForIdentity:(Identity *)identity {
@@ -341,7 +363,7 @@
 
 - (void)secretForIdentity:(Identity *)identity touchIDPrompt:(NSString *)prompt withSuccessHandler:(void (^)(NSData *secret))successHandler failureHandler:(void (^)(BOOL cancelled))failureHandler {
     
-    if (!self.touchIDIsAvailable || ![identity.touchID boolValue]) {
+    if (!self.biometricIDAvailable || ![identity.touchID boolValue]) {
         failureHandler(false);
         return;
     }
