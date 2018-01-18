@@ -93,8 +93,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    if (self.challenge.identity.touchID.boolValue) {
+
+    SecretService *secretService = ServiceContainer.sharedInstance.secretService;
+    if (self.challenge.identity.touchID.boolValue && secretService.biometricType == SecretServiceBiometricTypeTouchID) {
         [self authenticateWithTouchId];
     }
 }
@@ -102,10 +103,13 @@
 - (void)authenticateWithTouchId {
     self.nonTouchIDViewsContainer.hidden = YES;
     self.loginConfirmLabel.text = NSLocalizedString(@"use_touch_id_title", @"Use TouchID to login");
-    
+
+    [self authenticateWithBiometrics];
+}
+
+- (void)authenticateWithBiometrics {
     SecretService *secretService = ServiceContainer.sharedInstance.secretService;
-    ChallengeService *challengeService = ServiceContainer.sharedInstance.challengeService;
-    
+
     NSMutableString *touchIDPrompt = [NSLocalizedString(@"you_will_be_logged_in_as", @"You will be logged in as:") mutableCopy];
     [touchIDPrompt appendString:@" "];
     [touchIDPrompt appendString:self.challenge.identity.displayName];
@@ -113,52 +117,57 @@
     [touchIDPrompt appendString:NSLocalizedString(@"to_service_provider", @"to:")];
     [touchIDPrompt appendString:@" "];
     [touchIDPrompt appendString:self.challenge.serviceProviderDisplayName];
-    
+
     [secretService secretForIdentity:self.challenge.identity touchIDPrompt:touchIDPrompt withSuccessHandler:^(NSData *secret) {
-        
-        [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-        [challengeService completeAuthenticationChallenge:self.challenge withSecret:secret completionHandler:^(BOOL succes, NSString *response, NSError *error) {
-        
-            [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-            
-            if (succes) {
-                AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] initWithAuthenticationChallenge:self.challenge usedPIN:nil];
-                [self.navigationController pushViewController:viewController animated:YES];
-            } else  {
-                switch ([error code]) {
-                    case TIQRACRConnectionError: {
-                        AuthenticationFallbackViewController *viewController = [[AuthenticationFallbackViewController alloc] initWithAuthenticationChallenge:self.challenge response:response];
-                        [self.navigationController pushViewController:viewController animated:YES];
-                        break;
-                    }
-                        
-                    case TIQRACRAccountBlockedError: {
-                        self.challenge.identity.blocked = @YES;
-                        [ServiceContainer.sharedInstance.identityService saveIdentities];
-                        
-                        [self presentErrorViewControllerWithError:error];
-                        break;
-                    }
-                    case TIQRACRInvalidResponseError: {
-                        NSNumber *attemptsLeft = [error userInfo][TIQRACRAttemptsLeftErrorKey];
-                        if (attemptsLeft != nil && [attemptsLeft intValue] == 0) {
-                            [ServiceContainer.sharedInstance.identityService blockAllIdentities];
-                            [ServiceContainer.sharedInstance.identityService saveIdentities];
-                        }
-                        
-                        [self presentErrorViewControllerWithError:error];
-                        break;
-                    }
-                        
-                    default: {
-                        [self presentErrorViewControllerWithError:error];
-                        break;
-                    }
-                }
-            }
-        }];
+        [self completeAuthenticationWithSecret:secret];
     } failureHandler:^(BOOL cancelled) {
         [self.navigationController popViewControllerAnimated:YES];
+    }];
+}
+
+- (void)completeAuthenticationWithSecret:(NSData *)secret {
+    ChallengeService *challengeService = ServiceContainer.sharedInstance.challengeService;
+
+    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+    [challengeService completeAuthenticationChallenge:self.challenge withSecret:secret completionHandler:^(BOOL succes, NSString *response, NSError *error) {
+
+        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
+
+        if (succes) {
+            AuthenticationSummaryViewController *viewController = [[AuthenticationSummaryViewController alloc] initWithAuthenticationChallenge:self.challenge usedPIN:nil];
+            [self.navigationController pushViewController:viewController animated:YES];
+        } else  {
+            switch ([error code]) {
+                case TIQRACRConnectionError: {
+                    AuthenticationFallbackViewController *viewController = [[AuthenticationFallbackViewController alloc] initWithAuthenticationChallenge:self.challenge response:response];
+                    [self.navigationController pushViewController:viewController animated:YES];
+                    break;
+                }
+
+                case TIQRACRAccountBlockedError: {
+                    self.challenge.identity.blocked = @YES;
+                    [ServiceContainer.sharedInstance.identityService saveIdentities];
+
+                    [self presentErrorViewControllerWithError:error];
+                    break;
+                }
+                case TIQRACRInvalidResponseError: {
+                    NSNumber *attemptsLeft = [error userInfo][TIQRACRAttemptsLeftErrorKey];
+                    if (attemptsLeft != nil && [attemptsLeft intValue] == 0) {
+                        [ServiceContainer.sharedInstance.identityService blockAllIdentities];
+                        [ServiceContainer.sharedInstance.identityService saveIdentities];
+                    }
+
+                    [self presentErrorViewControllerWithError:error];
+                    break;
+                }
+
+                default: {
+                    [self presentErrorViewControllerWithError:error];
+                    break;
+                }
+            }
+        }
     }];
 }
 
@@ -168,6 +177,15 @@
 }
 
 - (IBAction)ok {
+    SecretService *secretService = ServiceContainer.sharedInstance.secretService;
+    if (secretService.biometricType == SecretServiceBiometricTypeFaceID) {
+        [self authenticateWithBiometrics];
+    } else {
+        [self presentPincodeViewController];
+    }
+}
+
+- (void)presentPincodeViewController {
     AuthenticationPINViewController *viewController = [[AuthenticationPINViewController alloc] initWithAuthenticationChallenge:self.challenge];
     [self.navigationController pushViewController:viewController animated:YES];
 }
