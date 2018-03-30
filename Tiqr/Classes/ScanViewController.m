@@ -48,6 +48,7 @@
 @property (nonatomic, strong) IBOutlet UIView *previewView;
 @property (nonatomic, strong) IBOutlet ScanOverlayView *overlayView;
 @property (nonatomic, strong) IBOutlet UIView *instructionsView;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint *instructionsViewBottomConstraint;
 
 @end
 
@@ -123,6 +124,12 @@
     [UIView commitAnimations];
     
     [self startCameraIfAllowed];
+}
+
+- (void)viewSafeAreaInsetsDidChange {
+    [super viewSafeAreaInsetsDidChange];
+
+    self.instructionsViewBottomConstraint.constant = self.view.safeAreaInsets.bottom;
 }
 
 - (void)startCameraIfAllowed {

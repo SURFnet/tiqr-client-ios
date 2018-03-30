@@ -1,14 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ScanViewController">
             <connections>
                 <outlet property="instructionLabel" destination="5" id="15"/>
                 <outlet property="instructionsView" destination="4" id="14"/>
+                <outlet property="instructionsViewBottomConstraint" destination="pnc-vj-Wvh" id="BCm-oF-YzL"/>
                 <outlet property="overlayView" destination="11" id="12"/>
                 <outlet property="previewView" destination="3" id="7"/>
                 <outlet property="view" destination="1" id="9"/>
@@ -21,15 +26,22 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3" userLabel="Preview View">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="11" userLabel="Overlay View" customClass="ScanOverlayView">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4" userLabel="Instructions View">
                     <rect key="frame" x="0.0" y="385" width="320" height="31"/>
                     <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w85-fP-Xq7">
+                            <rect key="frame" x="0.0" y="31" width="320" height="34"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="34" id="0Oi-Ch-YAw"/>
+                            </constraints>
+                        </view>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Center the QR tag in the box." textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="5">
                             <rect key="frame" x="20" y="6" width="280" height="17"/>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
@@ -37,16 +49,19 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
+                        <constraint firstItem="w85-fP-Xq7" firstAttribute="leading" secondItem="4" secondAttribute="leading" id="8LI-3L-k3R"/>
+                        <constraint firstAttribute="trailing" secondItem="w85-fP-Xq7" secondAttribute="trailing" id="8RO-Yv-JmC"/>
                         <constraint firstAttribute="bottom" secondItem="5" secondAttribute="bottom" constant="8" id="G6c-S7-nnq"/>
                         <constraint firstAttribute="trailing" secondItem="5" secondAttribute="trailing" constant="20" id="XVX-LV-nvS"/>
                         <constraint firstItem="5" firstAttribute="top" secondItem="4" secondAttribute="top" constant="6" id="aU7-9Y-12h"/>
+                        <constraint firstItem="w85-fP-Xq7" firstAttribute="top" secondItem="4" secondAttribute="bottom" id="ePW-qt-fwj"/>
                         <constraint firstItem="5" firstAttribute="leading" secondItem="4" secondAttribute="leading" constant="20" id="jd3-uF-eg0"/>
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="11" firstAttribute="top" secondItem="1" secondAttribute="top" id="6vt-fQ-GBy"/>
                 <constraint firstAttribute="trailing" secondItem="4" secondAttribute="trailing" id="94J-yh-nsk"/>
