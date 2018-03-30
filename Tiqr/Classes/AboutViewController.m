@@ -35,6 +35,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *developedByLabel;
 @property (nonatomic, strong) IBOutlet UILabel *interactionDesignLabel;
 @property (nonatomic, strong) IBOutlet UIButton *okButton;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint *okButtonBottomConstraint;
 @property (nonatomic, strong) IBOutlet UILabel *versionLabel;
 
 @end
@@ -89,5 +90,10 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)viewSafeAreaInsetsDidChange {
+    [super viewSafeAreaInsetsDidChange];
+
+    self.okButtonBottomConstraint.constant = self.view.safeAreaInsets.bottom + 44.0;
+}
 
 @end
