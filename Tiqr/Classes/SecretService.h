@@ -29,16 +29,29 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, SecretServiceBiometricType) {
+    SecretServiceBiometricTypeNone,
+    SecretServiceBiometricTypeTouchID,
+    SecretServiceBiometricTypeFaceID
+};
+
 @class Identity;
 
 @interface SecretService : NSObject
 
 /** 
- * Indicates if Tiqr can use Touch ID
+ * Indicates if biometrics are available (Touch or ID face ID)
  *
- * It's possible to disable Touch ID by defining DISABLE_TOUCHID_SUPPORT
+ * It's possible to disable biometric ID by defining DISABLE_BIOMETRIC_SUPPORT
  */
-@property (nonatomic, assign, readonly) BOOL touchIDIsAvailable;
+@property (nonatomic, assign, readonly) BOOL biometricIDAvailable;
+
+/**
+ * Indicates which type of biometrics is available to Tiqr (Touch ID or Face ID)
+
+ * It's possible to disable biometric ID by defining DISABLE_BIOMETRIC_SUPPORT
+ */
+@property (nonatomic, assign, readonly) SecretServiceBiometricType biometricType;
 
 /**
  * Generate a new random secret.
