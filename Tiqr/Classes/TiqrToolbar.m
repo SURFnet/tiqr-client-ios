@@ -38,6 +38,7 @@
 @implementation TiqrToolbar
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     self.surfnetButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.surfnetButton setImage:[UIImage imageNamed:@"surfnet-logo"] forState:UIControlStateNormal];
     [self.surfnetButton addTarget:self action:@selector(surfnet) forControlEvents:UIControlEventTouchUpInside];

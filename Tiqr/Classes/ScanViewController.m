@@ -1,6 +1,6 @@
 /**
  * Based on ZXingWidgetController.
- * 
+ *
  * Copyright 2009 Jeff Verkoeyen
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -56,20 +56,20 @@
 
 - (instancetype)init {
     self = [super initWithNibName:@"ScanView" bundle:nil];
-    if (self) {     
+    if (self) {
         self.decoding = NO;
         
-        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
         
-		NSString *filePath = [[NSBundle mainBundle] pathForResource:@"cowbell" ofType:@"wav"];
-		NSURL *fileURL = [NSURL fileURLWithPath:filePath isDirectory:NO];
+        NSString *filePath = [[NSBundle mainBundle] pathForResource:@"cowbell" ofType:@"wav"];
+        NSURL *fileURL = [NSURL fileURLWithPath:filePath isDirectory:NO];
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
         
-		self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
-		[self.audioPlayer prepareToPlay];  
+        self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
+        [self.audioPlayer prepareToPlay];
         self.audioPlayer.delegate = self;
         
-        self.identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"identities-icon"] style:UIBarButtonItemStyleBordered target:self action:@selector(listIdentities)];
+        self.identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"identities-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(listIdentities)];
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
         
     }
@@ -77,28 +77,11 @@
     return self;
 }
 
-- (void)setMixableAudioShouldDuckActive:(BOOL)active {
-    AVAudioSession *session = [AVAudioSession sharedInstance];
-    [session setCategory:AVAudioSessionCategoryAmbient withOptions:AVAudioSessionCategoryOptionDuckOthers error:nil];
-    [session setActive:active error:nil];
-}
-
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
-    [self setMixableAudioShouldDuckActive:NO];
-}
-
-- (void)audioPlayerBeginInterruption:(AVAudioPlayer *)player {
-    // Implementing this delegate method also automatically stops the ducking
-}
-- (void)audioPlayerEndInterruption:(AVAudioPlayer *)player {
-    // Implementing this delegate method also automatically resumes the ducking
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.overlayView.points = nil;    
+    self.overlayView.points = nil;
     
-    self.instructionsView.alpha = 0.0;    
+    self.instructionsView.alpha = 0.0;
     
     if (ServiceContainer.sharedInstance.identityService.identityCount > 0) {
         self.navigationItem.rightBarButtonItem = self.identitiesButtonItem;
@@ -126,14 +109,8 @@
     [self startCameraIfAllowed];
 }
 
-- (void)viewSafeAreaInsetsDidChange {
-    [super viewSafeAreaInsetsDidChange];
-
-    self.instructionsViewBottomConstraint.constant = self.view.safeAreaInsets.bottom;
-}
-
 - (void)startCameraIfAllowed {
-
+    
     switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo]) {
         case AVAuthorizationStatusNotDetermined:
             [self promptForCameraAccess];
@@ -158,10 +135,8 @@
 }
 
 - (void)promptForCameraSettings {
-    NSString *buttonTitle = NSLocalizedString(@"ok_button", @"OK Button");
-    if (&UIApplicationOpenSettingsURLString) { // Only link to settings on iOS 8.x and above
-        buttonTitle = NSLocalizedString(@"settings_app_name", @"Name of the settings app");
-    }
+    NSString *buttonTitle = NSLocalizedString(@"settings_app_name", @"Name of the settings app");
+    
     
     UIAlertView *settingsPrompt = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"camera_prompt_title", @"Camera access prompt title") message:NSLocalizedString(@"camera_prompt_message", @"Camera access prompt message") delegate:self cancelButtonTitle:nil otherButtonTitles: buttonTitle, nil];
     [settingsPrompt show];
@@ -176,7 +151,7 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
-    self.instructionsView.alpha = 0.0;      
+    self.instructionsView.alpha = 0.0;
     
     [self stopCapture];
 }
@@ -185,9 +160,7 @@
 #pragma mark AlertView delegate
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (&UIApplicationOpenSettingsURLString) { // Only link to settings on iOS 8.x and above
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
-    }
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
 
 #pragma mark -
@@ -195,9 +168,9 @@
 
 - (void)processMetadataObject:(AVMetadataMachineReadableCodeObject *)metadataObject {
     
-    #ifdef HAS_AVFF
-    [self.captureSession stopRunning];    
-    #endif
+#ifdef HAS_AVFF
+    [self.captureSession stopRunning];
+#endif
     
     NSMutableArray *points = [NSMutableArray array];
     for (NSDictionary *corner in metadataObject.corners)  {
@@ -209,22 +182,21 @@
     self.overlayView.points = points;
     
     [UIView beginAnimations:nil context:nil];
-    [UIView setAnimationBeginsFromCurrentState:YES];    
+    [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:0.3];
     self.instructionsView.alpha = 0.0;
     [UIView commitAnimations];
     
     // now, in a selector, call the delegate to give this overlay time to show the points
     [self performSelector:@selector(processChallenge:) withObject:metadataObject.stringValue afterDelay:1.0];
-    [self setMixableAudioShouldDuckActive:YES];
-	[self.audioPlayer play];
+    [self.audioPlayer play];
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark AVFoundation
 
 - (void)initCapture {
-    #if HAS_AVFF
+#if HAS_AVFF
     self.captureSession = [[AVCaptureSession alloc] init];
     self.captureSession.sessionPreset = AVCaptureSessionPresetMedium;
     
@@ -248,7 +220,7 @@
     [self.previewView.layer addSublayer:self.previewLayer];
     
     [self.captureSession startRunning];
-    #endif
+#endif
 }
 
 #if HAS_AVFF
@@ -264,7 +236,7 @@
 - (void)stopCapture {
     self.decoding = NO;
     
-    #if HAS_AVFF
+#if HAS_AVFF
     [self.captureSession stopRunning];
     
     if ([self.captureSession.inputs count]) {
@@ -276,11 +248,11 @@
         AVCaptureVideoDataOutput* output = (AVCaptureVideoDataOutput *)[self.captureSession.outputs objectAtIndex:0];
         [self.captureSession removeOutput:output];
     }
-
+    
     [self.previewLayer removeFromSuperlayer];
     self.previewLayer = nil;
     self.captureSession = nil;
-    #endif
+#endif
 }
 
 

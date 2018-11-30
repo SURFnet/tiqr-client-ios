@@ -144,7 +144,7 @@
     challenge.identity = identity;
     challenge.identityProvider = identityProvider;
     
-    void (^sendConfirmationBlock)() = ^{
+    void (^sendConfirmationBlock)(void) = ^{
         EnrollmentConfirmationRequest *request = [[EnrollmentConfirmationRequest alloc] initWithEnrollmentChallenge:challenge];
         [request sendWithCompletionHandler:^(BOOL success, NSError *error) {
             if (success) {

@@ -53,7 +53,7 @@
     [self.scanButton setTitle:scanButtonTitle forState:UIControlStateNormal];
     self.scanButton.layer.cornerRadius = 5;
     
-    UIBarButtonItem *identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"identities-icon"] style:UIBarButtonItemStyleBordered target:self action:@selector(listIdentities)];
+    UIBarButtonItem *identitiesButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"identities-icon"] style:UIBarButtonItemStylePlain target:self action:@selector(listIdentities)];
     self.navigationItem.rightBarButtonItem = identitiesButtonItem;
     self.identitiesButtonItem = identitiesButtonItem;
     
