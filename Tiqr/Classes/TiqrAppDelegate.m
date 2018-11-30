@@ -79,14 +79,9 @@
 	NSString *url = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"SANotificationRegistrationURL"];
 	if (url != nil && [url length] > 0) {
         //-- Set Notification
-        if ([application respondsToSelector:@selector(isRegisteredForRemoteNotifications)]) {
-            // iOS 8 Notifications
-            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil];
-            [application registerUserNotificationSettings:settings];
-        } else {
-            // iOS < 8 Notifications
-            [application registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound];
-        }
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil];
+        [application registerUserNotificationSettings:settings];
+        
 	}
     #endif
 	
