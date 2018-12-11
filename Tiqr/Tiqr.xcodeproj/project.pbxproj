@@ -166,6 +166,7 @@
 		CD51EF6E1BFF1BB40032C9A2 /* Tiqr 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Tiqr 3.xcdatamodel"; sourceTree = "<group>"; };
 		CD688F4D1C035FCE006FF469 /* ChallengeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeService.h; sourceTree = "<group>"; };
 		CD688F4E1C035FCE006FF469 /* ChallengeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeService.m; sourceTree = "<group>"; };
+		CD69FB0E21BFCA3C00247F92 /* Tiqr 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Tiqr 4.xcdatamodel"; sourceTree = "<group>"; };
 		CD7BAB0C1BAAB87400B88393 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrNavigationBar.h; sourceTree = "<group>"; };
 		CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrNavigationBar.m; sourceTree = "<group>"; };
@@ -1382,11 +1383,12 @@
 		C7B96C8116FB0D28001EC65E /* Tiqr.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				CD69FB0E21BFCA3C00247F92 /* Tiqr 4.xcdatamodel */,
 				CD51EF6E1BFF1BB40032C9A2 /* Tiqr 3.xcdatamodel */,
 				C7B96C8216FB0D28001EC65E /* Tiqr 2.xcdatamodel */,
 				C7B96C8316FB0D28001EC65E /* Tiqr.xcdatamodel */,
 			);
-			currentVersion = CD51EF6E1BFF1BB40032C9A2 /* Tiqr 3.xcdatamodel */;
+			currentVersion = CD69FB0E21BFCA3C00247F92 /* Tiqr 4.xcdatamodel */;
 			path = Tiqr.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

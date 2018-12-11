@@ -40,7 +40,10 @@
 @dynamic sortIndex;
 @dynamic blocked;
 @dynamic identityProvider;
-@dynamic touchID;
+@dynamic usesOldBiometricFlow;
+@dynamic biometricIDAvailable;
+@dynamic biometricIDEnabled;
+@dynamic shouldAskToEnrollInBiometricID;
 
 
 @end

@@ -252,7 +252,7 @@
     if ([self.secretService deleteSecretForIdentityIdentifier:identity.identifier providerIdentifier:identity.identityProvider.identifier]) {
         [self.secretService setSecret:secret usingTouchIDforIdentity:identity withCompletionHandler:^(BOOL success) {
             if (success) {
-                identity.touchID = @YES;
+                identity.usesOldBiometricFlow = @YES;
                 [self saveIdentities];
             } else {
                 // Attempt to restore

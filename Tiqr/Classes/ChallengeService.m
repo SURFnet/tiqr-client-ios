@@ -176,7 +176,7 @@
                 return;
             }
             
-            challenge.identity.touchID = @YES;
+            challenge.identity.usesOldBiometricFlow = @YES;
             
             sendConfirmationBlock();
         }];

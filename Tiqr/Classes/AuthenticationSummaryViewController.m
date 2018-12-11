@@ -91,7 +91,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if (ServiceContainer.sharedInstance.secretService.biometricIDAvailable && !self.challenge.identity.touchID.boolValue && self.PIN) {
+    if (ServiceContainer.sharedInstance.secretService.biometricIDAvailable && !self.challenge.identity.usesOldBiometricFlow.boolValue && self.PIN) {
         UIAlertView *upgradeAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"upgrade_to_touch_id_title", @"Upgrade account") message:NSLocalizedString(@"upgrade_to_touch_id_message", @"Upgrade account to TouchID alert message") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") otherButtonTitles:NSLocalizedString(@"upgrade", @"Upgrade"), nil];
         [upgradeAlert show];
     }

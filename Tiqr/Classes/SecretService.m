@@ -363,7 +363,7 @@
 
 - (void)secretForIdentity:(Identity *)identity touchIDPrompt:(NSString *)prompt withSuccessHandler:(void (^)(NSData *secret))successHandler failureHandler:(void (^)(BOOL cancelled))failureHandler {
     
-    if (!self.biometricIDAvailable || ![identity.touchID boolValue]) {
+    if (!self.biometricIDAvailable || ![identity.usesOldBiometricFlow boolValue]) {
         failureHandler(false);
         return;
     }
