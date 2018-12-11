@@ -92,7 +92,6 @@
                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <connections>
-                                <action selector="ok" destination="-1" eventType="touchUpInside" id="8dg-r8-FU1"/>
                                 <action selector="usePinFallback" destination="-1" eventType="touchUpInside" id="o09-ae-lXI"/>
                             </connections>
                         </button>

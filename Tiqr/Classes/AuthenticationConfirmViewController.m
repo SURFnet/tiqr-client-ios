@@ -105,7 +105,7 @@
     Identity *identity = self.challenge.identity;
     if (self.shouldAttemptBiometricIDOnViewWillAppear &&
         identity.usesBiometrics &&
-        (identity.biometricIDEnabled || identity.usesOldBiometricFlow)) {
+        ([identity.biometricIDEnabled boolValue] || [identity.usesOldBiometricFlow boolValue])) {
         [self authenticateWithBiometrics];
     }
     
@@ -189,7 +189,7 @@
 }
 
 - (IBAction)ok {
-    if (self.challenge.identity.usesBiometrics && self.challenge.identity.biometricIDEnabled) {
+    if (self.challenge.identity.usesBiometrics && [self.challenge.identity.biometricIDEnabled boolValue]) {
         [self authenticateWithBiometrics];
     } else {
         [self usePinFallback];

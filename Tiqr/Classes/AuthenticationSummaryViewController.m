@@ -93,7 +93,8 @@
     
     if (ServiceContainer.sharedInstance.secretService.biometricIDAvailable &&
         !self.challenge.identity.usesBiometrics &&
-        self.challenge.identity.shouldAskToEnrollInBiometricID &&
+        ![self.challenge.identity.biometricIDAvailable boolValue] &&
+        [self.challenge.identity.shouldAskToEnrollInBiometricID boolValue] &&
         self.PIN) {
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"upgrade_to_touch_id_title", @"Upgrade account to TouchID alert title")  message:NSLocalizedString(@"upgrade_to_touch_id_message", @"Upgrade account to TouchID alert message") preferredStyle:UIAlertControllerStyleAlert];
