@@ -59,13 +59,13 @@ typedef NS_ENUM(NSInteger, TIQRChallengeType) {
  * Attempts to complete the current enrollment challenge with the supplied data
  *
  * @param challenge             The enrollment challenge
- * @param touchID               Indicates whether the secret for the identity should be stored using TouchID or using a PIN.
- * @param PIN                   the PIN that is to be used when the secret shouldn't be stored using TouchID
+ * @param biometricID           Indicates whether the secret for the identity should be stored using BiometricID
+ * @param PIN                   the PIN that is to be used
  * @param completionHandler     The block that will be called when this method finishes
  *
  * @return list of identities
  */
-- (void)completeEnrollmentChallenge:(EnrollmentChallenge *)challenge usingTouchID:(BOOL)touchID withPIN:(nullable NSString *)PIN completionHandler:(void (^)(BOOL succes, NSError *error))completionHandler;
+- (void)completeEnrollmentChallenge:(EnrollmentChallenge *)challenge usingBiometricID:(BOOL)biometricID withPIN:(NSString *)PIN completionHandler:(void (^)(BOOL succes, NSError *error))completionHandler;
 
 
 /**

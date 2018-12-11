@@ -77,7 +77,26 @@
     
     [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
-    [ServiceContainer.sharedInstance.challengeService completeEnrollmentChallenge:self.challenge usingTouchID:NO withPIN:PIN completionHandler:^(BOOL succes, NSError *error) {
+    if (ServiceContainer.sharedInstance.secretService.biometricIDAvailable) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"upgrade_to_touch_id_title", @"Upgrade account to TouchID alert title")  message:NSLocalizedString(@"upgrade_to_touch_id_message", @"Upgrade account to TouchID alert message") preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"upgrade", @"Upgrade (to TouchID)") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self completeEnrollmentWith:PIN usingBiometrics:YES];
+        }]];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", @"Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self completeEnrollmentWith:PIN usingBiometrics:NO];
+        }]];
+        
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        [self completeEnrollmentWith:PIN usingBiometrics:NO];
+    }
+}
+
+- (void)completeEnrollmentWith:(NSString *)PIN usingBiometrics:(BOOL)usebiometricID {
+    
+    [ServiceContainer.sharedInstance.challengeService completeEnrollmentChallenge:self.challenge usingBiometricID:usebiometricID withPIN:PIN completionHandler:^(BOOL succes, NSError *error) {
         
         [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
         
@@ -88,7 +107,6 @@
             UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
             [self.navigationController pushViewController:viewController animated:YES];
         }
-        
     }];
 }
 

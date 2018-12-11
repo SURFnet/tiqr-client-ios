@@ -98,13 +98,11 @@
     });
 }
 
-- (void)completeEnrollmentChallenge:(EnrollmentChallenge *)challenge usingTouchID:(BOOL)touchID withPIN:(NSString *)PINOrNil completionHandler:(void (^)(BOOL, NSError *))completionHandler {
+- (void)completeEnrollmentChallenge:(EnrollmentChallenge *)challenge usingBiometricID:(BOOL)biometricID withPIN:(NSString *)PIN completionHandler:(void (^)(BOOL succes, NSError *error))completionHandler {
 
     challenge.identitySecret = [self.secretService generateSecret];
     
-    if (!touchID) {
-        challenge.identityPIN = PINOrNil;
-    }
+    challenge.identityPIN = PIN;
     
     IdentityProvider *identityProvider = challenge.identityProvider;
     if (identityProvider == nil) {
@@ -164,7 +162,11 @@
         }];
     };
     
-    if (touchID) {
+    if (biometricID) {
+        [self.secretService setSecret:challenge.identitySecret
+                          forIdentity:challenge.identity
+                              withPIN:challenge.identityPIN];
+        
         [self.secretService setSecret:challenge.identitySecret usingTouchIDforIdentity:challenge.identity withCompletionHandler:^(BOOL success) {
             if (!success) {
                 NSString *errorTitle = NSLocalizedString(@"error_enroll_failed_to_store_identity_title", @"Account cannot be saved title");
@@ -176,7 +178,10 @@
                 return;
             }
             
-            challenge.identity.usesOldBiometricFlow = @YES;
+            challenge.identity.usesOldBiometricFlow = @NO;
+            challenge.identity.biometricIDEnabled = @YES;
+            challenge.identity.biometricIDAvailable = @YES;
+            challenge.identity.shouldAskToEnrollInBiometricID = @NO;
             
             sendConfirmationBlock();
         }];
@@ -184,6 +189,11 @@
         [self.secretService setSecret:challenge.identitySecret
                           forIdentity:challenge.identity
                               withPIN:challenge.identityPIN];
+        
+        challenge.identity.usesOldBiometricFlow = @NO;
+        challenge.identity.biometricIDEnabled = @NO;
+        challenge.identity.biometricIDAvailable = @NO;
+        challenge.identity.shouldAskToEnrollInBiometricID = @NO;
         
         sendConfirmationBlock();
     }

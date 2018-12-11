@@ -304,6 +304,10 @@
     return [self setSecret:secret forIdentity:identity withPIN:PIN salt:identity.salt initializationVector:identity.initializationVector];
 }
 
+- (NSString *)biometricAccountValueForIdentifier:(NSString *)identifier {
+    return [NSString stringWithFormat:@"%@-biometric", identifier];
+}
+
 - (void)setSecret:(NSData *)secret usingTouchIDforIdentity:(Identity *)identity withCompletionHandler:(void (^)(BOOL success))completionHandler {
     CFErrorRef error = NULL;
     SecAccessControlRef sacObject = SecAccessControlCreateWithFlags(kCFAllocatorDefault,
@@ -315,11 +319,10 @@
     [context evaluateAccessControl:sacObject operation:LAAccessControlOperationCreateItem localizedReason:NSLocalizedString(@"touch_id_reason", @"Tiqr wants to save the identity") reply:^(BOOL success, NSError * _Nullable error) {
         
         if (success) {
-            
             NSDictionary *data = @{
                                    (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
                                    (__bridge id)kSecAttrService: identity.identityProvider.identifier,
-                                   (__bridge id)kSecAttrAccount: identity.identifier,
+                                   (__bridge id)kSecAttrAccount: [self biometricAccountValueForIdentifier:identity.identifier],
                                    (__bridge id)kSecValueData: secret,
                                    (__bridge id)kSecAttrAccessible: (__bridge id)kSecAttrAccessibleWhenUnlocked,
                                    (__bridge id)kSecUseAuthenticationContext: context
@@ -363,7 +366,7 @@
 
 - (void)secretForIdentity:(Identity *)identity touchIDPrompt:(NSString *)prompt withSuccessHandler:(void (^)(NSData *secret))successHandler failureHandler:(void (^)(BOOL cancelled))failureHandler {
     
-    if (!self.biometricIDAvailable || ![identity.usesOldBiometricFlow boolValue]) {
+    if (!self.biometricIDAvailable || !([identity.usesOldBiometricFlow boolValue] || [identity.biometricIDEnabled boolValue])) {
         failureHandler(false);
         return;
     }
@@ -377,11 +380,16 @@
     
     [context evaluateAccessControl:sacObject operation:LAAccessControlOperationUseItem localizedReason:prompt reply:^(BOOL success, NSError * _Nullable error) {
         
+        NSString *account =
+            [identity.usesOldBiometricFlow boolValue] ?
+            identity.identifier :
+            [self biometricAccountValueForIdentifier:identity.identifier];
+        
         if (success) {
             NSDictionary *query = @{
                                     (__bridge id)kSecClass: (__bridge id)kSecClassGenericPassword,
                                     (__bridge id)kSecAttrService: identity.identityProvider.identifier,
-                                    (__bridge id)kSecAttrAccount: identity.identifier,
+                                    (__bridge id)kSecAttrAccount: account,
                                     (__bridge id)kSecMatchLimit: (__bridge id)kSecMatchLimitOne,
                                     (__bridge id)kSecReturnData: (id)kCFBooleanTrue,
                                     (__bridge id)kSecReturnAttributes: (id)kCFBooleanTrue,

@@ -87,35 +87,8 @@
 
 
 - (IBAction)ok {
-    if (ServiceContainer.sharedInstance.secretService.biometricIDAvailable) {
-        [self useBiometricID];
-    } else {
-        [self usePIN];
-    }
-}
-
-
-- (void)usePIN {
     EnrollmentPINViewController *viewController = [[EnrollmentPINViewController alloc] initWithEnrollmentChallenge:self.challenge];
     [self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (void)useBiometricID {
-    [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    
-    [ServiceContainer.sharedInstance.challengeService
-     completeEnrollmentChallenge:self.challenge usingTouchID:YES withPIN:nil completionHandler:^(BOOL success, NSError *error) {
-        
-        [MBProgressHUD hideHUDForView:self.navigationController.view animated:YES];
-        
-        if (success) {
-            EnrollmentSummaryViewController *viewController = [[EnrollmentSummaryViewController alloc] initWithEnrollmentChallenge:self.challenge];
-            [self.navigationController pushViewController:viewController animated:YES];
-        } else {
-            UIViewController *viewController = [[ErrorViewController alloc] initWithErrorTitle:[error localizedDescription] errorMessage:[error localizedFailureReason]];
-            [self.navigationController pushViewController:viewController animated:YES];
-        }
-    }];
 }
 
 - (IBAction)cancel {
