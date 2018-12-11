@@ -167,6 +167,7 @@
 		CD688F4D1C035FCE006FF469 /* ChallengeService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChallengeService.h; sourceTree = "<group>"; };
 		CD688F4E1C035FCE006FF469 /* ChallengeService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeService.m; sourceTree = "<group>"; };
 		CD69FB0E21BFCA3C00247F92 /* Tiqr 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Tiqr 4.xcdatamodel"; sourceTree = "<group>"; };
+		CD69FB1121C0073000247F92 /* NSString+LocalizedBiometricString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+LocalizedBiometricString.h"; sourceTree = "<group>"; };
 		CD7BAB0C1BAAB87400B88393 /* images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = images.xcassets; sourceTree = "<group>"; };
 		CD7BAB0E1BAAE3F200B88393 /* TiqrNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrNavigationBar.h; sourceTree = "<group>"; };
 		CD7BAB0F1BAAE3F200B88393 /* TiqrNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrNavigationBar.m; sourceTree = "<group>"; };
@@ -735,6 +736,7 @@
 				D0914438129BF47300C796AA /* NSData+Hex.m */,
 				CD02E29C1BF9E2C100509C3F /* NSString+DecodeURL.h */,
 				CD02E29D1BF9E2C100509C3F /* NSString+DecodeURL.m */,
+				CD69FB1121C0073000247F92 /* NSString+LocalizedBiometricString.h */,
 			);
 			name = Misc;
 			sourceTree = "<group>";

@@ -34,6 +34,7 @@
 #import "ErrorViewController.h"
 #import "MBProgressHUD.h"
 #import "ServiceContainer.h"
+#import "NSString+LocalizedBiometricString.h"
 
 @interface EnrollmentPINVerificationViewController ()
 
@@ -78,7 +79,7 @@
     [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
     
     if (ServiceContainer.sharedInstance.secretService.biometricIDAvailable) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"upgrade_to_touch_id_title", @"Upgrade account to TouchID alert title")  message:NSLocalizedString(@"upgrade_to_touch_id_message", @"Upgrade account to TouchID alert message") preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"upgrade_to_biometric_id", @"Upgrade account to TouchID alert title")  message:LocalizedBiometricString(@"upgrade_to_touch_id_message", @"upgrade_to_face_id_message") preferredStyle:UIAlertControllerStyleAlert];
         
         [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"upgrade", @"Upgrade (to TouchID)") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self completeEnrollmentWith:PIN usingBiometrics:YES];

@@ -31,6 +31,7 @@
 #import "Identity.h"
 #import "IdentityProvider.h"
 #import "ServiceContainer.h"
+#import "NSString+LocalizedBiometricString.h"
 
 @interface IdentityEditViewController ()
 
@@ -121,12 +122,12 @@
         cell.accessoryView = biometricIDSwitch;
         
         if ([self.identity.biometricIDAvailable boolValue]) {
-            cell.textLabel.text = NSLocalizedString(@"identity_uses_touchid", @"Uses fingerprint");
+            cell.textLabel.text = LocalizedBiometricString(@"identity_uses_touch_id", @"identity_uses_face_id");
             biometricIDSwitch.on = [self.identity.biometricIDEnabled boolValue];
             
             [biometricIDSwitch addTarget:self action:@selector(toggleBiometricID:) forControlEvents:UIControlEventValueChanged];
         } else {
-            cell.textLabel.text = NSLocalizedString(@"identity_upgrade_to_biometric", @"Upgrade to fingerprint after next login");
+            cell.textLabel.text = LocalizedBiometricString(@"identity_upgrade_to_touch_id", @"identity_upgrade_to_face_id");
             biometricIDSwitch.on = [self.identity.shouldAskToEnrollInBiometricID boolValue];
             
             [biometricIDSwitch addTarget:self action:@selector(toggleBiometricEnrollment:) forControlEvents:UIControlEventValueChanged];
