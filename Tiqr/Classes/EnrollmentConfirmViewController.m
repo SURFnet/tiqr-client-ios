@@ -74,7 +74,7 @@
     [self.okButton setTitle:NSLocalizedString(@"ok_button", @"OK") forState:UIControlStateNormal];
     self.okButton.layer.cornerRadius = 5;
     
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:nil action:nil];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
 
     self.identityDisplayNameLabel.text = self.challenge.identityDisplayName;
     self.identityIdentifierLabel.text = self.challenge.identityIdentifier;

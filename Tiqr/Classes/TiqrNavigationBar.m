@@ -32,6 +32,7 @@
 @implementation TiqrNavigationBar
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     UIImageView *tiqrHeaderView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tiqr-header"]];
     tiqrHeaderView.translatesAutoresizingMaskIntoConstraints = NO;
     
