@@ -45,5 +45,8 @@
 @dynamic biometricIDEnabled;
 @dynamic shouldAskToEnrollInBiometricID;
 
+- (BOOL)usesBiometrics {
+    return [self.usesOldBiometricFlow boolValue] || [self.biometricIDEnabled boolValue];
+}
 
 @end

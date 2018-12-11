@@ -49,4 +49,6 @@
 @property (nonatomic, strong) NSNumber * biometricIDEnabled;
 @property (nonatomic, strong) NSNumber * shouldAskToEnrollInBiometricID;
 
+@property (readonly) BOOL usesBiometrics;
+
 @end

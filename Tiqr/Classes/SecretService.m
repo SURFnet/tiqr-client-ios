@@ -366,7 +366,7 @@
 
 - (void)secretForIdentity:(Identity *)identity touchIDPrompt:(NSString *)prompt withSuccessHandler:(void (^)(NSData *secret))successHandler failureHandler:(void (^)(BOOL cancelled))failureHandler {
     
-    if (!self.biometricIDAvailable || !([identity.usesOldBiometricFlow boolValue] || [identity.biometricIDEnabled boolValue])) {
+    if (!self.biometricIDAvailable || !identity.usesBiometrics) {
         failureHandler(false);
         return;
     }

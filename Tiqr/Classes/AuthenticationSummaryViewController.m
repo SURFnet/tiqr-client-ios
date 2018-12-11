@@ -91,9 +91,24 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if (ServiceContainer.sharedInstance.secretService.biometricIDAvailable && !self.challenge.identity.usesOldBiometricFlow.boolValue && self.PIN) {
-        UIAlertView *upgradeAlert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"upgrade_to_touch_id_title", @"Upgrade account") message:NSLocalizedString(@"upgrade_to_touch_id_message", @"Upgrade account to TouchID alert message") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") otherButtonTitles:NSLocalizedString(@"upgrade", @"Upgrade"), nil];
-        [upgradeAlert show];
+    if (ServiceContainer.sharedInstance.secretService.biometricIDAvailable &&
+        !self.challenge.identity.usesBiometrics &&
+        self.challenge.identity.shouldAskToEnrollInBiometricID &&
+        self.PIN) {
+        
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"upgrade_to_touch_id_title", @"Upgrade account to TouchID alert title")  message:NSLocalizedString(@"upgrade_to_touch_id_message", @"Upgrade account to TouchID alert message") preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"upgrade", @"Upgrade (to TouchID)") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [ServiceContainer.sharedInstance.identityService upgradeIdentityToTouchID:self.challenge.identity withPIN:self.PIN];
+            self.PIN = nil;
+        }]];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"cancel", @"Cancel") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            self.challenge.identity.shouldAskToEnrollInBiometricID = @NO;
+            [ServiceContainer.sharedInstance.identityService saveIdentities];
+        }]];
+        
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
@@ -105,15 +120,6 @@
     [(TiqrAppDelegate *)[UIApplication sharedApplication].delegate popToStartViewControllerAnimated:NO];
     NSString *returnURL = [NSString stringWithFormat:@"%@?successful=1", self.challenge.returnUrl];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:returnURL]];
-}
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == alertView.cancelButtonIndex) {
-        return;
-    }
-    
-    [ServiceContainer.sharedInstance.identityService upgradeIdentityToTouchID:self.challenge.identity withPIN:self.PIN];
-    self.PIN = nil;
 }
 
 @end

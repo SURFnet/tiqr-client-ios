@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * Gives the user an overview of the login that he/she just completed.
  */
-@interface AuthenticationSummaryViewController : UIViewController <UIAlertViewDelegate> {
+@interface AuthenticationSummaryViewController : UIViewController {
     
 }
 

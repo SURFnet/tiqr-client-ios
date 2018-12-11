@@ -249,18 +249,21 @@
         return;
     }
     
-    if ([self.secretService deleteSecretForIdentityIdentifier:identity.identifier providerIdentifier:identity.identityProvider.identifier]) {
-        [self.secretService setSecret:secret usingTouchIDforIdentity:identity withCompletionHandler:^(BOOL success) {
-            if (success) {
-                identity.usesOldBiometricFlow = @YES;
-                [self saveIdentities];
-            } else {
-                // Attempt to restore
-                [self.secretService setSecret:secret forIdentity:identity withPIN:PIN salt:identity.salt initializationVector:identity.initializationVector];
-            }
-        }];
-    }
+    [self.secretService setSecret:secret usingTouchIDforIdentity:identity withCompletionHandler:^(BOOL success) {
+        if (success) {
+            identity.usesOldBiometricFlow = @NO;
+            identity.shouldAskToEnrollInBiometricID = @NO;
+            identity.biometricIDEnabled = @YES;
+            identity.biometricIDAvailable = @YES;
+            [self saveIdentities];
+        } else {
+            identity.shouldAskToEnrollInBiometricID = @YES;
+            [self saveIdentities];
+        }
+    }];
 }
+
+
 
 
 

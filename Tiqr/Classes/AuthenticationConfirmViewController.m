@@ -95,7 +95,7 @@
     [super viewWillAppear:animated];
 
     SecretService *secretService = ServiceContainer.sharedInstance.secretService;
-    if (self.challenge.identity.usesOldBiometricFlow.boolValue && secretService.biometricType == SecretServiceBiometricTypeTouchID) {
+    if (self.challenge.identity.usesBiometrics && secretService.biometricType == SecretServiceBiometricTypeTouchID) {
         [self authenticateWithTouchId];
     }
 }
