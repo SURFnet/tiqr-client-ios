@@ -31,6 +31,7 @@
 #import "Identity.h"
 #import "IdentityProvider.h"
 #import "ServiceContainer.h"
+#import "NSString+LocalizedBiometricString.h"
 
 @interface IdentityEditViewController ()
 
@@ -79,7 +80,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    if ([self.identity.usesOldBiometricFlow boolValue] || !ServiceContainer.sharedInstance.secretService.biometricIDAvailable) {
+        return 3;
+    } else {
+        return 4;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -98,6 +103,7 @@
     cell.textLabel.font = [UIFont boldSystemFontOfSize:16];
     cell.detailTextLabel.font = [UIFont systemFontOfSize:16];
     cell.detailTextLabel.textColor = [UIColor blackColor];
+    cell.accessoryView = nil;
     
     if (indexPath.row == 0) {
         cell.textLabel.text = NSLocalizedString(@"full_name", @"Username label");
@@ -109,9 +115,36 @@
         cell.textLabel.text = NSLocalizedString(@"information", @"Info label");
         cell.detailTextLabel.text = self.identity.identityProvider.infoUrl;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    } else if (indexPath.row == 3) {
+        cell.detailTextLabel.text = nil;
+        
+        UISwitch *biometricIDSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+        cell.accessoryView = biometricIDSwitch;
+        
+        if ([self.identity.biometricIDAvailable boolValue]) {
+            cell.textLabel.text = LocalizedBiometricString(@"identity_uses_touch_id", @"identity_uses_face_id");
+            biometricIDSwitch.on = [self.identity.biometricIDEnabled boolValue];
+            
+            [biometricIDSwitch addTarget:self action:@selector(toggleBiometricID:) forControlEvents:UIControlEventValueChanged];
+        } else {
+            cell.textLabel.text = LocalizedBiometricString(@"identity_upgrade_to_touch_id", @"identity_upgrade_to_face_id");
+            biometricIDSwitch.on = [self.identity.shouldAskToEnrollInBiometricID boolValue];
+            
+            [biometricIDSwitch addTarget:self action:@selector(toggleBiometricEnrollment:) forControlEvents:UIControlEventValueChanged];
+        }
     }
     
     return cell;    
+}
+
+- (void)toggleBiometricID:(UISwitch *)sender {
+    self.identity.biometricIDEnabled = @(sender.on);
+    [ServiceContainer.sharedInstance.identityService saveIdentities];
+}
+
+- (void)toggleBiometricEnrollment:(UISwitch *)sender {
+    self.identity.shouldAskToEnrollInBiometricID = @(sender.on);
+    [ServiceContainer.sharedInstance.identityService saveIdentities];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

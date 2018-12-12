@@ -44,6 +44,11 @@
 @property (nonatomic, strong) NSNumber * sortIndex;
 @property (nonatomic, strong) NSNumber * blocked;
 @property (nonatomic, strong) IdentityProvider * identityProvider;
-@property (nonatomic, strong) NSNumber * touchID;
+@property (nonatomic, strong) NSNumber * usesOldBiometricFlow;
+@property (nonatomic, strong) NSNumber * biometricIDAvailable;
+@property (nonatomic, strong) NSNumber * biometricIDEnabled;
+@property (nonatomic, strong) NSNumber * shouldAskToEnrollInBiometricID;
+
+@property (readonly) BOOL usesBiometrics;
 
 @end

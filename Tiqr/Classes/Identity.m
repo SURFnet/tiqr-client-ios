@@ -40,7 +40,13 @@
 @dynamic sortIndex;
 @dynamic blocked;
 @dynamic identityProvider;
-@dynamic touchID;
+@dynamic usesOldBiometricFlow;
+@dynamic biometricIDAvailable;
+@dynamic biometricIDEnabled;
+@dynamic shouldAskToEnrollInBiometricID;
 
+- (BOOL)usesBiometrics {
+    return [self.usesOldBiometricFlow boolValue] || [self.biometricIDEnabled boolValue];
+}
 
 @end

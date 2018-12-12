@@ -45,6 +45,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *loggedInAsLabel;
 @property (nonatomic, strong) IBOutlet UILabel *toLabel;
 @property (nonatomic, strong) IBOutlet UIButton *okButton;
+@property (nonatomic, strong) IBOutlet NSLayoutConstraint *okButtonBottomConstraint;
+@property (nonatomic, strong) IBOutlet UIButton *usePincodeButton;
 @property (nonatomic, strong) IBOutlet UILabel *accountLabel;
 @property (nonatomic, strong) IBOutlet UILabel *accountIDLabel;
 @property (nonatomic, strong) IBOutlet UILabel *identityDisplayNameLabel;
@@ -53,6 +55,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *serviceProviderIdentifierLabel;
 @property (nonatomic, copy) NSString *response;
 @property (strong, nonatomic) IBOutlet UIView *nonTouchIDViewsContainer;
+@property (nonatomic, assign) BOOL shouldAttemptBiometricIDOnViewWillAppear;
 
 @end
 
@@ -77,9 +80,12 @@
     self.accountIDLabel.text = NSLocalizedString(@"id", @"Tiqr account ID");
     [self.okButton setTitle:NSLocalizedString(@"ok_button", @"OK") forState:UIControlStateNormal];
     self.okButton.layer.cornerRadius = 5;
+    self.okButtonBottomConstraint.constant = 41;
+    
+    [self.usePincodeButton setTitle:NSLocalizedString(@"pin_fallback_button", @"Use pincode") forState:UIControlStateNormal];
+    self.usePincodeButton.hidden = YES;
     
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
-
 
 	self.identityDisplayNameLabel.text = self.challenge.identity.displayName;
     self.identityIdentifierLabel.text = self.challenge.identity.identifier;
@@ -89,22 +95,21 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    
+    self.shouldAttemptBiometricIDOnViewWillAppear = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    SecretService *secretService = ServiceContainer.sharedInstance.secretService;
-    if (self.challenge.identity.touchID.boolValue && secretService.biometricType == SecretServiceBiometricTypeTouchID) {
-        [self authenticateWithTouchId];
+    Identity *identity = self.challenge.identity;
+    if (self.shouldAttemptBiometricIDOnViewWillAppear &&
+        identity.usesBiometrics &&
+        ([identity.biometricIDEnabled boolValue] || [identity.usesOldBiometricFlow boolValue])) {
+        [self authenticateWithBiometrics];
     }
-}
-
-- (void)authenticateWithTouchId {
-    self.nonTouchIDViewsContainer.hidden = YES;
-    self.loginConfirmLabel.text = NSLocalizedString(@"use_touch_id_title", @"Use TouchID to login");
-
-    [self authenticateWithBiometrics];
+    
+    self.shouldAttemptBiometricIDOnViewWillAppear = NO;
 }
 
 - (void)authenticateWithBiometrics {
@@ -121,7 +126,14 @@
     [secretService secretForIdentity:self.challenge.identity touchIDPrompt:touchIDPrompt withSuccessHandler:^(NSData *secret) {
         [self completeAuthenticationWithSecret:secret];
     } failureHandler:^(BOOL cancelled) {
-        [self.navigationController popViewControllerAnimated:YES];
+        if ([self.challenge.identity.usesOldBiometricFlow boolValue]) {
+            // nothing we can do for old accounts but cancel the flow
+            [self.navigationController popViewControllerAnimated:YES];
+            return;
+        }
+        
+        // Let the user retry or select the pin flow if desired
+        [self showPinFallback];
     }];
 }
 
@@ -177,12 +189,20 @@
 }
 
 - (IBAction)ok {
-    SecretService *secretService = ServiceContainer.sharedInstance.secretService;
-    if (secretService.biometricType == SecretServiceBiometricTypeFaceID) {
+    if (self.challenge.identity.usesBiometrics && [self.challenge.identity.biometricIDEnabled boolValue]) {
         [self authenticateWithBiometrics];
     } else {
-        [self presentPincodeViewController];
+        [self usePinFallback];
     }
+}
+
+- (void)showPinFallback {
+    self.okButtonBottomConstraint.constant = 100;
+    self.usePincodeButton.hidden = NO;
+}
+
+- (IBAction)usePinFallback {
+    [self presentPincodeViewController];
 }
 
 - (void)presentPincodeViewController {
