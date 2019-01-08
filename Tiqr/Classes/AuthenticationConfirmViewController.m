@@ -55,7 +55,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *serviceProviderIdentifierLabel;
 @property (nonatomic, copy) NSString *response;
 @property (strong, nonatomic) IBOutlet UIView *nonTouchIDViewsContainer;
-@property (nonatomic, assign) BOOL shouldAttemptBiometricIDOnViewWillAppear;
 
 @end
 
@@ -95,21 +94,6 @@
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-    
-    self.shouldAttemptBiometricIDOnViewWillAppear = YES;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
-    Identity *identity = self.challenge.identity;
-    if (self.shouldAttemptBiometricIDOnViewWillAppear &&
-        identity.usesBiometrics &&
-        ([identity.biometricIDEnabled boolValue] || [identity.usesOldBiometricFlow boolValue])) {
-        [self authenticateWithBiometrics];
-    }
-    
-    self.shouldAttemptBiometricIDOnViewWillAppear = NO;
 }
 
 - (void)authenticateWithBiometrics {

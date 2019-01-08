@@ -7,3 +7,4 @@
 */
 
 NSCameraUsageDescription = "Tiqr gebruikt de camera om QR-codes te scannen";
+NSFaceIDUsageDescription = "Tiqr gebruikt Face ID om in te loggen zonder een PIN";
