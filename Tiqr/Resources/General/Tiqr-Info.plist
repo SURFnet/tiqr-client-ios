@@ -69,6 +69,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Tiqr uses the camera to scan QR-codes</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Tiqr can use Face ID to let you skip logging in with a PIN</string>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>SANotificationRegistrationURL</key>
