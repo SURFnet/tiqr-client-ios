@@ -36,7 +36,7 @@
 - (NSString*) numStrToHex: (NSString *)str {
     
     NSDecimalNumber *bigNumberValue = [NSDecimalNumber decimalNumberWithString:str];
-    return [NSString stringWithFormat:@"%X", [bigNumberValue intValue]];
+    return [NSString stringWithFormat:@"%lX", [bigNumberValue unsignedIntegerValue]];
 }
 
 - (NSString *)generateOCRA:(NSString*)ocraSuite
