@@ -137,13 +137,32 @@
 }
 
 - (BOOL)deleteSecretForIdentityIdentifier:(NSString *)identityIdentifier providerIdentifier:(NSString *)providerIdentifier; {
-    NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
-    query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
-    query[(__bridge id)kSecAttrService] = providerIdentifier;
-    query[(__bridge id)kSecAttrAccount] = identityIdentifier;
     
-    OSStatus status = SecItemDelete((__bridge CFDictionaryRef)query);
-    return status == noErr;
+    BOOL success = NO;
+    
+    // normal secret
+    {
+        NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
+        query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+        query[(__bridge id)kSecAttrService] = providerIdentifier;
+        query[(__bridge id)kSecAttrAccount] = identityIdentifier;
+        
+        OSStatus status = SecItemDelete((__bridge CFDictionaryRef)query);
+        success = status == noErr;
+    }
+    
+    // biometric secret
+    {
+        NSMutableDictionary *query = [[NSMutableDictionary alloc] init];
+        query[(__bridge id)kSecClass] = (__bridge id)kSecClassGenericPassword;
+        query[(__bridge id)kSecAttrService] = providerIdentifier;
+        query[(__bridge id)kSecAttrAccount] = [self biometricAccountValueForIdentifier: identityIdentifier];
+        
+        OSStatus status = SecItemDelete((__bridge CFDictionaryRef)query);
+        success = success || status == noErr;
+    }
+    
+    return success;
 }
 
 - (NSData *)generateSecret {
@@ -330,6 +349,20 @@
             
             CFDictionaryRef result;
             OSStatus status = SecItemAdd((__bridge CFDictionaryRef)data, (CFTypeRef *)&result);
+            
+            if (status == errSecDuplicateItem) {
+                // Remove legacy data
+                NSDictionary *deleteQuery = @{
+                                              (__bridge id)kSecClass:  (__bridge id)kSecClassGenericPassword,
+                                              (__bridge id)kSecAttrService: identity.identityProvider.identifier,
+                                              (__bridge id)kSecAttrAccount: [self biometricAccountValueForIdentifier:identity.identifier]
+                                              };
+                
+                SecItemDelete((__bridge CFDictionaryRef)deleteQuery);
+                
+                // Try saving again
+                status = SecItemAdd((__bridge CFDictionaryRef)data, (CFTypeRef *)&result);
+            }
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 completionHandler(status == noErr);
