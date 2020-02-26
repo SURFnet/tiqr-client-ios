@@ -85,8 +85,6 @@
 	<array>
 		<string>animals.ttf</string>
 	</array>
-	<key>UIApplicationExitsOnSuspend</key>
-	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>
