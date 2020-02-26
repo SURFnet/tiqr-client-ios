@@ -83,8 +83,6 @@
 	<string>tiqrenroll</string>
 	<key>TIQRLoginProtocolVersion</key>
 	<string>1</string>
-	<key>UIApplicationExitsOnSuspend</key>
-	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>
