@@ -101,7 +101,8 @@
     NSMutableDictionary *attrs = [self.pinTextField.defaultTextAttributes mutableCopy];
     [attrs addEntriesFromDictionary:@{
         NSKernAttributeName: @46,
-        NSFontAttributeName: [UIFont monospacedDigitSystemFontOfSize:28 weight:UIFontWeightMedium]
+        NSFontAttributeName: [UIFont monospacedDigitSystemFontOfSize:28 weight:UIFontWeightMedium],
+        NSForegroundColorAttributeName: [UIColor blackColor]
     }];
     self.pinTextField.defaultTextAttributes = attrs;
 }
