@@ -53,7 +53,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -85,10 +85,6 @@
 	<string>tiqrenroll</string>
 	<key>TIQRLoginProtocolVersion</key>
 	<string>1</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>animals.ttf</string>
-	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>
