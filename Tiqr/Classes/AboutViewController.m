@@ -62,7 +62,7 @@
     [self.okButton setTitle:NSLocalizedString(@"ok_button", @"OK") forState:UIControlStateNormal];
     self.okButton.layer.cornerRadius = 5;
     
-    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
+    NSString *version = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
     self.versionLabel.text = [NSString stringWithFormat:NSLocalizedString(@"app_version", @"App version: %@"), version];
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]) {
