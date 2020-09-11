@@ -106,6 +106,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A11C6F7250A6FAC002D9FE0 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0A11C6F8250A6FAC002D9FE0 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* TiqrAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiqrAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* TiqrAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TiqrAppDelegate.m; sourceTree = "<group>"; };
@@ -858,6 +860,7 @@
 				sl,
 				ja,
 				nb,
+				da,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* MobileAuth */;
 			projectDirPath = "";
@@ -1015,6 +1018,7 @@
 				CD98B0E11DD0863C004EED39 /* hr */,
 				CD98B0E21DD0863C004EED39 /* fy */,
 				CD98B0E31DD0863D004EED39 /* es */,
+				0A11C6F7250A6FAC002D9FE0 /* da */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1035,6 +1039,7 @@
 				5EE4873317313F1000762BBE /* nb */,
 				5EE4873517313F2A00762BBE /* sl */,
 				5EF2476318EAA8B300E8BE8C /* ja */,
+				0A11C6F8250A6FAC002D9FE0 /* da */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
