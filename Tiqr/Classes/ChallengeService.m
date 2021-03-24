@@ -66,9 +66,13 @@
         NSString *enrollmentScheme = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TIQREnrollmentURLScheme"];
         
         TIQRChallengeType type = TIQRChallengeTypeInvalid;
-        NSObject *challengeObject  = nil;
-        
-        NSURL *url = [NSURL URLWithString:scanResult];
+        NSObject *challengeObject = nil;
+        NSURL *url = nil;
+
+        if (scanResult) {
+            url = [NSURL URLWithString:scanResult];
+        }
+
         NSError *error = nil;
         if (url != nil && [url.scheme isEqualToString:authenticationScheme]) {
             AuthenticationChallenge *challenge = [AuthenticationChallenge challengeWithChallengeString:scanResult error:&error];
