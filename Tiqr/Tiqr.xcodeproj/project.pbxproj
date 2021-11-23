@@ -827,7 +827,7 @@
 				ORGANIZATIONNAME = Egeniq;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = ZYJ4TZX4UU;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
@@ -1058,7 +1058,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1.0;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZYJ4TZX4UU;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1074,7 +1074,7 @@
 				INFOPLIST_FILE = "Resources/General/Tiqr-Info.plist";
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = org.example.tiqr;
+				PRODUCT_BUNDLE_IDENTIFIER = org.tiqr.surfnet;
 				PRODUCT_NAME = Example;
 			};
 			name = Debug;
@@ -1090,7 +1090,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1.0;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZYJ4TZX4UU;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tiqr_Prefix.pch;
@@ -1104,7 +1104,7 @@
 				INFOPLIST_FILE = "Resources/General/Tiqr-Info.plist";
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = org.example.tiqr;
+				PRODUCT_BUNDLE_IDENTIFIER = org.tiqr.surfnet;
 				PRODUCT_NAME = Example;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1242,7 +1242,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1.0;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = ZYJ4TZX4UU;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Tiqr_Prefix.pch;
@@ -1256,7 +1256,7 @@
 				INFOPLIST_FILE = "Resources/General/Tiqr-Info.plist";
 				MARKETING_VERSION = 1.0;
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = org.example.tiqr;
+				PRODUCT_BUNDLE_IDENTIFIER = org.tiqr.surfnet;
 				PRODUCT_NAME = Example;
 				VALIDATE_PRODUCT = YES;
 			};

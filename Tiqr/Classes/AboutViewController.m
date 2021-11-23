@@ -43,8 +43,7 @@
 @implementation AboutViewController
 
 - (instancetype)init {
-    
-    self = [super init];
+    self = [super initWithNibName:@"AboutView" bundle:nil];
     if (self != nil) {
         self.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;    
     }
